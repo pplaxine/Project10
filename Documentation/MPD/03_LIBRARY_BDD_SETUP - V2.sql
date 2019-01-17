@@ -12,7 +12,6 @@ DROP TABLE IF EXISTS user_account CASCADE;
 DROP TABLE IF EXISTS user_address CASCADE;
 
 /*INSER ALL TABLES*/
-
 CREATE SEQUENCE public.user_address_id_seq;
 
 CREATE TABLE public.user_address (
