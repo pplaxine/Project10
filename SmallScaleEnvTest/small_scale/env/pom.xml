@@ -6,6 +6,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   
+  <properties>
+	  <maven.compiler.source>1.8</maven.compiler.source>
+	  <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  
   <modules>
   	<module>env-business</module>
   	<module>env-consumer</module>
@@ -48,7 +53,7 @@
 		      <dependency>
 		        <groupId>javax.servlet</groupId>	 <!-- Servlet-Api -->
 					 <artifactId>javax.servlet-api</artifactId>
-					 <version>3.1.0</version>
+					 <version>4.0.0-b01</version>
 		      </dependency>
 		
 		    	<dependency>
@@ -104,7 +109,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
+					<version>3.8.0</version>
 					<configuration>
 						<showDeprecation>true</showDeprecation>
 						<showWarnings>true</showWarnings>
