@@ -35,12 +35,7 @@
 	      <groupId>javax.servlet</groupId>	 		
 		  <artifactId>javax.servlet-api</artifactId>
 	    </dependency>
-	    		    
-		<dependency>
-	      <groupId>org.postgresql</groupId>
-	      <artifactId>postgresql</artifactId>
-	    </dependency>
-	       
+
 	    <dependency>
 	      	<groupId>org.springframework</groupId>
 	      	<artifactId>spring-web</artifactId>

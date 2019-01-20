@@ -16,7 +16,6 @@ public class AddressDaoImpl implements AddressDao{
 		List<Address> listAdress = new ArrayList<Address>();
 
 		Address address1 = new Address();
-		address1.setId(4);
 		address1.setStreetNumber("18bis");
 		address1.setStreetName("Rue de Paris");
 		address1.setCity("Lyon");
@@ -24,7 +23,6 @@ public class AddressDaoImpl implements AddressDao{
 		listAdress.add(address1);
 		
 		address1 = new Address();
-		address1.setId(5);
 		address1.setStreetNumber("24");
 		address1.setStreetName("Rue de Blop");
 		address1.setCity("Paris");
