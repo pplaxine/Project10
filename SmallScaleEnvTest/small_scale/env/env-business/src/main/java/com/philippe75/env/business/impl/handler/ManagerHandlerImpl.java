@@ -11,11 +11,10 @@ public class ManagerHandlerImpl implements ManagerHandler{
 	
 	@Inject
 	private UserTestManager userTestManager;
-		
+	
 	public UserTestManager getUserTestManager() {
 		return userTestManager;
 	}
-
 	
 	
 }

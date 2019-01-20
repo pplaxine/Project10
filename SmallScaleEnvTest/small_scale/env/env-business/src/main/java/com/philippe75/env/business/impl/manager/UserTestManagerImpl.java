@@ -1,5 +1,7 @@
 package com.philippe75.env.business.impl.manager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.inject.Named;
@@ -21,18 +23,37 @@ public class UserTestManagerImpl extends AbstractManagerImpl implements UserTest
 		utd.setFirstName(ut.getFirstName());
 		utd.setLastName(ut.getLastName());
 		utd.setListAddress(ut.getListAddress());
-		utd.setAgeFictif(creerAgeFictifPlusJeune(ut.getAge()));
+		utd.setAgeFictif((ut.getAge())+3);
+		utd.setListAddress(ut.getListAddress());
 		
 		return utd;
 	}
 	
-	
-	private Integer creerAgeFictifPlusJeune(int age) {
+	public List<UserTestDto> getAllUser(){
 		
-		int fictifAge = (int)Math.round(Math.random() * ( age));
+		List<UserTestDto> listUserDto = new ArrayList<>();
 		
-		return fictifAge<18?creerAgeFictifPlusJeune(age):fictifAge;
+		List<UserTest> listUser = getDaoHandler().getUserTestDao().getAllUsers();
+		UserTestDto utd;
+		
+		for (UserTest ut : listUser) {
+			utd = new UserTestDto();
+			utd.setId(ut.getId());
+			utd.setFirstName(ut.getFirstName());
+			utd.setLastName(ut.getLastName());
+			utd.setListAddress(ut.getListAddress());
+			utd.setAgeFictif((ut.getAge()+3));
+			utd.setListAddress(ut.getListAddress());
+			listUserDto.add(utd);
+		}
+		
+		return listUserDto;
 	}
-	
+
+	@Override
+	public String test() {
+		
+		return "blop";
+	}
 	
 }

@@ -50,7 +50,20 @@
 	      	<groupId>org.springframework</groupId>
 	      	<artifactId>spring-context-support</artifactId>
 	    </dependency>
+	    
+	    <!-- https://mvnrepository.com/artifact/com.sun.xml.ws/jaxws-ri -->
+		<dependency>
+		    <groupId>com.sun.xml.ws</groupId>
+		    <artifactId>jaxws-ri</artifactId>
+		    <version>2.3.1</version>
+		    <type>pom</type>
+		</dependency>
 		
+		<dependency>
+		    <groupId>org.jvnet.jax-ws-commons.spring</groupId>
+		    <artifactId>jaxws-spring</artifactId>
+		</dependency>
+	
   </dependencies>
   <build>
     <finalName>env-webservice</finalName>
