@@ -22,7 +22,6 @@ public class UserTestManagerImpl extends AbstractManagerImpl implements UserTest
 		utd.setId(ut.getId());
 		utd.setFirstName(ut.getFirstName());
 		utd.setLastName(ut.getLastName());
-		utd.setListAddress(ut.getListAddress());
 		utd.setAgeFictif((ut.getAge())+3);
 		utd.setListAddress(ut.getListAddress());
 		
@@ -43,13 +42,13 @@ public class UserTestManagerImpl extends AbstractManagerImpl implements UserTest
 			utd.setLastName(ut.getLastName());
 			utd.setListAddress(ut.getListAddress());
 			utd.setAgeFictif((ut.getAge()+3));
-			utd.setListAddress(ut.getListAddress());
 			listUserDto.add(utd);
 		}
 		
 		return listUserDto;
 	}
 
+	// ---------------------------- TEST ----------------------------------------------
 	@Override
 	public String test() {
 		

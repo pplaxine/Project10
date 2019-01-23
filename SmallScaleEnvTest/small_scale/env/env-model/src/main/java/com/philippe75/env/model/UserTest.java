@@ -2,24 +2,22 @@ package com.philippe75.env.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="user_test")
@@ -33,9 +31,13 @@ public class UserTest {
 	private Address homeAddress;
 	private Address officeAddress;
 	private Collection<Address> listAddress = new ArrayList<>();		//List<> allow duplicate + has index , Set<> not + has no index 	// implementation de l'interface 
+	private Vehicule vehicule;
+	private Collection<Vehicule> listVehicule = new ArrayList<>();
+	
+	private Collection<Chien> listChien = new ArrayList<>();
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -86,15 +88,49 @@ public class UserTest {
 		this.officeAddress = officeAddress;
 	}
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)																// Lazy fetch = only simple att are pulled (via proxy objet), eager fetch = simple and complexe att are pulled (via proxy object) 
 	@JoinTable(name="userTest_address", joinColumns=@JoinColumn(name="userTest_id"))						//annotation pour configurer la table jointe // nom la column jointe (ici id joint les deux tables)
-	@GenericGenerator(name="sequencegen", strategy="sequence")														// annotation specific to hibernate												
-	@CollectionId(columns={@Column(name="id")}, generator="sequencegen",type=@Type(type="integer"))			// annotation specific to hibernate (and not JPA standart implementation) permet de definir un index (id) pour la table jointe 
+	//@GenericGenerator(name="sequencegen", strategy="sequence")														// annotation specific to hibernate												
+	//@CollectionId(columns={@Column(name="id")}, generator="sequencegen",type=@Type(type="integer"))			// annotation specific to hibernate (and not JPA standart implementation) permet de definir un index (id) pour la table jointe 
 	public Collection<Address> getListAddress() {
 		return listAddress;
 	}
 	public void setListAddress(Collection<Address> listAddress) {
 		this.listAddress = listAddress;
+	}
+	
+	@OneToOne
+	@JoinColumn(name="vehicule_id2")		//nom de la colonne jointe
+	public Vehicule getVehicule() {
+		return vehicule;
+	}
+	public void setVehicule(Vehicule vehicule) {
+		this.vehicule = vehicule;
+	}
+	
+	@OneToMany(mappedBy="userTest") 	//c'est Att userTest dans l'objet vehicule 	// Si mapperBy pas spécifié par défault créer une table de liaison 
+	//@JoinTable(joinColumns=@JoinColumn(name="Id_objet_contenant"),inverseJoinColumns=@JoinColumn(name="id_objet_contenu"))			//dans les colonnes dans la table de jonction JOINColums and INVERSEJOINcolums
+	public Collection<Vehicule> getListVehicule() {
+		return listVehicule;
 	} 
+	public void setListVehicule(Collection<Vehicule> listVehicule) {
+		this.listVehicule = listVehicule;
+	}
+	
+	
+	@ManyToMany
+	public Collection<Chien> getListChien() {
+		return listChien;
+	}
+	public void setListChien(Collection<Chien> listChien) {
+		listChien = listChien;
+	}
+	
+
+	
+	
+	
+	
+	
 
 }

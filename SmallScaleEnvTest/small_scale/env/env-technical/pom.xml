@@ -20,11 +20,6 @@
 	    	<artifactId>spring-context</artifactId>
 	    </dependency>
 	    
-	     <dependency>
-	    	<groupId>org.springframework</groupId>
-	   	 	<artifactId>spring-aspects</artifactId>
-	    </dependency>
-			
 	    <dependency>                      <!-- Annotations 250 -->
 	      <groupId>javax.annotation</groupId>
 	      <artifactId>javax.annotation-api</artifactId>
