@@ -12,11 +12,11 @@
   </properties>
 
   <modules>
-  	<module>libraryWS-business</module>
-  	<module>libraryWS-technical</module>
-    <module>libraryWS-model</module>
-    <module>libraryWS-consumer</module>
-    <module>libraryWS-exposure</module>
+  	<module>${project.artifactId}-business</module>
+  	<module>${project.artifactId}-technical</module>
+    <module>${project.artifactId}-model</module>
+    <module>${project.artifactId}-consumer</module>
+    <module>${project.artifactId}-exposure</module>
   </modules>
   
   <dependencyManagement>

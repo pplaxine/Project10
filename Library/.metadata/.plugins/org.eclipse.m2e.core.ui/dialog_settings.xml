@@ -1,85 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<section name="MavenProjectWizardArtifactPage">
-		<list key="groupId">
-			<item value="com.philippe75"/>
-		</list>
-		<list key="name">
-		</list>
-		<list key="artifactId">
-			<item value="libraryWebapp-business"/>
-			<item value="libraryWebapp"/>
-		</list>
-		<list key="projectNameTemplate">
-			<item value="[artifactId]"/>
-			<item value="[artifactId]-TRUNK"/>
-			<item value="[artifactId]-[version]"/>
-			<item value="[groupId].[artifactId]"/>
-			<item value="[groupId].[artifactId]-[version]"/>
-			<item value="[name]"/>
-		</list>
-		<list key="version">
-			<item value="0.0.1-SNAPSHOT"/>
-		</list>
-	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
 	</section>
 	<section name="org.eclipse.m2e.core.pom.overview">
 	</section>
-	<section name="MavenProjectWizardArchetypePage">
-		<item value="All Catalogs" key="catalog"/>
-		<list key="projectNameTemplate">
-			<item value="[artifactId]"/>
-			<item value="[artifactId]-TRUNK"/>
-			<item value="[artifactId]-[version]"/>
-			<item value="[groupId].[artifactId]"/>
-			<item value="[groupId].[artifactId]-[version]"/>
-			<item value="[name]"/>
-		</list>
-	</section>
-	<section name="MavenModuleWizardParentPage">
-		<list key="moduleName">
-			<item value="libraryWebapp-business"/>
-			<item value="libraryWS-exposure"/>
-			<item value="libraryWS-consumer"/>
-			<item value="libraryWS-model"/>
-			<item value="libraryWS-technical"/>
-			<item value="libraryWS-business"/>
-			<item value="LibraryWS"/>
-		</list>
-		<list key="projectNameTemplate">
-			<item value="[artifactId]"/>
-			<item value="[artifactId]-TRUNK"/>
-			<item value="[artifactId]-[version]"/>
-			<item value="[groupId].[artifactId]"/>
-			<item value="[groupId].[artifactId]-[version]"/>
-			<item value="[name]"/>
-		</list>
-	</section>
-	<section name="Maven2ProjectWizardArchifactPage">
-		<list key="package">
-			<item value="com.philippe75.libraryWebapp.business"/>
-		</list>
-		<list key="groupId">
-			<item value="com.philippe75"/>
-		</list>
-		<list key="artifactId">
-			<item value="libraryWebapp-business"/>
-		</list>
-		<list key="projectNameTemplate">
-			<item value="[artifactId]"/>
-			<item value="[artifactId]-TRUNK"/>
-			<item value="[artifactId]-[version]"/>
-			<item value="[groupId].[artifactId]"/>
-			<item value="[groupId].[artifactId]-[version]"/>
-			<item value="[name]"/>
-		</list>
-		<list key="version">
-			<item value="0.0.1-SNAPSHOT"/>
-		</list>
-	</section>
-	<section name="MavenProjectWizardLocationPage">
-		<list key="location">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\Windows\Desktop\Project7\LibraryGit\Library"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
