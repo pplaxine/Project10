@@ -41,6 +41,7 @@ public class GestionUserTestAction extends ActionSupport {
 
 				
 		UserTestService uts = new UserTestServiceImplService().getUserTestServiceImplPort();
+		
 		List<UserTestDto> listUserTestDto = uts.getListUsers().getItem(); 
 		
 		for (UserTestDto utd : listUserTestDto) {
