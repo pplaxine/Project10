@@ -54,7 +54,7 @@
 	</listener>
 	<context-param>
 	  <param-name>contextConfigLocation</param-name>
-	  <param-value>com.philippe75.env.bootstrap.SpringConfiguration</param-value>
+	  <param-value>com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration</param-value>
 	</context-param>
 	<context-param>
 	  <param-name>contextClass</param-name>
