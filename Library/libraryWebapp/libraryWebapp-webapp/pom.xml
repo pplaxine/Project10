@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <parent>
+    <groupId>com.philippe75</groupId>
+    <artifactId>libraryWebapp</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+ 
+  <artifactId>libraryWebapp-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>libraryWebapp-webapp</name>
+ 
+
+  <dependencies>
+  	
+  	<!-- ===== Modules ===== -->
+    <dependency>
+    	<groupId>${project.groupId}</groupId>
+        <artifactId>${project.parent.artifactId}-business</artifactId>
+    </dependency>
+    <dependency>			<!-- see if removable -->
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.parent.artifactId}-stub</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.parent.artifactId}-technical</artifactId>
+    </dependency>
+  
+	<!-- ===== 1/3 parties ===== -->
+	<dependency>												<!-- Servlet-Api -->
+      <groupId>javax.servlet</groupId>	 		
+	  <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+	
+    <dependency>												<!-- Spring -->
+      	<groupId>org.springframework</groupId>
+      	<artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      	<groupId>org.springframework</groupId>
+      	<artifactId>spring-context-support</artifactId>
+    </dependency>
+    
+    <dependency>												<!-- Struts2 -->
+    	<groupId>org.apache.struts</groupId>
+        <artifactId>struts2-core</artifactId>
+    </dependency>
+    <dependency>												 
+    	<groupId>org.apache.struts</groupId>
+        <artifactId>struts2-spring-plugin</artifactId>
+    </dependency>
+  
+  </dependencies>
+  
+  <build>
+    <finalName>libraryWebapp-webapp</finalName>
+  </build>
+</project>
