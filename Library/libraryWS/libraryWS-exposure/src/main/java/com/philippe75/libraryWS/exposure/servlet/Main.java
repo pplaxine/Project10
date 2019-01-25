@@ -1,6 +1,6 @@
 package com.philippe75.libraryWS.exposure.servlet;
 
-import java.awt.print.Book;
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -15,7 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.philippe75.libraryWS.model.book.BookGenre;
+import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.Genre;
 import com.philippe75.libraryWS.model.library.Library;
 import com.philippe75.libraryWS.model.library.LibraryAddress;
 import com.philippe75.libraryWS.model.staff.StaffAccount;
@@ -37,18 +38,24 @@ public class Main extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		LibraryAddress libAd = new LibraryAddress();
-		libAd.setStreetNumber("18");
-		libAd.setStreetName("rue des Pompiers");
-		libAd.setCity("Toulouse");
-		libAd.setPostCode(31000);
+		Book book1 = new Book();
 		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		//session.save(libAd);
 		
-
+		Library lib = session.get(Library.class, 2);
 		
+//		book1.setName("Le tour de France");
+//		book1.setAuthor("Tortue");
+//		book1.setSummary("du contenu");
+//		book1.setAvailable(true);
+//		book1.setGenre(Genre.TRAGEDY);
+//		book1.setLibrary(lib);
+//		session.save(book1);
+		
+		Book book = session.get(Book.class, 2);
+		System.out.println(book.getGenre());
 		session.getTransaction().commit();
 
 		

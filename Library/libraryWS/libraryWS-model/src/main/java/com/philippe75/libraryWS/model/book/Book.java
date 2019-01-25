@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.model.book;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,7 +20,7 @@ public class Book {
 	private String summary;
 	private boolean available;
 	private Library library;
-	private BookGenre bookgenre;
+	private Genre genre;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -64,12 +65,16 @@ public class Book {
 	}
 	
 	@Enumerated(EnumType.STRING)
-	public BookGenre getBookgenre() {
-		return bookgenre;
+	@Column(name="book_genre")
+	public Genre getGenre() {
+		return genre;
 	}
-	public void setBookgenre(BookGenre bookgenre) {
-		this.bookgenre = bookgenre;
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
+	
+
+	
 	
 	
 	
