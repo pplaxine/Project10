@@ -1,13 +1,19 @@
 package com.philippe75.libraryWS.model.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.philippe75.libraryWS.model.book.Borrowing;
 
 @Entity
 @Table(name="user_account")
@@ -23,6 +29,7 @@ public class UserAccount {
 	private String email;
 	private double phoneNumber;
 	private boolean blockedAccount;
+	private Collection<Borrowing> listBorrowing = new ArrayList<>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -97,6 +104,13 @@ public class UserAccount {
 	}
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
+	}
+	@OneToMany(mappedBy="userAccount")
+	public Collection<Borrowing> getListBorrowing() {
+		return listBorrowing;
+	}
+	public void setListBorrowing(Collection<Borrowing> listBorrowing) {
+		this.listBorrowing = listBorrowing;
 	}
 
 	

@@ -16,12 +16,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.model.book.Book;
-import com.philippe75.libraryWS.model.book.Genre;
-import com.philippe75.libraryWS.model.library.Library;
-import com.philippe75.libraryWS.model.library.LibraryAddress;
-import com.philippe75.libraryWS.model.staff.StaffAccount;
-import com.philippe75.libraryWS.model.user.UserAccount;
-import com.philippe75.libraryWS.model.user.UserAddress;
+import com.philippe75.libraryWS.model.book.Borrowing;
 
 public class Main extends HttpServlet {
 
@@ -42,20 +37,18 @@ public class Main extends HttpServlet {
 		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		//session.save(libAd);
+
 		
-		Library lib = session.get(Library.class, 2);
+		Borrowing bor = (Borrowing)session.get(Borrowing.class, 1);
+		System.out.println(bor.getBook().getName());
+		System.out.println(bor.getUserAccount().getFirstName());
+		Book book = (Book)session.get(Book.class, 1);
 		
-//		book1.setName("Le tour de France");
-//		book1.setAuthor("Tortue");
-//		book1.setSummary("du contenu");
-//		book1.setAvailable(true);
-//		book1.setGenre(Genre.TRAGEDY);
-//		book1.setLibrary(lib);
-//		session.save(book1);
-		
-		Book book = session.get(Book.class, 2);
-		System.out.println(book.getGenre());
+		Collection<Borrowing> listbo = book.getListBorrowing();
+		System.out.println("Libre : "+ book.getName());
+		for (Borrowing borrowing : listbo) {
+			System.out.println("Location le :" + borrowing.getStartDate() + " par : " + borrowing.getUserAccount().getFirstName() + " " + borrowing.getUserAccount().getSureName());
+		}
 		session.getTransaction().commit();
 
 		

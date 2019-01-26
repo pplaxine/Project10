@@ -1,5 +1,8 @@
 package com.philippe75.libraryWS.model.book;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import com.philippe75.libraryWS.model.library.Library;
 
 @Entity
@@ -21,6 +26,7 @@ public class Book {
 	private boolean available;
 	private Library library;
 	private Genre genre;
+	private Collection<Borrowing> listBorrowing = new ArrayList<>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -71,6 +77,14 @@ public class Book {
 	}
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+	}
+	
+	@OneToMany(mappedBy="book")
+	public Collection<Borrowing> getListBorrowing() {
+		return listBorrowing;
+	}
+	public void setListBorrowing(Collection<Borrowing> listBorrowing) {
+		this.listBorrowing = listBorrowing;
 	}
 	
 
