@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -105,7 +106,7 @@ public class UserAccount {
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
 	}
-	@OneToMany(mappedBy="userAccount")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="userAccount")
 	public Collection<Borrowing> getListBorrowing() {
 		return listBorrowing;
 	}

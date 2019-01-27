@@ -1,107 +1,19 @@
-!SESSION 2019-01-25 03:42:37.132 -----------------------------------------------
+!SESSION 2019-01-27 21:21:31.267 -----------------------------------------------
 eclipse.buildId=4.9.0.I20180906-0745
 java.version=1.8.0_171
 java.vendor=Oracle Corporation
 BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
 Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
-!ENTRY org.eclipse.egit.ui 2 0 2019-01-25 03:42:47.660
+!ENTRY org.eclipse.egit.ui 2 0 2019-01-27 21:21:41.766
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\Windows'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 03:47:35.640
+!ENTRY org.eclipse.jface.text 2 0 2019-01-27 21:37:33.438
 !MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
 
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 03:48:02.607
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-!SESSION 2019-01-25 04:25:10.075 -----------------------------------------------
-eclipse.buildId=4.9.0.I20180906-0745
-java.version=1.8.0_171
-java.vendor=Oracle Corporation
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
-Command-line arguments:  -os win32 -ws win32 -arch x86_64
-
-!ENTRY org.eclipse.egit.ui 2 0 2019-01-25 04:25:23.669
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\Windows'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 04:32:55.966
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 04:36:51.361
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-
-!ENTRY org.eclipse.jst.server.tomcat.core 4 0 2019-01-25 05:32:17.474
-!MESSAGE Several ports (8005, 8080, 8009) required by Tomcat v9.0 Server at localhost are already in use. The server may already be running in another process, or a system process may be using the port. To start this server you will need to stop the other process or change the port number(s).
-!SESSION 2019-01-25 05:32:33.649 -----------------------------------------------
-eclipse.buildId=4.9.0.I20180906-0745
-java.version=1.8.0_171
-java.vendor=Oracle Corporation
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
-Command-line arguments:  -os win32 -ws win32 -arch x86_64
-
-!ENTRY org.eclipse.egit.ui 2 0 2019-01-25 05:32:48.063
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\Windows'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 05:36:10.894
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 05:44:46.071
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-!SESSION 2019-01-25 05:47:39.069 -----------------------------------------------
-eclipse.buildId=4.9.0.I20180906-0745
-java.version=1.8.0_171
-java.vendor=Oracle Corporation
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
-Command-line arguments:  -data C:\Users\Windows\Desktop\Project7\LibraryGit\Library -os win32 -ws win32 -arch x86_64
-
-!ENTRY org.eclipse.egit.ui 2 0 2019-01-25 05:47:52.415
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\Windows'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 05:49:39.385
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-25 06:03:13.747
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-
-!ENTRY org.eclipse.wst.server.core 4 0 2019-01-25 08:55:16.267
-!MESSAGE Server Tomcat v9.0 Server at localhost failed to start.
-
-!ENTRY org.eclipse.wst.server.core 4 0 2019-01-25 09:21:38.082
-!MESSAGE Server Tomcat v9.0 Server at localhost failed to start.
-
-!ENTRY org.eclipse.jdt.debug 2 0 2019-01-25 09:54:34.065
-!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
-!SESSION 2019-01-26 01:20:23.920 -----------------------------------------------
-eclipse.buildId=4.9.0.I20180906-0745
-java.version=1.8.0_171
-java.vendor=Oracle Corporation
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
-Command-line arguments:  -os win32 -ws win32 -arch x86_64
-
-!ENTRY org.eclipse.egit.ui 2 0 2019-01-26 01:20:38.582
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\Windows'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-26 01:32:26.360
-!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
-
-!ENTRY org.eclipse.jface.text 2 0 2019-01-26 01:45:50.115
+!ENTRY org.eclipse.jface.text 2 0 2019-01-27 21:37:46.654
 !MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.boolean'
