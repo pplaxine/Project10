@@ -6,7 +6,7 @@ body, html {
 
 .bg_main {
 		
-  background-image: url(/libraryWebapp-webapp/jsp/_include/img/main_bg.jpg);
+  background-image: url(/libraryWebapp-webapp/src/img/main_bg.jpg);
 
   height: 100%;
 

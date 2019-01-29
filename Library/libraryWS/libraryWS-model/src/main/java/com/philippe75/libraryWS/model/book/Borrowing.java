@@ -12,16 +12,60 @@ import javax.persistence.ManyToOne;
 
 import com.philippe75.libraryWS.model.user.UserAccount;
 
+/**
+ * <b>Model object of Borrowing.</b>
+ * 
+ * <p>
+ * Characterized by : 
+ * <p>
+ * <ul>
+ * <li>an id</li>
+ * <li>a start date</li>
+ * <li>a supposed end date</li>
+ * <li>a second supposed end date</li>
+ * <li>an effective end date</li>
+ * <li>an extension of borrowing</li>
+ * <li>a book</li>
+ * <li>a user account</li>
+ * </ul>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Entity
 public class Borrowing {
 	
+	/**
+	 * Unique id of the borrowing.
+	 */
 	private int id;
+	/**
+	 * When book get borrowed.
+	 */
 	private Date startDate;
+	/**
+	 * When book needs to be brought back.
+	 */
 	private Date supposedEndDate;
+	/**
+	 * If borrowing get extended, new date when book needs to be brought back.
+	 */
 	private Date secondSupposedEndDate;
+	/**
+	 * When book is actually given back.
+	 */
 	private Date effectiveEndDate;
+	/**
+	 * True if member decided to extend the borrowing (available only once).
+	 */
 	private boolean extended;
+	/**
+	 * Book borrowed.
+	 */
 	private Book book;
+	/**
+	 * Member that made the borrowing
+	 */
 	private UserAccount userAccount;
 	
 	@Id

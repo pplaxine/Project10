@@ -15,14 +15,37 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * <b>Hibernate configuration Class.</b>
+ * 
+ * <p>
+ * 	Configuration beans are injected via Spring.  
+ * </p>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:/properties/DataBaseConf.properties")
 public class HibernateConfiguration {
 	
+	/**
+	 * Allow access to DataBaseConf.properties
+	 *
+	 * @see #dataSource()
+	 */
 	@Inject
 	Environment env;
-
+	
+	/**
+	 * Spring bean of a sessionFactory creation and configuration.
+	 * 
+	 * @see #dataSource()
+	 * @see #hibernateProperties()
+	 * 
+	 * @return configured SessionFactory object 
+	 */
 	@Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -33,6 +56,13 @@ public class HibernateConfiguration {
         return sessionFactory;
     }
 	 
+	/**
+	 * Spring bean of a dataSource creation and configuration.
+	 * 
+	 * @see #env
+	 * 
+	 * @return configured DataSource object
+	 */
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -44,6 +74,13 @@ public class HibernateConfiguration {
         return dataSource;
     }
  
+	/**
+	 * Spring bean of a TransactionManager creation and configuration.
+	 * 
+	 * @see #sessionFactory()
+	 * 
+	 * @return PlatformTransactionManager object
+	 */
     @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
         HibernateTransactionManager transactionManager
@@ -52,6 +89,11 @@ public class HibernateConfiguration {
         return transactionManager;
     }
  
+    /**
+     * Hibernate properties configuration.
+     * 
+     * @return Properties
+     */
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "validate");

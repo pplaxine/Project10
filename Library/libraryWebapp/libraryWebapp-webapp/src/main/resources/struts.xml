@@ -8,13 +8,13 @@
         <!-- Action par défaut -->
         <default-action-ref name="index" />
 
-        <!-- Action "index" -->
+        <!-- Action "main" -->
         <action name="index">
-            <result>/jsp/index.jsp</result>
+            <result>WEB-INF/jsp/main.jsp</result>
         </action>
         
      	<action name="findbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doListBookByName">
-			<result>/jsp/test.jsp</result>        
+			<result>WEB-INF/jsp/test.jsp</result>        
      	</action> 
         
     </package>

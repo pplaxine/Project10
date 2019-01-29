@@ -7,14 +7,46 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * <b>Model object of the address attached to a user</b>
+ * 
+ * <p>
+ * Characterized by : 
+ * <p>
+ * <ul>
+ * <li>an id</li>
+ * <li>a street number</li>
+ * <li>a street name</li>
+ * <li>a city</li>
+ * <li>a post code</li>
+ * </ul>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Entity
 @Table(name="user_address")
 public class UserAddress {
 	
+	/**
+	 * Unique id of the address of a user.
+	 */
 	private int id;
+	/**
+	 * Street number of the address.
+	 */
 	private String streetNumber;
+	/**
+	 * Street name of the address.
+	 */
 	private String streetName;
+	/**
+	 * City of the address.
+	 */
 	private String city;
+	/**
+	 * Post code of the address.
+	 */
 	private int postCode;
 	
 	@Id

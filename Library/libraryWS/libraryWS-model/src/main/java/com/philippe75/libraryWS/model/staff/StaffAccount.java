@@ -11,17 +11,61 @@ import javax.persistence.Table;
 
 import com.philippe75.libraryWS.model.library.Library;
 
+/**
+ * <b>Model object of an Account of a Staff member</b>
+ * 
+ * <p>
+ * Characterized by : 
+ * <p>
+ * <ul>
+ * <li>an id</li>
+ * <li>a login name</li>
+ * <li>a password</li>
+ * <li>an access</li>
+ * <li>a first name</li>
+ * <li>a sure name</li>
+ * <li>an account state</li>
+ * <li>a library</li>
+ * </ul>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Entity
 @Table(name="staff_account")
 public class StaffAccount {
-
+	
+	/**
+	 * Unique id of a staff account .
+	 */
 	private int id;
+	/**
+	 * Login a the staff member.
+	 */
 	private String loginName;
+	/**
+	 * Password chosen for the account.
+	 */
 	private String password;
+	/**
+	 * Access rights attached to the account.
+	 */
 	private String access;
+	/**
+	 * First name of the staff member.
+	 */
 	private String firstName;
+	/**
+	 * Surname of the staff member.
+	 */
 	private String sureName;
+	/**
+	 * Account can be deactivated after staff member leave.
+	 */
 	private boolean accountActivated;
+	/**
+	 * Library to which staff member is attached to.
+	 */
 	private Library library;
 	
 	@Id

@@ -16,14 +16,50 @@ import javax.persistence.OneToOne;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.staff.StaffAccount;
 
+/**
+ * <b>Model object of Library.</b>
+ * 
+ * <p>
+ * Characterized by : 
+ * <p>
+ * <ul>
+ * <li>an id</li>
+ * <li>a name</li>
+ * <li>a phone number</li>
+ * <li>an address</li>
+ * <li>a list of staff accounts</li>
+ * <li>a list of books</li>
+ * </ul>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Entity
 public class Library {
 	
+	/**
+	 * Unique id of the Library.
+	 */
 	private int id;
+	/**
+	 * Library Name.
+	 */
 	private String name;
+	/**
+	 * Library Phone number.
+	 */
 	private double phoneNumber;
+	/**
+	 * Library address.
+	 */
 	private LibraryAddress address;
+	/**
+	 * Accounts of Staff members attached to the library(City has several libraries).
+	 */
 	private Collection<StaffAccount> listStaffAccount = new ArrayList<>();
+	/**
+	 * List of all the books owned by library.
+	 */
 	private Collection<Book> listBook = new ArrayList<>();
 
 	@Id

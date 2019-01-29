@@ -17,16 +17,59 @@ import javax.persistence.OneToMany;
 
 import com.philippe75.libraryWS.model.library.Library;
 
+/**
+ * <b>Model object of a Book.</b>
+ * 
+ * <p>
+ * Characterized by : 
+ * </p>
+ * <ul>
+ * <li>an id</li>
+ * <li>a name</li>
+ * <li>an author</li>
+ * <li>a summary</li>
+ * <li>the availability</li>
+ * <li>a library</li>
+ * <li>a book genre</li>
+ * <li>a list of Borrowings</li>
+ * </ul>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Entity
 public class Book {
-	
+	/**
+	 * Unique id of the book.
+	 */
 	private int id;
+	/**
+	 * Name of the book.
+	 */
 	private String name;
+	/**
+	 * Author of the book.
+	 */
 	private String author;
+	/**
+	 * Summary of the book (the back page).
+	 */
 	private String summary;
+	/**
+	 * Is the book already borrowed by a member.
+	 */
 	private boolean available;
+	/**
+	 * Library to which the book belongs to (The city has several libraries).
+	 */
 	private Library library;
+	/**
+	 * Genre of the book.
+	 */
 	private Genre genre;
+	/**
+	 * The historic of the borrowings attached to the book.
+	 */
 	private Collection<Borrowing> listBorrowing = new ArrayList<>();
 	
 	@Id

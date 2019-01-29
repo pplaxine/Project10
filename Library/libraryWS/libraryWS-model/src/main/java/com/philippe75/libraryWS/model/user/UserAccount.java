@@ -16,20 +16,76 @@ import javax.persistence.Table;
 
 import com.philippe75.libraryWS.model.book.Borrowing;
 
+/**
+ * <b>Model object of an Account of a user member of the Library</b>
+ * 
+ * <p>
+ * Characterized by : 
+ * <p>
+ * <ul>
+ * <li>an id</li>
+ * <li>a member id</li>
+ * <li>a password</li>
+ * <li>an authorization access</li>
+ * <li>a first name</li>
+ * <li>a sure name</li>
+ * <li>an address</li>
+ * <li>an email</li>
+ * <li>a phone number</li>
+ * <li>the account state</li>
+ * <li> a list of borrowing</li>
+ * </ul>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Entity
 @Table(name="user_account")
 public class UserAccount {
 	
+	/**
+	 * Unique id of a user for the database.
+	 */
 	private int id;
+	/**
+	 * Unique id given to user at inscription for login.
+	 */
 	private String userMemberId;
+	/**
+	 * Password chosen for the account.
+	 */
 	private String password;
+	/**
+	 * Access rights attached to the account(right/no rights/partial rights).
+	 */
 	private String access;
+	/**
+	 * First name of the user.
+	 */
 	private String firstName;
+	/**
+	 * Surname of the user.
+	 */
 	private String sureName;
+	/**
+	 * Address of the user.
+	 */
 	private UserAddress address;
+	/**
+	 * Email of the user.
+	 */
 	private String email;
+	/**
+	 * users phone number.
+	 */
 	private double phoneNumber;
+	/**
+	 * Account can be blocked if a borrowed book is not given back on time.
+	 */
 	private boolean blockedAccount;
+	/**
+	 * Historic of all the borrowings of the user.
+	 */
 	private Collection<Borrowing> listBorrowing = new ArrayList<>();
 	
 	@Id
