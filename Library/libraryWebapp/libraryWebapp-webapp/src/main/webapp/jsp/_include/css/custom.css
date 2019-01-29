@@ -1,0 +1,45 @@
+body, html {
+	height: 100%;
+	
+}
+
+
+.bg_main {
+		
+  background-image: url(/libraryWebapp-webapp/jsp/_include/img/main_bg.jpg);
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+}
+
+.bg_dark_filter {
+		
+  background:black;
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+  opacity: 0.8;
+  
+}
+
+.unselectable{
+-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+

@@ -9,8 +9,6 @@
 
 <body>
 	<h2>Test</h2></br>
-	le test doit s'afficher ici : <s:property value="test"/></br>
-	
 	
 	<s:iterator value="listBookByName">
 		<li>

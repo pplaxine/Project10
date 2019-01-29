@@ -6,7 +6,16 @@
          version="4.0">
 
     <display-name>Library webapp</display-name>
-    
+    	
+	<!-- Filter Struts -->
+    <filter>
+    	<filter-name>struts2</filter-name>
+    	<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>struts2</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>  
     
     <!-- Listener Spring -->
     <listener>
@@ -17,13 +26,7 @@
         <param-value>classpath:/bootstrapContext.xml</param-value>
     </context-param>
     
-    <!-- Filter Struts -->
-    <filter>
-    	<filter-name>struts2</filter-name>
-    	<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-    </filter>
-    <filter-mapping>
-    	<filter-name>struts2</filter-name>
-    	<url-pattern>/*</url-pattern>
-    </filter-mapping>
+
+    
+
 </web-app>

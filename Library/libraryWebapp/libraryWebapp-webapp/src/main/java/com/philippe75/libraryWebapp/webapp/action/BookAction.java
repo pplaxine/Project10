@@ -2,38 +2,32 @@ package com.philippe75.libraryWebapp.webapp.action;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.opensymphony.xwork2.ActionSupport;
+import com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler;
+import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.libraryService.BookDto;
-import com.philippe75.libraryWebapp.stub.generated.libraryService.BookSearchService;
-import com.philippe75.libraryWebapp.stub.generated.libraryService.BookSearchServiceImplService;
 
 
 public class BookAction extends ActionSupport {
 	
-	//outcome
-	private String test;
-	private List<BookDto> listBookByName;
+	@Inject
+	ManagerHandler managerHandler;
 	
+	//outcome
+	private List<BookDto> listBookByName;
 
 	//G&S
 	public List<BookDto> getListBookByName() {
 		return listBookByName;
 	}
-	public String getTest() {
-		return test;
-	}
-	
 	
 	//METHODS
 	
-	public String getStringTest() {
+	public String doListBookByName() {
 		
-		BookSearchService bss = new BookSearchServiceImplService().getBookSearchServiceImplPort();
-		
-		test = bss.test();
-		
-		
-		listBookByName = bss.getListBookByName("Roméo et Juliette").getItem();
+		listBookByName = managerHandler.getBookDtoManager().getListBookByName("Roméo et Juliette");
 		
 		return ActionSupport.SUCCESS; 
 	}

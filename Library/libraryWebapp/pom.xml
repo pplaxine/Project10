@@ -64,11 +64,6 @@
               <type>pom</type>
               <scope>import</scope>
         </dependency>
-        	<dependency>
-       	<groupId>javax.servlet</groupId>	 					<!-- Servlet-Api -->
-		 	<artifactId>javax.servlet-api</artifactId>
-		 	<version>3.1.0</version>
-    	</dependency>
 
 		<dependency>												<!-- Annotations 250 -->
 			<groupId>javax.annotation</groupId>

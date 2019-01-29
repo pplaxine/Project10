@@ -13,7 +13,7 @@
             <result>/jsp/index.jsp</result>
         </action>
         
-     	<action name="get_test" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="getStringTest">
+     	<action name="findbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doListBookByName">
 			<result>/jsp/test.jsp</result>        
      	</action> 
         
