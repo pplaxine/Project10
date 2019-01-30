@@ -1,4 +1,4 @@
-package com.philippe75.libraryWS.exposure.service;
+package com.philippe75.libraryWS.exposure.service.booksearch;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import com.philippe75.libraryWS.business.dto.BookDto;
  * @author Philippe plaxine
  * @version 1.0
  */
-@WebService(endpointInterface="com.philippe75.libraryWS.exposure.service.BookSearchService")
+@WebService(endpointInterface="com.philippe75.libraryWS.exposure.service.booksearch.BookSearchService")
 public class BookSearchServiceImpl extends SpringBeanAutowiringSupport implements BookSearchService{
 	
 	/**
@@ -45,12 +45,5 @@ public class BookSearchServiceImpl extends SpringBeanAutowiringSupport implement
 		System.out.println(list.size());
 		return list;
 	}
-
-	@Override
-	public String test() {
-		return "Houlalala !";
-	}
 	
-	
-
 }

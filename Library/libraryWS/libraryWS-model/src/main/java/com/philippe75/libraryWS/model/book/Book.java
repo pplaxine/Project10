@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.philippe75.libraryWS.model.library.Library;
+//TODO : Auto-generated Javadoc
 
 /**
  * <b>Model object of a Book.</b>
@@ -122,7 +123,7 @@ public class Book {
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-	
+
 	@OneToMany(mappedBy="book")
 	public Collection<Borrowing> getListBorrowing() {
 		return listBorrowing;

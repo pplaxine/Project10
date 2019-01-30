@@ -5,17 +5,14 @@
 <html>
 	<head>
 		<%@ include file="_include/head.jsp" %>
-		<title>Home</title>
+		<title>Login</title>
 	</head>
 	<body>
 		<%@ include file="_include/header.jsp" %>
-		<div class="bg_main text-light">
-		<div class="bg_dark_filter text-success">
-			<br/>
-			<br/>
-			<br/>
-			<h2><s:text name="home.welcome"/> </h2>
-		</div>
-		</div>
+		<s:form action="login">
+			<s:textfield label="Login" key="userMemberId"/>
+			<s:password label="Password" key="password"/>
+			<s:submit/>
+		</s:form>
 	</body>
 </html>

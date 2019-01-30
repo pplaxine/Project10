@@ -4,18 +4,26 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
         
 <struts>
+
     <package name="default" extends="struts-default">
         <!-- Action par défaut -->
-        <default-action-ref name="index" />
+        <default-action-ref name="main" />
 
         <!-- Action "main" -->
-        <action name="index">
+        <action name="main">
             <result>WEB-INF/jsp/main.jsp</result>
         </action>
         
      	<action name="findbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doListBookByName">
 			<result>WEB-INF/jsp/test.jsp</result>        
      	</action> 
+     	
+     	<!-- Action "login" -->
+        <action name="login" class="com.philippe75.libraryWebapp.webapp.action.LoginAction" method="doLogin">
+           	<result name="input">WEB-INF/jsp/login.jsp</result>
+            <result name="success" type="redirectAction">findbook</result>
+        </action>
+     	
         
     </package>
 </struts>

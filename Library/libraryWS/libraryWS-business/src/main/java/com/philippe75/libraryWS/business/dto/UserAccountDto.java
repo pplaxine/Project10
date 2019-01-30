@@ -16,7 +16,6 @@ import com.philippe75.libraryWS.model.user.UserAddress;
  * Characterized by : 
  * <p>
  * <ul>
- * <li>an id</li>
  * <li>a member id</li>
  * <li>an authorization access</li>
  * <li>a first name</li>
@@ -33,10 +32,6 @@ import com.philippe75.libraryWS.model.user.UserAddress;
  */
 public class UserAccountDto {
 	
-	/**
-	 * Unique id of a user for the database.
-	 */
-	private int id;
 	/**
 	 * Unique id given to user at inscription for login.
 	 */
@@ -69,17 +64,7 @@ public class UserAccountDto {
 	 * Account can be blocked if a borrowed book is not given back on time.
 	 */
 	private boolean blockedAccount;
-	/**
-	 * Historic of all the borrowings of the user.
-	 */
-	private Collection<Borrowing> listBorrowing = new ArrayList<>();
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getUserMemberId() {
 		return userMemberId;
 	}
@@ -127,12 +112,6 @@ public class UserAccountDto {
 	}
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
-	}
-	public Collection<Borrowing> getListBorrowing() {
-		return listBorrowing;
-	}
-	public void setListBorrowing(Collection<Borrowing> listBorrowing) {
-		this.listBorrowing = listBorrowing;
 	}
 	
 }

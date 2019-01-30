@@ -2,6 +2,11 @@
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
     version="2.0">
     <endpoint name="WebServiceLibrary"
-        implementation="com.philippe75.libraryWS.exposure.service.BookSearchServiceImpl"
+        implementation="com.philippe75.libraryWS.exposure.service.booksearch.BookSearchServiceImpl"
         url-pattern="/libraryService" />
+
+	<endpoint name="LibraryAuthentificationService"
+        implementation="com.philippe75.libraryWS.exposure.service.authentification.AuthentificationServiceImpl"
+        url-pattern="/libraryAuthService" />
+        
 </endpoints>

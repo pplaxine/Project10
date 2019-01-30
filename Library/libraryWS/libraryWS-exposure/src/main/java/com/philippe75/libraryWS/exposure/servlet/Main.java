@@ -15,8 +15,12 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookDto;
+import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.exception.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.DataBaseException;
+import com.philippe75.libraryWS.model.exception.NotFoundException;
 
 public class Main extends HttpServlet {
 
@@ -35,10 +39,13 @@ public class Main extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-						
-		List<BookDto> listBookDto = managerHandler.getBookManager().getListBookByName("Roméo et Juliette");
-		for (BookDto bookDto : listBookDto) {
-			System.out.println(bookDto.getName() +" - "+ bookDto.getId());
+			
+		try {
+			UserAccountDto uad = managerHandler.getUserAccountManager().getUserAccountByMemberId("JTille", "t2est01");
+			System.out.println("Cette persone existe !");
+		
+		} catch (AuthentificationException e) {
+			System.out.println("Auth Exception haha ! " + e.getMessage());
 		}
 		
 		this.getServletContext().getRequestDispatcher(VUE_MAIN).forward(request, response);

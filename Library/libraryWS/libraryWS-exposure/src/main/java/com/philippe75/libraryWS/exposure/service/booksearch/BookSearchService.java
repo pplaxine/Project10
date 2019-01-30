@@ -1,4 +1,4 @@
-package com.philippe75.libraryWS.exposure.service;
+package com.philippe75.libraryWS.exposure.service.booksearch;
 
 import java.util.List;
 
@@ -28,6 +28,4 @@ public interface BookSearchService {
 	@WebMethod
 	public List<BookDto >getListBookByName(String name);
 	
-	@WebMethod
-	public String test();
 }
