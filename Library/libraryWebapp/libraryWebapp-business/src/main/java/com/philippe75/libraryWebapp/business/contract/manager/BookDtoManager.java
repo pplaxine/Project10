@@ -2,7 +2,7 @@ package com.philippe75.libraryWebapp.business.contract.manager;
 
 import java.util.List;
 
-import com.philippe75.libraryWebapp.stub.generated.libraryService.BookDto;
+import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
 /**
  * <b>Contains all methods related to {@link BookDto} requests</b>
  * 

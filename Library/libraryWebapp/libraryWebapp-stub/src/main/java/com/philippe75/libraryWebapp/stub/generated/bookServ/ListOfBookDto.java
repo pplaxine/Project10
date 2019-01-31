@@ -1,5 +1,5 @@
 
-package com.philippe75.libraryWebapp.stub.generated.libraryService;
+package com.philippe75.libraryWebapp.stub.generated.bookServ;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,32 +10,32 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour listOfObject complex type.
+ * <p>Classe Java pour listOfBookDto complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>Le fragment de schÃ©ma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="listOfObject"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}anyType" maxOccurs="unbounded" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="listOfBookDto">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="item" type="{http://booksearch.service.exposure.libraryWS.philippe75.com/}bookDto" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "listOfObject", propOrder = {
+@XmlType(name = "listOfBookDto", propOrder = {
     "item"
 })
-public class ListOfObject {
+public class ListOfBookDto {
 
     @XmlElement(nillable = true)
-    protected List<Object> item;
+    protected List<BookDto> item;
 
     /**
      * Gets the value of the item property.
@@ -55,13 +55,13 @@ public class ListOfObject {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Object }
+     * {@link BookDto }
      * 
      * 
      */
-    public List<Object> getItem() {
+    public List<BookDto> getItem() {
         if (item == null) {
-            item = new ArrayList<Object>();
+            item = new ArrayList<BookDto>();
         }
         return this.item;
     }

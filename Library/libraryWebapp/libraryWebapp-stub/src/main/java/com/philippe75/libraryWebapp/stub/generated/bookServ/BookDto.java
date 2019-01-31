@@ -1,5 +1,5 @@
 
-package com.philippe75.libraryWebapp.stub.generated.libraryService;
+package com.philippe75.libraryWebapp.stub.generated.bookServ;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,24 +10,24 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>Classe Java pour bookDto complex type.
  * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ * <p>Le fragment de schÃ©ma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="bookDto"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="author" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="genre" type="{http://service.exposure.libraryWS.philippe75.com/}genre" minOccurs="0"/&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="library" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="summary" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
+ * &lt;complexType name="bookDto">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="author" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="genre" type="{http://booksearch.service.exposure.libraryWS.philippe75.com/}genre" minOccurs="0"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="library" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="summary" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
  * </pre>
  * 
  * 
@@ -54,7 +54,7 @@ public class BookDto {
     protected String summary;
 
     /**
-     * Obtient la valeur de la propriété author.
+     * Obtient la valeur de la propriÃ©tÃ© author.
      * 
      * @return
      *     possible object is
@@ -66,7 +66,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété author.
+     * DÃ©finit la valeur de la propriÃ©tÃ© author.
      * 
      * @param value
      *     allowed object is
@@ -78,7 +78,7 @@ public class BookDto {
     }
 
     /**
-     * Obtient la valeur de la propriété available.
+     * Obtient la valeur de la propriÃ©tÃ© available.
      * 
      */
     public boolean isAvailable() {
@@ -86,7 +86,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété available.
+     * DÃ©finit la valeur de la propriÃ©tÃ© available.
      * 
      */
     public void setAvailable(boolean value) {
@@ -94,7 +94,7 @@ public class BookDto {
     }
 
     /**
-     * Obtient la valeur de la propriété genre.
+     * Obtient la valeur de la propriÃ©tÃ© genre.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété genre.
+     * DÃ©finit la valeur de la propriÃ©tÃ© genre.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class BookDto {
     }
 
     /**
-     * Obtient la valeur de la propriété id.
+     * Obtient la valeur de la propriÃ©tÃ© id.
      * 
      */
     public int getId() {
@@ -126,7 +126,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété id.
+     * DÃ©finit la valeur de la propriÃ©tÃ© id.
      * 
      */
     public void setId(int value) {
@@ -134,7 +134,7 @@ public class BookDto {
     }
 
     /**
-     * Obtient la valeur de la propriété library.
+     * Obtient la valeur de la propriÃ©tÃ© library.
      * 
      * @return
      *     possible object is
@@ -146,7 +146,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété library.
+     * DÃ©finit la valeur de la propriÃ©tÃ© library.
      * 
      * @param value
      *     allowed object is
@@ -158,7 +158,7 @@ public class BookDto {
     }
 
     /**
-     * Obtient la valeur de la propriété name.
+     * Obtient la valeur de la propriÃ©tÃ© name.
      * 
      * @return
      *     possible object is
@@ -170,7 +170,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété name.
+     * DÃ©finit la valeur de la propriÃ©tÃ© name.
      * 
      * @param value
      *     allowed object is
@@ -182,7 +182,7 @@ public class BookDto {
     }
 
     /**
-     * Obtient la valeur de la propriété summary.
+     * Obtient la valeur de la propriÃ©tÃ© summary.
      * 
      * @return
      *     possible object is
@@ -194,7 +194,7 @@ public class BookDto {
     }
 
     /**
-     * Définit la valeur de la propriété summary.
+     * DÃ©finit la valeur de la propriÃ©tÃ© summary.
      * 
      * @param value
      *     allowed object is

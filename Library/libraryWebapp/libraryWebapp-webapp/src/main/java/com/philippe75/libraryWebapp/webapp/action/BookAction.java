@@ -6,8 +6,7 @@ import javax.inject.Inject;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler;
-import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
-import com.philippe75.libraryWebapp.stub.generated.libraryService.BookDto;
+import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
 
 
 public class BookAction extends ActionSupport {

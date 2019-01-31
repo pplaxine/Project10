@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.hibernate.Session"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.dao.BookDao"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.manager.AbstractManager"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="javax.jws.soap.SOAPBinding"/>
 <fullyQualifiedTypeName name="javax.jws.soap.SOAPBinding.Style"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="org.hibernate.criterion.Restrictions"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.exception.AuthentificationException"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationService"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationServiceImplService"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto"/>
 </qualifiedTypeNameHistroy>

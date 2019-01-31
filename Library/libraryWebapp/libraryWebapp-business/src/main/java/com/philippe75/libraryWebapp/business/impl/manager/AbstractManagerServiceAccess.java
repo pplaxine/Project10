@@ -1,7 +1,9 @@
 package com.philippe75.libraryWebapp.business.impl.manager;
 
-import com.philippe75.libraryWebapp.stub.generated.libraryService.BookSearchService;
-import com.philippe75.libraryWebapp.stub.generated.libraryService.BookSearchServiceImplService;
+import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationService;
+import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationServiceImplService;
+import com.philippe75.libraryWebapp.stub.generated.bookServ.BookSearchService;
+import com.philippe75.libraryWebapp.stub.generated.bookServ.BookSearchServiceImplService;
 
 /**
  * <b>Abstract Class that allow access to the stub layer</b>
@@ -11,7 +13,7 @@ import com.philippe75.libraryWebapp.stub.generated.libraryService.BookSearchServ
  * @author Philippe plaxine
  * @version 1.0
  */
-public class AbstractManagerServiceAccess {
+public abstract class AbstractManagerServiceAccess {
 	
 	/**
 	 * Object communicating with the BookSearchService webservice endpoint.
@@ -20,8 +22,16 @@ public class AbstractManagerServiceAccess {
 	 */
 	private BookSearchService bookSearchService = new BookSearchServiceImplService().getBookSearchServiceImplPort();
 
+	private AuthentificationService authService = new AuthentificationServiceImplService().getAuthentificationServiceImplPort();
+	
 	public BookSearchService getBookSearchService() {
 		return bookSearchService;
 	}
+
+	public AuthentificationService getAuthService() {
+		return authService;
+	}
+	
+	
 	
 }

@@ -64,6 +64,12 @@
               <type>pom</type>
               <scope>import</scope>
         </dependency>
+		
+		<dependency>
+	      <groupId>com.sun.xml.ws</groupId>
+	      <artifactId>jaxws-rt</artifactId>
+	      <version>2.2.10</version>
+	    </dependency>
 
 		<dependency>												<!-- Annotations 250 -->
 			<groupId>javax.annotation</groupId>
@@ -128,6 +134,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
+					<encoding>UTF-8</encoding>
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
 				</configuration>
