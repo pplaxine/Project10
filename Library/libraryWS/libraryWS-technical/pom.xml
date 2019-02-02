@@ -20,6 +20,11 @@
     	<artifactId>spring-context</artifactId>
     </dependency>
     
+    <dependency>
+	    <groupId>org.springframework.security</groupId>	<!-- Spring Security core-->
+	    <artifactId>spring-security-core</artifactId>
+	</dependency>
+    
     <dependency>                      					<!-- Annotations 250 -->
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>

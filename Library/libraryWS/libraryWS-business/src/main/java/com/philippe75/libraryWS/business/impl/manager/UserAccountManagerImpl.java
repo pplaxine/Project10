@@ -1,8 +1,11 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
@@ -17,6 +20,9 @@ import com.philippe75.libraryWS.model.user.UserAccount;
  */
 @Named("userAccountManager")
 public class UserAccountManagerImpl extends AbstractManager implements UserAccountManager{
+	
+	@Inject
+	private PasswordEncoder bcPasswordEncodeur;
 	
 	/**
 	 * @param userMemeberId the member id of the user.
@@ -39,7 +45,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 			throw new AuthentificationException("Exception", AuthentificationFaultFactory("1299", e.getMessage()));
 		} 
 		
-		if(!(userMemberId.equals(ua.getUserMemberId()) && password.equals(ua.getPassword()))) {
+		if(!(userMemberId.equals(ua.getUserMemberId()) && bcPasswordEncodeur.matches(password, ua.getPassword()))) {
 			throw new AuthentificationException("InvalidPasswordException", AuthentificationFaultFactory("1235", "The password is incorrect ..."));
 		}
 		return userAccountModelToDto(ua);
@@ -63,7 +69,9 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		try {
 			ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
 			if(ua.getPassword() == null) {
-				ua = daoHandler.getUserAccountDao().saveUserAccountPw(userMemberId, password);
+				//Password BCrytpeEncoding
+				String pwEncoded = bcPasswordEncodeur.encode(password);
+				ua = daoHandler.getUserAccountDao().saveUserAccountPw(userMemberId, pwEncoded);
 				return userAccountModelToDto(ua);
 			}
 			
@@ -80,8 +88,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		
 	}
 
-	
-	
+
 	
 	//UTILITY METHODS 
 	/**
@@ -105,5 +112,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		
 		return uad;
 	}
+	
+
 
 }

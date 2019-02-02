@@ -2,6 +2,9 @@ package com.philippe75.libraryWS.business.impl.manager;
 
 import javax.inject.Inject;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.exception.soap.fault.AuthentificationFault;
 
@@ -33,5 +36,7 @@ public abstract class AbstractManager {
 		af.setFaultMessage(message);
 		return af;
 	}
+	
+
 
 }

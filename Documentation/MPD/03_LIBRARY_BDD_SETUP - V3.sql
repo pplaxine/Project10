@@ -32,7 +32,7 @@ CREATE SEQUENCE public.user_account_id_seq;
 CREATE TABLE public.user_account (
                 id INTEGER NOT NULL DEFAULT nextval('public.user_account_id_seq'),
                 user_member_id VARCHAR(20) NOT NULL,
-                password VARCHAR(50),
+                password VARCHAR(70),
                 access VARCHAR NOT NULL,
                 firstname VARCHAR(50) NOT NULL,
                 surename VARCHAR(50) NOT NULL,
@@ -86,7 +86,7 @@ CREATE SEQUENCE public.staff_account_id_seq;
 CREATE TABLE public.staff_account (
                 id INTEGER NOT NULL DEFAULT nextval('public.staff_account_id_seq'),
                 login_name VARCHAR(20),
-                password VARCHAR(50),
+                password VARCHAR(70),
                 access VARCHAR NOT NULL,
                 firstname VARCHAR(50) NOT NULL,
                 surename VARCHAR(50) NOT NULL,
