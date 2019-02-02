@@ -12,8 +12,18 @@ public interface UserAccountDao {
 	
 	/**
 	 * @param userAccountId the id of the user.
+	 * 
 	 * @return UserAccount the {@link UserAccount} with the member id required.  
 	 */
 	UserAccount getUserAccountByMemberId(String userMemberId) throws Exception;
+	
+	
+	/**
+	 * @param userAccountId the id of the user.
+	 * @param password user password to save
+	 * 
+	 * @return UserAccount the {@link UserAccount} if password saved successfully.    
+	 */
+	UserAccount saveUserAccountPw(String userMemberId, String password) throws Exception;
 	
 }

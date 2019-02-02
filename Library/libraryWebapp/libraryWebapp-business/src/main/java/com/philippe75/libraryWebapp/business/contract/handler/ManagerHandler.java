@@ -1,6 +1,7 @@
 package com.philippe75.libraryWebapp.business.contract.handler;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
+import com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager;
 
 /**
  * <b>Provides the different object managers</b>
@@ -14,10 +15,18 @@ import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
 public interface ManagerHandler {
 	
 	/**
-	 * Get access to {@link BookManager}.
+	 * Get access to {@link BookDtoManager}.
 	 * 
-	 * @return BookManager
+	 * @return BookDtoManager
 	 */
 	BookDtoManager getBookDtoManager();
+	
+	
+	/**
+	 * Get access to {@link UserAccountDtoManager}.
+	 * 
+	 * @return UserAccountDtoManager
+	 */
+	UserAccountDtoManager getUserAccountDtoManager();
 	
 }

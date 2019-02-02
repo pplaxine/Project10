@@ -3,6 +3,7 @@ package com.philippe75.libraryWS.business.impl.manager;
 import javax.inject.Inject;
 
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
+import com.philippe75.libraryWS.model.exception.soap.fault.AuthentificationFault;
 
 /**
  * <b>Abstract Class that provides access to Dao layer</b>
@@ -19,9 +20,18 @@ public abstract class AbstractManager {
 	 */
 	@Inject
 	DaoHandler daoHandler;
-
-	public DaoHandler getDaoHandler() {
+	
+	//GETTERS
+	protected DaoHandler getDaoHandler() {
 		return daoHandler;
+	}
+	
+	//UTILITY METHODS 
+	protected AuthentificationFault AuthentificationFaultFactory(String faultCode, String message) {
+		AuthentificationFault af = new AuthentificationFault();
+		af.setFaultCode(faultCode);
+		af.setFaultMessage(message);
+		return af;
 	}
 
 }

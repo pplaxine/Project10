@@ -7,7 +7,7 @@ import javax.jws.soap.SOAPBinding.Style;
 
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
-import com.philippe75.libraryWS.model.exception.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
 
 /**
  * <b>Authentification service end point Interface.</b>
@@ -28,4 +28,14 @@ public interface AuthentificationService {
 	 */
 	@WebMethod
 	public UserAccountDto getUserAccount(String userMemberId, String password) throws AuthentificationException;
+	
+	/**
+	 * Method that saves user password if first login.
+	 * 
+	 * @param userMemberId the user Member id
+	 * @param password user password to save 
+	 * @return UserAccountDto 
+	 */
+	@WebMethod
+	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException;
 }

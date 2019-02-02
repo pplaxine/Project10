@@ -1,6 +1,6 @@
-package com.philippe75.libraryWS.model.exception;
+package com.philippe75.libraryWS.model.exception.saop;
 
-import com.philippe75.libraryWS.model.exception.fault.AuthentificationFault;
+import com.philippe75.libraryWS.model.exception.soap.fault.AuthentificationFault;
 
 public class AuthentificationException extends Exception {
 	

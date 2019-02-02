@@ -2,13 +2,10 @@ package com.philippe75.libraryWS.business.impl.manager;
 
 
 import javax.inject.Named;
-
+import javax.persistence.NoResultException;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
-import com.philippe75.libraryWS.model.exception.AuthentificationException;
-import com.philippe75.libraryWS.model.exception.DataBaseException;
-import com.philippe75.libraryWS.model.exception.NotFoundException;
-import com.philippe75.libraryWS.model.exception.fault.AuthentificationFault;
+import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 
@@ -22,39 +19,71 @@ import com.philippe75.libraryWS.model.user.UserAccount;
 public class UserAccountManagerImpl extends AbstractManager implements UserAccountManager{
 	
 	/**
-	 * Get the {@link UserAccountDto} with name required.
-	 * 
-	 * @param userAccountId the id of the user
-	 * @return UserAccountDto Dto object of {@link UserAccount} with id required.
+	 * @param userMemeberId the member id of the user.
+	 * @param password the password.
+	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
 	@Override
 	public UserAccountDto getUserAccountByMemberId(String userMemberId, String password) throws AuthentificationException {
 		
 		UserAccount ua;
-		AuthentificationFault af;
 		
 		try {
 			ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
+		} catch (NoResultException e) {
+			System.out.println(e.getMessage());
+			throw new AuthentificationException("NoResultException", AuthentificationFaultFactory("1234", "No entity found for query."));
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			
-			af = new AuthentificationFault();
-			af.setFaultCode("1234");
-			af.setFaultMessage(e.getMessage());
-			throw new AuthentificationException("An error happened in database", af);
-		}
+			throw new AuthentificationException("Exception", AuthentificationFaultFactory("1299", e.getMessage()));
+		} 
 		
 		if(!(userMemberId.equals(ua.getUserMemberId()) && password.equals(ua.getPassword()))) {
-
-			af = new AuthentificationFault();
-			af.setFaultCode("1235");
-			af.setFaultMessage("The password is incorrect ...");
-			throw new AuthentificationException("Invalid Password", af);
+			throw new AuthentificationException("InvalidPasswordException", AuthentificationFaultFactory("1235", "The password is incorrect ..."));
 		}
 		return userAccountModelToDto(ua);
 		
 	}
+	
 
+
+	/**
+	 * Method that saves user password if first login.
+	 * 
+	 * @param userMemberId the user Member id
+	 * @param password user password to save 
+	 * 
+	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
+	 */
+	@Override
+	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException {
+		UserAccount ua;
+		
+		try {
+			ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
+			if(ua.getPassword() == null) {
+				ua = daoHandler.getUserAccountDao().saveUserAccountPw(userMemberId, password);
+				return userAccountModelToDto(ua);
+			}
+			
+		} catch (NoResultException e) {
+			System.out.println(e.getMessage());
+			throw new AuthentificationException("NoResultException", AuthentificationFaultFactory("1234", "No entity found for query."));
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new AuthentificationException("Exception", AuthentificationFaultFactory("1299", e.getMessage()));
+		} 
+		
+		throw new AuthentificationException("ExistingPasswordException", AuthentificationFaultFactory("1236", "A password already exists for this member id."));
+		
+	}
+
+	
+	
+	
+	//UTILITY METHODS 
 	/**
 	 * Transform model objects fetched from database to data transfer object.   
 	 * 
@@ -76,6 +105,5 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		
 		return uad;
 	}
-
 
 }

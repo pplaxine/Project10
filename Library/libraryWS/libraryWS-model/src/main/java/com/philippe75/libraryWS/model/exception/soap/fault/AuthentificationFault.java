@@ -1,4 +1,4 @@
-package com.philippe75.libraryWS.model.exception.fault;
+package com.philippe75.libraryWS.model.exception.soap.fault;
 
 public class AuthentificationFault {
 	

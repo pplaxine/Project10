@@ -5,17 +5,19 @@
 <html>
 	<head>
 		<%@ include file="_include/head.jsp" %>
-		<title>Login</title>
+		<title>First login</title>
 	</head>
 	<body >
 		<%@ include file="_include/header.jsp" %>
-		<s:form action="login">
+		
+		<h1><s:text name="login.first.title"/></h1>
+		<s:form action="firstlogin">
 			<s:textfield label="Login id" key="userMemberId"/>
 			<s:password label="Password" key="password"/>
+			<s:password key="passwordConf"/>
 			<s:submit/>
 		</s:form>
 		<s:actionerror/>
-		<s:actionmessage/>
 
 	</body>
 </html>

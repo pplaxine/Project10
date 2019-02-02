@@ -5,7 +5,7 @@
         
 <struts>
 
-    <package name="default" extends="struts-default">
+    <package name="public" extends="struts-default">
         <!-- Action par défaut -->
         <default-action-ref name="main" />
 
@@ -19,11 +19,29 @@
      	</action> 
      	
      	<!-- Action "login" -->
+        <action name="firstlogin" class="com.philippe75.libraryWebapp.webapp.action.LoginAction" method="doFirstLogin">
+           	<result name="input">WEB-INF/jsp/firstlogin.jsp</result>
+            <result name="success" type="redirectAction">login</result>
+            
+            <interceptor-ref name="store">
+	        	<param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
+
+        </action>
         <action name="login" class="com.philippe75.libraryWebapp.webapp.action.LoginAction" method="doLogin">
            	<result name="input">WEB-INF/jsp/login.jsp</result>
-            <result name="success" type="redirectAction">findbook</result>
+            <result name="success" type="redirectAction">main</result>
+            
+		    <interceptor-ref name="store">
+		        <param name="operationMode">RETRIEVE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
         </action>
-     	
+     	<action name="logout" class="com.philippe75.libraryWebapp.webapp.action.LoginAction" method="doLogout">
+            <result name="success" type="redirectAction">main</result>
+
+        </action>
         
     </package>
 </struts>

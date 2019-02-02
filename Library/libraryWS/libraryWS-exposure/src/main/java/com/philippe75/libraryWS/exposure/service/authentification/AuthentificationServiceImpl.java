@@ -8,7 +8,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
-import com.philippe75.libraryWS.model.exception.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
 
 /**
  * <b>Authentification service end point Class.</b>
@@ -42,10 +42,23 @@ public class AuthentificationServiceImpl extends SpringBeanAutowiringSupport imp
 	@Override
 	public UserAccountDto getUserAccount(String userMemberId, String password) throws AuthentificationException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		
-		UserAccountDto uad = (UserAccountDto)managerHandler.getUserAccountManager().getUserAccountByMemberId(userMemberId, password);
-		
-		return uad;
+		return (UserAccountDto)managerHandler.getUserAccountManager().getUserAccountByMemberId(userMemberId, password);
+
 	}
+
+	/**
+	 * Method that saves user password if first login.
+	 * 
+	 * @param userMemberId the user Member id
+	 * @param password user password to save 
+	 * @return UserAccountDto 
+	 */
+	@Override
+	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return (UserAccountDto) managerHandler.getUserAccountManager().saveUserAccountPw(userMemberId, password);
+	}
+	
+	
 
 }

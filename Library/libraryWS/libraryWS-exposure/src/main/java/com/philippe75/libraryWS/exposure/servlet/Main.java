@@ -18,9 +18,10 @@ import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
-import com.philippe75.libraryWS.model.exception.AuthentificationException;
 import com.philippe75.libraryWS.model.exception.DataBaseException;
 import com.philippe75.libraryWS.model.exception.NotFoundException;
+import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
+import com.philippe75.libraryWS.model.user.UserAccount;
 
 public class Main extends HttpServlet {
 
@@ -40,14 +41,33 @@ public class Main extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		try {
-			UserAccountDto uad = managerHandler.getUserAccountManager().getUserAccountByMemberId("JTille", "t2est01");
-			System.out.println("Cette persone existe !");
+//		try {
+//			UserAccountDto uad = managerHandler.getUserAccountManager().getUserAccountByMemberId("JTill", "de");
+//			System.out.println("Cette persone existe !");
+//		
+//		} catch (AuthentificationException e) {
+//			System.out.println( " Depuis methode main" + e.getMessage());
+//		}
+//		
 		
-		} catch (AuthentificationException e) {
-			System.out.println("Auth Exception haha ! " + e.getMessage());
-		}
 		
+//			try {
+//				UserAccountDto uad = managerHandler.getUserAccountManager().getUserAccountByMemberId("JTille");
+//				System.out.println(uad.getFirstName());
+//			} catch (AuthentificationException e) {
+//				System.out.println(e.getMessage());
+//			}
+			
+		
+
+			try {
+				UserAccountDto ua = managerHandler.getUserAccountManager().saveUserAccountPw("MSegaux", "Bloom");
+			} catch (AuthentificationException e) {
+				e.getMessage();
+			}
+			
+			
+
 		this.getServletContext().getRequestDispatcher(VUE_MAIN).forward(request, response);
 	}
 

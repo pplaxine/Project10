@@ -1,7 +1,7 @@
 package com.philippe75.libraryWS.business.contract.manager;
 
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
-import com.philippe75.libraryWS.model.exception.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
@@ -13,9 +13,18 @@ import com.philippe75.libraryWS.model.user.UserAccount;
 public interface UserAccountManager  {
 	
 	/**
-	 * @param userAccountId the id of the user.
+	 * @param userMemeberId the member id of the user.
+	 * @param password the password.
 	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
 	UserAccountDto getUserAccountByMemberId(String userMemberId, String password) throws AuthentificationException;
 	
+	/**
+	 * Method that saves user password if first login.
+	 * 
+	 * @param userMemberId the user Member id
+	 * @param password user password to save 
+	 * @return UserAccountDto 
+	 */
+	UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException;
 }
