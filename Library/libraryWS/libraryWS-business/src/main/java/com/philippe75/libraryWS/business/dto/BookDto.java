@@ -1,11 +1,6 @@
 package com.philippe75.libraryWS.business.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.book.Genre;
-import com.philippe75.libraryWS.model.library.Library;
 
 /**
  * <b>Dto object of a Book.</b>

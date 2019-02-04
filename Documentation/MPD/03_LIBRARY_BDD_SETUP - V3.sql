@@ -207,11 +207,27 @@ INSERT INTO book (name, author, summary, book_genre, available, library_id) VALU
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',true,1);
 
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Les misérables','Victor Hugo','résumé du livre...','DRAMA',true,2);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Les misérables','Victor Hugo','résumé du livre...','DRAMA',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Les misérables','Victor Hugo','résumé du livre...','DRAMA',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Les misérables','Victor Hugo','résumé du livre...','DRAMA',true,3);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('A la croisé des mondes','Philip pullman','résumé du livre...','FANTASY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('A la croisé des mondes','Philip pullman','résumé du livre...','FANTASY',true,2);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('A la croisé des mondes','Philip pullman','résumé du livre...','FANTASY',true,3);
+
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Legend','David Gemmell','résumé du livre...','FANTASY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('1984','George Orwell','résumé du livre...','DYSTOPIA',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('V pour vendetta','Ygrec','résumé du livre...','DYSTOPIA',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Phèdre','Jean Racine','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Horace','Pierre Corneille','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Antigone','Jean anouilh','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Poétique','Aristote','résumé du livre...','TRAGEDY',true,1);
+
 INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('3bis','Rue léchevin','Paris',75011);
 INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('18','Avenue Montaigne','Paris',75008);
 INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('14',E'Rue d\'Antin','Paris',75002);
 
-INSERT INTO user_account(user_member_id,password,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('JTille','test01','USER_99','Jean','Tille',1,'jeantille@orange.fr',0033145484575,False);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('JTille','USER_99','Jean','Tille',1,'jeantille@orange.fr',0033145484575,False);
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('MSegaux','USER_99','Madelaine','Segaux',2,'mady@orange.fr',003314541436,False);
 
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date,effective_end_date, extended,book_id, user_account_id) VALUES ('2018-02-17 09:00:00','2018-02-23 18:00:00','2018-02-27 18:00:00','2018-02-26 18:00:00',true,1,1);

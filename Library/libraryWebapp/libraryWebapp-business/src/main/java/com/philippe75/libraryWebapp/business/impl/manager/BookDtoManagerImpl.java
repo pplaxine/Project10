@@ -6,6 +6,7 @@ import javax.inject.Named;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
+import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;
 
 /**
  * <b>Implements BookDtoManager Interface</b>
@@ -14,7 +15,7 @@ import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
  * @version 1.0
  */
 @Named("bookManager")
-public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements BookDtoManager{
+public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements BookDtoManager {
 
 	/**
 	 * Get all the {@link BookDto} with name required.
@@ -23,11 +24,31 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 * @return List<BookDto> listBookDto of {@link BookDto} with name required.
 	 */
 	@Override
-	public List<BookDto> getListBookByName(String bookName) {
+	public List<BookDto> getListBookByName(String bookName) throws LibraryServiceException_Exception {
 		
 		List<BookDto> listBookDto = getBookSearchService().getListBookByName(bookName).getItem();
 		
 		return listBookDto;
+	}
+
+	/**
+	 * If entry contained in the name of books. Get the 10 first book matching with.  
+	 * 
+	 * @param name the string to be contained in the book name
+	 * @return List<BookDto> listBookDto of {@link BookDto} containing the entry in their name.
+	 */
+	@Override
+	public List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException_Exception {
+		System.out.println(name);
+		if(name.trim() != null) {
+			try {
+					return (List<BookDto>)getBookSearchService().getListBookStartingBy(name).getItem();
+				
+			} catch (LibraryServiceException_Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
  

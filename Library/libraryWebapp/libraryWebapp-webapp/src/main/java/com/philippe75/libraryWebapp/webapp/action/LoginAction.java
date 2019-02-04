@@ -11,7 +11,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler;
-import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationException_Exception;
+import com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
 
 public class LoginAction extends ActionSupport implements SessionAware, ServletRequestAware {
@@ -79,7 +79,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 					result = ActionSupport.SUCCESS;
 				}
 				
-			} catch (AuthentificationException_Exception aEx) {
+			} catch (LibraryServiceException_Exception aEx) {
 				if((aEx.getMessage()).equals("NoResultException")) {
 					this.addFieldError("userMemberId", getText("login.failure.login"));
 				}else if ((aEx.getMessage()).equals("ExistingPasswordException") ) {
@@ -102,7 +102,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 				this.session.put("user", uad);
 				result = ActionSupport.SUCCESS;
 				
-			} catch (AuthentificationException_Exception e) {
+			} catch (LibraryServiceException_Exception e) {
 	
 				this.addActionError(getText("login.failure"));
 				if((e.getMessage()).equals("NoResultException")) {

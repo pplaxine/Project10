@@ -36,7 +36,7 @@ public class UserAccountDaoImpl extends AbstractDao implements UserAccountDao {
 		session.beginTransaction();
 		try {
 			
-			userAccount = (UserAccount) session.createSQLQuery(sql)
+			userAccount = (UserAccount) session.createSQLQuery(sql)	
 												.setParameter("userMemberId", userMemberId)
 												.addEntity(UserAccount.class)
 												.getSingleResult();

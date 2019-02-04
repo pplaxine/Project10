@@ -31,19 +31,19 @@ public interface AuthentificationService {
      * @param arg0
      * @return
      *     returns com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto
-     * @throws AuthentificationException_Exception
+     * @throws LibraryServiceException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/getUserAccountRequest", output = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/getUserAccountResponse", fault = {
-        @FaultAction(className = AuthentificationException_Exception.class, value = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/getUserAccount/Fault/AuthentificationException")
+    @Action(input = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/saveUserAccountPwRequest", output = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/saveUserAccountPwResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/saveUserAccountPw/Fault/LibraryServiceException")
     })
-    public UserAccountDto getUserAccount(
+    public UserAccountDto saveUserAccountPw(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
         String arg1)
-        throws AuthentificationException_Exception
+        throws LibraryServiceException_Exception
     ;
 
     /**
@@ -52,19 +52,19 @@ public interface AuthentificationService {
      * @param arg0
      * @return
      *     returns com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto
-     * @throws AuthentificationException_Exception
+     * @throws LibraryServiceException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/saveUserAccountPwRequest", output = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/saveUserAccountPwResponse", fault = {
-        @FaultAction(className = AuthentificationException_Exception.class, value = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/saveUserAccountPw/Fault/AuthentificationException")
+    @Action(input = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/getUserAccountRequest", output = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/getUserAccountResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://authentification.service.exposure.libraryWS.philippe75.com/AuthentificationService/getUserAccount/Fault/LibraryServiceException")
     })
-    public UserAccountDto saveUserAccountPw(
+    public UserAccountDto getUserAccount(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
         String arg1)
-        throws AuthentificationException_Exception
+        throws LibraryServiceException_Exception
     ;
 
 }

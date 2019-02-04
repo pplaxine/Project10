@@ -3,6 +3,7 @@ package com.philippe75.libraryWebapp.business.contract.manager;
 import java.util.List;
 
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
+import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;
 /**
  * <b>Contains all methods related to {@link BookDto} requests</b>
  * 
@@ -17,7 +18,7 @@ public interface BookDtoManager {
 	 * @param name of the book
 	 * @return List<BookDto> list of all the books 
 	 */
-	List<BookDto> getListBookByName(String bookName);
+	List<BookDto> getListBookByName(String bookName) throws LibraryServiceException_Exception;
 
-
+	List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException_Exception;
 }

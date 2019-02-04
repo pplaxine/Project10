@@ -8,6 +8,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
 import com.philippe75.libraryWS.business.dto.BookDto;
+import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
 /**
  * <b>Book service end point Interface.</b>
@@ -26,6 +27,14 @@ public interface BookSearchService {
 	 * @return list of all the books 
 	 */
 	@WebMethod
-	public List<BookDto >getListBookByName(String name);
+	public List<BookDto> getListBookByName(String name) throws LibraryServiceException;
 	
+	/**
+	 * Method that gets, the 10 first book containing entry in their name.  
+	 * 
+	 * @param name the string to be contained in the book name
+	 * @return List<BookDto> listBookDto of {@link BookDto} containing the entry in their name.
+	 */
+	@WebMethod
+	public List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException;
 }

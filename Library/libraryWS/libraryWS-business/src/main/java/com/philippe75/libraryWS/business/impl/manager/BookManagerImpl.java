@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 
 import com.philippe75.libraryWS.business.contract.manager.BookManager;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
 /**
  * <b>Implements BookManager Interface</b>
@@ -25,22 +27,56 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 	 * @return List<BookDto> list of Dto object of {@link Book} with name required.
 	 */
 	@Override
-	public List<BookDto> getListBookByName(String name) {
+	public List<BookDto> getListBookByName(String name) throws LibraryServiceException {
 		
-		List<BookDto> listBookDto = new ArrayList<>();
-		List<Book> listBook = null;
-		
-		if(getDaoHandler().getBookDao().getListBookByName(name)!=null){
-			listBook = getDaoHandler().getBookDao().getListBookByName(name);
-			for (Book book : listBook) {
-				listBookDto.add(bookModelToDto(book));
-			}
-		}else {
-			//Log
-			System.out.println("plop");
-		}
-		return listBookDto;
+		List<Book> lb;
+		List<BookDto> lbd = new ArrayList<>();
+
+			try {
+				lb = getDaoHandler().getBookDao().getListBookByName(name);
+				for (Book book : lb) {
+					lbd.add(bookModelToDto(book));
+				}
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			} 
+			
+
+		return lbd;
 	}
+	
+	/**
+	 * Method that gets, the 10 first book containing entry in their name.  
+	 * 
+	 * @param name the string to be contained in the book name
+	 * @return List<BookDto> listBookDto of {@link BookDto} containing the entry in their name.
+	 */
+	@Override
+	public List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException {
+		
+		List<Book> lb; 
+		List<BookDto> lbd= new ArrayList<>();
+		try {
+			lb = getDaoHandler().getBookDao().getListBookStartingBy(name);
+			lb.forEach(e -> lbd.add(bookModelToDto(e)));
+		} catch (NoResultException e) {
+			System.out.println(e.getMessage());
+			throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+		} 
+		
+		return lbd;
+	}
+	
+	
 	
 	/**
 	 * Transform model objects fetched from database to data transfer object.   
@@ -62,5 +98,10 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 		
 		return bd;
 	}
+
+
+
+
+
 
 }

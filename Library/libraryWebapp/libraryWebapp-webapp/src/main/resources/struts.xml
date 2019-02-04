@@ -40,9 +40,12 @@
         </action>
      	<action name="logout" class="com.philippe75.libraryWebapp.webapp.action.LoginAction" method="doLogout">
             <result name="success" type="redirectAction">main</result>
-
         </action>
         
+        <!-- Action "book" -->
+        <action name="getbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doBookByName">
+			<result>WEB-INF/jsp/test.jsp</result>
+     	</action> 
     </package>
 </struts>
  

@@ -2,8 +2,8 @@ package com.philippe75.libraryWebapp.business.contract.manager;
 
 import javax.inject.Named;
 
-import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
+import com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceException_Exception;
 /**
  * <b>Contains all methods related to {@link UserAccount} requests</b>
  * 
@@ -18,7 +18,7 @@ public interface UserAccountDtoManager {
 	 * @param password the password.
 	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
-	UserAccountDto getUserAccount(String userMemberId, String password) throws AuthentificationException_Exception;
+	UserAccountDto getUserAccount(String userMemberId, String password) throws LibraryServiceException_Exception;
 
 	/**
 	 * Method that saves user password if first login.
@@ -27,5 +27,5 @@ public interface UserAccountDtoManager {
 	 * @param password user password to save 
 	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
-	UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException_Exception;
+	UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException_Exception;
 }

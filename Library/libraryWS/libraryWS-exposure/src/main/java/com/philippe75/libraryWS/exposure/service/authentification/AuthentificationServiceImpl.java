@@ -8,7 +8,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
-import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
 /**
  * <b>Authentification service end point Class.</b>
@@ -37,10 +37,10 @@ public class AuthentificationServiceImpl extends SpringBeanAutowiringSupport imp
 	 * @param userMemberId the user Member id 
 	 * @param password user password
 	 * @return UserAccountDto 
-	 * @throws AuthentificationException 
+	 * @throws LibraryServiceException 
 	 */
 	@Override
-	public UserAccountDto getUserAccount(String userMemberId, String password) throws AuthentificationException {
+	public UserAccountDto getUserAccount(String userMemberId, String password) throws LibraryServiceException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		return (UserAccountDto)managerHandler.getUserAccountManager().getUserAccountByMemberId(userMemberId, password);
 
@@ -54,7 +54,7 @@ public class AuthentificationServiceImpl extends SpringBeanAutowiringSupport imp
 	 * @return UserAccountDto 
 	 */
 	@Override
-	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException {
+	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		return (UserAccountDto) managerHandler.getUserAccountManager().saveUserAccountPw(userMemberId, password);
 	}

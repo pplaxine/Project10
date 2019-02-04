@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 
 
 /**
@@ -29,12 +30,35 @@ public interface BookSearchService {
      * @param arg0
      * @return
      *     returns com.philippe75.libraryWebapp.stub.generated.bookServ.ListOfBookDto
+     * @throws LibraryServiceException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookByNameRequest", output = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookByNameResponse")
+    @Action(input = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookStartingByRequest", output = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookStartingByResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookStartingBy/Fault/LibraryServiceException")
+    })
+    public ListOfBookDto getListBookStartingBy(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws LibraryServiceException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns com.philippe75.libraryWebapp.stub.generated.bookServ.ListOfBookDto
+     * @throws LibraryServiceException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookByNameRequest", output = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookByNameResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://booksearch.service.exposure.libraryWS.philippe75.com/BookSearchService/getListBookByName/Fault/LibraryServiceException")
+    })
     public ListOfBookDto getListBookByName(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+        String arg0)
+        throws LibraryServiceException_Exception
+    ;
 
 }

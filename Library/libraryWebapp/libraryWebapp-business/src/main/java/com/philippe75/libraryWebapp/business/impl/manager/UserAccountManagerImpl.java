@@ -3,8 +3,8 @@ package com.philippe75.libraryWebapp.business.impl.manager;
 import javax.inject.Named;
 
 import com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager;
-import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
+import com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceException_Exception;
 
 /**
  * <b>Implements UserAccountManager Interface</b>
@@ -22,7 +22,7 @@ public class UserAccountManagerImpl extends AbstractManagerServiceAccess impleme
 	 * @throws AuthentificationException_Exception 
 	 */
 	@Override
-	public UserAccountDto getUserAccount(String userMemberId, String password) throws AuthentificationException_Exception {
+	public UserAccountDto getUserAccount(String userMemberId, String password) throws LibraryServiceException_Exception {
 		return getAuthService().getUserAccount(userMemberId, password);
 	}
 	
@@ -34,10 +34,7 @@ public class UserAccountManagerImpl extends AbstractManagerServiceAccess impleme
 	 * @return UserAccountDto 
 	 */
 	@Override
-	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException_Exception {
-		
-		
-		
+	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException_Exception {
 		return getAuthService().saveUserAccountPw(userMemberId, password);
 	}
 

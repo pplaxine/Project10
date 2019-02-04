@@ -8,11 +8,9 @@
 </head>
 
 <body>
-	<h2>Test</h2></br>
-	
 	<s:iterator value="listBookByName">
 		<li>
-			Le nom : <s:property value="name"/>
+			<s:property value="name"/> <s:property value="author"/>
 		</li>
 	</s:iterator>
 	

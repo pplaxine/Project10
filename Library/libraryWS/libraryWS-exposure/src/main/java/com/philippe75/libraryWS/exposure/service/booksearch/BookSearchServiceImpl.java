@@ -9,6 +9,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookDto;
+import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
 /**
  * <b>Book service end point Class.</b>
@@ -38,12 +39,23 @@ public class BookSearchServiceImpl extends SpringBeanAutowiringSupport implement
 	 * @return list of all the books 
 	 */
 	@Override
-	public List<BookDto> getListBookByName(String name) {
+	public List<BookDto> getListBookByName(String name) throws LibraryServiceException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		
-		List<BookDto> list = managerHandler.getBookManager().getListBookByName(name);
-		System.out.println(list.size());
-		return list;
+		return (List<BookDto>)managerHandler.getBookManager().getListBookByName(name);
 	}
+
+	/**
+	 * Method that gets, the 10 first book containing entry in their name.  
+	 * 
+	 * @param name the string to be contained in the book name
+	 * @return List<BookDto> listBookDto of {@link BookDto} containing the entry in their name.
+	 */
+	@Override
+	public List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return (List<BookDto>)managerHandler.getBookManager().getListBookStartingBy(name);
+	}
+	
+	
 	
 }

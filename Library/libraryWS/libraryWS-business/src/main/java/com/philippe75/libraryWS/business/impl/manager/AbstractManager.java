@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
-import com.philippe75.libraryWS.model.exception.soap.fault.AuthentificationFault;
+import com.philippe75.libraryWS.model.exception.soap.fault.LibraryServiceFault;
 
 /**
  * <b>Abstract Class that provides access to Dao layer</b>
@@ -30,8 +30,15 @@ public abstract class AbstractManager {
 	}
 	
 	//UTILITY METHODS 
-	protected AuthentificationFault AuthentificationFaultFactory(String faultCode, String message) {
-		AuthentificationFault af = new AuthentificationFault();
+	/**
+	 * Creates a LibraryServiceFault.
+	 * 
+	 * @param faultCode the code of the fault
+	 * @param message the message og the fault
+	 * @return LibraryServiceFault
+	 */
+	protected LibraryServiceFault libraryServiceFaultFactory(String faultCode, String message) {
+		LibraryServiceFault af = new LibraryServiceFault();
 		af.setFaultCode(faultCode);
 		af.setFaultMessage(message);
 		return af;

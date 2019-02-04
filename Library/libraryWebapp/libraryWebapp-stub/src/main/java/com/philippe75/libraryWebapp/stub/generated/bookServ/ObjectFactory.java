@@ -1,7 +1,10 @@
 
 package com.philippe75.libraryWebapp.stub.generated.bookServ;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -21,6 +24,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _LibraryServiceException_QNAME = new QName("http://booksearch.service.exposure.libraryWS.philippe75.com/", "LibraryServiceException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.philippe75.libraryWebapp.stub.generated.bookServ
@@ -30,11 +34,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LibraryServiceException }
+     * 
+     */
+    public LibraryServiceException createLibraryServiceException() {
+        return new LibraryServiceException();
+    }
+
+    /**
      * Create an instance of {@link ListOfBookDto }
      * 
      */
     public ListOfBookDto createListOfBookDto() {
         return new ListOfBookDto();
+    }
+
+    /**
+     * Create an instance of {@link LibraryServiceFault }
+     * 
+     */
+    public LibraryServiceFault createLibraryServiceFault() {
+        return new LibraryServiceFault();
     }
 
     /**
@@ -51,6 +71,15 @@ public class ObjectFactory {
      */
     public BookDto createBookDto() {
         return new BookDto();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LibraryServiceException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://booksearch.service.exposure.libraryWS.philippe75.com/", name = "LibraryServiceException")
+    public JAXBElement<LibraryServiceException> createLibraryServiceException(LibraryServiceException value) {
+        return new JAXBElement<LibraryServiceException>(_LibraryServiceException_QNAME, LibraryServiceException.class, null, value);
     }
 
 }

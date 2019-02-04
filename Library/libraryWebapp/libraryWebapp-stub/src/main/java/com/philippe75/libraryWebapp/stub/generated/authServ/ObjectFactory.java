@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AuthentificationException_QNAME = new QName("http://authentification.service.exposure.libraryWS.philippe75.com/", "AuthentificationException");
+    private final static QName _LibraryServiceException_QNAME = new QName("http://authentification.service.exposure.libraryWS.philippe75.com/", "LibraryServiceException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.philippe75.libraryWebapp.stub.generated.authServ
@@ -34,11 +34,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AuthentificationException }
+     * Create an instance of {@link LibraryServiceException }
      * 
      */
-    public AuthentificationException createAuthentificationException() {
-        return new AuthentificationException();
+    public LibraryServiceException createLibraryServiceException() {
+        return new LibraryServiceException();
     }
 
     /**
@@ -50,11 +50,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AuthentificationFault }
+     * Create an instance of {@link LibraryServiceFault }
      * 
      */
-    public AuthentificationFault createAuthentificationFault() {
-        return new AuthentificationFault();
+    public LibraryServiceFault createLibraryServiceFault() {
+        return new LibraryServiceFault();
     }
 
     /**
@@ -66,12 +66,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AuthentificationException }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LibraryServiceException }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://authentification.service.exposure.libraryWS.philippe75.com/", name = "AuthentificationException")
-    public JAXBElement<AuthentificationException> createAuthentificationException(AuthentificationException value) {
-        return new JAXBElement<AuthentificationException>(_AuthentificationException_QNAME, AuthentificationException.class, null, value);
+    @XmlElementDecl(namespace = "http://authentification.service.exposure.libraryWS.philippe75.com/", name = "LibraryServiceException")
+    public JAXBElement<LibraryServiceException> createLibraryServiceException(LibraryServiceException value) {
+        return new JAXBElement<LibraryServiceException>(_LibraryServiceException_QNAME, LibraryServiceException.class, null, value);
     }
 
 }

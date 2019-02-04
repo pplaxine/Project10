@@ -20,7 +20,7 @@ import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.exception.DataBaseException;
 import com.philippe75.libraryWS.model.exception.NotFoundException;
-import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 public class Main extends HttpServlet {
@@ -60,13 +60,20 @@ public class Main extends HttpServlet {
 			
 		
 
+//			try {
+//				UserAccountDto ua = managerHandler.getUserAccountManager().saveUserAccountPw("MSegaux", "Bloom");
+//			} catch (AuthentificationException e) {
+//				e.getMessage();
+//			}
+			
+		
 			try {
-				UserAccountDto ua = managerHandler.getUserAccountManager().saveUserAccountPw("MSegaux", "Bloom");
-			} catch (AuthentificationException e) {
-				e.getMessage();
+				List<BookDto> listbook = managerHandler.getBookManager().getListBookStartingBy("A");
+				listbook.forEach(e -> System.out.println(e.getName()));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			
-			
 
 		this.getServletContext().getRequestDispatcher(VUE_MAIN).forward(request, response);
 	}

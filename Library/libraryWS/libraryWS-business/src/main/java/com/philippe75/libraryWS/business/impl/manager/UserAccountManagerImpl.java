@@ -8,7 +8,7 @@ import javax.persistence.NoResultException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
-import com.philippe75.libraryWS.model.exception.saop.AuthentificationException;
+import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 
@@ -30,7 +30,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
 	@Override
-	public UserAccountDto getUserAccountByMemberId(String userMemberId, String password) throws AuthentificationException {
+	public UserAccountDto getUserAccountByMemberId(String userMemberId, String password) throws LibraryServiceException {
 		
 		UserAccount ua;
 		
@@ -38,15 +38,15 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 			ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
 		} catch (NoResultException e) {
 			System.out.println(e.getMessage());
-			throw new AuthentificationException("NoResultException", AuthentificationFaultFactory("1234", "No entity found for query."));
+			throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			throw new AuthentificationException("Exception", AuthentificationFaultFactory("1299", e.getMessage()));
+			throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 		} 
 		
 		if(!(userMemberId.equals(ua.getUserMemberId()) && bcPasswordEncodeur.matches(password, ua.getPassword()))) {
-			throw new AuthentificationException("InvalidPasswordException", AuthentificationFaultFactory("1235", "The password is incorrect ..."));
+			throw new LibraryServiceException("InvalidPasswordException", libraryServiceFaultFactory("1235", "The password is incorrect ..."));
 		}
 		return userAccountModelToDto(ua);
 		
@@ -63,7 +63,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
 	@Override
-	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws AuthentificationException {
+	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException {
 		UserAccount ua;
 		
 		try {
@@ -77,14 +77,14 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 			
 		} catch (NoResultException e) {
 			System.out.println(e.getMessage());
-			throw new AuthentificationException("NoResultException", AuthentificationFaultFactory("1234", "No entity found for query."));
+			throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			throw new AuthentificationException("Exception", AuthentificationFaultFactory("1299", e.getMessage()));
+			throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 		} 
 		
-		throw new AuthentificationException("ExistingPasswordException", AuthentificationFaultFactory("1236", "A password already exists for this member id."));
+		throw new LibraryServiceException("ExistingPasswordException", libraryServiceFaultFactory("1236", "A password already exists for this member id."));
 		
 	}
 

@@ -1,9 +1,5 @@
 package com.philippe75.libraryWS.business.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.user.UserAddress;
 
 /**
