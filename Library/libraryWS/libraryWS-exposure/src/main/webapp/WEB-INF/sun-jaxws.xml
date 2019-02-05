@@ -9,4 +9,7 @@
         implementation="com.philippe75.libraryWS.exposure.service.authentification.AuthentificationServiceImpl"
         url-pattern="/libraryAuthService" />
         
+	<endpoint name="LibraryBorrowingService"
+        implementation="com.philippe75.libraryWS.exposure.service.borrowing.BorrowingServiceImpl"
+        url-pattern="/libraryBorrowingService" />
 </endpoints>

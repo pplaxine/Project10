@@ -106,7 +106,7 @@ public class Book {
 		this.available = available;
 	}
 	
-	@ManyToOne
+	@ManyToOne 
 	@JoinColumn(name="library_id")
 	public Library getLibrary() {
 		return library;

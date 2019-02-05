@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.contract.manager.BookManager;
+import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
 
 /**
@@ -27,6 +28,12 @@ public class ManagerHandlerImpl implements ManagerHandler{
 	 */
 	@Inject
 	private BookManager bookManager;
+	
+	/**
+	 * injection of {@link BorrowingManager}
+	 */
+	@Inject
+	private BorrowingManager borrowingManager;
 
 	@Override
 	public UserAccountManager getUserAccountManager() {
@@ -37,6 +44,11 @@ public class ManagerHandlerImpl implements ManagerHandler{
 	public BookManager getBookManager() {
 		return bookManager;
 	}
+
+	public BorrowingManager getBorrowingManager() {
+		return borrowingManager;
+	}
+	
 	
 	
 }

@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.hibernate.Criteria"/>
-<fullyQualifiedTypeName name="javax.persistence.criteria.CriteriaBuilder"/>
-<fullyQualifiedTypeName name="org.hibernate.criterion.Projections"/>
-<fullyQualifiedTypeName name="org.hibernate.criterion.Restrictions"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.exception.AuthentificationException"/>
-<fullyQualifiedTypeName name="java.lang.Exception"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationService"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationServiceImplService"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.impl.manager.AbstractManagerServiceAccess"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler"/>
-<fullyQualifiedTypeName name="javax.inject.Named"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
-<fullyQualifiedTypeName name="org.apache.struts2.interceptor.SessionAware"/>
-<fullyQualifiedTypeName name="org.apache.struts2.interceptor.ServletRequestAware"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.exception.fault.AuthentificationFault"/>
-<fullyQualifiedTypeName name="javax.persistence.NoResultException"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao"/>
 <fullyQualifiedTypeName name="javax.jws.WebMethod"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.UserAccountDto"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.user.UserAccount"/>
 <fullyQualifiedTypeName name="javax.transaction.Transaction"/>
 <fullyQualifiedTypeName name="org.hibernate.Transaction"/>
 <fullyQualifiedTypeName name="org.hibernate.HibernateException"/>
@@ -60,4 +41,23 @@
 <fullyQualifiedTypeName name="org.apache.tomcat.jni.LibraryNotFoundError"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceException_Exception"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao"/>
+<fullyQualifiedTypeName name="javax.persistence.Transient"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Borrowing"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.user.UserAccount"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.contract.manager.BorrowingManager"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BorrowingDto"/>
+<fullyQualifiedTypeName name="javax.persistence.FetchType"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.Fetch"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.BatchSize"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="org.hibernate.Criteria"/>
+<fullyQualifiedTypeName name="org.hibernate.criterion.Restrictions"/>
+<fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+<fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlAccessorType"/>
+<fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlAccessType"/>
+<fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlTransient"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.library.Library"/>
 </qualifiedTypeNameHistroy>

@@ -162,7 +162,7 @@ public class UserAccount {
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
 	}
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="userAccount")
+	@OneToMany(mappedBy="userAccount")
 	public Collection<Borrowing> getListBorrowing() {
 		return listBorrowing;
 	}

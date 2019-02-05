@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.staff.StaffAccount;
@@ -35,6 +38,7 @@ import com.philippe75.libraryWS.model.staff.StaffAccount;
  * @version 1.0
  */
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Library {
 	
 	/**
@@ -56,11 +60,12 @@ public class Library {
 	/**
 	 * Accounts of Staff members attached to the library(City has several libraries).
 	 */
+	@XmlTransient
 	private Collection<StaffAccount> listStaffAccount = new ArrayList<>();
 	/**
 	 * List of all the books owned by library.
 	 */
-	private Collection<Book> listBook = new ArrayList<>();
+	//private Collection<Book> listBook = new ArrayList<>();
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -92,7 +97,7 @@ public class Library {
 		this.address = address;
 	}
 	
-	@OneToMany(mappedBy="library")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="library")
 	public Collection<StaffAccount> getListStaffAccount() {
 		return listStaffAccount;
 	}
@@ -100,13 +105,13 @@ public class Library {
 		this.listStaffAccount = listStaffAccount;
 	}
 	
-	@OneToMany(mappedBy="library")
-	public Collection<Book> getListBook() {
-		return listBook;
-	}
-	public void setListBook(Collection<Book> listBook) {
-		this.listBook = listBook;
-	}
+//	@OneToMany(mappedBy="library")
+//	public Collection<Book> getListBook() {
+//		return listBook;
+//	}
+//	public void setListBook(Collection<Book> listBook) {
+//		this.listBook = listBook;
+//	}
 	
 	
 	
