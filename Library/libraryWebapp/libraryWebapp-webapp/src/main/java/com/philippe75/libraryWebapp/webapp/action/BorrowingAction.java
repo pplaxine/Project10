@@ -33,13 +33,6 @@ public class BorrowingAction extends ActionSupport {
 		
 		try {
 			listBorrowingForUser = managerHandler.getBorrowingDtoManager().getAllBorrowingForUser("JTille");
-			for (BorrowingDto borrowingDto : listBorrowingForUser) {
-				System.out.println(borrowingDto.getStartDate().getClass());
-				System.out.println(borrowingDto.getStartDate().getClass());
-				System.out.println(borrowingDto.getStartDate().getClass());
-				
-			}
-			
 		} catch (LibraryServiceException_Exception e) {
 			if((e.getMessage()).equals("NoResultException")) {
 				this.addActionError(getText("Aucune reservation existante."));

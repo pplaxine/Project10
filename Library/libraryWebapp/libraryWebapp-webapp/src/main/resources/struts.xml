@@ -5,10 +5,23 @@
         
 <struts>
 
-    <package name="public" extends="struts-default">
+	<package name="abstractPackage" abstract="true" extends="struts-default">
+		<interceptors>
+			<interceptor name="auth" class="com.philippe75.libraryWebapp.webapp.interceptor.AuthentificationInterceptor"></interceptor>
+		</interceptors>
+		
+		<global-results>
+			<result name="error-forbidden" type="httpheader">
+				<param name="error">403</param>
+			</result>
+		</global-results>
+
+    </package>
+
+    <package name="public" extends="abstractPackage">
+
         <!-- Action par défaut -->
         <default-action-ref name="main" />
-
         <!-- Action "main" -->
         <action name="main">
             <result>WEB-INF/jsp/main.jsp</result>
@@ -47,11 +60,20 @@
 			<result>WEB-INF/jsp/test.jsp</result>
      	</action> 
      	
-     	<!-- Action "borrowing" -->
+
+    </package>
+    
+    <package name="private" extends="abstractPackage">
+    	
+    	<default-interceptor-ref name="auth"/>	<!-- authentification interceptor for private access -->
+    
+    	<!-- Action "borrowing" -->
         <action name="borrowings" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="doListBorrowingForUser">
 			<result>WEB-INF/jsp/borrowings.jsp</result>
      	</action> 
     </package>
+    
+    
 </struts>
  
  

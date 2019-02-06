@@ -105,7 +105,7 @@ public class Borrowing {
      *     
      */
     public void setEffectiveEndDate(XMLGregorianCalendar value) {
-        this.effectiveEndDate = value;
+    	this.effectiveEndDate = value;
     }
 
     /**

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager"/>
-<fullyQualifiedTypeName name="com.opensymphony.xwork2.ActionSupport"/>
 <fullyQualifiedTypeName name="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
 <fullyQualifiedTypeName name="org.springframework.security.crypto.password.DelegatingPasswordEncoder"/>
 <fullyQualifiedTypeName name="org.springframework.security.crypto.scrypt.SCryptPasswordEncoder"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.opensymphony.xwork2.interceptor.AbstractInterceptor"/>
 </qualifiedTypeNameHistroy>
