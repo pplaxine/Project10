@@ -25,10 +25,7 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 */
 	@Override
 	public List<BookDto> getListBookByName(String bookName) throws LibraryServiceException_Exception {
-		
-		List<BookDto> listBookDto = getBookSearchService().getListBookByName(bookName).getItem();
-		
-		return listBookDto;
+		return getBookSearchService().getListBookByName(bookName).getItem();
 	}
 
 	/**
@@ -39,16 +36,7 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 */
 	@Override
 	public List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException_Exception {
-		System.out.println(name);
-		if(name.trim() != null) {
-			try {
-					return (List<BookDto>)getBookSearchService().getListBookStartingBy(name).getItem();
-				
-			} catch (LibraryServiceException_Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
+		return getBookSearchService().getListBookStartingBy(name).getItem();
 	}
 
  

@@ -13,7 +13,7 @@ import com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceExcept
  * @version 1.0
  */
 @Named("userAccountDtoManager")
-public class UserAccountManagerImpl extends AbstractManagerServiceAccess implements UserAccountDtoManager{
+public class UserAccountDtoManagerImpl extends AbstractManagerServiceAccess implements UserAccountDtoManager{
 
 	/**
 	 * @param userMemeberId the member id of the user.

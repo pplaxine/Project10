@@ -46,6 +46,11 @@
         <action name="getbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doBookByName">
 			<result>WEB-INF/jsp/test.jsp</result>
      	</action> 
+     	
+     	<!-- Action "borrowing" -->
+        <action name="borrowings" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="doListBorrowingForUser">
+			<result>WEB-INF/jsp/borrowings.jsp</result>
+     	</action> 
     </package>
 </struts>
  

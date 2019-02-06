@@ -1,5 +1,5 @@
 
-package com.philippe75.libraryWebapp.stub.generated.bookServ;
+package com.philippe75.libraryWebapp.stub.generated.borrowingServ;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,16 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour AuthentificationException complex type.
+ * <p>Classe Java pour LibraryServiceException complex type.
  * 
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="AuthentificationException">
+ * &lt;complexType name="LibraryServiceException">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="fault" type="{http://booksearch.service.exposure.libraryWS.philippe75.com/}authentificationFault" minOccurs="0"/>
+ *         &lt;element name="fault" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}libraryServiceFault" minOccurs="0"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -27,13 +27,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AuthentificationException", propOrder = {
+@XmlType(name = "LibraryServiceException", propOrder = {
     "fault",
     "message"
 })
-public class AuthentificationException {
+public class LibraryServiceException {
 
-    protected AuthentificationFault fault;
+    protected LibraryServiceFault fault;
     protected String message;
 
     /**
@@ -41,10 +41,10 @@ public class AuthentificationException {
      * 
      * @return
      *     possible object is
-     *     {@link AuthentificationFault }
+     *     {@link LibraryServiceFault }
      *     
      */
-    public AuthentificationFault getFault() {
+    public LibraryServiceFault getFault() {
         return fault;
     }
 
@@ -53,10 +53,10 @@ public class AuthentificationException {
      * 
      * @param value
      *     allowed object is
-     *     {@link AuthentificationFault }
+     *     {@link LibraryServiceFault }
      *     
      */
-    public void setFault(AuthentificationFault value) {
+    public void setFault(LibraryServiceFault value) {
         this.fault = value;
     }
 
