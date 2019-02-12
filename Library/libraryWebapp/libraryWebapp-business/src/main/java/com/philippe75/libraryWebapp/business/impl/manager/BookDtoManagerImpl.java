@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import com.mysql.cj.util.StringUtils;
 import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;
@@ -25,7 +26,10 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 */
 	@Override
 	public List<BookDto> getListBookByName(String bookName) throws LibraryServiceException_Exception {
-		return getBookSearchService().getListBookByName(bookName).getItem();
+		String[] ls = bookName.split("-");
+		String bookNameOnly = ls[0].trim();
+		
+		return getBookSearchService().getListBookByName(bookNameOnly).getItem();
 	}
 
 	/**

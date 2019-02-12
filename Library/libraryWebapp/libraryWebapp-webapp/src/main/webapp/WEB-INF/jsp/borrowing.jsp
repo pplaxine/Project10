@@ -10,28 +10,32 @@
 		<%@ include file="_include/header.jsp" %>
 		<div class="bg_borrowings text-light">
 			<div class="container">
-				<h2>Prolongation</h2><br/>
-				<div class="row">
+				<div class="row pt-5">
+					<h2>Prolongation</h2>
+				</div>
+				<div class="row mt-3 pl-3">
+					
 					<s:iterator value="listBorrowingForUser">
 						<s:if test="book.id == bookId">
 							<s:property value="book.name"/> - <s:property value="book.author"/><br/>
-							<s:text name="borrowings.col.date1"/><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy à HH:mm"/><br/>
-					    	<s:text name="borrowings.col.date2"/> <s:date name="SupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy à HH:mm"/><br/>
+							<s:text name="borrowings.col.date1"/><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy "/><br/>
+						    <s:text name="borrowings.col.date2"/> <s:date name="SupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy "/><br/>
 					    	<s:set var="borrowingId" value="id"/>
 		
 						</s:if>
 					</s:iterator>
+					
 											
 				</div><br/>
 				<div class="row">
 					<h3><s:text name="Prolonger la location :"/></h3>
 				</div>
 				
-				<div class="row">
+				<div class="row  mt-3 pl-3">
 					<s:form action="extendBorrowing">
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input" name="numberOfWeekExtend" value="1"><s:text name="1 semaine"/>
+						    <input type="radio" class="form-check-input" name="numberOfWeekExtend" value="1" checked="checked" "><s:text name="1 semaine"/>
 						  </label>
 						</div>
 						<div class="form-check-inline">
@@ -50,8 +54,7 @@
 						  </label>
 						</div>
 						<input hidden="true" name="borrowingId" value="<s:property value="borrowingId"/>">
-						<s:submit value="valider" />
-						
+						<s:submit value="valider" class="btn btn-outline-light mt-3" />
 					</s:form>
 				</div>
 	

@@ -1,8 +1,14 @@
 package com.philippe75.libraryWebapp.business.impl.manager;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
@@ -30,19 +36,23 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 
 	@Override
 	public void extendBorrowing(Integer borrowingId, Integer numberOfWeek) throws LibraryServiceException_Exception {
-		System.out.println("borrowing id : " + borrowingId +" numberOfWeek " + numberOfWeek );
 		
-		//récupérer objet borrowing (créer get borrowingViaId() ) 
-		// puis modif les valeurs de l'objet borrowing
-		//récupe la premiere date de fin et ajouter numberOfWeek x semaine à la date
-		// puis extendBorrowing 
-		
-		
-		//BorrowingDto bd = new BorrowingDto();
-		//bd.setId(borrowingId);
-		
-		//getBorrowingService().extendBorrowing(bd);
-		
+		BorrowingDto bd = getBorrowingService().getBorrowingById(borrowingId); 
+
+		Date supposedEndDate = bd.getSupposedEndDate().toGregorianCalendar().getTime();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(supposedEndDate);
+		cal.add(Calendar.WEEK_OF_YEAR, numberOfWeek);
+		Date secondSupposedToEndDate = cal.getTime();
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.setTime(secondSupposedToEndDate);
+		try {
+			XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
+			bd.setSecondSupposedEndDate(xgc);
+			getBorrowingService().extendBorrowing(bd);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

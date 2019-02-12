@@ -17,6 +17,19 @@ body, html {
   
 }
 
+.bg_availableBook {
+		
+  background-image: url(/libraryWebapp-webapp/src/img/availableBook_bg.jpg);
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+}
+
 .bg_login {
 	
   background-image: url(/libraryWebapp-webapp/src/img/login_bg.jpg);

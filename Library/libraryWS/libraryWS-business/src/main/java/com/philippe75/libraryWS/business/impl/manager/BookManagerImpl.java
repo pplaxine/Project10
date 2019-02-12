@@ -46,6 +46,10 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 			} 
 			
+			if(lb.size() == 0) {
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+			}
+			
 
 		return lbd;
 	}
@@ -95,6 +99,7 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 			bd.setAvailable(book.isAvailable());
 			bd.setLibrary(book.getLibrary().getName());
 			bd.setGenre(book.getGenre());
+			
 		
 		return bd;
 	}

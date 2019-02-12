@@ -131,10 +131,4 @@ public class Book {
 	public void setListBorrowing(Collection<Borrowing> listBorrowing) {
 		this.listBorrowing = listBorrowing;
 	}
-	
-
-	
-	
-	
-	
 }

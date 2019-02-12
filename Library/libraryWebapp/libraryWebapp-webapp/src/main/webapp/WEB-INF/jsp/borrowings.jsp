@@ -10,9 +10,9 @@
 		<%@ include file="_include/header.jsp" %>
 		<div class="bg_borrowings text-light">
 			<div class="container">
+				<div class="row pt-5">
 				<h2>Vos emprunts actuels</h2><br/>
-				<div class="row">
-					<table class="table table-dark" style="opacity:0.8">
+					<table class="table table-dark mt-3" style="opacity:0.8">
 						<thead>
 						  <tr>
 						    <th scope="col"></th>
@@ -28,13 +28,13 @@
 								  <tr>
 								    <th scope="row"></th>
 								    <td><s:property value="book.name"/> - <s:property value="book.author"/></td>
-								    <td><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy - HH:mm"/></td>
+								    <td><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy"/></td>
 								    <td>
 								    	<s:if test="extended == true">
-								    		<s:date name="secondSupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy - HH:mm"/>
+								    		<s:date name="secondSupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy"/>
 								    	</s:if>
 								    	<s:elseif test="extended == false">
-									    	<s:date name="supposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy - HH:mm"/>
+									    	<s:date name="supposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy"/>
 								    	</s:elseif>
 								    </td>
 								    <td class="text-center">
@@ -59,23 +59,38 @@
 						<s:actionmessage/>
 					</div>
 				</div>
-				<h2>Tous vos emprunts</h2><br/>
-				<s:iterator value="listBorrowingForUser">
-					<div class="row">
-						Nom du livre : <s:property value="book.name"/> - <s:property value="book.author"/><br/>
-						Date début emprunt : le <s:date name="startDate.toGregorianCalendar()" format="dd/MM/yyyy à HH:mm"/><br/>
-						Date fin d'emprunt : le <s:date name="supposedEndDate.toGregorianCalendar()" format="dd/MM/yyyy à HH:mm"/><br/>
-							
-						<br/>
-						
-					</div>
-				</s:iterator>
-
+				
+				
+				<div class="row mt-5">
+					<table class="table table-dark mt-3" style="opacity:0.8">
+				
+						<s:iterator value="listBorrowingForUser">
+							<s:if test="effectiveEndDate != null">
+								<h2>Historique des emprunts</h2><br/>
+								<thead>
+									  <tr>
+									    <th scope="col"></th>
+									    <th scope="col"><s:text name="borrowings.col.book"/></th>
+									    <th scope="col"><s:text name="borrowings.col.date1"/></th>
+									    <th scope="col"><s:text name="Rendu le "/></th>
+									  </tr>
+									</thead>
+								<tbody>
+								  <tr>
+								    <th scope="row"></th>
+								    <td><s:property value="book.name"/> - <s:property value="book.author"/></td>
+								    <td><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy"/></td>
+								    <td>
+								    	<s:date name="effectiveEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy"/>
+								    </td>
+								  </tr>
+								</tbody>
+								<br/>
+							</s:if>
+						</s:iterator>
+					</table>
+				</div>
 			</div>
-			
-			
-			
-			
 		</div>
 	
 	</body>

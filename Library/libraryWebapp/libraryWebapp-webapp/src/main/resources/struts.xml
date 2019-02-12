@@ -29,6 +29,7 @@
 
         <!-- Action par défaut -->
         <default-action-ref name="main" />
+        
         <!-- Action "main" -->
         <action name="main">
             <result>WEB-INF/jsp/main.jsp</result>
@@ -66,7 +67,13 @@
         <action name="getbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doBookByName">
 			<result name="success">WEB-INF/jsp/book.jsp</result>
      	</action> 
-
+     	
+     	<action name="getBookAvailability" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doListBookByName">
+			<result name="success">WEB-INF/jsp/availableBook.jsp</result>
+			<result name="input" type="redirectAction">main</result>
+     	</action> 
+		
+		
     </package>
     
     <package name="private" extends="abstractPackage">
@@ -76,6 +83,7 @@
     	<!-- Action "borrowing" -->
         <action name="borrowings" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="doListBorrowingForUser">
 			<result name="success">WEB-INF/jsp/borrowings.jsp</result>
+			<result name="error">WEB-INF/jsp/error/error.jsp</result>
 			<interceptor-ref name="store">
 		        <param name="operationMode">RETRIEVE</param>
 		    </interceptor-ref>
@@ -84,10 +92,12 @@
      	
      	<action name="borrowing" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="doListBorrowingForUser">
 			<result name="success">WEB-INF/jsp/borrowing.jsp</result>
+			<result name="error" type="">WEB-INF/jsp/error/error.jsp</result>
      	</action>
      	
      	<action name="extendBorrowing" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="extendBorrowing">
 			<result name="success" type="redirectAction">borrowings</result>
+			<result name="error">WEB-INF/jsp/error/error.jsp</result>
 		    
             <interceptor-ref name="store">
 	        	<param name="operationMode">STORE</param>

@@ -8,27 +8,35 @@
 		<title>Home</title>
 	</head>
 	<body>
-
 		<%@ include file="_include/header.jsp" %>
 		<div class="bg_main text-light">
 			<div id="bg_dark_filter" class="bg_dark_filter text-warning">
-				<h2><s:text name="home.welcome"/> </h2>
 				<div class="container-fluid h-100">
+					<div class="row pt-5 ml-3">
+						<h2><s:text name="home.welcome"/></h2>
+					</div>
 					<div class="row justify-content-center h-50 align-items-center">
 						<div class="col-4 text-center font-weight-bold">
-						
 							<s:text name="home.search.title"/><br/>
-							<input id="search" type="text" autocomplete="off" size="45" />
-							<div id="results" class="text-left"></div>
-							
+							<nav class="navbar navbar-light">
+								<form class="form-inline" action="getBookAvailability">
+									<div class="input-group">
+									  <div class="input-group-prepend">
+								        <span class="input-group-text text-warning" id="basic-addon1" style="background: rgba(0,0,0,0.6)">Name</span>
+								      </div>
+									  <input id="search" type="text" autocomplete="off" size="45" placeholder="Search" name="bookDto" aria-label="Search" class="form-control mr-sm-2 font-weight-bold" aria-describedby="basic-addon1" style="background: rgba(255,255,255,0.7)"/>
+								      <s:submit class="btn btn-outline-light text-warning my-2 my-sm-0" style="background: rgba(0,0,0,0.6)" type="submit" value="Search"/>
+									</div>	
+							    </form>
+								<s:actionerror/>
+								<s:actionmessage/>
+								<div id="results" class="text-left"></div>
+							</nav>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- TEST -->
-	
-
 
 	<script type="text/javascript">
 		

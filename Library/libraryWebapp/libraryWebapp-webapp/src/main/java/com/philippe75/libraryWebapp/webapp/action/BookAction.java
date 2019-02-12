@@ -35,18 +35,21 @@ public class BookAction extends ActionSupport {
 	
 	//METHODS
 	public String doListBookByName() {
-		
-		try {
-			listBookByName = managerHandler.getBookDtoManager().getListBookByName("Roméo et Juliette");
-		} catch (LibraryServiceException_Exception e) {
-			if((e.getMessage()).equals("NoResultException")) {
-				this.addFieldError("bookDto", getText("book.failure.noResult"));
-			}else {
-				this.addActionError(getText("general.failure"));
+		String result = ActionSupport.INPUT;
+		if(bookDto.trim().length() != 0) {
+			try {
+				listBookByName = managerHandler.getBookDtoManager().getListBookByName(bookDto);
+				System.out.println(listBookByName);
+				result = ActionSupport.SUCCESS;
+			} catch (LibraryServiceException_Exception e) {
+				if((e.getMessage()).equals("NoResultException")) {
+					this.addActionError(getText("book.failure.noResult"));
+				}else {
+					this.addActionError(getText("general.failure"));
+				}
 			}
 		}
-		
-		return ActionSupport.SUCCESS; 
+		return result; 
 	}
 	
 	public String doBookByName() {

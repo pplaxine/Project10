@@ -59,22 +59,29 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 */
 	@Override
 	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
-
 		if(borrowingDto != null) {
 			Borrowing bor = borrowingDtoToModel(borrowingDto);
+			Boolean isExtended = true;
+			
 			try {
-				if(bor.isExtended() == true || daoHandler.getBorrowingDao().getBorrowingById(bor.getId()).isExtended() == true ) {
-					throw new LibraryServiceException("AlreadyExtendedException", libraryServiceFaultFactory("1303", "The borrowing has been already extended. Each borrowing can be extended only once."));
-				}else {
+				isExtended = daoHandler.getBorrowingDao().getBorrowingById(bor.getId()).isExtended();
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+			
+			if(bor.isExtended() == true || isExtended == true ) {
+				throw new LibraryServiceException("AlreadyExtendedException", libraryServiceFaultFactory("1303", "The borrowing has been already extended. Each borrowing can be extended only once."));
+			}else {
+				try {
 					getDaoHandler().getBorrowingDao().extendBorrowing(bor);
+				} catch (NoResultException e) {
+					System.out.println(e.getMessage());
+					throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 				}
-			} catch (NoResultException e) {
-				System.out.println(e.getMessage());
-				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
-				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 			}
 		}
 	}
