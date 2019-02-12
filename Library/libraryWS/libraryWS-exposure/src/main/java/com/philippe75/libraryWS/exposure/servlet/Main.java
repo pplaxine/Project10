@@ -2,6 +2,7 @@ package com.philippe75.libraryWS.exposure.servlet;
 
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -77,19 +78,30 @@ public class Main extends HttpServlet {
 //				e.printStackTrace();
 //			}
 		
-		try {
-			List<BorrowingDto> listBorrowing = managerHandler.getBorrowingManager().getAllBorrowingForUser("MSegaux");
-			for (BorrowingDto borrowing : listBorrowing) {
-			//	System.out.println("Firstname " + borrowing.getUserAccount().getFirstName());
-			//	System.out.println("Name + start date " + borrowing.getBook().getName() + " " + borrowing.getStartDate());
-			//	System.out.println("Le password" + borrowing.getUserAccount().getPassword());
-				System.out.println(borrowing.getStartDate());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			List<BorrowingDto> listBorrowing = managerHandler.getBorrowingManager().getAllBorrowingForUser("MSegaux");
+//			for (BorrowingDto borrowing : listBorrowing) {
+//			//	System.out.println("Firstname " + borrowing.getUserAccount().getFirstName());
+//			//	System.out.println("Name + start date " + borrowing.getBook().getName() + " " + borrowing.getStartDate());
+//			//	System.out.println("Le password" + borrowing.getUserAccount().getPassword());
+//				System.out.println(borrowing.getStartDate());
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
-	
+		BorrowingDto bd = new BorrowingDto();
+		bd.setExtended(false);
+		bd.setSecondSupposedEndDate(new Date());
+		bd.setId(3);
+		
+			try {
+				managerHandler.getBorrowingManager().extendBorrowing(bd);
+			} catch (LibraryServiceException e) {
+				e.getMessage();
+			}
+		
+
 
 		this.getServletContext().getRequestDispatcher(VUE_MAIN).forward(request, response);
 	}

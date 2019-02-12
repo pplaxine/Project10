@@ -28,4 +28,21 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		return getBorrowingService().getAllBorrowingForUser(userMemberId).getItem();
 	}
 
+	@Override
+	public void extendBorrowing(Integer borrowingId, Integer numberOfWeek) throws LibraryServiceException_Exception {
+		System.out.println("borrowing id : " + borrowingId +" numberOfWeek " + numberOfWeek );
+		
+		//récupérer objet borrowing (créer get borrowingViaId() ) 
+		// puis modif les valeurs de l'objet borrowing
+		//récupe la premiere date de fin et ajouter numberOfWeek x semaine à la date
+		// puis extendBorrowing 
+		
+		
+		//BorrowingDto bd = new BorrowingDto();
+		//bd.setId(borrowingId);
+		
+		//getBorrowingService().extendBorrowing(bd);
+		
+	}
+
 }

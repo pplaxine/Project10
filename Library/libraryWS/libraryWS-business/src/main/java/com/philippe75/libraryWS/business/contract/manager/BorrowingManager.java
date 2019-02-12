@@ -22,5 +22,18 @@ public interface BorrowingManager {
 	 */
 	List<BorrowingDto> getAllBorrowingForUser(String userMemberId) throws LibraryServiceException; 
 
-
+	/**
+	 * Method that extend borrowing supposed end date. Also check first if an extention has already benn made.  
+	 * 
+	 * @param Borrowing the borrowing to update.
+	 */
+	void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	
+	/**
+	 * Method get the borrowing object.  
+	 * 
+	 * @param borrowingId the borrowing id.
+	 * @return BorrowingDto the {@link Borrowing} dto object corresponding to the id.
+	 */
+	BorrowingDto getBorrowingById(Integer borrowingId) throws LibraryServiceException;
 }

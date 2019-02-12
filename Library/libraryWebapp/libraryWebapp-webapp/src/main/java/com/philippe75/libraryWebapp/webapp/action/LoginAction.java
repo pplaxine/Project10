@@ -67,15 +67,15 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 		if(!StringUtils.isAllEmpty(userMemberId,password,passwordConf)) {
 			try {
 				
-				if(userMemberId.trim().equals("")) {
-					this.addFieldError("userMemberId", getText("Vous devez entrer vote nom d'utilisateur"));
-				}else if(password.trim().equals("")) {
-					this.addFieldError("password", getText("Vous devez entrer un mot de passe"));
-				}else if(!password.equals(passwordConf)) {
-					this.addFieldError("passwordConf", getText("mot de passe pas le même"));
+				if(StringUtils.isEmpty(userMemberId)) {
+					this.addFieldError("userMemberId", getText("login.empty.login"));
+				}else if(StringUtils.isEmpty(password)) {
+					this.addFieldError("password", getText("login.empty.password"));
+				}else if(!StringUtils.equals(password, passwordConf)) {
+					this.addFieldError("passwordConf", getText("login.first.different.password"));
 				}else {
 					UserAccountDto uad = managerHandler.getUserAccountDtoManager().saveUserAccountPw(userMemberId, password);
-					this.addActionMessage("Votre compte à été activé avec succès, vous pouvez à présent vous connecter.");
+					this.addActionMessage(getText("login.first.success"));
 					result = ActionSupport.SUCCESS;
 				}
 				
@@ -85,7 +85,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 				}else if ((aEx.getMessage()).equals("ExistingPasswordException") ) {
 					this.addActionError("Votre compte possède déjà un mot de passe.");
 				}else {
-					this.addActionError(getText("Une erreur inatendue est survenue. Veuillez re-essayer plus tard."));
+					this.addActionError(getText("general.failure"));
 				}
 			}
 		}
@@ -110,7 +110,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 				}else if ((e.getMessage()).equals("InvalidPasswordException")){
 					this.addFieldError("password", getText("login.failure.password"));
 				}else {
-					this.addActionError(getText("Une erreur inatendue est survenue. Veuillez re-essayer plus tard."));
+					this.addActionError(getText("general.failure"));
 				}
 			}
 		}

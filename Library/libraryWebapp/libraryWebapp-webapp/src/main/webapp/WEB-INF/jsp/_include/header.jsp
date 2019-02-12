@@ -19,9 +19,8 @@
 	      <li class="nav-item active">
 	        <a class="nav-link" href="main">Home<span class="sr-only">(current)</span></a>
 	      </li>
-	      <li class="nav-item active">
-	        <a class="nav-link" href="main"><s:text name="nav.personal"/><span class="sr-only">(current)</span></a>
-	      </li>
+	      
+
 	      
 			<s:if test="!#session.user">
 		      <li class="nav-item dropdown">
@@ -35,14 +34,21 @@
 		        </div>
 		      </li>
 		    </s:if>
-		    <li class="nav-item active">
-				<s:if test="#session.user">
-					<div class="nav-link">
-				    	<s:text name="nav.name"/> <s:property value="#session.user.firstname"/>  
-				    	<s:a action="logout"> <s:text name="nav.deconnection"/> </s:a>
-					</div>
-			    </s:if>	
-		    </li>
+		    
+			<s:if test="#session.user">
+			    <li class="nav-item active">
+		        	<a class="nav-link" href="borrowings"><s:text name="nav.personal"/><span class="sr-only">(current)</span></a>
+		     	</li>
+			    <li class="nav-item active">
+						
+						<div class="nav-link">
+					    	<s:text name="nav.name"/> <s:property value="#session.user.firstname"/>  
+					    	<s:a action="logout"> <s:text name="nav.deconnection"/> </s:a>
+						</div>
+			    </li>
+		    </s:if>	
+		  
+	     	
 	    </ul>
 	   
 	   	<!-- language selection -->

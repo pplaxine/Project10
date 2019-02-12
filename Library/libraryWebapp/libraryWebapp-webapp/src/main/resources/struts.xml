@@ -6,9 +6,16 @@
 <struts>
 
 	<package name="abstractPackage" abstract="true" extends="struts-default">
+		
 		<interceptors>
 			<interceptor name="auth" class="com.philippe75.libraryWebapp.webapp.interceptor.AuthentificationInterceptor"></interceptor>
+			
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="auth"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
 		</interceptors>
+		<default-interceptor-ref name="defaultStack"/>
 		
 		<global-results>
 			<result name="error-forbidden" type="httpheader">
@@ -57,20 +64,37 @@
         
         <!-- Action "book" -->
         <action name="getbook" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doBookByName">
-			<result>WEB-INF/jsp/test.jsp</result>
+			<result name="success">WEB-INF/jsp/book.jsp</result>
      	</action> 
-     	
 
     </package>
     
     <package name="private" extends="abstractPackage">
     	
-    	<default-interceptor-ref name="auth"/>	<!-- authentification interceptor for private access -->
+    	<default-interceptor-ref name="authStack"/>	<!-- authentification interceptor for private access -->
     
     	<!-- Action "borrowing" -->
         <action name="borrowings" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="doListBorrowingForUser">
-			<result>WEB-INF/jsp/borrowings.jsp</result>
+			<result name="success">WEB-INF/jsp/borrowings.jsp</result>
+			<interceptor-ref name="store">
+		        <param name="operationMode">RETRIEVE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
      	</action> 
+     	
+     	<action name="borrowing" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="doListBorrowingForUser">
+			<result name="success">WEB-INF/jsp/borrowing.jsp</result>
+     	</action>
+     	
+     	<action name="extendBorrowing" class="com.philippe75.libraryWebapp.webapp.action.BorrowingAction" method="extendBorrowing">
+			<result name="success" type="redirectAction">borrowings</result>
+		    
+            <interceptor-ref name="store">
+	        	<param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
+     	</action>
+
     </package>
     
     

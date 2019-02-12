@@ -8,19 +8,24 @@
 		<title>Home</title>
 	</head>
 	<body>
+
 		<%@ include file="_include/header.jsp" %>
 		<div class="bg_main text-light">
-		<div id="bg_dark_filter" class="bg_dark_filter text-success">
-			<br/>
-			<br/>
-			<br/>
-			<h2><s:text name="home.welcome"/> </h2>
-			
-			<input id="search" type="text" autocomplete="off" />
-			<div id="results"></div>
-			
+			<div id="bg_dark_filter" class="bg_dark_filter text-warning">
+				<h2><s:text name="home.welcome"/> </h2>
+				<div class="container-fluid h-100">
+					<div class="row justify-content-center h-50 align-items-center">
+						<div class="col-4 text-center font-weight-bold">
+						
+							<s:text name="home.search.title"/><br/>
+							<input id="search" type="text" autocomplete="off" size="45" />
+							<div id="results" class="text-left"></div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		
 		<!-- TEST -->
 	
 
@@ -35,14 +40,14 @@
 				searchElem.addEventListener("focus", function(e){
 					console.log("work");
 					darkFilter.style.transitionDuration ="2s";  
-					darkFilter.style.opacity = "0.8";
+					darkFilter.style.background = "rgba(0,0,0,0.8)";
 				});
 			})();
 			(function opacityUp() {
 				searchElem.addEventListener("focusout", function(e){
 					console.log("work");
 					darkFilter.style.transitionDuration ="2s";  
-					darkFilter.style.opacity = "0.2";
+					darkFilter.style.background = "rgba(0,0,0,0.2)";
 				});
 			})();
 			
@@ -197,6 +202,6 @@
 	</script>
 		
 		<!--  Fin test -->
-		</div>
+
 	</body>
 </html>

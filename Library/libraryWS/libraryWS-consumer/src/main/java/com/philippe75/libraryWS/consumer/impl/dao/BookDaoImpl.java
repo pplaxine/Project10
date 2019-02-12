@@ -59,7 +59,7 @@ public class BookDaoImpl extends AbstractDao implements BookDao {
 	@Override
 	public List<Book> getListBookStartingBy(String name) throws Exception {
 		
-		String sql = "SELECT * FROM book WHERE name ILIKE :name ORDER BY name LIMIT 10";
+		String sql = "SELECT DISTINCT ON (name) * FROM book WHERE name ILIKE :name ORDER BY name LIMIT 10";
 		List<Book> listbook;
 		
 		Session session = getSession();

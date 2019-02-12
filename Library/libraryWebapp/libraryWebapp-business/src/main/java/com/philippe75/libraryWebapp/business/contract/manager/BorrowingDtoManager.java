@@ -21,5 +21,6 @@ public interface BorrowingDtoManager {
 	 * @return List<BorrowingDto> list of {@link Borrowing} of a user.
 	 */
 	List<BorrowingDto> getAllBorrowingForUser(String userMemberId) throws LibraryServiceException_Exception;
-
+	
+	void extendBorrowing(Integer borrowingId, Integer numberOfWeek) throws LibraryServiceException_Exception;
 }

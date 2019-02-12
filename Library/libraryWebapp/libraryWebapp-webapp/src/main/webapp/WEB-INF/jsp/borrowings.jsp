@@ -2,25 +2,81 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Borrowings</title>
-</head>
+	<head>
+		<%@ include file="_include/head.jsp" %>
+		<title><s:text name="borrowings.page.title"/></title>
+	</head>
+	<body>
+		<%@ include file="_include/header.jsp" %>
+		<div class="bg_borrowings text-light">
+			<div class="container">
+				<h2>Vos emprunts actuels</h2><br/>
+				<div class="row">
+					<table class="table table-dark" style="opacity:0.8">
+						<thead>
+						  <tr>
+						    <th scope="col"></th>
+						    <th scope="col"><s:text name="borrowings.col.book"/></th>
+						    <th scope="col"><s:text name="borrowings.col.date1"/></th>
+						    <th scope="col"><s:text name="borrowings.col.date2"/></th>
+						    <th scope="col" class="text-center"><s:text name="borrowings.col.extended"/></th>
+						  </tr>
+						</thead>
+						<s:iterator value="listBorrowingForUser">
+							<s:if test="effectiveEndDate == null">
+								<tbody>
+								  <tr>
+								    <th scope="row"></th>
+								    <td><s:property value="book.name"/> - <s:property value="book.author"/></td>
+								    <td><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy - HH:mm"/></td>
+								    <td>
+								    	<s:if test="extended == true">
+								    		<s:date name="secondSupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy - HH:mm"/>
+								    	</s:if>
+								    	<s:elseif test="extended == false">
+									    	<s:date name="supposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy - HH:mm"/>
+								    	</s:elseif>
+								    </td>
+								    <td class="text-center">
+								    	<s:if test="extended == false">
+								    		<s:url var="borrowing" action="borrowing">
+								    			<s:param name="bookId" value="book.id"/>
+								    		</s:url>
+								    		<a href="<s:property value="#borrowing"/>"   class="text-success"><s:text name="borrowings.extended.possible"/></a>
+								    	</s:if>
+								    	<s:elseif test="extended == true">
+								    		<span class="text-warning"><s:text name="borrowings.extended.already"/></span>
+								    	</s:elseif>
+								    </td>
+								  </tr>
+								</tbody>
+								<br/>
+							</s:if>
+						</s:iterator>
+					</table>
+					<s:actionerror/>
+					<div class="text-success">
+						<s:actionmessage/>
+					</div>
+				</div>
+				<h2>Tous vos emprunts</h2><br/>
+				<s:iterator value="listBorrowingForUser">
+					<div class="row">
+						Nom du livre : <s:property value="book.name"/> - <s:property value="book.author"/><br/>
+						Date début emprunt : le <s:date name="startDate.toGregorianCalendar()" format="dd/MM/yyyy à HH:mm"/><br/>
+						Date fin d'emprunt : le <s:date name="supposedEndDate.toGregorianCalendar()" format="dd/MM/yyyy à HH:mm"/><br/>
+							
+						<br/>
+						
+					</div>
+				</s:iterator>
 
-<body>
-	<s:iterator value="listBorrowingForUser">
-		<li>
-			Nom du livre : <s:property value="book.name"/> - <s:property value="book.author"/><br/>
-			Date début emprunt : le <s:date name="startDate.toGregorianCalendar()" format="dd/MM/yyyy à HH:mm"/><br/>
-			Date fin d'emprunt : le <s:date name="supposedEndDate.toGregorianCalendar()" format="dd/MM/yyyy à HH:mm"/><br/>
+			</div>
 			
-			<br/>
-		</li>
-	</s:iterator>
-	<s:actionerror/>
-	<s:actionmessage/>
+			
+			
+			
+		</div>
 	
-	
-	
-</body>
+	</body>
 </html>

@@ -5,19 +5,27 @@
 <html>
 	<head>
 		<%@ include file="_include/head.jsp" %>
-		<title>First login</title>
+		<title><s:text name="login.first.page.title"/></title>
 	</head>
 	<body >
 		<%@ include file="_include/header.jsp" %>
 		
-		<h1><s:text name="login.first.title"/></h1>
-		<s:form action="firstlogin">
-			<s:textfield label="Login id" key="userMemberId"/>
-			<s:password label="Password" key="password"/>
-			<s:password key="passwordConf"/>
-			<s:submit/>
-		</s:form>
-		<s:actionerror/>
-
+		<div class="bg_login text-light">
+			<h1><s:text name="login.first.title"/></h1>
+			<div class="container-fluid h-100">
+				<div class="row justify-content-center h-75 align-items-center">
+					<div class="col-md-3">
+						<s:form action="firstlogin">
+							<s:textfield label="Login id" key="userMemberId" class="login"/>
+							<s:password label="Password" key="password" class="password"/>
+							<s:password key="passwordConf" class="passwordConf"/>
+							<s:submit class="loginSub"/>
+						</s:form>
+						<s:actionerror/>
+						<s:actionmessage/>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

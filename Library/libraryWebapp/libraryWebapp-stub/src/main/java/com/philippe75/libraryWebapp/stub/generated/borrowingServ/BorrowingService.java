@@ -28,6 +28,21 @@ public interface BorrowingService {
     /**
      * 
      * @param arg0
+     * @throws LibraryServiceException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowing/Fault/LibraryServiceException")
+    })
+    public void extendBorrowing(
+        @WebParam(name = "arg0", partName = "arg0")
+        BorrowingDto arg0)
+        throws LibraryServiceException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
      * @return
      *     returns com.philippe75.libraryWebapp.stub.generated.borrowingServ.ListOfBorrowingDto
      * @throws LibraryServiceException_Exception

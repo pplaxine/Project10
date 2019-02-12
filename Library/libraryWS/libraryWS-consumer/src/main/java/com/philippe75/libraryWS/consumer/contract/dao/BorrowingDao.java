@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.consumer.contract.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.philippe75.libraryWS.model.book.Book;
@@ -21,5 +22,18 @@ public interface BorrowingDao {
 	 */
 	List<Borrowing> getAllBorrowingForUser(String userMemberId) throws Exception;
 	
+	/**
+	 * Method that extend borrowing supposed end date.  
+	 * 
+	 * @param Borrowing the borrowing to update.
+	 */
+	void extendBorrowing(Borrowing borrowing) throws Exception;
 	
+	/**
+	 * Method get the borrowing object.  
+	 * 
+	 * @param borrowingId the borrowing id.
+	 * @return Borrowing the borrowing object corresponding to the id.
+	 */
+	Borrowing getBorrowingById(Integer borrowingId) throws Exception;
 }

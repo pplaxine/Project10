@@ -17,9 +17,9 @@ body, html {
   
 }
 
-.bg_dark_filter {
-		
-  background:black;
+.bg_login {
+	
+  background-image: url(/libraryWebapp-webapp/src/img/login_bg.jpg);
 
   height: 100%;
 
@@ -28,7 +28,59 @@ body, html {
   background-attachment: fixed;
   background-size: cover;
   
-  opacity: 0.2;
+}
+
+.bg_borrowings {
+	
+  background-image: url(/libraryWebapp-webapp/src/img/borrowings_bg.jpg);
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+}
+
+.login, .password, .passwordConf, .loginSub{
+	width: 300px;
+	height: 35px;
+	font-size: 20px;
+
+	padding-left: 20px;
+	margin-left: 20px;
+	opacity: 0.98;
+}
+
+.login{
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	height: 40px;
+	
+}
+.loginSub{
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	height: 40px;
+	color:white;
+	font-weight:bold;
+	background: rgba(237, 175, 111, 1);
+	color: black;
+}
+
+
+.bg_dark_filter {
+		
+  background: rgba(0,0,0,0.2);
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
   
 }
 

@@ -53,6 +53,59 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	}
 	
 	/**
+	 * Method that extend borrowing supposed end date. Also check first if an extention has already been made.  
+	 * 
+	 * @param Borrowing the borrowing to update.
+	 */
+	@Override
+	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+
+		if(borrowingDto != null) {
+			Borrowing bor = borrowingDtoToModel(borrowingDto);
+			try {
+				if(bor.isExtended() == true || daoHandler.getBorrowingDao().getBorrowingById(bor.getId()).isExtended() == true ) {
+					throw new LibraryServiceException("AlreadyExtendedException", libraryServiceFaultFactory("1303", "The borrowing has been already extended. Each borrowing can be extended only once."));
+				}else {
+					getDaoHandler().getBorrowingDao().extendBorrowing(bor);
+				}
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			}
+		}
+	}
+	
+	/**
+	 * Method get the borrowing object.  
+	 * 
+	 * @param borrowingId the borrowing id.
+	 * @return BorrowingDto the {@link Borrowing} dto object corresponding to the id.
+	 */
+	@Override
+	public BorrowingDto getBorrowingById(Integer borrowingId) throws LibraryServiceException {
+		if(borrowingId != null) {
+			try {
+				Borrowing borrowing = daoHandler.getBorrowingDao().getBorrowingById(borrowingId);
+				BorrowingDto bd = borrowingModelToDto(borrowing);
+				return bd;
+				
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Transform model objects fetched from database to data transfer object. Also remove the user password att.   
 	 * 
 	 * @param book object fetched from the data layer. 
@@ -78,6 +131,32 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		
 		return bd;
 	}
+	
+	private Borrowing borrowingDtoToModel(BorrowingDto bd) {
+		
+		Borrowing borrowing = new Borrowing();
+		
+			borrowing.setId(bd.getId());
+			borrowing.setStartDate(bd.getStartDate());
+			borrowing.setSupposedEndDate(bd.getSupposedEndDate());
+			borrowing.setSecondSupposedEndDate(bd.getSecondSupposedEndDate());
+			borrowing.setEffectiveEndDate(bd.getEffectiveEndDate());
+			borrowing.setExtended(bd.isExtended());
+			borrowing.setBook(bd.getBook());
+			borrowing.setUserAccount(bd.getUserAccount());
+			
+		
+		return borrowing;
+	}
+
+
+
+
+
+
+
+
+
 
 
 

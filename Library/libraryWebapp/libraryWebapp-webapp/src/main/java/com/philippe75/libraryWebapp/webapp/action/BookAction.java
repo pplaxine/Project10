@@ -40,9 +40,9 @@ public class BookAction extends ActionSupport {
 			listBookByName = managerHandler.getBookDtoManager().getListBookByName("Roméo et Juliette");
 		} catch (LibraryServiceException_Exception e) {
 			if((e.getMessage()).equals("NoResultException")) {
-				this.addFieldError("bookDto", getText("login.failure.login"));
+				this.addFieldError("bookDto", getText("book.failure.noResult"));
 			}else {
-				this.addActionError(getText("Une erreur inatendue est survenue. Veuillez re-essayer plus tard."));
+				this.addActionError(getText("general.failure"));
 			}
 		}
 		
@@ -57,7 +57,7 @@ public class BookAction extends ActionSupport {
 			if((e.getMessage()).equals("NoResultException")) {
 				this.addFieldError("bookDto", getText("login.failure.login"));
 			}else {
-				this.addActionError(getText("Une erreur inatendue est survenue. Veuillez re-essayer plus tard."));
+				this.addActionError(getText("general.failure"));
 			}
 		}
 		
