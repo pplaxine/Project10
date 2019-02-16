@@ -39,8 +39,9 @@
 								    </td>
 								    <td class="text-center">
 								    	<s:if test="extended == false">
-								    		<s:url var="borrowing" action="borrowing">
+								    		<s:url var="borrowing" action="borrowing" escapeAmp="false">
 								    			<s:param name="bookId" value="book.id"/>
+								    			<s:param name="borrowingId" value="id"/>
 								    		</s:url>
 								    		<a href="<s:property value="#borrowing"/>"   class="text-success"><s:text name="borrowings.extended.possible"/></a>
 								    	</s:if>

@@ -69,6 +69,25 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		return (BorrowingDto)managerHandler.getBorrowingManager().getBorrowingById(borrowingId);
 	}
 
-
+	/**
+	 * Method get that creates new borrowing.  
+	 * 
+	 * @param borrowingDto the dto object of a new borrowing.
+	 */
+	@Override
+	public void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
+	}
 	
+	/**
+	 * Method that ends a borrowing when user returns a book.   
+	 * 
+	 * @param borrowingDto the borrowing comming to a end.
+	 */
+	@Override
+	public void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
+	}
 }

@@ -36,4 +36,19 @@ public interface BorrowingDao {
 	 * @return Borrowing the borrowing object corresponding to the id.
 	 */
 	Borrowing getBorrowingById(Integer borrowingId) throws Exception;
+	
+	/**
+	 * Method get that creates new borrowing.  
+	 * 
+	 * @param borrowing the new borrowing.
+	 */
+	void createBorrowing(Borrowing borrowing) throws Exception;
+	
+	/**
+	 * Method that ends a borrowing when user returns a book.  
+	 * 
+	 * @param borrowing the borrowing comming to a end.
+	 */
+	void endBorrowing(Borrowing borrowing) throws Exception;
+	
 }

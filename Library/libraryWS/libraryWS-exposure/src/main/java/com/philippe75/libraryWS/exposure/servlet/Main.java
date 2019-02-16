@@ -90,19 +90,50 @@ public class Main extends HttpServlet {
 //			e.printStackTrace();
 //		}
 		
-		BorrowingDto bd = new BorrowingDto();
-		bd.setExtended(false);
-		bd.setSecondSupposedEndDate(new Date());
-		bd.setId(3);
+//		BorrowingDto bd = new BorrowingDto();
+//		bd.setExtended(false);
+//		bd.setSecondSupposedEndDate(new Date());
+//		bd.setId(3);
+//		
+//			try {
+//				managerHandler.getBorrowingManager().extendBorrowing(bd);
+//			} catch (LibraryServiceException e) {
+//				e.getMessage();
+//			}
+//		
 		
-			try {
-				managerHandler.getBorrowingManager().extendBorrowing(bd);
-			} catch (LibraryServiceException e) {
-				e.getMessage();
-			}
+//		BorrowingDto borDto = new BorrowingDto();
+//		try {
+//			
+//			borDto.setStartDate(new Date());
+//			borDto.setSupposedEndDate(new Date());
+//			
+//			Book book = new Book();
+//			book.setId(9);
+//			borDto.setBook(book);
+//			
+//			UserAccount ua = new UserAccount();
+//			ua.setUserMemberId("JTille");
+//			borDto.setUserAccount(ua);
+//			
+//			managerHandler.getBorrowingManager().createBorrowing(borDto);
+//			
+//		} catch (Exception e) {
+//		
+//			e.printStackTrace();
+//		}
+//	
 		
-
-
+		BorrowingDto borrowingDto = new BorrowingDto();
+		borrowingDto.setId(4);
+		borrowingDto.setEffectiveEndDate(new Date());
+		
+		try {
+			managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
+		} catch (LibraryServiceException e) {
+			e.printStackTrace();
+		}
+		
 		this.getServletContext().getRequestDispatcher(VUE_MAIN).forward(request, response);
 	}
 

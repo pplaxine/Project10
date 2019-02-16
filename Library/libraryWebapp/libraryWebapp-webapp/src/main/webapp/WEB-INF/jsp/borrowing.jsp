@@ -14,14 +14,12 @@
 					<h2>Prolongation</h2>
 				</div>
 				<div class="row mt-3 pl-3">
-					
 					<s:iterator value="listBorrowingForUser">
-						<s:if test="book.id == bookId">
+						<s:if test=" borrowingId == id">
 							<s:property value="book.name"/> - <s:property value="book.author"/><br/>
 							<s:text name="borrowings.col.date1"/><s:date name="startDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy "/><br/>
 						    <s:text name="borrowings.col.date2"/> <s:date name="SupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy "/><br/>
 					    	<s:set var="borrowingId" value="id"/>
-		
 						</s:if>
 					</s:iterator>
 					

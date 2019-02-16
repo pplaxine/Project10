@@ -77,7 +77,7 @@
 	      <artifactId>jaxws-rt</artifactId>
 	      <version>2.2.10</version>
 	    </dependency>
-
+	    
 		<dependency>												<!-- Annotations 250 -->
 			<groupId>javax.annotation</groupId>
 			<artifactId>javax.annotation-api</artifactId>

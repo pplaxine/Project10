@@ -59,7 +59,6 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	
 	//METHODS
 	public String doListBorrowingForUser() {
-		
 		try {
 			UserAccountDto uad = (UserAccountDto)this.session.get("user");
 			listBorrowingForUser = managerHandler.getBorrowingDtoManager().getAllBorrowingForUser(uad.getUserMemberId());
@@ -77,6 +76,7 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	}
 	
 	public String extendBorrowing() {
+		
 		String result = ActionSupport.ERROR;
 		if(!StringUtils.isAllEmpty(borrowingId, numberOfWeekExtend)) {
 			

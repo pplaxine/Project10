@@ -199,13 +199,13 @@ INSERT INTO staff_account (login_name,password,access,firstname,surename,account
 INSERT INTO staff_account (login_name,password,access,firstname,surename,account_activated,library_id) VALUES ('ASpooner','test07','USER_99','Adriana','Spooner',TRUE,3);
 
 
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',false,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',false,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',false,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',false,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',true,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',true,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','Willian Shakespeare','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',true,1);
 
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Les misérables','Victor Hugo','résumé du livre...','DRAMA',true,2);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Les misérables','Victor Hugo','résumé du livre...','DRAMA',true,1);

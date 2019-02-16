@@ -46,4 +46,20 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	BorrowingDto getBorrowingById(Integer borrowingId) throws LibraryServiceException;
+	
+	/**
+	 * Method get that creates new borrowing.  
+	 * 
+	 * @param borrowingDto the dto object of a new borrowing.
+	 */
+	@WebMethod
+	void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	
+	/**
+	 * Method that ends a borrowing when user returns a book.   
+	 * 
+	 * @param borrowingDto the borrowing comming to a end.
+	 */
+	@WebMethod
+	void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
 }

@@ -3,6 +3,7 @@ package com.philippe75.libraryWS.business.contract.manager;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
@@ -36,4 +37,18 @@ public interface BorrowingManager {
 	 * @return BorrowingDto the {@link Borrowing} dto object corresponding to the id.
 	 */
 	BorrowingDto getBorrowingById(Integer borrowingId) throws LibraryServiceException;
+	
+	/**
+	 * Method get that creates new borrowing.  
+	 * 
+	 * @param borrowingDto the dto object of a new borrowing.
+	 */
+	void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	
+	/**
+	 * Method that ends a borrowing when user returns a book.   
+	 * 
+	 * @param borrowingDto the borrowing comming to a end.
+	 */
+	void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
 }

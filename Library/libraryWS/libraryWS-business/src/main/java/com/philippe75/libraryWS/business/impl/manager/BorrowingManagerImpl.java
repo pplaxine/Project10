@@ -112,6 +112,63 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		return null;
 	}
 	
+	
+	/**
+	 * Method get that creates new borrowing.  
+	 * 
+	 * @param borrowingDto the dto object of a new borrowing.
+	 */
+	@Override
+	public void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+		if(borrowingDto != null) {
+			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
+			try {
+				
+				Book book = daoHandler.getBookDao().getBookById(borrowing.getBook().getId());
+				
+				UserAccount ua = daoHandler.getUserAccountDao().getUserAccountByMemberId(borrowing.getUserAccount().getUserMemberId());
+				
+				borrowing.setBook(book);
+				borrowing.setUserAccount(ua);
+				
+				daoHandler.getBorrowingDao().createBorrowing(borrowing);
+				
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			}
+		}
+	}
+	
+	/**
+	 * Method that ends a borrowing when user returns a book.   
+	 * 
+	 * @param borrowingDto the borrowing comming to a end.
+	 */
+	@Override
+	public void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+		System.out.println(borrowingDto.getEffectiveEndDate());
+		System.out.println(borrowingDto.getId());
+		if(borrowingDto != null && borrowingDto.getId() != 0 && borrowingDto.getEffectiveEndDate() != null) {
+			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
+			try {
+				daoHandler.getBorrowingDao().endBorrowing(borrowing);
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			}
+		}
+		throw new LibraryServiceException("MissingAttributException", libraryServiceFaultFactory("1214", "You must specify the id and the effectiveEndDate in the BorrowingDto object."));
+	}
+	
 	/**
 	 * Transform model objects fetched from database to data transfer object. Also remove the user password att.   
 	 * 
@@ -155,6 +212,10 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		
 		return borrowing;
 	}
+
+
+
+
 
 
 

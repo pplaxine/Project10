@@ -80,6 +80,32 @@ public class BookDaoImpl extends AbstractDao implements BookDao {
 		}
 		return listbook;
 	}
+
+	/**
+	 * Method that gets the book via its id.
+	 * 
+	 * @param bookId id of the book.
+	 * @return Book the {@link Book} corresponding to the id. 
+	 */
+	@Override
+	public Book getBookById(Integer bookId) throws Exception {
+	
+		Book book;
+		
+		Session session = getSession();
+		session.beginTransaction();
+		try {
+			book = session.get(Book.class, 1);
+			session.getTransaction().commit();
+			session.close();
+		
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return book;
+	}
 	
 	
 

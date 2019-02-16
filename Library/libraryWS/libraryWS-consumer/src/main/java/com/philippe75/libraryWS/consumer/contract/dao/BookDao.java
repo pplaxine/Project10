@@ -21,12 +21,20 @@ public interface BookDao {
 	List<Book> getListBookStartingBy(String name) throws Exception;
 	
 	/**
-	 * Method that gets, as there is several exemplar of the same book in each library, all the books with the required name,.
+	 * Method that gets, as there is several exemplar of the same book in each library, all the books with the required name.
 	 * 
 	 * @param name of the book
 	 * @return List<Book> list of all the books with that name. 
 	 */
 	List<Book> getListBookByName(String name) throws Exception;
+	
+	/**
+	 * Method that gets the book via its id.
+	 * 
+	 * @param bookId id of the book.
+	 * @return Book the {@link Book} corresponding to the id. 
+	 */
+	Book getBookById(Integer bookId) throws Exception;
 	
 	
 }

@@ -106,8 +106,53 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 		}
 	}
 
-
+	/**
+	 * Method get that creates new borrowing.  
+	 * 
+	 * @param borrowing the new borrowing.
+	 */
+	@Override
+	public void createBorrowing(Borrowing borrowing) throws Exception {
 		
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			session.save(borrowing);
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+	}
+
+	/**
+	 * Method that ends a borrowing when user returns a book.  
+	 * 
+	 * @param borrowing the borrowing comming to a end.
+	 */
+	@Override
+	public void endBorrowing(Borrowing borrowing) throws Exception {
+		String hql = "UPDATE Borrowing b set b.effectiveEndDate=:effectiveEndDate WHERE b.id= :borrowingId";
+		
+		Session session = getSession();
+		session.beginTransaction();
+		try {
+			session.createQuery(hql)
+						.setParameter("effectiveEndDate", borrowing.getEffectiveEndDate())
+						.setParameter("borrowingId", borrowing.getId())
+						.executeUpdate();
+			
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+	}
+	
 }
 	
 
