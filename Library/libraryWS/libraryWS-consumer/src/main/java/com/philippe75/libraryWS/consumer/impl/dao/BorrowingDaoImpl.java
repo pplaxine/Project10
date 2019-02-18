@@ -152,6 +152,35 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 			}
 		}
 	}
+
+	/**
+	 * Method that gets, all the borrowings with the either supposed end date or extended supposed end date overdue.  
+	 * 
+	 * @return List<Borrowing> list of {@link Borrowing}.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Borrowing> getAllLateBorrowings() throws Exception {
+		String sql ="SELECT * FROM borrowing WHERE (CASE WHEN extended=false THEN supposed_end_date < NOW() WHEN extended=true THEN second_supposed_end_date<NOW() END) AND effective_end_date is null"; 
+		
+		List<Borrowing> listborrowing;
+		
+		Session session = getSession();
+		session.beginTransaction();
+		try {
+			
+			listborrowing = (List<Borrowing>)session.createSQLQuery(sql)	
+													.addEntity(Borrowing.class)
+													.list();
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return listborrowing;
+	}
 	
 }
 	

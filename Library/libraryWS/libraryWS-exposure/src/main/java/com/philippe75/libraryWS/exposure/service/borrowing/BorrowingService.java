@@ -62,4 +62,12 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	
+	/**
+	 * Method that gets, all the borrowings with the either supposed end date or extended supposed end date overdue.  
+	 * 
+	 * @return List<BorrowingDto> list of {@link BorrowingDto}.
+	 */
+	@WebMethod
+	List<BorrowingDto> getAllLateBorrowings() throws LibraryServiceException;
 }

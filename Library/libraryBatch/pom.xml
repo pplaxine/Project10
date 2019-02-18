@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.philippe75</groupId>
+  <artifactId>libraryBatch</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>libraryBatch</name>
+  <properties>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <maven.compiler.source>1.8</maven.compiler.source>
+	  <maven.compiler.target>1.8</maven.compiler.target>
+	  <spring.version>5.1.1.RELEASE</spring.version>
+	  <spring.batch.version>4.1.1.RELEASE</spring.batch.version>
+	  <postgresql.version>9.4.1212</postgresql.version>
+  </properties>
+
+  <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+            <version>${spring.batch.version}</version>
+        </dependency>
+       	<dependency>												<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+    		<groupId>org.postgresql</groupId>
+    		<artifactId>postgresql</artifactId>
+    		<version>${postgresql.version}</version>
+    		<scope>runtime</scope>
+		</dependency>
+  </dependencies>
+  <build>
+    <finalName>libraryBatch</finalName>
+    <plugins>
+   		
+   		<!-- Packaging JAR -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>3.0.2</version>
+		</plugin>
+
+		<!-- Compilation des sources Java -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.0</version>
+			<configuration>
+				<encoding>UTF-8</encoding>
+				<showDeprecation>true</showDeprecation>
+				<showWarnings>true</showWarnings>
+			</configuration>
+		</plugin>
+		
+		<!-- WSDL stub deploiement  -->
+		<plugin>													
+			<groupId>org.codehaus.mojo</groupId> 
+			<artifactId>jaxws-maven-plugin</artifactId>
+			<executions> 
+				<execution>
+					<goals> 
+						<goal>wsimport</goal> 
+					</goals> 
+					<configuration> 
+						<packageName>com.philippe75.libraryBatch.stub.generated.borrowingServ</packageName>
+						<sourceDestDir>/${project.basedir}/src/main/java</sourceDestDir>
+						<wsdlUrls>
+							<wsdlUrl>http://localhost:8080/libraryWS-webservice/libraryBorrowingService?wsdl</wsdlUrl>
+						</wsdlUrls>
+					</configuration>
+				</execution>  
+			</executions>		
+		</plugin>
+    </plugins>
+  </build>
+</project>

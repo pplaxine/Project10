@@ -51,4 +51,11 @@ public interface BorrowingManager {
 	 * @param borrowingDto the borrowing comming to a end.
 	 */
 	void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	
+	/**
+	 * Method that gets, all the borrowings with the either supposed end date or extended supposed end date overdue.  
+	 * 
+	 * @return List<BorrowingDto> list of {@link BorrowingDto}.
+	 */
+	List<BorrowingDto> getAllLateBorrowings() throws LibraryServiceException;
 }

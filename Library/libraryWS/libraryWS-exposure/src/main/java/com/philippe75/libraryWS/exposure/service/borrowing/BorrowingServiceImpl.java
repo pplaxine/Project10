@@ -90,4 +90,15 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
 	}
+
+	/**
+	 * Method that gets, all the borrowings with the either supposed end date or extended supposed end date overdue.  
+	 * 
+	 * @return List<BorrowingDto> list of {@link BorrowingDto}.
+	 */
+	@Override
+	public List<BorrowingDto> getAllLateBorrowings() throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBorrowingManager().getAllLateBorrowings();
+	}
 }

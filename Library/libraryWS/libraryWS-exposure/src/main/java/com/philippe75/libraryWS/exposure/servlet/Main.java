@@ -124,13 +124,20 @@ public class Main extends HttpServlet {
 //		}
 //	
 		
-		BorrowingDto borrowingDto = new BorrowingDto();
-		borrowingDto.setId(4);
-		borrowingDto.setEffectiveEndDate(new Date());
+//		BorrowingDto borrowingDto = new BorrowingDto();
+//		borrowingDto.setId(4);
+//		borrowingDto.setEffectiveEndDate(new Date());
+//		
+//		try {
+//			managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
+//		} catch (LibraryServiceException e) {
+//			e.printStackTrace();
+//		}
 		
 		try {
-			managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
-		} catch (LibraryServiceException e) {
+			List<BorrowingDto> lb =  managerHandler.getBorrowingManager().getAllLateBorrowings();
+			lb.forEach(e -> System.out.println(e.getId()));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

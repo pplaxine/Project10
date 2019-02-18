@@ -23,7 +23,8 @@
   </dependencies>
   
   <build>
-	<plugins>
+	<plugins>	
+		<!-- WSDL stub deploiement  -->											
 		<plugin>
 			<groupId>org.codehaus.mojo</groupId> 
 			<artifactId>jaxws-maven-plugin</artifactId>
@@ -67,7 +68,6 @@
 						</wsdlUrls>
 					</configuration>
 				</execution>  
-
 			</executions>		
 		</plugin>
 	</plugins>

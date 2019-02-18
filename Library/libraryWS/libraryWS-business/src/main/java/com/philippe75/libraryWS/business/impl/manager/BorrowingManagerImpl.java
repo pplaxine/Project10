@@ -151,8 +151,6 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 */
 	@Override
 	public void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
-		System.out.println(borrowingDto.getEffectiveEndDate());
-		System.out.println(borrowingDto.getId());
 		if(borrowingDto != null && borrowingDto.getId() != 0 && borrowingDto.getEffectiveEndDate() != null) {
 			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
 			try {
@@ -168,6 +166,33 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		}
 		throw new LibraryServiceException("MissingAttributException", libraryServiceFaultFactory("1214", "You must specify the id and the effectiveEndDate in the BorrowingDto object."));
 	}
+	
+	/**
+	 * Method that gets, all the borrowings with the either supposed end date or extended supposed end date overdue.  
+	 * 
+	 * @return List<BorrowingDto> list of {@link BorrowingDto}.
+	 */
+	@Override
+	public List<BorrowingDto> getAllLateBorrowings() throws LibraryServiceException {
+		
+		List<Borrowing> lb;
+		List<BorrowingDto> lbd = new ArrayList<>();
+
+			try {
+				lb = getDaoHandler().getBorrowingDao().getAllLateBorrowings();
+				lb.forEach(e -> lbd.add(borrowingModelToDto(e)));
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			} 
+
+		return lbd;
+	}
+
 	
 	/**
 	 * Transform model objects fetched from database to data transfer object. Also remove the user password att.   
@@ -212,6 +237,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		
 		return borrowing;
 	}
+
 
 
 

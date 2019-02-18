@@ -51,4 +51,11 @@ public interface BorrowingDao {
 	 */
 	void endBorrowing(Borrowing borrowing) throws Exception;
 	
+	/**
+	 * Method that gets, all the borrowings with the either supposed end date or extended supposed end date overdue.  
+	 * 
+	 * @return List<Borrowing> list of {@link Borrowing}.
+	 */
+	List<Borrowing> getAllLateBorrowings() throws Exception;
+	
 }

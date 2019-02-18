@@ -4,13 +4,10 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
-			<item value="com.philippe75"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="libraryWebapp-webapp"/>
-			<item value="libraryWebapp"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -67,14 +64,18 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.philippe75.libraryBatch"/>
+			<item value="com.philippe75."/>
 			<item value="com.philippe75.libraryWebapp.webapp"/>
 			<item value="com.philippe75.libraryWebapp.stub"/>
 			<item value="com.philippe75.libraryWebapp.technical"/>
 		</list>
 		<list key="groupId">
 			<item value="com.philippe75"/>
+			<item value="com.philippe75."/>
 		</list>
 		<list key="artifactId">
+			<item value="libraryBatch"/>
 			<item value="libraryWebapp-webapp"/>
 			<item value="libraryWebapp-stub"/>
 			<item value="libraryWebapp-technical"/>
@@ -89,6 +90,19 @@
 		</list>
 		<list key="version">
 			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="C:\Users\Windows\Desktop\Project7\LibraryGit\Library\libraryWS\pom.xml"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
 		</list>
 	</section>
 </section>
