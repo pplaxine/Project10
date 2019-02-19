@@ -34,6 +34,16 @@
     		<version>${postgresql.version}</version>
     		<scope>runtime</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${spring.batch.version}</version>
+		</dependency>
+		<dependency>
+		<groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4</version>
+		</dependency>
   </dependencies>
   <build>
     <finalName>libraryBatch</finalName>

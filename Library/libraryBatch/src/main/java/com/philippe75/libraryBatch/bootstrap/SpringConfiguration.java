@@ -4,29 +4,38 @@ import java.net.MalformedURLException;
 
 import javax.sql.DataSource;
 
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @ComponentScan("com.philippe75.libraryBatch")
-@EnableBatchProcessing
 @EnableScheduling
+@PropertySource("classpath:/Config.properties")
 public class SpringConfiguration {
+	
+	/**
+	 * Allow access to DataBaseConf.properties
+	 *
+	 * @see #dataSource()
+	 */
+	@Autowired
+	Environment env;
 	
     @Value("org/springframework/batch/core/schema-drop-postgresql.sql")
     private Resource dropReopsitoryTables;
@@ -38,20 +47,21 @@ public class SpringConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/batch7");
-        dataSource.setUsername("adm_library");
-        dataSource.setPassword("mdp2");
+        dataSource.setUrl(env.getProperty("database.url"));
+        dataSource.setUsername(env.getProperty("database.user"));
+        dataSource.setPassword(env.getProperty("database.code"));
 
         return dataSource;
     }
 
-   
-
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) throws MalformedURLException {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
- 
+        
         databasePopulator.addScript(dropReopsitoryTables);
+
+        //Flag to indicate that all failures in SQL should be logged but not cause a failure.
+        databasePopulator.setContinueOnError(true);
         databasePopulator.addScript(dataReopsitorySchema);
         databasePopulator.setIgnoreFailedDrops(true);
  
@@ -75,6 +85,7 @@ public class SpringConfiguration {
         return new ResourcelessTransactionManager();
     }
     
+    @Bean(name="jobLauncher")
     public JobLauncher getJobLauncher() throws Exception {
         SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
         jobLauncher.setJobRepository(getJobRepository());
@@ -82,4 +93,6 @@ public class SpringConfiguration {
         
         return jobLauncher;
     }
+    
+
 }

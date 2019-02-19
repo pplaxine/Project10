@@ -135,6 +135,7 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 	@Override
 	public void endBorrowing(Borrowing borrowing) throws Exception {
 		String hql = "UPDATE Borrowing b set b.effectiveEndDate=:effectiveEndDate WHERE b.id= :borrowingId";
+		String hql2 = "UPDATE Book b set available=true WHERE b.id= :bookId";
 		
 		Session session = getSession();
 		session.beginTransaction();
@@ -143,7 +144,10 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 						.setParameter("effectiveEndDate", borrowing.getEffectiveEndDate())
 						.setParameter("borrowingId", borrowing.getId())
 						.executeUpdate();
-			
+			session.createQuery(hql2)
+						.setParameter("bookId", borrowing.getBook().getId())
+						.executeUpdate();
+			System.out.println(borrowing.getBook().getId());
 			session.getTransaction().commit();
 			session.close();
 		}finally {

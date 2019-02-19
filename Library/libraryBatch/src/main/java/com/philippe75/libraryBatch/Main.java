@@ -1,16 +1,11 @@
 package com.philippe75.libraryBatch;
 
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.scheduling.annotation.EnableScheduling;
-
 import com.philippe75.libraryBatch.bootstrap.SpringConfiguration;
-
-/**
- * Hello world!
- *
- */
-
+import com.philippe75.libraryBatch.emailService.EmailService;
+import com.philippe75.libraryBatch.emailService.EmailServiceImpl;
 
 public class Main {
 	

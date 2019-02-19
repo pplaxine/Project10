@@ -151,20 +151,49 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 */
 	@Override
 	public void endBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
-		if(borrowingDto != null && borrowingDto.getId() != 0 && borrowingDto.getEffectiveEndDate() != null) {
+		
+		if(borrowingDto != null && borrowingDto.getId() != 0 ) {
+			
 			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
+			
+			Borrowing borrowingBD;
+			
+			// Check if this borrowing hasn't been ended already - separate try catch for the throw AttributAlreadyFieldException to not be caught in catch Exception
 			try {
-				daoHandler.getBorrowingDao().endBorrowing(borrowing);
-			} catch (NoResultException e) {
-				System.out.println(e.getMessage());
+				borrowingBD = daoHandler.getBorrowingDao().getBorrowingById(borrowing.getId());
+			} catch (NoResultException ex) {
+				System.out.println(ex.getMessage());
 				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
 				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", ex.getMessage()));
 			}
+
+			if(borrowingBD.getEffectiveEndDate() == null) {
+				try {
+					//injection of the book id in the borrowing object
+					Book book = new Book();
+					book.setId(borrowingBD.getBook().getId());
+					borrowing.setBook(book);
+					
+					daoHandler.getBorrowingDao().endBorrowing(borrowing);
+					
+				} catch (NoResultException e) {
+					System.out.println(e.getMessage());
+					throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+				}
+			}else {
+				throw new LibraryServiceException("AttributAlreadyFieldException", libraryServiceFaultFactory("1215", "This borrowing has already an effective end Date."));
+			}
+		}else {
+			throw new LibraryServiceException("MissingAttributException", libraryServiceFaultFactory("1214", "You must specify the id and the effectiveEndDate in the BorrowingDto object."));
 		}
-		throw new LibraryServiceException("MissingAttributException", libraryServiceFaultFactory("1214", "You must specify the id and the effectiveEndDate in the BorrowingDto object."));
+		
 	}
 	
 	/**
