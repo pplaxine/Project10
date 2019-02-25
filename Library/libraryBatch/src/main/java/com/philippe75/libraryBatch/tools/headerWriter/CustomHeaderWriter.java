@@ -9,7 +9,6 @@ public class CustomHeaderWriter implements FlatFileHeaderCallback{
 
 	private String header;
 	
-	
 	//G&S
 	public void setHeader(String header) {
 		this.header = header;

@@ -29,6 +29,8 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceEx
 import com.philippe75.libraryBatch.tools.headerWriter.CustomHeaderWriter;
 import com.philippe75.libraryBatch.tools.processor.BorrowingDtoProcessor;
 import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingEmailSender;
+import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingProcessor;
+import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingReader;
 
 @Configuration
 @EnableBatchProcessing
@@ -41,7 +43,23 @@ public class SpringBatchConfiguration {
 	public StepBuilderFactory stepBuilderFactory;
 	
 	@Autowired
+	public BorrowingService borrowingService;
+	
+	@Autowired
+	public LateBorrowingReader lateBorrowingReader;
+	
+	@Autowired
+	public LateBorrowingProcessor lateBorrowingProcessor;
+	
+	@Autowired
 	public LateBorrowingEmailSender lateBorrowingEmailSender;
+	
+	
+	// ------- Sending emails to late borrowing via tasklet way (+ code externalized in class ) ---------------
+
+	
+	
+	// ------------------ Creation of CSV file via Chunk way ( + code internalized ) ------------------
 
 	/**
 	 * 
@@ -53,7 +71,6 @@ public class SpringBatchConfiguration {
 	public ItemReader<BorrowingDto> itemReader() {
 
 		List<BorrowingDto> lb = null;
-		BorrowingService borrowingService = new BorrowingServiceImplService().getBorrowingServiceImplPort();
 		
 		try {
 			lb = (List<BorrowingDto>) borrowingService.getAllLateBorrowings().getItem();
@@ -106,25 +123,53 @@ public class SpringBatchConfiguration {
     	return writer;
     }
     
+    //========== STEPS ==========
     
-    @Bean
-    public Step stepStoreLateBorrowingsToCSV(@Qualifier("itemReader") ItemReader<BorrowingDto> reader, @Qualifier("itemProcessor") ItemProcessor<BorrowingDto, BorrowingDto> processor, @Qualifier("itemWriter") ItemWriter<BorrowingDto> writer) {
-    	return stepBuilderFactory.get("stepStoreLateBorrowingToCSV").<BorrowingDto, BorrowingDto>chunk(10).reader(reader).processor(processor).writer(writer).allowStartIfComplete(true).build(); 
-    }
+    // ------------------------------- Steps Task way ----------------------------------------
     
+	@Bean
+	public Step readLateBorrowing() {
+		return stepBuilderFactory.get("stepReadLateBorrowings")
+				.tasklet(lateBorrowingReader)
+				.allowStartIfComplete(true)
+				.build();
+	}
+	@Bean
+	public Step processLateBorrowing() {
+		return stepBuilderFactory.get("stepProcessLateBorrowings")
+				.tasklet(lateBorrowingProcessor)
+				.allowStartIfComplete(true)
+				.build();
+	}
+	
     @Bean
-    public Step stepSendEmailToUser() {
+    public Step SendEmailToUser() {
     	return stepBuilderFactory 
     			.get("stepSendEmailToUser")
     			.tasklet(lateBorrowingEmailSender)
+    			.allowStartIfComplete(true)
     			.build();
     }
     
-    @Bean(name="batchJob1")
-    public Job job(@Qualifier("stepStoreLateBorrowingsToCSV") Step step1, @Qualifier("stepSendEmailToUser") Step step2) {		// @Qualifier inject Step
-    	return jobBuilderFactory.get("SendEmailToLateBorrowings").incrementer(new RunIdIncrementer()).start(step1).next(step2).build();
+    // ------------------------------- Step chunk way ----------------------------------------
+    
+   @Bean
+    public Step StoreLateBorrowingsToCSV(@Qualifier("itemReader") ItemReader<BorrowingDto> reader, @Qualifier("itemProcessor") ItemProcessor<BorrowingDto, BorrowingDto> processor, @Qualifier("itemWriter") ItemWriter<BorrowingDto> writer) {
+    	return stepBuilderFactory.get("stepStoreLateBorrowingToCSV").<BorrowingDto, BorrowingDto>chunk(10).reader(reader).processor(processor).writer(writer).allowStartIfComplete(true).build(); 
     }
-	
+    
+    //========== JOB ==========
+    
+    @Bean(name="batchJob1")
+    public Job job(@Qualifier("StoreLateBorrowingsToCSV") Step step1, @Qualifier("readLateBorrowing") Step step2, @Qualifier("processLateBorrowing") Step step3, @Qualifier("SendEmailToUser") Step step4) {		// @Qualifier inject Step
+    	return jobBuilderFactory.get("LateBorrowingsJob")
+    			.incrementer(new RunIdIncrementer())
+    			.start(step1)
+    			.next(step2)
+    			.next(step3)
+    			.next(step4)
+    			.build();
+    }
 	
 }
 

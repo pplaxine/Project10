@@ -21,8 +21,6 @@ public class JobRunner {
 	@Autowired
 	private Job batchJob1;
 	
-	
-	
 	@Scheduled(fixedDelay=30000)
 	public void runJobLauncher() {
 		

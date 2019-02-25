@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.dao.Jackson2ExecutionContextStringSerializer;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingServiceImplService;
 
 @Configuration
 @ComponentScan("com.philippe75.libraryBatch")
@@ -72,10 +76,12 @@ public class SpringConfiguration {
         return initializer;
     }
     
+    
     private JobRepository getJobRepository() throws Exception {
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
         factory.setDataSource(dataSource());
         factory.setTransactionManager(getTransactionManager());
+     //   factory.setSerializer(new Jackson2ExecutionContextStringSerializer());
         factory.afterPropertiesSet();
         
         return (JobRepository) factory.getObject();
@@ -93,6 +99,9 @@ public class SpringConfiguration {
         
         return jobLauncher;
     }
-    
+    @Bean(name="borowingService")
+    public BorrowingService getBorrowingService() {
+    	return new BorrowingServiceImplService().getBorrowingServiceImplPort();
+    }
 
 }

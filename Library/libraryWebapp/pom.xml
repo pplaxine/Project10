@@ -21,8 +21,6 @@
     <module>${project.artifactId}-webapp</module>
   </modules>
   
-  
-  
   <dependencyManagement>
   	<dependencies>
   	

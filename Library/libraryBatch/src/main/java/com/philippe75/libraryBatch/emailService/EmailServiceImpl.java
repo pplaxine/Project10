@@ -20,11 +20,11 @@ public class EmailServiceImpl implements EmailService{
 		
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		try {
-			MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, true, "utf-8");
+			MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, false, "utf-8");
 			mimeMessage.setContent(text, "text/html");
 			mmh.setTo(to);
 			mmh.setSubject(subject);
-			 mailSender.send(mimeMessage);
+			mailSender.send(mimeMessage);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}

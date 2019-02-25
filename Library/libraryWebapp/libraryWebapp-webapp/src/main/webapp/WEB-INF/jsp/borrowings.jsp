@@ -64,18 +64,10 @@
 				
 				<div class="row mt-5">
 					<table class="table table-dark mt-3" style="opacity:0.8">
-				
-						<s:iterator value="listBorrowingForUser">
+					
+						<h4>Historique des emprunts</h4><br/>
+						<s:iterator value="listBorrowingForUser" var="test">
 							<s:if test="effectiveEndDate != null">
-								<h2>Historique des emprunts</h2><br/>
-								<thead>
-									  <tr>
-									    <th scope="col"></th>
-									    <th scope="col"><s:text name="borrowings.col.book"/></th>
-									    <th scope="col"><s:text name="borrowings.col.date1"/></th>
-									    <th scope="col"><s:text name="Rendu le "/></th>
-									  </tr>
-									</thead>
 								<tbody>
 								  <tr>
 								    <th scope="row"></th>
