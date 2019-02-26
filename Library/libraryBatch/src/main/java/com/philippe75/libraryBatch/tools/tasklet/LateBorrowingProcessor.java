@@ -26,6 +26,12 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryBatch.tools.model.Borrowing;
 import com.philippe75.libraryBatch.tools.model.LateBorrowingEmail;
 
+/**
+ * <b>Tasklet Processor {@link Tasklet}</b>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Component
 @PropertySource("classpath:/Config.properties")
 public class LateBorrowingProcessor implements Tasklet, StepExecutionListener{
@@ -47,7 +53,7 @@ public class LateBorrowingProcessor implements Tasklet, StepExecutionListener{
 								.getExecutionContext();
 		lateBorrowingEmailMap = (Map<String, LateBorrowingEmail>)ec.get("lateBorrowingEmailMap");
 	}
-	
+
 	@Override
 	public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
 		

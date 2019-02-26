@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import com.mysql.cj.util.StringUtils;
 import com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;

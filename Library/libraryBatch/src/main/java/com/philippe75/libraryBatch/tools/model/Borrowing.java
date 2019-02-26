@@ -7,7 +7,7 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.UserAccount;
 
 /**
- * <b>Dto object of Borrowing.</b>
+ * <b>Borrowing model object</b>
  * 	  
  * <p>
  *

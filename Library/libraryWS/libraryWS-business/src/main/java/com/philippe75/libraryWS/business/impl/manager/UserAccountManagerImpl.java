@@ -64,32 +64,38 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	 */
 	@Override
 	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException {
-		UserAccount ua;
 		
-		try {
-			ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
-			if(ua.getPassword() == null) {
-				//Password BCrytpeEncoding
-				String pwEncoded = bcPasswordEncodeur.encode(password);
-				ua = daoHandler.getUserAccountDao().saveUserAccountPw(userMemberId, pwEncoded);
-				return userAccountModelToDto(ua);
-			}
+		if(password.length() < 4) {
+			System.out.println("hello from password");
+			throw new LibraryServiceException("ShortPasswordException", libraryServiceFaultFactory("1238", "Your password must be at least 4 character long."));
 			
-		} catch (NoResultException e) {
-			System.out.println(e.getMessage());
-			throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+		}else {
 			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
-		} 
-		
-		throw new LibraryServiceException("ExistingPasswordException", libraryServiceFaultFactory("1236", "A password already exists for this member id."));
+			UserAccount ua;
+			
+			try {
+				ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
+				if(ua.getPassword() == null) {
+					//Password BCrytpeEncoding
+					String pwEncoded = bcPasswordEncodeur.encode(password);
+					ua = daoHandler.getUserAccountDao().saveUserAccountPw(userMemberId, pwEncoded);
+					return userAccountModelToDto(ua);
+				}
+				
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			} 
+			
+			throw new LibraryServiceException("ExistingPasswordException", libraryServiceFaultFactory("1236", "A password already exists for this member id."));
+		}
 		
 	}
 
-
-	
 	//UTILITY METHODS 
 	/**
 	 * Transform model objects fetched from database to data transfer object.   

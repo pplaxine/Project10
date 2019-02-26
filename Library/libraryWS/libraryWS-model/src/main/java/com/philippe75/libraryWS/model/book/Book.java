@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.philippe75.libraryWS.model.library.Library;
 //TODO : Auto-generated Javadoc
@@ -81,18 +83,24 @@ public class Book {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@NotNull
+	@Size(min=1, max=300)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@NotNull
+	@Size(min=1, max=200)
 	public String getAuthor() {
 		return author;
 	}
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	@NotNull
+	@Size(min=1, max=2000)
 	public String getSummary() {
 		return summary;
 	}
@@ -102,12 +110,14 @@ public class Book {
 	public boolean isAvailable() {
 		return available;
 	}
+	@NotNull
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
 	
 	@ManyToOne 
 	@JoinColumn(name="library_id")
+	@NotNull
 	public Library getLibrary() {
 		return library;
 	}
@@ -117,6 +127,7 @@ public class Book {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="book_genre")
+	@NotNull
 	public Genre getGenre() {
 		return genre;
 	}
@@ -125,6 +136,7 @@ public class Book {
 	}
 
 	@OneToMany(mappedBy="book")
+	@NotNull
 	public Collection<Borrowing> getListBorrowing() {
 		return listBorrowing;
 	}

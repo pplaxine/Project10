@@ -20,5 +20,10 @@
 	   <artifactId>hibernate-core</artifactId>
 	</dependency>
 	
+  	<dependency>															<!-- Validator -->
+	    <groupId>javax.validation</groupId>
+	    <artifactId>validation-api</artifactId>
+    </dependency>
+	
   </dependencies>
 </project>

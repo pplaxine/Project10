@@ -8,20 +8,32 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * <b>Allows to set when batch needs to be ran</b>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Component
 public class JobRunner {
-
+	
 	@Autowired
 	private JobLauncher jobLauncher;
 	
 	@Autowired
 	private Job batchJob1;
 	
+	/**
+	 * Methode that run the batch on a scheduled delay.
+	 */
+	// FIEXED DELAY FOR TESTING
 	@Scheduled(fixedDelay=30000)
+	//@Scheduled(cron ="0 1 * * *")
 	public void runJobLauncher() {
 		
 		System.out.println("Starting batch job");

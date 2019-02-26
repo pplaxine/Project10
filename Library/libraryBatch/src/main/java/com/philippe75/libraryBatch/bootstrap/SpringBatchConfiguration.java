@@ -8,6 +8,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -21,10 +22,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import com.philippe75.libraryBatch.stub.generated.borrowingServ.Book;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
-import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingServiceImplService;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryBatch.tools.headerWriter.CustomHeaderWriter;
 import com.philippe75.libraryBatch.tools.processor.BorrowingDtoProcessor;
@@ -32,6 +31,12 @@ import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingEmailSender;
 import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingProcessor;
 import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingReader;
 
+/**
+ * <b>Spring Batch configuration Class</b>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Configuration
 @EnableBatchProcessing
 public class SpringBatchConfiguration {

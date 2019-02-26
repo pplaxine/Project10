@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Library 7</title>
@@ -28,14 +30,14 @@
 
 
 	  	<div style=" color: rgba(237, 175, 111, 1); ">
-		  	<h2 style=" color: white ; font-size: 1.5em">Il est temps ...</h1><br/>
+		  	<h2 class="text-warning" style=" font-size: 1.5em">Il est temps ...</h1><br/>
 			<p >
 				Bonjour $$userName,<br/>
 			</p>
 			<p>
 				Il semblerait que vous n'ayez toujours pas rendu $$att ouvrage$$pluriel suivant$$pluriel : 
+				<div>$$listBook</div>
 				
-				$$listBook
 			</p>
 			<p>
 				Nous vous remercions de bien vouloir faire le nécessaire dans les plus brefs délais.

@@ -2,9 +2,12 @@ package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Named;
 import javax.persistence.NoResultException;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import com.philippe75.libraryWS.business.contract.manager.BookManager;
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
@@ -122,6 +125,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	public void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
 		if(borrowingDto != null) {
 			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
+			
 			try {
 				
 				Book book = daoHandler.getBookDao().getBookById(borrowing.getBook().getId());
@@ -130,8 +134,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				
 				borrowing.setBook(book);
 				borrowing.setUserAccount(ua);
-				
-				daoHandler.getBorrowingDao().createBorrowing(borrowing);
+
 				
 			} catch (NoResultException e) {
 				System.out.println(e.getMessage());
@@ -141,6 +144,20 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				System.out.println(e.getMessage());
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 			}
+			
+			
+			Set<ConstraintViolation<Borrowing>> violation = getConstraintValidator().validate(borrowing);
+			if(!violation.isEmpty()) {
+				throw new LibraryServiceException("ConstraintException",  new ConstraintViolationException(violation), libraryServiceFaultFactory("1587", "One of the constraint is not fulfilled"));
+			}
+			try {
+				daoHandler.getBorrowingDao().createBorrowing(borrowing);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			}
+			
+			
 		}
 	}
 	
@@ -250,6 +267,12 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		return bd;
 	}
 	
+	/**
+	 * Transform dto objects to model object.   
+	 * 
+	 * @param borrowingDto  {@link BorrowingDto} . 
+	 * @return borrowing {@link Borrowing}.  
+	 */
 	private Borrowing borrowingDtoToModel(BorrowingDto bd) {
 		
 		Borrowing borrowing = new Borrowing();

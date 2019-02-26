@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.philippe75.libraryWS.model.book.Borrowing;
 
@@ -98,13 +100,15 @@ public class UserAccount {
 	}
 	
 	@Column(name="user_member_id")
+	@NotNull
+	@Size(min=4,max=20)
 	public String getUserMemberId() {
 		return userMemberId;
 	}
 	public void setUserMemberId(String userMemberId) {
 		this.userMemberId = userMemberId;
 	}
-	
+	@Size(min=4,max=70)
 	public String getPassword() {
 		return password;
 	}
@@ -118,6 +122,8 @@ public class UserAccount {
 		this.access = access;
 	}
 	@Column(name="firstname")
+	@NotNull
+	@Size(min=1,max=50)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -125,6 +131,8 @@ public class UserAccount {
 		this.firstName = firstName;
 	}
 	@Column(name="surename")
+	@NotNull
+	@Size(min=1,max=50)
 	public String getSureName() {
 		return sureName;
 	}
@@ -134,13 +142,14 @@ public class UserAccount {
 	
 	@OneToOne
 	@JoinColumn(name="user_address_id")
+	@NotNull
 	public UserAddress getAddress() {
 		return address;
 	}
 	public void setAddress(UserAddress address) {
 		this.address = address;
 	}
-	
+	@NotNull
 	public String getEmail() {
 		return email;
 	}
@@ -156,6 +165,7 @@ public class UserAccount {
 	}
 	
 	@Column(name="blocked_account")
+	@NotNull
 	public boolean isBlockedAccount() {
 		return blockedAccount;
 	}

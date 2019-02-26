@@ -29,6 +29,12 @@
   		<groupId>${project.groupId}</groupId>
 		<artifactId>${project.parent.artifactId}-technical</artifactId>
   	</dependency>
+  	
+  	<!-- ===== 1/3 parties ===== -->
+  	<dependency>														<!-- Validator -->
+        <groupId>org.apache.bval</groupId>
+        <artifactId>bval-jsr</artifactId>
+    </dependency>
   
   </dependencies>
 </project>

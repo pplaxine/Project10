@@ -1,4 +1,4 @@
-package com.philippe75.libraryBatch.bootstrap;
+package com.philippe75.libraryWS.exposure.bootstrap;
 
 
 import java.util.Properties;

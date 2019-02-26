@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -77,6 +78,7 @@ public class Borrowing {
 		this.id = id;
 	}
 	@Column(name="start_date")
+	@NotNull
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -84,6 +86,7 @@ public class Borrowing {
 		this.startDate = startDate;
 	}
 	@Column(name="supposed_end_date")
+	@NotNull
 	public Date getSupposedEndDate() {
 		return supposedEndDate;
 	}
@@ -104,6 +107,7 @@ public class Borrowing {
 	public void setEffectiveEndDate(Date effectiveEndDate) {
 		this.effectiveEndDate = effectiveEndDate;
 	}
+	@NotNull
 	public boolean isExtended() {
 		return extended;
 	}
@@ -112,6 +116,7 @@ public class Borrowing {
 	}
 	@ManyToOne
 	@JoinColumn(name="book_id")
+	@NotNull
 	public Book getBook() {
 		return book;
 	}
@@ -120,6 +125,7 @@ public class Borrowing {
 	}
 	@ManyToOne
 	@JoinColumn(name="user_account_id")
+	@NotNull
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}

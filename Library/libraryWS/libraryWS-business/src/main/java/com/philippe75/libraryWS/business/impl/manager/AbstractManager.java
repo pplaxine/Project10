@@ -1,6 +1,10 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 import javax.inject.Inject;
+import javax.validation.Configuration;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,6 +48,17 @@ public abstract class AbstractManager {
 		return af;
 	}
 	
+    /**
+     * Renvoie un {@link Validator} de contraintes
+     *
+     * @return Validator
+     */
+    protected Validator getConstraintValidator() {
+        Configuration<?> vConfiguration = Validation.byDefaultProvider().configure();
+        ValidatorFactory vFactory = vConfiguration.buildValidatorFactory();
+        Validator vValidator = vFactory.getValidator();
+        return vValidator;
+    }
 
 
 }

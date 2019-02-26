@@ -26,7 +26,15 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingServiceImplService;
+import com.philippe75.libraryBatch.stub.generated.mailServ.EmailService;
+import com.philippe75.libraryBatch.stub.generated.mailServ.EmailServiceImplService;
 
+/**
+ * <b>Spring configuration Class</b>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Configuration
 @ComponentScan("com.philippe75.libraryBatch")
 @EnableScheduling
@@ -104,4 +112,8 @@ public class SpringConfiguration {
     	return new BorrowingServiceImplService().getBorrowingServiceImplPort();
     }
 
+    @Bean(name="emailService")
+    public EmailService getEmailService() {
+    	return new EmailServiceImplService().getEmailServiceImplPort();
+    }
 }

@@ -21,13 +21,31 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceEx
 import com.philippe75.libraryBatch.tools.model.Borrowing;
 import com.philippe75.libraryBatch.tools.model.LateBorrowingEmail;
 
+/**
+ * <b>Tasklet Reader {@link Tasklet}</b>
+ * 
+ * @author Philippe plaxine
+ * @version 1.0
+ */
 @Component
 public class LateBorrowingReader implements Tasklet, StepExecutionListener{
 	
+	/**
+	 * The borrowing web service.
+	 */
 	@Autowired
 	private BorrowingService borrowingService; 
+	/**
+	 * list of late borrowings {@link BorrowingDto} 
+	 */
 	private List<BorrowingDto> listBorrowingDto;
+	/**
+	 * list of late borrowings {@link Borrowing} 
+	 */
 	private List<Borrowing> listBorrowing;
+	/**
+	 * list of Emails containing the late {@link Borrowing} to be sent. 
+	 */
 	private Map<String, LateBorrowingEmail> lateBorrowingEmailMap;
 	
 	@Override

@@ -7,8 +7,6 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-
 
 /**
  * <p>Classe Java pour borrowingDto complex type.

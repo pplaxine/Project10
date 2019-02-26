@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * <b>Model object of the address attached to a user</b>
@@ -58,6 +60,8 @@ public class UserAddress {
 		this.id = id;
 	}
 	@Column(name="street_number")
+	@NotNull
+	@Size(min=1,max=10)
 	public String getStreetNumber() {
 		return streetNumber;
 	}
@@ -65,12 +69,17 @@ public class UserAddress {
 		this.streetNumber = streetNumber;
 	}
 	@Column(name="street_name")
+	@NotNull
+	@Size(min=1,max=200)
 	public String getStreetName() {
 		return streetName;
 	}
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
+	@Column(name="city")
+	@NotNull
+	@Size(min=1,max=200)
 	public String getCity() {
 		return city;
 	}
@@ -78,6 +87,8 @@ public class UserAddress {
 		this.city = city;
 	}
 	@Column(name="post_code",columnDefinition="NUMERIC")
+	@NotNull
+	@Size(min=1,max=5)
 	public int getPostCode() {
 		return postCode;
 	}

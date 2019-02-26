@@ -83,7 +83,9 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 				if((aEx.getMessage()).equals("NoResultException")) {
 					this.addFieldError("userMemberId", getText("login.failure.login"));
 				}else if ((aEx.getMessage()).equals("ExistingPasswordException") ) {
-					this.addActionError("Votre compte possède déjà un mot de passe.");
+					this.addActionError(getText("login.failure.password.already.exist"));
+				}else if ((aEx.getMessage()).equals("ShortPasswordException") ) {
+					this.addFieldError("password",getText("login.failure.short"));
 				}else {
 					this.addActionError(getText("general.failure"));
 				}

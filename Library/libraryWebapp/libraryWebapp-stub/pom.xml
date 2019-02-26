@@ -19,6 +19,12 @@
          <groupId>${project.groupId}</groupId>
          <artifactId>${project.parent.artifactId}-technical</artifactId>
      </dependency>
+     
+     <!-- ===== 1/3 parties ===== -->
+	 <dependency>												<!-- Validators -->
+         <groupId>javax.validation</groupId>
+         <artifactId>validation-api</artifactId>
+	 </dependency>
 
   </dependencies>
   
@@ -51,7 +57,7 @@
 						<packageName>com.philippe75.libraryWebapp.stub.generated.bookServ</packageName>
 						<sourceDestDir>/${project.basedir}/src/main/java</sourceDestDir>
 						<wsdlUrls>
-							<wsdlUrl>http://localhost:8080/libraryWS-webservice/libraryService?wsdl</wsdlUrl>
+							<wsdlUrl>http://localhost:8080/libraryWS-webservice/emailService?wsdl</wsdlUrl>
 						</wsdlUrls>
 					</configuration>
 				</execution>

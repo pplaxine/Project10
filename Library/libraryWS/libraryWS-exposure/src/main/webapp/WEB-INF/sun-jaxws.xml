@@ -12,4 +12,8 @@
 	<endpoint name="LibraryBorrowingService"
         implementation="com.philippe75.libraryWS.exposure.service.borrowing.BorrowingServiceImpl"
         url-pattern="/libraryBorrowingService" />
+        
+   	<endpoint name="emailService"
+        implementation="com.philippe75.libraryWS.exposure.service.emailService.EmailServiceImpl"
+        url-pattern="/emailService" />
 </endpoints>

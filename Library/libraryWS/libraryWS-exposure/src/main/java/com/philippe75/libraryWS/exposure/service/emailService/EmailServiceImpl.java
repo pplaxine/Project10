@@ -1,22 +1,25 @@
-package com.philippe75.libraryBatch.emailService;
+package com.philippe75.libraryWS.exposure.service.emailService;
 
+import javax.jws.WebService;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 @Component
-public class EmailServiceImpl implements EmailService{
+@WebService(endpointInterface="com.philippe75.libraryWS.exposure.service.emailService.EmailService")
+public class EmailServiceImpl extends SpringBeanAutowiringSupport implements EmailService{
 
 	@Autowired
 	private JavaMailSender mailSender;
 	
 	@Override
 	public void sendSimpleMessage(String to, String subject, String text) {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		try {
