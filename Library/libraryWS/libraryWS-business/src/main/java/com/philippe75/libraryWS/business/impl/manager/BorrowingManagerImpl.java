@@ -1,6 +1,7 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -9,14 +10,11 @@ import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import com.philippe75.libraryWS.business.contract.manager.BookManager;
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
-import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
-import com.philippe75.libraryWS.model.library.Library;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
@@ -62,14 +60,15 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 */
 	@Override
 	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
-		if(borrowingDto != null) {
+		if(borrowingDto != null && borrowingDto.getId() != 0 && borrowingDto.getSecondSupposedEndDate() != null) {
 			Borrowing bor = borrowingDtoToModel(borrowingDto);
-			Boolean isExtended = true;
+			Boolean isExtended = false;
 			
 			try {
 				isExtended = daoHandler.getBorrowingDao().getBorrowingById(bor.getId()).isExtended();
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", ex.getMessage()));
 			}
 			
 			if(bor.isExtended() == true || isExtended == true ) {
@@ -82,11 +81,17 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 					throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
 					
 				} catch (Exception e) {
+					
+					//throw e; // (throw the  Exception e ) 
 					System.out.println(e.getMessage());
 					throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 				}
 			}
+		}else {
+			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","You must complete borrowingId and secondSupposedEndDate Values"));
+			
 		}
+		
 	}
 	
 	/**
@@ -129,11 +134,18 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			try {
 				
 				Book book = daoHandler.getBookDao().getBookById(borrowing.getBook().getId());
-				
-				UserAccount ua = daoHandler.getUserAccountDao().getUserAccountByMemberId(borrowing.getUserAccount().getUserMemberId());
-				
-				borrowing.setBook(book);
-				borrowing.setUserAccount(ua);
+				if(book.isAvailable() != true) {
+					throw new LibraryServiceException("BookAlreadyBorrowedException", libraryServiceFaultFactory("1436", "The book selected hasn't been returned yet.")); 
+				}else {
+					
+					UserAccount ua = daoHandler.getUserAccountDao().getUserAccountByMemberId(borrowing.getUserAccount().getUserMemberId());
+					
+					book.setAvailable(false);
+					borrowing.setBook(book);
+					borrowing.setUserAccount(ua);
+					borrowing.setExtended(false);
+					borrowing.setStartDate(new Date());
+				}
 
 				
 			} catch (NoResultException e) {
@@ -144,6 +156,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				System.out.println(e.getMessage());
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 			}
+			
 			
 			
 			Set<ConstraintViolation<Borrowing>> violation = getConstraintValidator().validate(borrowing);
@@ -173,11 +186,11 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			
 			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
 			
-			Borrowing borrowingBD;
+			Borrowing borrowingDB;
 			
 			// Check if this borrowing hasn't been ended already - separate try catch for the throw AttributAlreadyFieldException to not be caught in catch Exception
 			try {
-				borrowingBD = daoHandler.getBorrowingDao().getBorrowingById(borrowing.getId());
+				borrowingDB = daoHandler.getBorrowingDao().getBorrowingById(borrowing.getId());
 			} catch (NoResultException ex) {
 				System.out.println(ex.getMessage());
 				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
@@ -187,11 +200,11 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", ex.getMessage()));
 			}
 
-			if(borrowingBD.getEffectiveEndDate() == null) {
+			if(borrowingDB.getEffectiveEndDate() == null) {
 				try {
 					//injection of the book id in the borrowing object
 					Book book = new Book();
-					book.setId(borrowingBD.getBook().getId());
+					book.setId(borrowingDB.getBook().getId());
 					borrowing.setBook(book);
 					
 					daoHandler.getBorrowingDao().endBorrowing(borrowing);

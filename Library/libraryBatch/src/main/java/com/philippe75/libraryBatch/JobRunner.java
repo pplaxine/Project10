@@ -8,8 +8,9 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,15 @@ import org.springframework.stereotype.Component;
  * @author Philippe plaxine
  * @version 1.0
  */
+@PropertySource("classpath:/Config.properties")
 @Component
 public class JobRunner {
+	
+	/**
+	 * Allow access to Config.properties
+	 */
+	@Autowired
+	Environment env;
 	
 	@Autowired
 	private JobLauncher jobLauncher;

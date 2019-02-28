@@ -7,7 +7,6 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
-import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
 /**

@@ -2,9 +2,6 @@ package com.philippe75.libraryWS.consumer.impl.dao;
 
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
-import javax.persistence.criteria.CriteriaBuilder;
-
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

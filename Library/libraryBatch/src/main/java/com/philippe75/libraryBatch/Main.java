@@ -1,7 +1,6 @@
 package com.philippe75.libraryBatch;
 
 
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.philippe75.libraryBatch.bootstrap.SpringConfiguration;

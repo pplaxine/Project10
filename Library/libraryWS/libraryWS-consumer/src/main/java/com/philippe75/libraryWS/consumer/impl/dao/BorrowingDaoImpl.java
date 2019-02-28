@@ -7,9 +7,7 @@ import javax.inject.Named;
 
 import org.hibernate.Session;
 import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
-import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.Borrowing;
-import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
  * <b>Implements BorrowingDto Interface</b>
@@ -117,6 +115,7 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 		Session session = getSession();
 		try {
 			session.beginTransaction();
+			session.update(borrowing.getBook());
 			session.save(borrowing);
 			session.getTransaction().commit();
 			session.close();
@@ -141,13 +140,12 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 		session.beginTransaction();
 		try {
 			session.createQuery(hql)
-						.setParameter("effectiveEndDate", borrowing.getEffectiveEndDate())
+						.setParameter("effectiveEndDate", new Date())
 						.setParameter("borrowingId", borrowing.getId())
 						.executeUpdate();
 			session.createQuery(hql2)
 						.setParameter("bookId", borrowing.getBook().getId())
 						.executeUpdate();
-			System.out.println(borrowing.getBook().getId());
 			session.getTransaction().commit();
 			session.close();
 		}finally {

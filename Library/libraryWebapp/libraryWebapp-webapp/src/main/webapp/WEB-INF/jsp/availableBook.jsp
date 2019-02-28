@@ -13,7 +13,7 @@
 				<div class="row pt-5">
 					<h2>Disponibilités</h2><br/>
 				</div>
-				<div class="row pt-4 pl-5">
+				<div class="row pt-4 pl-5 ml-3">
 					<p>
 						<s:text name="Book"/> : <s:property value="listBookByName[0].name"/><br/>
 						<s:text name="Author"/> : <s:property value="listBookByName[0].author"/><br/>

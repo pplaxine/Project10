@@ -2,7 +2,6 @@ package com.philippe75.libraryWS.exposure.servlet;
 
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,16 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
-import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
-import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
-import com.philippe75.libraryWS.model.book.Book;
-import com.philippe75.libraryWS.model.book.Borrowing;
-import com.philippe75.libraryWS.model.exception.DataBaseException;
-import com.philippe75.libraryWS.model.exception.NotFoundException;
-import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
-import com.philippe75.libraryWS.model.user.UserAccount;
 
 public class Main extends HttpServlet {
 

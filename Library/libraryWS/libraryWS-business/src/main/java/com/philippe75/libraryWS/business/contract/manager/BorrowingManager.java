@@ -3,7 +3,6 @@ package com.philippe75.libraryWS.business.contract.manager;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
-import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 

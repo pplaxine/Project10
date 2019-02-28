@@ -5,11 +5,8 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.hibernate.Session;
-import org.hibernate.transform.ResultTransformer;
-
 import com.philippe75.libraryWS.consumer.contract.dao.BookDao;
 import com.philippe75.libraryWS.model.book.Book;
-import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
  * <b>Implements BookDto Interface</b>
@@ -95,7 +92,7 @@ public class BookDaoImpl extends AbstractDao implements BookDao {
 		Session session = getSession();
 		session.beginTransaction();
 		try {
-			book = session.get(Book.class, 1);
+			book = session.get(Book.class, bookId);
 			session.getTransaction().commit();
 			session.close();
 		

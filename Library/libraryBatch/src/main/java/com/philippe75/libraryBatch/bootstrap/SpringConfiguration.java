@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.repository.dao.Jackson2ExecutionContextStringSerializer;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +41,7 @@ import com.philippe75.libraryBatch.stub.generated.mailServ.EmailServiceImplServi
 public class SpringConfiguration {
 	
 	/**
-	 * Allow access to DataBaseConf.properties
-	 *
-	 * @see #dataSource()
+	 * Allow access to Config.properties
 	 */
 	@Autowired
 	Environment env;

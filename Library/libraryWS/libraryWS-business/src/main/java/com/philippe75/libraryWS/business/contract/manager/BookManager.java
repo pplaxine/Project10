@@ -3,7 +3,6 @@ package com.philippe75.libraryWS.business.contract.manager;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BookDto;
-import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 

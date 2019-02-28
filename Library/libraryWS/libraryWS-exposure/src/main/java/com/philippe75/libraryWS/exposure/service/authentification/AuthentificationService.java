@@ -6,7 +6,6 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
-import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
 /**

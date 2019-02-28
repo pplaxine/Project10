@@ -1,9 +1,12 @@
 package com.philippe75.libraryBatch.tools.headerWriter;
 
+
+
 import java.io.IOException;
 import java.io.Writer;
 
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
+
 
 public class CustomHeaderWriter implements FlatFileHeaderCallback{
 
@@ -18,7 +21,6 @@ public class CustomHeaderWriter implements FlatFileHeaderCallback{
 	public void writeHeader(Writer writer) throws IOException {
 		writer.write(header);
 	}
-
 	
 	
 }

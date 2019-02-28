@@ -5,8 +5,6 @@ import javax.inject.Inject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
-
 /**
  * <b>Abstract Class that provides access to Hibernate sessionFactory</b>
  * 
