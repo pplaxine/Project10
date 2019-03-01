@@ -29,7 +29,26 @@
   </dependencies>
   
   <build>
-	<plugins>	
+	<plugins>
+		<!-- .properties file Reader  -->	
+		<plugin>
+	        <groupId>org.codehaus.mojo</groupId>
+	        <artifactId>properties-maven-plugin</artifactId>
+	        <executions>
+	          <execution>
+	            <phase>initialize</phase>
+	            <goals>
+	              <goal>read-project-properties</goal>
+	            </goals>
+	            <configuration>
+					<files>
+						<file>../libraryWebapp-webapp/src/main/resources/webservice.properties</file>
+					</files>
+	            </configuration>
+	          </execution>
+	        </executions>
+		</plugin>
+	
 		<!-- WSDL stub deploiement  -->											
 		<plugin>
 			<groupId>org.codehaus.mojo</groupId> 
@@ -44,7 +63,7 @@
 						<packageName>com.philippe75.libraryWebapp.stub.generated.authServ</packageName>
 						<sourceDestDir>/${project.basedir}/src/main/java</sourceDestDir>
 						<wsdlUrls>
-							<wsdlUrl>http://localhost:8080/libraryWS-webservice/libraryAuthService?wsdl</wsdlUrl>
+							<wsdlUrl>${wsdl.url.library.auth.service}</wsdlUrl>
 						</wsdlUrls>
 					</configuration>
 				</execution> 
@@ -57,7 +76,7 @@
 						<packageName>com.philippe75.libraryWebapp.stub.generated.bookServ</packageName>
 						<sourceDestDir>/${project.basedir}/src/main/java</sourceDestDir>
 						<wsdlUrls>
-							<wsdlUrl>http://localhost:8080/libraryWS-webservice/emailService?wsdl</wsdlUrl>
+							<wsdlUrl>${wsdl.url.library.book.search.service}</wsdlUrl>
 						</wsdlUrls>
 					</configuration>
 				</execution>
@@ -70,7 +89,7 @@
 						<packageName>com.philippe75.libraryWebapp.stub.generated.borrowingServ</packageName>
 						<sourceDestDir>/${project.basedir}/src/main/java</sourceDestDir>
 						<wsdlUrls>
-							<wsdlUrl>http://localhost:8080/libraryWS-webservice/libraryBorrowingService?wsdl</wsdlUrl>
+							<wsdlUrl>${wsdl.url.library.borrowing.service}</wsdlUrl>
 						</wsdlUrls>
 					</configuration>
 				</execution>  

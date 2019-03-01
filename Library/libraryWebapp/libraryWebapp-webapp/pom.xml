@@ -12,7 +12,6 @@
   <artifactId>libraryWebapp-webapp</artifactId>
   <packaging>war</packaging>
   <name>libraryWebapp-webapp</name>
- 
 
   <dependencies>
   	
