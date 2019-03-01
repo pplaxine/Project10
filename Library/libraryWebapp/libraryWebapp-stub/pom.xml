@@ -42,7 +42,7 @@
 	            </goals>
 	            <configuration>
 					<files>
-						<file>../libraryWebapp-webapp/src/main/resources/webservice.properties</file>
+						<file>../libraryWebapp-webapp/src/main/resources/webserviceConfig.properties</file>
 					</files>
 	            </configuration>
 	          </execution>

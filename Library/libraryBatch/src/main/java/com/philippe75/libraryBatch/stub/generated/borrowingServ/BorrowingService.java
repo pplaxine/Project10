@@ -27,39 +27,6 @@ public interface BorrowingService {
 
     /**
      * 
-     * @return
-     *     returns com.philippe75.libraryBatch.stub.generated.borrowingServ.ListOfBorrowingDto
-     * @throws LibraryServiceException_Exception
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllLateBorrowingsRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllLateBorrowingsResponse", fault = {
-        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllLateBorrowings/Fault/LibraryServiceException")
-    })
-    public ListOfBorrowingDto getAllLateBorrowings()
-        throws LibraryServiceException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns com.philippe75.libraryBatch.stub.generated.borrowingServ.ListOfBorrowingDto
-     * @throws LibraryServiceException_Exception
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllBorrowingForUserRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllBorrowingForUserResponse", fault = {
-        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllBorrowingForUser/Fault/LibraryServiceException")
-    })
-    public ListOfBorrowingDto getAllBorrowingForUser(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws LibraryServiceException_Exception
-    ;
-
-    /**
-     * 
      * @param arg0
      * @throws LibraryServiceException_Exception
      */
@@ -68,21 +35,6 @@ public interface BorrowingService {
         @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/endBorrowing/Fault/LibraryServiceException")
     })
     public void endBorrowing(
-        @WebParam(name = "arg0", partName = "arg0")
-        BorrowingDto arg0)
-        throws LibraryServiceException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg0
-     * @throws LibraryServiceException_Exception
-     */
-    @WebMethod
-    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingResponse", fault = {
-        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowing/Fault/LibraryServiceException")
-    })
-    public void extendBorrowing(
         @WebParam(name = "arg0", partName = "arg0")
         BorrowingDto arg0)
         throws LibraryServiceException_Exception
@@ -118,6 +70,54 @@ public interface BorrowingService {
     public void createBorrowing(
         @WebParam(name = "arg0", partName = "arg0")
         BorrowingDto arg0)
+        throws LibraryServiceException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @throws LibraryServiceException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowing/Fault/LibraryServiceException")
+    })
+    public void extendBorrowing(
+        @WebParam(name = "arg0", partName = "arg0")
+        BorrowingDto arg0)
+        throws LibraryServiceException_Exception
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns com.philippe75.libraryBatch.stub.generated.borrowingServ.ListOfBorrowingDto
+     * @throws LibraryServiceException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllLateBorrowingsRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllLateBorrowingsResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllLateBorrowings/Fault/LibraryServiceException")
+    })
+    public ListOfBorrowingDto getAllLateBorrowings()
+        throws LibraryServiceException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns com.philippe75.libraryBatch.stub.generated.borrowingServ.ListOfBorrowingDto
+     * @throws LibraryServiceException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllBorrowingForUserRequest", output = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllBorrowingForUserResponse", fault = {
+        @FaultAction(className = LibraryServiceException_Exception.class, value = "http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/getAllBorrowingForUser/Fault/LibraryServiceException")
+    })
+    public ListOfBorrowingDto getAllBorrowingForUser(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
         throws LibraryServiceException_Exception
     ;
 
