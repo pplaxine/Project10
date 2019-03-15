@@ -40,6 +40,15 @@ This is a SAOP architecture made in order to provide an information system to a 
 
     (ex : http://localhost:8081/libraryWebapp-webapp/)
 
+  #### libraryBatch
+    1. To run the batch, open a command prompt.
+    2. Go to your ".jar" file directory.
+    3. Type the following command : java -jar libraryBatch.jar .
+
+    Your batch is now running 
+
+
+
 ## Prerequisites
 
 Install Java JRE version 8 or higher.

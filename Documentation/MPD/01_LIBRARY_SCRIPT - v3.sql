@@ -17,7 +17,7 @@ CREATE SEQUENCE public.user_account_id_seq;
 CREATE TABLE public.user_account (
                 id INTEGER NOT NULL DEFAULT nextval('public.user_account_id_seq'),
                 user_member_id VARCHAR(20) NOT NULL,
-                password VARCHAR(50),
+                password VARCHAR(70),
                 access VARCHAR NOT NULL,
                 firstname VARCHAR(50) NOT NULL,
                 surename VARCHAR(50) NOT NULL,
@@ -38,17 +38,6 @@ CREATE UNIQUE INDEX user_account_email_unique_idx
 CREATE UNIQUE INDEX user_account_member_id_unique_idx
  ON public.user_account
  ( user_member_id );
-
-CREATE SEQUENCE public.book_genre_id_seq;
-
-CREATE TABLE public.book_genre (
-                id INTEGER NOT NULL DEFAULT nextval('public.book_genre_id_seq'),
-                name VARCHAR(50) NOT NULL,
-                CONSTRAINT book_genre_pk PRIMARY KEY (id)
-);
-
-
-ALTER SEQUENCE public.book_genre_id_seq OWNED BY public.book_genre.id;
 
 CREATE SEQUENCE public.library_address_id_seq;
 
@@ -82,7 +71,7 @@ CREATE SEQUENCE public.staff_account_id_seq;
 CREATE TABLE public.staff_account (
                 id INTEGER NOT NULL DEFAULT nextval('public.staff_account_id_seq'),
                 login_name VARCHAR(20),
-                password VARCHAR(50),
+                password VARCHAR(70),
                 access VARCHAR NOT NULL,
                 firstname VARCHAR(50) NOT NULL,
                 surename VARCHAR(50) NOT NULL,
@@ -98,6 +87,7 @@ CREATE UNIQUE INDEX staff_account_login_unique_idx
  ON public.staff_account
  ( login_name );
 
+
 CREATE SEQUENCE public.book_id_seq;
 
 CREATE TABLE public.book (
@@ -106,7 +96,7 @@ CREATE TABLE public.book (
                 author VARCHAR(200) NOT NULL,
                 summary VARCHAR(2000) NOT NULL,
                 available BOOLEAN NOT NULL,
-                book_genre_id INTEGER NOT NULL,
+                book_genre VARCHAR NOT NULL,
                 library_id INTEGER NOT NULL,
                 CONSTRAINT book_pk PRIMARY KEY (id)
 );
@@ -141,13 +131,6 @@ NOT DEFERRABLE;
 ALTER TABLE public.borrowing ADD CONSTRAINT user_account_borrowing_fk
 FOREIGN KEY (user_account_id)
 REFERENCES public.user_account (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.book ADD CONSTRAINT book_genre_book_fk
-FOREIGN KEY (book_genre_id)
-REFERENCES public.book_genre (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
