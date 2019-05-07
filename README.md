@@ -1,4 +1,4 @@
-# Project7 - Library SOAP information system
+# Project10 - Library SOAP information system (improved)
 
 This is a SAOP architecture made in order to provide an information system to a city library. For more information please see documentation provided. 
  
