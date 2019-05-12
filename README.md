@@ -6,41 +6,53 @@ This is a SAOP architecture made in order to provide an information system to a 
 ## Getting Started
 
   #### DataBase
-    1. Start PGAdmin 4 and select the database you have created for the purpose. 
-    2. Via the query tool, browse the following database creation script : Project7\LibraryGit\Documentation\MPD\03_LIBRARY_BDD_SETUP - V3.sql . 
-    3. Execute the script. 
-    
+    *WARNING* If you are not running docker in a virtual machine (Docker tool box) you have to modify the docker-compose.yml in the following directories : 
+
+        . directoryOfYourProject/Project10/dockerdev/libraryWSDB/ - Change ports :  - "192.168.99.102:9032:5432" to - "127.0.0.1:9032:5432" or "yourDockerMachineIp:9032:5432".
+
+        . directoryOfYourProject/Project10/dockerdev/libraryWSTestDB/ - Change ports :  - "192.168.99.102:9033:5432" to - "127.0.0.1:9033:5432" or "yourDockerMachineIp:9033:5432".
+
+    1. In your cmd, go to the following directory : "directoryOfYourProject/Project10/docker/dev/libraryWSDB/" 
+    2. run docker-compose (docker-compose up -d)
+
     Your database is now ready to go. 
 
+    3. In your cmd, go to the following directory : "directoryOfYourProject/Project10/docker/dev/libraryWSTestDB/
+    4. run docker-compose (docker-compose up -d)
+
+    Your integration tests database is now ready to go.
+
+
+
   #### WebService
-    1. Into "libraryWS-webservice.war\WEB-INF\classes\properties\DataBaseConf.properties" set url, username, and password of your database. Configure, also, the email service in the same file.
-    2. Start your first tomcat serveur. 
-    3. To access Tomcat Manager App, go to your server address ( ex:http://localhost:8080/ ) and select Manager App. 
-    4. In section WAR file to deploy, browse the libraryWS-webservice.war you have downloaded, and select deploy.
-    
-    IMPORTANT: 
-    Make sure your Webservice app is ran always first by, if possible, configuring the starting order or deploy on a separated server. 
-    If a Webservice Client is ran first, this will end up in a waiting catch 22 situation. Client will be waiting for the Webservice to be operational (as it consumes the Webservice), and WebService will be waiting to run after Client. 
+    1. Into "directoryOfYourProject/Library/libraryWS/libraryWS-exposure/src/main/resources/propertiesDataBaseConf.properties" set url, username, and password of your database. Configure, also, the email service in the same file.   
+
+    2. In your cmd, go to the following directory : "directoryOfYourProject/Project10/Library/libraryWS/ and run a mvn clean install
+
+    3. Deploy the war in a docker container with the following command in your cmd : docker run -it --name libraryws -v (add second "/" if using docker tool box)/directoryOfYourProject/Project10/Library/libraryWS/libraryWS-exposure/target:/usr/local/tomcat/webapps/ -p (yourLocalhostIp or yourDockerMachineIp):8080:8080 tomcat:9-jre8-alpine
 
     Your webservice is now ready to go.
 
-    You can access the WSDL of the Webservice via : YourServerAddress/libraryWS-webservice/libraryService 
+    You can access the WSDL of the Webservice via : YourServerAddress(orYourDockerMachineIp):8080/libraryWS-webservice/libraryService 
     (ex : http://localhost:8080/libraryWS-webservice/libraryService)
 
 
   #### WebApp
-    1. Into "libraryWebapp-webapp.war\WEB-INF\classes\webserviceConfig.properties" your can configure the wsld address of the different services used by the app. 
-    2. Start your second tomcat serveur. 
-    3. To access Tomcat Manager App, go to your server address ( ex:http://localhost:8081/ ) and select Manager App. 
-    4. In section WAR file to deploy, browse the libraryWebapp-webapp.war you have downloaded, and select deploy.
+    IMPORTANT: 
+    Make sure your Webservice app is ran always first by deploying its Docker container first.  
+    To mvn install, the Webapp will need the Webservice to be operational (as it consumes the Webservice -> read wsdl while compiling).
+
+    1. In your cmd, go to the following directory : "directoryOfYourProject/Project10/Library/libraryWebapp/ and run a mvn clean install 
+
+    2. Deploy the war in a docker container with the following command in your cmd : docker run -it --name librarywebapp -v (add second "/" if using docker tool box)/directoryOfYourProject/Project10/Library/libraryWebapp/libraryWebapp-webapp/target:/usr/local/tomcat/webapps/ -p (yourLocalhostIp or YourDockerMachineIp):8081:8080 tomcat:9-jre8-alpine
 
     Your webapp is now ready to go.
     
-    You can now run the webapp via the following url : YourServerAddress/libraryWebapp-webapp/
+    You can now run the webapp via the following url : YourServerAddress(orYourDockerMachineIp):8081/libraryWebapp-webapp/
 
     (ex : http://localhost:8081/libraryWebapp-webapp/)
 
-  #### libraryBatch
+  #### libraryBatch *to review --> to be inserted in libraryWS docker-compose.yml *
     1. To run the batch, open a command prompt.
     2. Go to your ".jar" file directory.
     3. Type the following command : java -jar libraryBatch.jar .
@@ -50,6 +62,8 @@ This is a SAOP architecture made in order to provide an information system to a 
 
 
 ## Prerequisites
+
+*To complete*
 
 Install Java JRE version 8 or higher.
 
