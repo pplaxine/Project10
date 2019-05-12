@@ -65,9 +65,40 @@
 		    <artifactId>jaxws-spring</artifactId>
 		</dependency>
 		
+		<!-- ===== test ===== -->
+		<dependency>														<!-- JUnit -->
+			<groupId>junit</groupId>
+	        <artifactId>junit</artifactId>
+	        <scope>test</scope>
+		</dependency>
+		<dependency>														<!-- SpringTest -->
+			<groupId>org.springframework</groupId>
+	        <artifactId>spring-test</artifactId>
+	        <scope>test</scope>
+		</dependency>
+		
+		<!-- TEST test -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>1.11.1.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		</dependency>
+		
   </dependencies>
   
   <build>
     <finalName>libraryWS-webservice</finalName>
+    <resources>
+    	<resource>
+    		<directory>src/main/resources</directory>
+    		<excludes>
+    			<exclude>webserviceConfi.properties</exclude>
+    		</excludes>
+    	</resource>
+    </resources>
   </build>
 </project>

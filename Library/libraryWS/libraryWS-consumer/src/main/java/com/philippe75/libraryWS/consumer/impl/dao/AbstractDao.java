@@ -20,11 +20,18 @@ public abstract class AbstractDao {
 	/**
 	 * injection of {@link SessionFactory}
 	 */
-	@Inject
-	private SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
 	public Session getSession() {
+
 		return sessionFactory.openSession();
 	}
+
+	@Inject
+	public final void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	
 	
 }

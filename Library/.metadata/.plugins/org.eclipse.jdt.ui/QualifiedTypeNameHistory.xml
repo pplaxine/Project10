@@ -1,2 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter"/>
+<fullyQualifiedTypeName name="org.mockito.runners.MockitoJUnitRunner"/>
+<fullyQualifiedTypeName name="org.mockito.junit.MockitoJUnitRunner"/>
+<fullyQualifiedTypeName name="org.springframework.context.support.FileSystemXmlApplicationContext"/>
+<fullyQualifiedTypeName name="org.junit.runner.RunWith"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.manager.BookManagerImplIntTest.SpringConfig"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.bootstrap.HibernateConfiguration"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.ComponentScan"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.bootstrap.SpringConfiguration"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.technical.SpringConfiguration"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.Import"/>
+<fullyQualifiedTypeName name="org.springframework.context.ApplicationContext"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.AnnotationConfigApplicationContext"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.bootstrap.SpringConfiguration"/>
+<fullyQualifiedTypeName name="org.springframework.test.context.ContextConfiguration"/>
+<fullyQualifiedTypeName name="org.springframework.test.context.junit4.SpringJUnit4ClassRunner"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.dao.BookDao"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.exposure.bootstrap.HibernateConfiguration"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.DependsOn"/>
+<fullyQualifiedTypeName name="org.springframework.orm.hibernate5.LocalSessionFactoryBean"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
+<fullyQualifiedTypeName name="org.springframework.transaction.annotation.SpringTransactionAnnotationParser"/>
+<fullyQualifiedTypeName name="org.springframework.orm.hibernate5.HibernateTransactionManager"/>
+<fullyQualifiedTypeName name="javax.transaction.TransactionManager"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+<fullyQualifiedTypeName name="org.springframework.transaction.annotation.EnableTransactionManagement"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.PropertySource"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="org.hibernate.cfg.Environment"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+<fullyQualifiedTypeName name="org.springframework.jdbc.datasource.DriverManagerDataSource"/>
+<fullyQualifiedTypeName name="org.springframework.core.env.Environment"/>
+<fullyQualifiedTypeName name="javax.sql.DataSource"/>
+<fullyQualifiedTypeName name="org.springframework.test.context.support.AnnotationConfigContextLoader"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl"/>
+<fullyQualifiedTypeName name="org.junit.BeforeClass"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.handler.DaoHandler"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.impl.handler.DaoHandlerImpl"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.impl.dao.BookDaoImpl"/>
+<fullyQualifiedTypeName name="javax.inject.Inject"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.contract.handler.ManagerHandler"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BookDto"/>
+<fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+<fullyQualifiedTypeName name="javax.transaction.Transactional"/>
+<fullyQualifiedTypeName name="org.h2.tools.RunScript"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BorrowingDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Book"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Genre"/>
+</qualifiedTypeNameHistroy>

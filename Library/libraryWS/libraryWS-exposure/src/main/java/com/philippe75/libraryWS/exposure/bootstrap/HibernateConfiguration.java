@@ -52,7 +52,6 @@ public class HibernateConfiguration {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.philippe75.libraryWS");
         sessionFactory.setHibernateProperties(hibernateProperties());
- 
         return sessionFactory;
     }
 	 
@@ -66,7 +65,7 @@ public class HibernateConfiguration {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setDriverClassName(env.getProperty("database.driver"));
         dataSource.setUrl(env.getProperty("database.url"));
         dataSource.setUsername(env.getProperty("database.user"));
         dataSource.setPassword(env.getProperty("database.code"));
@@ -96,8 +95,8 @@ public class HibernateConfiguration {
      */
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "validate");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         
         return hibernateProperties;

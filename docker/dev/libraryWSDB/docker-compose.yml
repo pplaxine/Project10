@@ -1,0 +1,20 @@
+version: '2'
+services:
+  library7.db:
+    image: postgres:9.4
+    ports:
+      - "192.168.99.102:9032:5432"
+    volumes:
+      - "./init/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - db-data:/var/lib/postgresql/data
+       
+    environment:
+      - POSTGRES_DB=library10
+      - POSTGRES_USER=adm_library
+      - POSTGRES_PASSWORD=mdp
+      
+volumes:
+  db-data:
+    driver: local
+
+
