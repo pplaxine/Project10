@@ -51,4 +51,11 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BorrowingDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Book"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Genre"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.headerWriter.CustomHeaderWriter"/>
+<fullyQualifiedTypeName name="java.lang.AbstractMethodError"/>
+<fullyQualifiedTypeName name="org.springframework.batch.item.support.AbstractFileItemWriter"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="org.springframework.core.io.Resource"/>
+<fullyQualifiedTypeName name="java.nio.file.Path"/>
+<fullyQualifiedTypeName name="org.springframework.core.io.FileSystemResource"/>
 </qualifiedTypeNameHistroy>

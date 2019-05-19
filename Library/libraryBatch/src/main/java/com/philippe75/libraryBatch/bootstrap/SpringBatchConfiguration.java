@@ -17,9 +17,12 @@ import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
@@ -106,7 +109,8 @@ public class SpringBatchConfiguration {
     public ItemWriter<BorrowingDto> itemWriter (){
     	
     	FlatFileItemWriter<BorrowingDto> writer = new FlatFileItemWriter<>();
-    	writer.setResource(new ClassPathResource("borrowings.csv"));
+    	
+    	writer.setResource(new FileSystemResource("src/main/resources/csv/borrowings.csv"));
     	// all job repetitions to the same file
     	writer.setAppendAllowed(true);
     	
