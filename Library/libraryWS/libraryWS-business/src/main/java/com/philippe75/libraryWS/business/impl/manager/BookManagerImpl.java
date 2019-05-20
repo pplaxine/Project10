@@ -88,7 +88,7 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 	 * @param book object fetched from the data layer. 
 	 * @return bookDto Dto object of {@link Book}.  
 	 */
-	private BookDto bookModelToDto(Book book) {
+	protected BookDto bookModelToDto(Book book) {
 		
 		BookDto bd = new BookDto();
 		

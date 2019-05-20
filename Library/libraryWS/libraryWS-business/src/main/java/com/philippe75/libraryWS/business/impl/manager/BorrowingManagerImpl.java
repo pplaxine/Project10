@@ -65,7 +65,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			Boolean isExtended = false;
 			
 			try {
-				isExtended = daoHandler.getBorrowingDao().getBorrowingById(bor.getId()).isExtended();
+				isExtended = getDaoHandler().getBorrowingDao().getBorrowingById(bor.getId()).isExtended();
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", ex.getMessage()));
@@ -104,7 +104,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	public BorrowingDto getBorrowingById(Integer borrowingId) throws LibraryServiceException {
 		if(borrowingId != null) {
 			try {
-				Borrowing borrowing = daoHandler.getBorrowingDao().getBorrowingById(borrowingId);
+				Borrowing borrowing = getDaoHandler().getBorrowingDao().getBorrowingById(borrowingId);
 				BorrowingDto bd = borrowingModelToDto(borrowing);
 				return bd;
 				
@@ -133,12 +133,14 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			
 			try {
 				
-				Book book = daoHandler.getBookDao().getBookById(borrowing.getBook().getId());
+				
+				
+				Book book = getDaoHandler().getBookDao().getBookById(borrowing.getBook().getId());
 				if(book.isAvailable() != true) {
 					throw new LibraryServiceException("BookAlreadyBorrowedException", libraryServiceFaultFactory("1436", "The book selected hasn't been returned yet.")); 
 				}else {
 					
-					UserAccount ua = daoHandler.getUserAccountDao().getUserAccountByMemberId(borrowing.getUserAccount().getUserMemberId());
+					UserAccount ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(borrowing.getUserAccount().getUserMemberId());
 					
 					book.setAvailable(false);
 					borrowing.setBook(book);
@@ -164,7 +166,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				throw new LibraryServiceException("ConstraintException",  new ConstraintViolationException(violation), libraryServiceFaultFactory("1587", "One of the constraint is not fulfilled"));
 			}
 			try {
-				daoHandler.getBorrowingDao().createBorrowing(borrowing);
+				getDaoHandler().getBorrowingDao().createBorrowing(borrowing);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
@@ -190,7 +192,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			
 			// Check if this borrowing hasn't been ended already - separate try catch for the throw AttributAlreadyFieldException to not be caught in catch Exception
 			try {
-				borrowingDB = daoHandler.getBorrowingDao().getBorrowingById(borrowing.getId());
+				borrowingDB = getDaoHandler().getBorrowingDao().getBorrowingById(borrowing.getId());
 			} catch (NoResultException ex) {
 				System.out.println(ex.getMessage());
 				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
@@ -207,7 +209,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 					book.setId(borrowingDB.getBook().getId());
 					borrowing.setBook(book);
 					
-					daoHandler.getBorrowingDao().endBorrowing(borrowing);
+					getDaoHandler().getBorrowingDao().endBorrowing(borrowing);
 					
 				} catch (NoResultException e) {
 					System.out.println(e.getMessage());
@@ -259,7 +261,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 * @param book object fetched from the data layer. 
 	 * @return borrowingDto Dto object of {@link Borrowing}.  
 	 */
-	private BorrowingDto borrowingModelToDto(Borrowing borrowing) {
+	protected BorrowingDto borrowingModelToDto(Borrowing borrowing) {
 		
 		BorrowingDto bd = new BorrowingDto();
 		
@@ -286,7 +288,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 * @param borrowingDto  {@link BorrowingDto} . 
 	 * @return borrowing {@link Borrowing}.  
 	 */
-	private Borrowing borrowingDtoToModel(BorrowingDto bd) {
+	protected Borrowing borrowingDtoToModel(BorrowingDto bd) {
 		
 		Borrowing borrowing = new Borrowing();
 		

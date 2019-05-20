@@ -23,7 +23,12 @@ public abstract class AbstractManager {
 	 * injection of {@link DaoHandler}
 	 */
 	@Inject
-	DaoHandler daoHandler;
+	private static DaoHandler daoHandler;
+	
+	public static void configure(DaoHandler pdaoHandler) {
+		daoHandler = pdaoHandler;
+	}
+	
 	
 	//GETTERS
 	protected DaoHandler getDaoHandler() {

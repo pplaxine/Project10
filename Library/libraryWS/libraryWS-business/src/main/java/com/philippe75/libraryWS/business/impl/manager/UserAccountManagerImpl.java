@@ -66,7 +66,6 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException {
 		
 		if(password.length() < 4) {
-			System.out.println("hello from password");
 			throw new LibraryServiceException("ShortPasswordException", libraryServiceFaultFactory("1238", "Your password must be at least 4 character long."));
 			
 		}else {
@@ -78,7 +77,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 				if(ua.getPassword() == null) {
 					//Password BCrytpeEncoding
 					String pwEncoded = bcPasswordEncodeur.encode(password);
-					ua = daoHandler.getUserAccountDao().saveUserAccountPw(userMemberId, pwEncoded);
+					ua = getDaoHandler().getUserAccountDao().saveUserAccountPw(userMemberId, pwEncoded);
 					return userAccountModelToDto(ua);
 				}
 				
@@ -103,7 +102,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	 * @param userAccount object fetched from the data layer. 
 	 * @return UserAccountDto Dto object of {@link UserAccount}.  
 	 */
-	private UserAccountDto userAccountModelToDto(UserAccount userAccount) {
+	protected UserAccountDto userAccountModelToDto(UserAccount userAccount) {
 		
 		UserAccountDto uad = new UserAccountDto();
 		
