@@ -132,9 +132,6 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
 			
 			try {
-				
-				
-				
 				Book book = getDaoHandler().getBookDao().getBookById(borrowing.getBook().getId());
 				if(book.isAvailable() != true) {
 					throw new LibraryServiceException("BookAlreadyBorrowedException", libraryServiceFaultFactory("1436", "The book selected hasn't been returned yet.")); 
