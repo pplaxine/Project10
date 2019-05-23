@@ -1,4 +1,4 @@
-package com.philippe75.libraryWS.exposure.service.booksearch;
+package com.philippe75.libraryWS.exposure.service.authentification;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +14,6 @@ import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
-import com.philippe75.libraryWS.model.user.UserAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SpringConfiguration.class})

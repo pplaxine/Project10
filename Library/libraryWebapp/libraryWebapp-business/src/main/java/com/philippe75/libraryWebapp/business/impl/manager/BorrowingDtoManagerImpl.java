@@ -38,14 +38,17 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	public void extendBorrowing(Integer borrowingId, Integer numberOfWeek) throws LibraryServiceException_Exception {
 		
 		BorrowingDto bd = getBorrowingService().getBorrowingById(borrowingId); 
-
+		//externaliser code pour tester
 		Date supposedEndDate = bd.getSupposedEndDate().toGregorianCalendar().getTime();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(supposedEndDate);
-		cal.add(Calendar.WEEK_OF_YEAR, numberOfWeek);
-		Date secondSupposedToEndDate = cal.getTime();
+		
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(supposedEndDate);
+//		cal.add(Calendar.WEEK_OF_YEAR, numberOfWeek);
+		Date secondSupposedToEndDate = addSomeTimeToDate(supposedEndDate, Calendar.WEEK_OF_YEAR, numberOfWeek);
+		
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(secondSupposedToEndDate);
+		
 		try {
 			XMLGregorianCalendar xgc = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
 			bd.setSecondSupposedEndDate(xgc);
@@ -53,6 +56,15 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//------------------- UTILITY METHODE -----------------------------
+	
+	protected Date addSomeTimeToDate(Date initialDate, int field, int amount) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(initialDate);
+		cal.add(field, amount);
+		return cal.getTime();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.philippe75.libraryWS.exposure.service.booksearch;
+package com.philippe75.libraryWS.exposure.service.borrowing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -18,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;

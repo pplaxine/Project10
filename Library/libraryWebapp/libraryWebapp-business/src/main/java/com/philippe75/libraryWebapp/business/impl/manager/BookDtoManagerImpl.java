@@ -25,8 +25,7 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 */
 	@Override
 	public List<BookDto> getListBookByName(String bookName) throws LibraryServiceException_Exception {
-		String[] ls = bookName.split("-");
-		String bookNameOnly = ls[0].trim();
+		String bookNameOnly = getBookNameOnly(bookName);
 		
 		return getBookSearchService().getListBookByName(bookNameOnly).getItem();
 	}
@@ -40,6 +39,20 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	@Override
 	public List<BookDto> getListBookStartingBy(String name) throws LibraryServiceException_Exception {
 		return getBookSearchService().getListBookStartingBy(name).getItem();
+	}
+	
+	//------------------- UTILITY METHODE -----------------------------
+	
+	/**
+	 * Return the name of the book without the author.  
+	 * 
+	 * @param book full name.
+	 * @return String book name only.
+	 */
+	protected String getBookNameOnly(String bookNameWithAuthor) {
+		String[] ls = bookNameWithAuthor.split("-");
+		String bookNameOnly = ls[0].trim();
+		return bookNameOnly;
 	}
 
  
