@@ -33,7 +33,7 @@ public class BorrowingServiceIntTest {
 	private ManagerHandler managerHandler;
 	
 	private static String userMemberId;
-	private static int borrowingId, newBorrowingId;
+	private static int bookId, borrowingId, newBorrowingId;
 	private static SimpleDateFormat sdf;
 	private static Date supposedEndDate, secondSupposedEndDate;
 	 
@@ -42,10 +42,12 @@ public class BorrowingServiceIntTest {
 	public static void executeBeforeAll() throws ParseException {
 		sdf = new SimpleDateFormat("dd/MM/yyyy");
     	supposedEndDate = sdf.parse("03/08/2019");
+    	bookId=20;
     	secondSupposedEndDate = sdf.parse("06/08/2019");
 		userMemberId = "JTille";
 		borrowingId = 1; 
-		newBorrowingId = 7;
+		newBorrowingId = 8;
+		
 	}
 	
 	//All the borrowing for a user are retrieved
@@ -80,7 +82,7 @@ public class BorrowingServiceIntTest {
 		BorrowingDto newBorrowing = new BorrowingDto(); 
 		
 		Book book = new Book();
-		book.setId(20);
+		book.setId(bookId);
 		
 		
 		UserAccount userAccount = new UserAccount();

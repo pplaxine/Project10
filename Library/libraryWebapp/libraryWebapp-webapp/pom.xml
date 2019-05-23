@@ -49,6 +49,13 @@
         <artifactId>javax.servlet-api</artifactId>
     </dependency>
     
+    <!-- ===== test ===== -->
+    <dependency>														<!-- JUnit -->
+		<groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+	</dependency>
+
   </dependencies>
   
   <build>

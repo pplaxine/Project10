@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
-<fullyQualifiedTypeName name="org.springframework.context.annotation.PropertySource"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-<fullyQualifiedTypeName name="org.hibernate.cfg.Environment"/>
-<fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
-<fullyQualifiedTypeName name="org.springframework.jdbc.datasource.DriverManagerDataSource"/>
-<fullyQualifiedTypeName name="org.springframework.core.env.Environment"/>
-<fullyQualifiedTypeName name="javax.sql.DataSource"/>
-<fullyQualifiedTypeName name="org.springframework.test.context.support.AnnotationConfigContextLoader"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl"/>
-<fullyQualifiedTypeName name="javax.inject.Inject"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.contract.handler.ManagerHandler"/>
-<fullyQualifiedTypeName name="org.h2.tools.RunScript"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.headerWriter.CustomHeaderWriter"/>
-<fullyQualifiedTypeName name="java.lang.AbstractMethodError"/>
 <fullyQualifiedTypeName name="org.springframework.batch.item.support.AbstractFileItemWriter"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="org.springframework.core.io.Resource"/>
@@ -41,7 +26,6 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.handler.DaoHandler"/>
 <fullyQualifiedTypeName name="org.junit.BeforeClass"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.UserAccountDto"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Borrowing"/>
 <fullyQualifiedTypeName name="org.junit.FixMethodOrder"/>
 <fullyQualifiedTypeName name="org.junit.runners.MethodSorters"/>
@@ -55,9 +39,25 @@
 <fullyQualifiedTypeName name="org.mockito.Mock"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.impl.manager.BookDtoManagerImpl"/>
 <fullyQualifiedTypeName name="java.text.DateFormat.Field"/>
-<fullyQualifiedTypeName name="org.junit.Test"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.impl.manager.BorrowingDtoManagerImpl"/>
 <fullyQualifiedTypeName name="org.mockito.InjectMocks"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.apache.struts2.dispatcher.Parameter.Request"/>
+<fullyQualifiedTypeName name="org.apache.struts2.StrutsTestCase"/>
+<fullyQualifiedTypeName name="com.opensymphony.xwork2.ActionProxy"/>
+<fullyQualifiedTypeName name="org.springframework.mock.web.MockHttpServletRequest"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.webapp.action.BookAction"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.BookDtoManager"/>
+<fullyQualifiedTypeName name="javax.inject.Inject"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.Book"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto"/>
 </qualifiedTypeNameHistroy>

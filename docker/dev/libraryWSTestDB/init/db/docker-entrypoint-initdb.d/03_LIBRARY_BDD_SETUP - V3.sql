@@ -229,6 +229,7 @@ INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('14'
 
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('JTille','USER_99','Jean','Tille',1,'jeantille@orange.fr',0033145484575,False);
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('MSegaux','USER_99','Madelaine','Segaux',2,'mady@orange.fr',003314541436,False);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('UserTest','USER_99','User','Test',3,'user@test.fr',0033148474525,False);
 
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date,effective_end_date, extended,book_id, user_account_id) VALUES ('2018-02-17 09:00:00','2018-02-23 18:00:00','2018-02-27 18:00:00','2018-02-26 18:00:00',true,1,1);
 INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-01-15 09:00:00',false,4,2);
@@ -236,5 +237,7 @@ INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_acco
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-01-15 09:00:00','2019-01-27 18:00:00',true,1,2);
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00',true,3,1);
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, effective_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00','2018-01-28 18:00:00',true,18,1);
+INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-05-14 09:00:00','2019-07-15 09:00:00',false,17,3);
+
 /*TRANSACTION END*/
 COMMIT;

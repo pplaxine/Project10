@@ -3,13 +3,14 @@ package com.philippe75.libraryWebapp.webapp.action;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;
 
-
+@Named("bookAction")
 public class BookAction extends ActionSupport {
 	
 	@Inject
@@ -39,7 +40,6 @@ public class BookAction extends ActionSupport {
 		if(bookDto.trim().length() != 0) {
 			try {
 				listBookByName = managerHandler.getBookDtoManager().getListBookByName(bookDto);
-				System.out.println(listBookByName);
 				result = ActionSupport.SUCCESS;
 			} catch (LibraryServiceException_Exception e) {
 				if((e.getMessage()).equals("NoResultException")) {

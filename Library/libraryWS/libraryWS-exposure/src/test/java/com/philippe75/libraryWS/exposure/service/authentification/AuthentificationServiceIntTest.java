@@ -27,7 +27,7 @@ public class AuthentificationServiceIntTest {
 	
 	@BeforeClass
 	public static void executeBeforeAll() {
-		userMemberId = "JTille";
+		userMemberId = "MSegaux";
 		password = "test01";
 	}
 	
