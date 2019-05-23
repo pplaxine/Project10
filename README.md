@@ -6,13 +6,13 @@ This is a SAOP architecture made in order to provide an information system to a 
 ## Getting Started
 
   #### DataBase
-    *WARNING* If you are not running docker in a virtual machine (Docker tool box) you have to modify the docker-compose.yml in the following directories : 
+    *WARNING* Before starting, you have to modify with your docker setup, the docker-compose.yml in the following directories : 
 
-        . directoryOfYourProject/Project10/dockerdev/libraryWSDB/ - Change ports :  - "192.168.99.102:9032:5432" to - "127.0.0.1:9032:5432" or "yourDockerMachineIp:9032:5432".
+        . directoryOfYourProject/Project10/dockerdev/libraryWappTestDB/ - Change ports :  - "192.168.99.102:9032:5432" to - "127.0.0.1:9032:5432" or "yourDockerMachineIp:9032:5432".
 
         . directoryOfYourProject/Project10/dockerdev/libraryWSTestDB/ - Change ports :  - "192.168.99.102:9033:5432" to - "127.0.0.1:9033:5432" or "yourDockerMachineIp:9033:5432".
 
-    1. In your cmd, go to the following directory : "directoryOfYourProject/Project10/docker/dev/libraryWSDB/" 
+    1. In your cmd, go to the following directory : "directoryOfYourProject/Project10/docker/dev/libraryWappTestDB/" 
     2. run docker-compose (docker-compose up -d)
 
     Your database is now ready to go. 
