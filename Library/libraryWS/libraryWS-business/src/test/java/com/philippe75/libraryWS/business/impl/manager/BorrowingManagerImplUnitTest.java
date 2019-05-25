@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.BookDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.BorrowingDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.UserAccountDaoImpl;
@@ -32,6 +33,8 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class BorrowingManagerImplUnitTest {
 	
+	@InjectMocks
+	private ManagerHandlerImpl managerHandler;
 	@InjectMocks
 	private BorrowingManagerImpl borrowingManager;
 	@InjectMocks
@@ -64,6 +67,8 @@ public class BorrowingManagerImplUnitTest {
     public void executeBeforeEach() {
     	//set the mock in abstract class
     	AbstractManager.configure(daoHandler);
+    	//set the Mock in ManagerHandler class
+    	ManagerHandlerImpl.configure(borrowingManager);
     	
     	//STUB Borrowing
     	//-- UserAccount
@@ -142,7 +147,7 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getBorrowingDao().getAllBorrowingForUser(userMemberId)).thenReturn(lb);
     	//---------------
     	
-    	List<BorrowingDto> lbd = borrowingManager.getAllBorrowingForUser(userMemberId);
+    	List<BorrowingDto> lbd = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId);
     	assertTrue("The List of BorrowingDto is bigger than expected",lbd.size() == 2);
 		assertEquals("The list of BorrowingDto don't contains the expected BorrowingDto ", lbd.get(0).getBook().getName() , borrowing.getBook().getName());
     }
@@ -156,7 +161,7 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getBorrowingDao().getBorrowingById(borrowingId)).thenReturn(borrowing);
     	//---------------
     	
-    	BorrowingDto borrowingDto = borrowingManager.getBorrowingById(borrowingId);
+    	BorrowingDto borrowingDto = managerHandler.getBorrowingManager().getBorrowingById(borrowingId);
     	assertEquals("BorrowingDto not create as expected", borrowingDto.getBook().getName() , borrowing.getBook().getName());
     }
     
@@ -172,7 +177,7 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getBorrowingDao().getAllLateBorrowings()).thenReturn(lb);
     	//---------------
     	
-    	List<BorrowingDto> lbd = borrowingManager.getAllLateBorrowings();
+    	List<BorrowingDto> lbd = managerHandler.getBorrowingManager().getAllLateBorrowings();
     	assertTrue("The List of BorrowingDto is bigger than expected",lbd.size() == 2);
 		assertEquals("The list of BorrowingDto don't contains the expected BorrowingDto ", lbd.get(0).getBook().getName() , borrowing.getBook().getName());
     }
@@ -184,7 +189,7 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getBookDao().getBookById(book.getId())).thenReturn(book);
     	//---------------
     	
-    	borrowingManager.createBorrowing(borrowingDto);
+    	managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
     }
     
     @Test(expected = LibraryServiceException.class)
@@ -198,12 +203,12 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getUserAccountDao().getUserAccountByMemberId(userMemberId)).thenReturn(userAccount);
     	//---------------
     	
-    	borrowingManager.createBorrowing(borrowingDto);
+    	managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
     }
     
     @Test(expected = LibraryServiceException.class)
     public void extendBorrowingEmptyValueExceptionTest() throws LibraryServiceException {
-    	borrowingManager.extendBorrowing(null);
+    	managerHandler.getBorrowingManager().extendBorrowing(null);
     }
     
     @Test(expected = LibraryServiceException.class)
@@ -214,12 +219,12 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getBorrowingDao().getBorrowingById(borrowingDto.getId())).thenReturn(borrowing);
     	//---------------
     	
-    	borrowingManager.extendBorrowing(borrowingDto);
+    	managerHandler.getBorrowingManager().extendBorrowing(borrowingDto);
     }
     
     @Test(expected = LibraryServiceException.class)
     public void endBorrowingAttributMissingAttributExceptionTest() throws Exception {
-    	borrowingManager.endBorrowing(null);
+    	managerHandler.getBorrowingManager().endBorrowing(null);
     	
     }
     
@@ -231,7 +236,7 @@ public class BorrowingManagerImplUnitTest {
     	when(daoHandler.getBorrowingDao().getBorrowingById(borrowingDto.getId())).thenReturn(borrowing);
     	//---------------
     	
-    	borrowingManager.endBorrowing(borrowingDto);
+    	managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
     	
     }
 

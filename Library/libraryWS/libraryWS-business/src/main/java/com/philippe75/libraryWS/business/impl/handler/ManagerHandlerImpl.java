@@ -4,9 +4,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
+import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.contract.manager.BookManager;
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
+import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 
 /**
  * <b>Implementation of ManagerHandler interface</b>
@@ -20,20 +22,39 @@ public class ManagerHandlerImpl implements ManagerHandler{
 	/**
 	 * injection of {@link UserAccountManager}
 	 */
-	@Inject
-	private UserAccountManager userAccountManager;
+	private static UserAccountManager userAccountManager;
 	
 	/**
 	 * injection of {@link BookManager}
 	 */
-	@Inject
-	private BookManager bookManager;
+	private static BookManager bookManager;
 	
 	/**
 	 * injection of {@link BorrowingManager}
 	 */
-	@Inject
-	private BorrowingManager borrowingManager;
+	private static BorrowingManager borrowingManager;
+	
+	/**
+	 * injection of {@link BookBookingManager}
+	 */
+	private static BookBookingManager bookBookingManager;
+	
+	//Unit Test Mock access
+	public static void configure(UserAccountManager pUserAccountManager) {
+		userAccountManager = pUserAccountManager;
+	}
+	//Unit Test Mock access
+	public static void configure(BookManager pBookManager) {
+		bookManager = pBookManager;
+	}
+	//Unit Test Mock access
+	public static void configure(BorrowingManager pBorrowingManager) {
+		borrowingManager = pBorrowingManager;
+	}	
+	//Unit Test Mock access
+	public static void configure(BookBookingManager pBookBookingManager) {
+		bookBookingManager = pBookBookingManager;
+	}	
 
 	@Override
 	public UserAccountManager getUserAccountManager() {
@@ -48,6 +69,30 @@ public class ManagerHandlerImpl implements ManagerHandler{
 	public BorrowingManager getBorrowingManager() {
 		return borrowingManager;
 	}
+
+	@Override
+	public BookBookingManager getBookBookingManager() {
+		return bookBookingManager;
+	}
+	
+	@Inject
+	public void setBookManager(BookManager bookManager) {
+		ManagerHandlerImpl.bookManager = bookManager;
+	}
+	@Inject
+	public void setUserAccountManager(UserAccountManager userAccountManager) {
+		ManagerHandlerImpl.userAccountManager = userAccountManager;
+	}
+	@Inject
+	public void setBorrowingManager(BorrowingManager borrowingManager) {
+		this.borrowingManager = borrowingManager;
+	}
+	@Inject
+	public void setBookBookingManager(BookBookingManager bookBookingManager) {
+		this.bookBookingManager = bookBookingManager;
+	}
+	
+	
 	
 	
 	

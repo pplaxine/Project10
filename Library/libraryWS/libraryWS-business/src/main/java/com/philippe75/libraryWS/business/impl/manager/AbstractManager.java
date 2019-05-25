@@ -25,11 +25,10 @@ public abstract class AbstractManager {
 	
 	private static DaoHandler daoHandler;
 	
+	//Unit Test Mock access
 	public static void configure(DaoHandler pdaoHandler) {
 		daoHandler = pdaoHandler;
 	}
-	
-
 
 
 	//GETTERS and SETTERS 

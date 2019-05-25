@@ -1,6 +1,5 @@
 package com.philippe75.libraryWS.consumer.impl.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -10,7 +9,6 @@ import org.hibernate.Session;
 import com.philippe75.libraryWS.consumer.contract.dao.BookBookingDao;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
-import com.philippe75.libraryWS.model.book.Borrowing;
 
 @Named("bookBookingDao")
 @SuppressWarnings("unchecked")

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BookDto;
+import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.BookDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.handler.DaoHandlerImpl;
 import com.philippe75.libraryWS.model.book.Book;
@@ -25,6 +26,8 @@ import com.philippe75.libraryWS.model.library.Library;
 public class BookManagerImplUnitTest {
 	
 	@InjectMocks
+	private ManagerHandlerImpl managerHandler;
+	@InjectMocks
 	private BookManagerImpl bookManager;
 	@InjectMocks
 	private DaoHandlerImpl daoHandler;
@@ -32,15 +35,14 @@ public class BookManagerImplUnitTest {
 	private BookDaoImpl bookDao;
 	
     private Book book;
-
-//  @BeforeClass
-//  public static void executeBeforeAll() {
-//  }
     
     @Before
     public void executeBeforeEach() {
     	//set the mock in abstract class
     	AbstractManager.configure(daoHandler);
+    	//set the Mock in ManagerHandler class
+    	ManagerHandlerImpl.configure(bookManager);
+    	
     	
     	
 		//STUB 
@@ -91,7 +93,8 @@ public class BookManagerImplUnitTest {
 		when(daoHandler.getBookDao().getListBookByName(bookName)).thenReturn(lb);
 		//---------------
 		
-		List<BookDto> lbd = bookManager.getListBookByName(bookName);
+		List<BookDto> lbd = managerHandler.getBookManager().getListBookByName(bookName);
+		System.out.println(lbd.size());
 		assertTrue("The List of BookDto is bigger than expected",lbd.size() == 2);
 		assertEquals("The list of BookDto don't contains the expected BookDto ", lbd.get(0).getName(), book.getName());
 	}
@@ -109,7 +112,7 @@ public class BookManagerImplUnitTest {
 		when(daoHandler.getBookDao().getListBookStartingBy(Letter)).thenReturn(lb);
 		//---------------
 		
-		List<BookDto> lbd = bookManager.getListBookStartingBy(Letter);
+		List<BookDto> lbd = managerHandler.getBookManager().getListBookStartingBy(Letter);
 		assertTrue("The List of BookDto is bigger than expected",lbd.size() == 2);
 		assertEquals("The list of BookDto don't contains the expected BookDto ", lbd.get(0).getName(), book.getName());
 		
