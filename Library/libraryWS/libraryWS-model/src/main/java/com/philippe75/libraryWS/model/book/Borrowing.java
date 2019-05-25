@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
- * <b>Dto object of Borrowing.</b>
+ * <b>Model object of a borrowing.</b>
  * 
  * <p>
  * Characterized by : 

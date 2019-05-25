@@ -27,7 +27,7 @@ public class AuthentificationServiceIntTest {
 	
 	@BeforeClass
 	public static void executeBeforeAll() {
-		userMemberId = "MSegaux";
+		userMemberId = "UserTest2";
 		password = "test01";
 	}
 	
@@ -44,5 +44,6 @@ public class AuthentificationServiceIntTest {
 	public void getUserAccountIntTest() throws LibraryServiceException {
 		UserAccountDto userAccount = managerHandler.getUserAccountManager().getUserAccountByMemberId(userMemberId, password);
 		assertEquals(userAccount.getUserMemberId(), userMemberId);
+		
 	}
 }

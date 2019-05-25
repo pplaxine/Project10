@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.consumer.contract.handler;
 
+import com.philippe75.libraryWS.consumer.contract.dao.BookBookingDao;
 import com.philippe75.libraryWS.consumer.contract.dao.BookDao;
 import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
 import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
@@ -35,4 +36,12 @@ public interface DaoHandler {
 	 * @return BorrowingDao
 	 */
 	BorrowingDao getBorrowingDao();
+	
+	/**
+	 * Get access to {@link BookBookingDao}.
+	 * 
+	 * @return BookBookingDao
+	 */
+	BookBookingDao getBookBookingDao();
+	
 }

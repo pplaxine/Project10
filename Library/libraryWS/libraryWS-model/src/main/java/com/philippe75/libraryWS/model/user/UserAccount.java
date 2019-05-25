@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 
 /**
@@ -89,6 +90,11 @@ public class UserAccount {
 	 * Historic of all the borrowings of the user.
 	 */
 	private Collection<Borrowing> listBorrowing = new ArrayList<>();
+	/**
+	 * Historic of all the bookings of the user.
+	 */
+	private Collection<BookBooking> listBookBooking = new ArrayList<>();
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -179,8 +185,13 @@ public class UserAccount {
 	public void setListBorrowing(Collection<Borrowing> listBorrowing) {
 		this.listBorrowing = listBorrowing;
 	}
-
-	
+	@OneToMany(mappedBy="userAccount")
+	public Collection<BookBooking> getListBookBooking() {
+		return listBookBooking;
+	}
+	public void setListBookBooking(Collection<BookBooking> listBookBooking) {
+		this.listBookBooking = listBookBooking;
+	}
 	
 	
 	
