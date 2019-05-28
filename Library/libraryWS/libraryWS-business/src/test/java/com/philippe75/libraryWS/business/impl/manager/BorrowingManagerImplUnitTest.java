@@ -10,11 +10,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
+import com.philippe75.libraryWS.consumer.contract.dao.BookBookingDao;
 import com.philippe75.libraryWS.consumer.impl.dao.BookDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.BorrowingDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.UserAccountDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.handler.DaoHandlerImpl;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.library.Library;
@@ -29,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.NoResultException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BorrowingManagerImplUnitTest {
@@ -45,11 +49,16 @@ public class BorrowingManagerImplUnitTest {
 	private BookDaoImpl bookDao;
 	@Mock
 	private UserAccountDaoImpl userAccountDao;
+	@Mock
+	private BookBookingDao bookBookingDao;
 	
 	private Borrowing borrowing;
 	private BorrowingDto borrowingDto;
 	private UserAccount userAccount;
-	private Book book;
+	private Book book, bookForList;
+	private BookBooking bookBooking;
+	private List<BookBooking> lbb;
+	private List<Book> lb;
 	
 	private static SimpleDateFormat sdf;
 	private static Date startDate, supposedEndDate, secondSupposedEndDate, effectiveEndDate;
@@ -102,6 +111,27 @@ public class BorrowingManagerImplUnitTest {
     	borrowingDto.setExtended(true);
     	borrowingDto.setSecondSupposedEndDate(secondSupposedEndDate);
     	borrowingDto.setEffectiveEndDate(effectiveEndDate);
+    	
+    	//STUB List<BookBooking> 
+    	String[] userMemberIds = {"JTille", "MSegaux","UserTest01", "UserTest02"};
+    	lbb = new ArrayList<>();
+    	for (int i = 4; i > 0; i--) {
+    		UserAccount ua = new UserAccount();
+    		ua.setUserMemberId(userMemberIds[i-1]);
+    		bookBooking = new BookBooking();
+    		bookBooking.setId(i);
+    		bookBooking.setUserAccount(ua);
+    		lbb.add(bookBooking);
+		}
+    	
+    	//Stub list<Book>
+    	lb = new ArrayList<>();
+    	for (int i = 0; i < 4; i++) {
+    		bookForList = new Book();
+    		bookForList.setAvailable(true);
+    		lb.add(book);
+		}
+    	
     }
     
     //BorrowingDto created from Borrowing contains all the values
@@ -191,20 +221,55 @@ public class BorrowingManagerImplUnitTest {
     	
     	managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
     }
+   
+	  @Test(expected = LibraryServiceException.class)
+	  public void createBorrowingBookNotBookingQueuTest() throws Exception {
+		String userMemberId = userAccount.getUserMemberId();
+	  	//---- mock setup
+	  	book.setAvailable(true);
+	  	borrowingDto.setSupposedEndDate(null);
+	  	when(daoHandler.getBookDao().getBookById(book.getId())).thenReturn(book);
+	  	when(daoHandler.getBookBookingDao().getAllBookingsForABook(borrowing.getBook())).thenThrow(NoResultException.class);
+	  	when(daoHandler.getUserAccountDao().getUserAccountByMemberId(userMemberId)).thenReturn(userAccount);
+	  	//---------------
+	  	
+	  	managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
+	  }
+	  
+	//One of the x exemplar available borrowed by not the x firsts in the queue
+    @Test(expected = LibraryServiceException.class)
+    public void createBorrowingBookNotFirstInListExceptionTest() throws Exception {
+    	
+    	
+    	//---- mock setup
+    	lb.remove(0);
+    	book.setAvailable(true);
+    	borrowingDto.setSupposedEndDate(null);
+    	borrowingDto.getUserAccount().setUserMemberId("OtherMember");
+    	when(daoHandler.getBookDao().getBookById(book.getId())).thenReturn(book);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForABook(borrowing.getBook())).thenReturn(lbb);
+    	when(daoHandler.getBookDao().getListBookByName(borrowing.getBook().getName())).thenReturn(lb);
+    	//---------------
+    	
+    	managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
+    }
+    
     
     @Test(expected = LibraryServiceException.class)
     public void createBorrowingBookContraintViolationExceptionTest() throws Exception {
-    	String userMemberId = "3";
+    	String userMemberId = userAccount.getUserMemberId();
     	
     	//---- mock setup
     	book.setAvailable(true);
     	borrowingDto.setSupposedEndDate(null);
     	when(daoHandler.getBookDao().getBookById(book.getId())).thenReturn(book);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForABook(borrowing.getBook())).thenThrow(NoResultException.class);
     	when(daoHandler.getUserAccountDao().getUserAccountByMemberId(userMemberId)).thenReturn(userAccount);
     	//---------------
-    	
     	managerHandler.getBorrowingManager().createBorrowing(borrowingDto);
     }
+    
+    
     
     @Test(expected = LibraryServiceException.class)
     public void extendBorrowingEmptyValueExceptionTest() throws LibraryServiceException {

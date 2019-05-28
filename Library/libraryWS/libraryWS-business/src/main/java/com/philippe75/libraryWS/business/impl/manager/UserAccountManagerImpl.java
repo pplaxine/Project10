@@ -95,7 +95,8 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		
 	}
 
-	//UTILITY METHODS 
+	//---- UTILITY METHODS ----------------------------------------------------------------
+	
 	/**
 	 * Transform model objects fetched from database to data transfer object.   
 	 * 

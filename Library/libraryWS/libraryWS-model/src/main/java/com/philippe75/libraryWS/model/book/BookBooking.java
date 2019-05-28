@@ -34,12 +34,12 @@ import com.philippe75.libraryWS.model.user.UserAccount;
  */
 @Entity
 @Table(name="book_booking")
-public class BookBooking {
+public class BookBooking implements Comparable<BookBooking>{
 	
 	/**
 	 * Unique id of the book booked.
 	 */
-	private int id;
+	private Integer id;
 	/**
 	 * The name of the book booked.
 	 */
@@ -63,10 +63,10 @@ public class BookBooking {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	@Column(name="book_name")
@@ -108,8 +108,8 @@ public class BookBooking {
 	public void setEnded(boolean ended) {
 		this.ended = ended;
 	}
-	
-	
-	
-	
+	@Override
+	public int compareTo(BookBooking o) {
+		return this.getId().compareTo(o.getId());
+	}
 }

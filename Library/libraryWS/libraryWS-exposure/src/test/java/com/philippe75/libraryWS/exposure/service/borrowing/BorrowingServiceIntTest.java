@@ -18,6 +18,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
+import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
@@ -147,17 +148,22 @@ public class BorrowingServiceIntTest {
 		book.setAuthor("Jean Racine");
 		List<BookBooking> lbb = daoHandler.getBookBookingDao().getAllBookingsForABook(book);
 		
-		BookBooking bb = new BookBooking();
-		bb.setBookAuthor(lbb.get(0).getBookAuthor());
-		bb.setBookName(lbb.get(0).getBookName());
-		bb.setUserAccount(lbb.get(0).getUserAccount());
-		bb.setEnded(false);
+		BookBookingDto bbd = new BookBookingDto();
+		bbd.setBookAuthor(lbb.get(0).getBookAuthor());
+		bbd.setBookName(lbb.get(0).getBookName());
+		bbd.setUserAccount(lbb.get(0).getUserAccount());
+		bbd.setEnded(false);
 		
-		System.out.println(lbb.size());
-		int index = daoHandler.getBookBookingDao().createBookBooking(bb);
-		System.out.println(index);
-		daoHandler.getBookBookingDao().endBookBooking(2);
-		System.out.println("Cette user booking =  :" + daoHandler.getBookBookingDao().getAllBookingsForMember("UserTest2").size());
+		
+		
+		int result;
+		try {
+			result = managerHandler.getBookBookingManager().createBooking(bbd);
+			System.out.println(result);
+		} catch (LibraryServiceException e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		
 		
 	}
 

@@ -80,7 +80,7 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 		return lbd;
 	}
 	
-	
+	//---- UTILITY METHODS ----------------------------------------------------------------
 	
 	/**
 	 * Transform model objects fetched from database to data transfer object.   

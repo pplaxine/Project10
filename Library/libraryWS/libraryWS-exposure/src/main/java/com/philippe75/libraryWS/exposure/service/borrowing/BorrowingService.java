@@ -53,7 +53,7 @@ public interface BorrowingService {
 	 * @param borrowingDto the dto object of a new borrowing.
 	 */
 	@WebMethod
-	void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception;
 	
 	/**
 	 * Method that ends a borrowing when user returns a book.   

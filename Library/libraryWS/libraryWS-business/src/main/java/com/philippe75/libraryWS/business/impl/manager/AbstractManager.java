@@ -1,5 +1,8 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.Configuration;
 import javax.validation.Validation;
@@ -7,6 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
+import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.exception.soap.fault.LibraryServiceFault;
 
 /**
@@ -66,6 +70,22 @@ public abstract class AbstractManager {
         Validator vValidator = vFactory.getValidator();
         return vValidator;
     }
+    
+	/**
+	 * Check from list of book if some are available to borrow.   
+	 * 
+	 * @param listBook a list of {@link Book} . 
+	 */
+	public List<Book> bookAvailabilityChecker(List<Book> listBook) {
+		List<Book> lb = new ArrayList<>();
+		listBook.forEach((e) -> {
+			if(e.isAvailable()) {
+				lb.add(e);
+			};
+		});
+		
+		return lb;
+	}
 
 
 }

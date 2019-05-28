@@ -26,7 +26,7 @@ public class BookBookingDto {
 	/**
 	 * Unique id of the book booked.
 	 */
-	private int id;
+	private Integer id;
 	/**
 	 * The name of the book booked.
 	 */
@@ -47,10 +47,10 @@ public class BookBookingDto {
 	 * If the booking has expired / member borrowed the book
 	 */
 	private Boolean ended;
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getBookName() {

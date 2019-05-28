@@ -13,6 +13,7 @@ import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
+import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
 import com.philippe75.libraryWS.consumer.impl.dao.BookBookingDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.BookDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.BorrowingDaoImpl;
@@ -26,6 +27,7 @@ import com.philippe75.libraryWS.model.library.Library;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -46,10 +48,19 @@ public class BookBookingManagerImplUnitTest {
 	private DaoHandlerImpl daoHandler;
 	@Mock
 	private BookBookingDaoImpl bookBookingDao;
+	@Mock
+	private BookDaoImpl bookDao;
+	@Mock
+	private BorrowingDaoImpl borrowingDao;
 	
 	private BookBooking bookBooking;
 	private BookBookingDto bookBookingDto;
+	private Book book;
 	private UserAccount userAccount;
+	private Borrowing borrowing;
+	private List<Book> lb;
+	private List<BookBooking> lbb;
+	private List<Borrowing> lbrw;
 	
 	private static SimpleDateFormat sdf;
 	private static Date mailSentDate;
@@ -66,6 +77,8 @@ public class BookBookingManagerImplUnitTest {
     	AbstractManager.configure(daoHandler);
     	//set the Mock in ManagerHandler class
     	ManagerHandlerImpl.configure(bookBookingManager);
+    	
+    	lbb = new ArrayList<>();
     	
     	//STUB BookBooking
     	//-- UserAccount
@@ -89,8 +102,68 @@ public class BookBookingManagerImplUnitTest {
     	bookBookingDto.setUserAccount(userAccount);
     	bookBookingDto.setMailSentDate(mailSentDate);
     	bookBookingDto.setEnded(true);
-
+    	
+    	//STUB List<Book>
+    	lb = new ArrayList<>();
+    	book = new Book();
+    	book.setName("1984");
+    	book.setAvailable(true);
+    	lb.add(book);
+    	
+    	//Stub List<Borrowing>
+    	lbrw = new ArrayList<>();
+    	borrowing = new Borrowing();
+    	borrowing.setBook(book);
+    	lbrw.add(borrowing);
+    	
     }
+    
+    // param is null
+    @Test
+    public void createBookingParamNullUnitTest() throws Exception {
+    	int result;
+    	result = managerHandler.getBookBookingManager().createBooking(null);
+    	assertTrue(result == 0);
+    }
+    
+    //Booking requested for an available book 
+    @Test(expected = LibraryServiceException.class)
+    public void createBookingRGBookAvailableExceptionUnitTest() throws Exception{
+    	when(daoHandler.getBookDao().getListBookByName("1984")).thenReturn(lb);
+    	managerHandler.getBookBookingManager().createBooking(bookBookingDto);
+    }
+    
+    //Maximum of (book exemplar *2) is reached 
+    @Test(expected = LibraryServiceException.class)
+    public void createBookingRGMaxBookingReachedUnitTest() throws Exception{
+    	
+    	//Mock setup
+    	lb.get(0).setAvailable(false);
+    	lbb.add(bookBooking);
+    	lbb.add(bookBooking);
+    	
+    	when(daoHandler.getBookDao().getListBookByName("1984")).thenReturn(lb);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForABook(book)).thenReturn(lbb);
+
+    	managerHandler.getBookBookingManager().createBooking(bookBookingDto);
+    }
+    
+    //Book already rented by member
+    @Test(expected = LibraryServiceException.class)
+    public void createBookingRGBookAlreadyRendtedUnitTest() throws Exception{
+    	
+    	//Mock setup
+    	lb.get(0).setAvailable(false);
+    	lbb.add(bookBooking);
+    	
+    	when(daoHandler.getBookDao().getListBookByName("1984")).thenReturn(lb);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForABook(book)).thenReturn(lbb);
+    	when(daoHandler.getBorrowingDao().getAllBorrowingForUser(bookBooking.getUserAccount().getUserMemberId())).thenReturn(lbrw);
+
+    	managerHandler.getBookBookingManager().createBooking(bookBookingDto);
+    }
+    
+    
     
     //BorrowingDto created from Borrowing contains all the values
     @Test
@@ -102,7 +175,6 @@ public class BookBookingManagerImplUnitTest {
     	assertEquals("bookBookingDto : MailSentDate ",bookBookingDto.getMailSentDate(), bookBooking.getMailSentDate());
     	assertEquals("bookBookingDto : UserAccount ",bookBookingDto.getUserAccount(), bookBooking.getUserAccount());
     	assertEquals("bookBookingDto : Ended ",bookBookingDto.getEnded(), bookBooking.isEnded());
-    	
     }
     
     //Borrowing created from BorrowingDto contains all the values
@@ -115,9 +187,46 @@ public class BookBookingManagerImplUnitTest {
     	assertEquals("bookBookingDto : MailSentDate ",bookBooking.getMailSentDate(), bookBookingDto.getMailSentDate());
     	assertEquals("bookBookingDto : UserAccount ",bookBooking.getUserAccount(), bookBookingDto.getUserAccount());
     	assertEquals("bookBookingDto : Ended ",bookBooking.isEnded(), bookBookingDto.getEnded());
-    	
     }
-
+    @Test
+    public void bookAvailabilityCheckerUnitTest() {
+    	Book book;
+    	List<Book> lb = new ArrayList<>();
+    	//Creation of list of Books where half are available 
+    	for (int i = 0; i < 4; i++) {
+    		book = new Book();
+    		if(i%2 == 0) {
+    			book.setAvailable(true);
+    		}else {
+    			book.setAvailable(false);
+    		}
+    		lb.add(book);
+		}
+    	//List of book available from entry list
+    	List<Book> lba = bookBookingManager.bookAvailabilityChecker(lb);
+    	assertTrue(lba.size() == 2);
+    }
+    
+    @Test
+    public void isThisBookInTheBorrowingsUnitTest() {
+    	String bookName = "1984";
+    	String [] bookNames = {"1984","Roméo et Juliette","Roméo et Juliette", "1984"};
+    	List<Borrowing> lb = new ArrayList<>();
+    	for (int i = 0; i < 4; i++) {
+    		Book book = new Book();
+    		book.setName(bookNames[i]);
+    		Borrowing borrowing = new Borrowing();
+    		borrowing.setBook(book);
+    		if(i%2 == 0) {
+    			borrowing.setEffectiveEndDate(new Date());
+    		}
+    		lb.add(borrowing);
+		}
+    	
+    	assertTrue(bookBookingManager.isThisBookInTheBorrowings(lb, bookName));
+    	lb.forEach(e -> e.setEffectiveEndDate(new Date()));
+    	assertFalse(bookBookingManager.isThisBookInTheBorrowings(lb, bookName));
+    }
     
 
 
