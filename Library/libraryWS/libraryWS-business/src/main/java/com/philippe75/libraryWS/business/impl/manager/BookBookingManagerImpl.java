@@ -37,10 +37,10 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		if(bookBookingDto != null) {
 			int maxBookingForBook, bookingNumb;
 			List<Book> lb;
-			List<BookBooking> lbb;
+			List<BookBooking> lbb, lbbMember;
 			List<Borrowing> lbrw;
 			BookBooking bookBooking = bookBookingDtoToModel(bookBookingDto);
-			
+			String userMemberId = bookBooking.getUserAccount().getUserMemberId();
 			try {
 				
 				//Règle gestion: check if all books are borrowed (booking only when all books are borrowed) ----
@@ -58,10 +58,18 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 					throw new LibraryServiceException("MaxBookingReachedException", libraryServiceFaultFactory("4635", "No more booking possible for this book. The "+maxBookingForBook +" bookings already in the queue."));
 				}
 				
-				//Règle de gestion : Check if member as already rented this book 
-				lbrw = getDaoHandler().getBorrowingDao().getAllBorrowingForUser(bookBooking.getUserAccount().getUserMemberId());
+				//Règle gestion : Check if member as already rented this book 
+				lbrw = getDaoHandler().getBorrowingDao().getAllBorrowingForUser(userMemberId);
 				if(isThisBookInTheBorrowings(lbrw, bookBookingDto.getBookName())) {
 					throw new LibraryServiceException("BookAlreadyInMemberBorrowingsException", libraryServiceFaultFactory("4862", "The book "+ bookBooking.getBookName() +" is already in member active borrowings."));
+				}
+				
+				//Règle gestion : Check if member as already made a booking for this book 
+				lbbMember = getDaoHandler().getBookBookingDao().getAllBookingsForMember(userMemberId);
+				for (BookBooking bbMember : lbbMember) {
+					if(bbMember.getBookName().equals(bookBooking.getBookName())) {
+						throw new LibraryServiceException("BookingAlreadyMadeException", libraryServiceFaultFactory("4852", "The booking for the "+ bookBooking.getBookName() +" has already been made."));
+					}
 				}
 				
 				result = getDaoHandler().getBookBookingDao().createBookBooking(bookBooking);

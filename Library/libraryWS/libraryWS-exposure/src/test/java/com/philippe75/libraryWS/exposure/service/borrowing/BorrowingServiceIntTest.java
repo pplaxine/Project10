@@ -52,109 +52,112 @@ public class BorrowingServiceIntTest {
     	secondSupposedEndDate = sdf.parse("06/08/2019");
 		userMemberId = "JTille";
 		borrowingId = 1; 
-		newBorrowingId = 8;
+		newBorrowingId = 7;
 		
 	}
 	
-//	//All the borrowing for a user are retrieved
-//	@Test
-//	public void intTest01getAllBorrowingForUser() throws LibraryServiceException {
-//		
-//		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId);
-//		assertTrue( "The list should contain 3 elements ",lb.size() == 3 );
-//	}
-//	
-//	//All the late borrowings are retrieved 
-//	@Test
-//	public void intTest02getAllLateBorrowings() throws LibraryServiceException {
-//		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllLateBorrowings();
-//		assertTrue("The list should contain 4 eements " ,lb.size() == 4 );
-//	}
-//	
-//	//The correct borrowing is retrieved
-//	@Test 
-//	public void intTest03getBorrowingById() throws LibraryServiceException {
-//		String bookName = "Roméo et Juliette";
-//		BorrowingDto borrowing = managerHandler.getBorrowingManager().getBorrowingById(borrowingId);
-//		assertEquals("Wrong borrowing retrieved " ,borrowing.getBook().getName(), bookName);
-//	}
-//	
-//	//A borrowing is created 
-//	@Test
-//	public void  intTest04createBorrowing() throws LibraryServiceException {
-//		int numberOfBooksBorrowedBefore, numberOfBooksBorrowedAfter ; 
-//		
-//		//new borrowing
-//		BorrowingDto newBorrowing = new BorrowingDto(); 
-//		
-//		Book book = new Book();
-//		book.setId(bookId);
-//		
-//		
-//		UserAccount userAccount = new UserAccount();
-//		userAccount.setUserMemberId(userMemberId);
-//		
-//		newBorrowing.setBook(book); 
-//		newBorrowing.setUserAccount(userAccount);
-//		newBorrowing.setSupposedEndDate(supposedEndDate);
-//		//-----------------------------------------------------------
-//		
-//		//check the number of borrowings for this user 
-//		numberOfBooksBorrowedBefore = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId).size();
-//		//create a new borrowing
-//		managerHandler.getBorrowingManager().createBorrowing(newBorrowing);
-//		//retrieve the last borrowing 
-//		//check the number of borrowings for this user 
-//		numberOfBooksBorrowedAfter = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId).size(); 
-//		
-//		assertEquals(numberOfBooksBorrowedAfter, numberOfBooksBorrowedBefore +1);
-//		
-//	}
-//	
-//	//A Borrowing end date is extended
-//	@Test
-//	public void intTest05extendBorrowing() throws LibraryServiceException {
-//		
-//		//retrieve the newly create borrowing 
-//		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
-//		//new end date added de to object
-//		newBorrowing.setSecondSupposedEndDate(secondSupposedEndDate);
-//		//extend the borrowing with the new date  
-//		managerHandler.getBorrowingManager().extendBorrowing(newBorrowing);
-//		//retrieve the newly create borrowing after beeing extended 
-//		BorrowingDto newBorrowingExtended = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
-//		
-//		assertNotNull("The extension hasn't been taken to account" ,newBorrowingExtended.getSecondSupposedEndDate());
-//	}
-//	
-//	//A Borrowing is ended
-//	@Test
-//	public void intTest06endBorrowing() throws LibraryServiceException {
-//		
-//		//retrieve the newly create borrowing 
-//		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
-//		//end borrowing 
-//		managerHandler.getBorrowingManager().endBorrowing(newBorrowing);
-//		//retrieve ended borrowing
-//		BorrowingDto endedBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
-//		
-//		assertNotNull("The end of the borrowing hasn't been taken to account" ,endedBorrowing.getEffectiveEndDate());
-//	}
-//	
+	//All the borrowing for a user are retrieved
 	@Test
-	public void testDao() throws Exception {
+	public void intTest01getAllBorrowingForUser() throws LibraryServiceException {
+		
+		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId);
+		assertTrue( "The list should contain 3 elements ",lb.size() == 3 );
+	}
+	
+	//All the late borrowings are retrieved 
+	@Test
+	public void intTest02getAllLateBorrowings() throws LibraryServiceException {
+		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllLateBorrowings();
+		assertTrue("The list should contain 4 eements " ,lb.size() == 4 );
+	}
+	
+	//The correct borrowing is retrieved
+	@Test 
+	public void intTest03getBorrowingById() throws LibraryServiceException {
+		String bookName = "Roméo et Juliette";
+		BorrowingDto borrowing = managerHandler.getBorrowingManager().getBorrowingById(borrowingId);
+		assertEquals("Wrong borrowing retrieved " ,borrowing.getBook().getName(), bookName);
+	}
+	
+	//A borrowing is created 
+	@Test
+	public void  intTest04createBorrowing() throws Exception {
+		int numberOfBooksBorrowedBefore, numberOfBooksBorrowedAfter ; 
+		
+		//new borrowing
+		BorrowingDto newBorrowing = new BorrowingDto(); 
+		
+		Book book = daoHandler.getBookDao().getBookById(bookId);
+		
+		
+		
+		UserAccount userAccount = new UserAccount();
+		userAccount.setUserMemberId(userMemberId);
+		
+		newBorrowing.setBook(book); 
+		newBorrowing.setUserAccount(userAccount);
+		newBorrowing.setSupposedEndDate(supposedEndDate);
+		//-----------------------------------------------------------
+		
+		//check the number of borrowings for this user 
+		numberOfBooksBorrowedBefore = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId).size();
+		//create a new borrowing
+		managerHandler.getBorrowingManager().createBorrowing(newBorrowing);
+		//retrieve the last borrowing 
+		//check the number of borrowings for this user 
+		numberOfBooksBorrowedAfter = managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId).size(); 
+		
+		assertEquals(numberOfBooksBorrowedAfter, numberOfBooksBorrowedBefore +1);
+		
+	}
+	
+	//A Borrowing end date is extended
+	@Test
+	public void intTest05extendBorrowing() throws LibraryServiceException {
+		
+		//retrieve the newly create borrowing 
+		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
+		//new end date added de to object
+		newBorrowing.setSecondSupposedEndDate(secondSupposedEndDate);
+		//extend the borrowing with the new date  
+		managerHandler.getBorrowingManager().extendBorrowing(newBorrowing);
+		//retrieve the newly create borrowing after beeing extended 
+		BorrowingDto newBorrowingExtended = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
+		
+		assertNotNull("The extension hasn't been taken to account" ,newBorrowingExtended.getSecondSupposedEndDate());
+	}
+	
+	//A Borrowing is ended
+	@Test
+	public void intTest06endBorrowing() throws LibraryServiceException {
+		
+		//retrieve the newly create borrowing 
+		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
+		//end borrowing 
+		managerHandler.getBorrowingManager().endBorrowing(newBorrowing);
+		//retrieve ended borrowing
+		BorrowingDto endedBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
+		
+		assertNotNull("The end of the borrowing hasn't been taken to account" ,endedBorrowing.getEffectiveEndDate());
+	}
+	
+	
+	//A booking is created 
+	@Test
+	public void intTest07createBooking() throws Exception {
 		Book book = new Book();
 		book.setName("Phèdre");
 		book.setAuthor("Jean Racine");
 		List<BookBooking> lbb = daoHandler.getBookBookingDao().getAllBookingsForABook(book);
+		UserAccount ua = daoHandler.getBorrowingDao().getBorrowingById(7).getUserAccount();
+		
+		lbb.get(0).setUserAccount(ua);
 		
 		BookBookingDto bbd = new BookBookingDto();
 		bbd.setBookAuthor(lbb.get(0).getBookAuthor());
 		bbd.setBookName(lbb.get(0).getBookName());
 		bbd.setUserAccount(lbb.get(0).getUserAccount());
 		bbd.setEnded(false);
-		
-		
 		
 		int result;
 		try {

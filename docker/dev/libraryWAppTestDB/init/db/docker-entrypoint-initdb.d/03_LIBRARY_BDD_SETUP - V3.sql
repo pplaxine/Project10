@@ -264,7 +264,7 @@ INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, ex
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, effective_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00','2018-01-28 18:00:00',true,3,1);
 
 
-INSERT INTO book_booking (book_name,book_author,user_account_id,ended) VALUES ('Phèdre','Jean Racine',4,false);
+INSERT INTO book_booking (book_name,book_author,user_account_id,ended) VALUES ('Phèdre','Jean Racine',3,false);
 
 /*TRANSACTION END*/
 COMMIT;

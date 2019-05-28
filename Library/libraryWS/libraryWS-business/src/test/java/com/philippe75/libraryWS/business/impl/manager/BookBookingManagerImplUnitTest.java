@@ -163,6 +163,24 @@ public class BookBookingManagerImplUnitTest {
     	managerHandler.getBookBookingManager().createBooking(bookBookingDto);
     }
     
+    //Booking already made by member
+    @Test(expected = LibraryServiceException.class)
+    public void createBookingRGBookingAlreadyMadeUnitTest() throws Exception{
+    	
+    	//Mock setup
+    	String userMemberId = bookBooking.getUserAccount().getUserMemberId();
+    	lb.get(0).setAvailable(false);
+    	lbrw = new ArrayList<>();
+    	lbb.add(bookBooking);
+    	
+    	when(daoHandler.getBookDao().getListBookByName("1984")).thenReturn(lb);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForABook(book)).thenReturn(lbb);
+    	when(daoHandler.getBorrowingDao().getAllBorrowingForUser(bookBooking.getUserAccount().getUserMemberId())).thenReturn(lbrw);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForMember(userMemberId)).thenReturn(lbb);
+
+    	managerHandler.getBookBookingManager().createBooking(bookBookingDto);
+    }
+    
     
     
     //BorrowingDto created from Borrowing contains all the values

@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
+import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
@@ -100,4 +101,30 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		return managerHandler.getBorrowingManager().getAllLateBorrowings();
 	}
+
+	/**
+	 * Method that creates new booking for a book.  
+	 * 
+	 * @param bookBookingDto the dto object of a new booking.
+	 * 
+	 * @return int id of the newly created BookBooking.
+	 */
+	@Override
+	public int createBooking(BookBookingDto bookBookingDto) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBookBookingManager().createBooking(bookBookingDto);
+	}
+
+	/**
+	 * Method that ends booking for a book.  
+	 * 
+	 * @param bookBookingDto the dto object of booking to end.
+	 */
+	@Override
+	public void endBooking(int bookBookingId) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getBookBookingManager().endBooking(bookBookingId);
+	}
+	
+	
 }

@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _LibraryServiceException_QNAME = new QName("http://borrowing.service.exposure.libraryWS.philippe75.com/", "LibraryServiceException");
+    private final static QName _Exception_QNAME = new QName("http://borrowing.service.exposure.libraryWS.philippe75.com/", "Exception");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.philippe75.libraryWebapp.stub.generated.borrowingServ
@@ -42,11 +43,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UserAddress }
+     * Create an instance of {@link Exception }
      * 
      */
-    public UserAddress createUserAddress() {
-        return new UserAddress();
+    public Exception createException() {
+        return new Exception();
     }
 
     /**
@@ -58,14 +59,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Library }
-     * 
-     */
-    public Library createLibrary() {
-        return new Library();
-    }
-
-    /**
      * Create an instance of {@link Book }
      * 
      */
@@ -74,27 +67,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UserAccount }
-     * 
-     */
-    public UserAccount createUserAccount() {
-        return new UserAccount();
-    }
-
-    /**
      * Create an instance of {@link LibraryServiceFault }
      * 
      */
     public LibraryServiceFault createLibraryServiceFault() {
         return new LibraryServiceFault();
-    }
-
-    /**
-     * Create an instance of {@link BorrowingDto }
-     * 
-     */
-    public BorrowingDto createBorrowingDto() {
-        return new BorrowingDto();
     }
 
     /**
@@ -114,6 +91,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UserAddress }
+     * 
+     */
+    public UserAddress createUserAddress() {
+        return new UserAddress();
+    }
+
+    /**
+     * Create an instance of {@link BookBooking }
+     * 
+     */
+    public BookBooking createBookBooking() {
+        return new BookBooking();
+    }
+
+    /**
+     * Create an instance of {@link Library }
+     * 
+     */
+    public Library createLibrary() {
+        return new Library();
+    }
+
+    /**
+     * Create an instance of {@link UserAccount }
+     * 
+     */
+    public UserAccount createUserAccount() {
+        return new UserAccount();
+    }
+
+    /**
+     * Create an instance of {@link BookBookingDto }
+     * 
+     */
+    public BookBookingDto createBookBookingDto() {
+        return new BookBookingDto();
+    }
+
+    /**
+     * Create an instance of {@link BorrowingDto }
+     * 
+     */
+    public BorrowingDto createBorrowingDto() {
+        return new BorrowingDto();
+    }
+
+    /**
      * Create an instance of {@link Borrowing }
      * 
      */
@@ -128,6 +153,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://borrowing.service.exposure.libraryWS.philippe75.com/", name = "LibraryServiceException")
     public JAXBElement<LibraryServiceException> createLibraryServiceException(LibraryServiceException value) {
         return new JAXBElement<LibraryServiceException>(_LibraryServiceException_QNAME, LibraryServiceException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://borrowing.service.exposure.libraryWS.philippe75.com/", name = "Exception")
+    public JAXBElement<Exception> createException(Exception value) {
+        return new JAXBElement<Exception>(_Exception_QNAME, Exception.class, null, value);
     }
 
 }

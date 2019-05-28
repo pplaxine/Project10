@@ -36,8 +36,8 @@ public class BorrowingDtoManagerImplIntTest {
 	
 	@BeforeClass
 	public static void executeBeforeAll() throws ParseException {
-		userMemberId = "UserTest";
-		borrowingId = 7; 
+		userMemberId = "MSegaux";
+		borrowingId = 2; 
 		numberOfWeek = 4;
 	}
 

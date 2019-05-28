@@ -7,6 +7,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
+import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
@@ -70,4 +71,20 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	List<BorrowingDto> getAllLateBorrowings() throws LibraryServiceException;
+	
+	/**
+	 * Method that creates new booking for a book.  
+	 * 
+	 * @param bookBookingDto the dto object of a new booking.
+	 * 
+	 * @return int id of the newly created BookBooking.
+	 */
+	int createBooking(BookBookingDto bookBookingDto) throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that ends booking for a book.  
+	 * 
+	 * @param bookBookingDto the dto object of booking to end.
+	 */
+	void endBooking(int bookBookingId) throws LibraryServiceException;
 }

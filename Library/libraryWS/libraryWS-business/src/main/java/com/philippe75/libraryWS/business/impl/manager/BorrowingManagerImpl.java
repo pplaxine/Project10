@@ -154,7 +154,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				} 
 				
 				//number of copies of the book available
-				lb = getDaoHandler().getBookDao().getListBookByName(borrowing.getBook().getName());
+				lb = getDaoHandler().getBookDao().getListBookByName(borrowing.getBook().getName());			// <---------------
 				int lbAvailableSize = bookAvailabilityChecker(lb).size();
 				
 				//number of Member queuing for the book   
@@ -186,8 +186,18 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				if(!violation.isEmpty()) {
 					throw new LibraryServiceException("ConstraintException",  new ConstraintViolationException(violation), libraryServiceFaultFactory("1587", "One of the constraint is not fulfilled"));
 				}	
-
+				
 				getDaoHandler().getBorrowingDao().createBorrowing(borrowing);
+				
+				//Règle gestion : Member removed from booking list when borrowing is made
+				Integer bookBookingId = 0;
+				for (BookBooking bb : lbb) {
+					String userMemberId = bb.getUserAccount().getUserMemberId();
+					if(userMemberId == userMemberIdForBorrowing) {
+						bookBookingId = bb.getId();
+					}
+				}
+				getDaoHandler().getBookBookingDao().endBookBooking(bookBookingId);
 				
 			} catch (NoResultException e) {
 				System.out.println(e.getMessage());
