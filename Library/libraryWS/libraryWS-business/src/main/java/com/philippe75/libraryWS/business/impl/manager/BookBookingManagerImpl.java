@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 
 import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
@@ -99,6 +100,57 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		}
 	}
 	
+	/**
+	 * Method that gets, the waiting list of members for a book.  
+	 * 
+	 * @param book the book.
+	 * 
+	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 * @throws LibraryServiceException 
+	 */
+	@Override
+	public List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException , Exception {
+		if(bookDto != null) {
+			List<BookBooking> lbb;
+			List<BookBookingDto> lbbd = new ArrayList<>();
+			Book book = bookDtoToModel(bookDto);
+			try {
+				lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(book);
+				lbb.forEach(e -> lbbd.add(bookBookingModelToDto(e)));
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+			} 
+			return lbbd;
+		}
+		return null;
+	}
+
+	/**
+	 * Method that gets, all the bookings of a members.  
+	 * 
+	 * @param String user member id.
+	 * 
+	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 * @throws Exception 
+	 */
+	@Override
+	public List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException, Exception {
+		if(userMemberId != null) {
+			List<BookBooking> lbb;
+			List<BookBookingDto> lbbd = new ArrayList<>();
+			try {
+				lbb = getDaoHandler().getBookBookingDao().getAllBookingsForMember(userMemberId);
+				lbb.forEach(e -> lbbd.add(bookBookingModelToDto(e)));
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+			} 
+			return lbbd;
+		}
+		return null;
+	}
+	
 	
 	
 	//---- UTILITY METHODS ----------------------------------------------------------------
@@ -156,6 +208,8 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		}
 		return result;
 	}
+
+
 
 
 

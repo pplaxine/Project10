@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Named;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.Exception_Exception;
 /**
@@ -25,6 +26,14 @@ public interface BorrowingDtoManager {
 	List<BorrowingDto> getAllBorrowingForUser(String userMemberId) throws LibraryServiceException_Exception;
 	
 	/**
+	 * Method that gets, all the borrowings of a Book.  
+	 * 
+	 * @param bookDto the book.
+	 * @return List<BorrowingDto> list of {@link Borrowing} of a user.
+	 */
+	List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException_Exception;
+	
+	/**
 	 * Method that extends a borrowing.  
 	 * 
 	 * @param borrowingId the id of the borrowing
@@ -32,6 +41,24 @@ public interface BorrowingDtoManager {
 	 * 
 	 */
 	void extendBorrowing(Integer borrowingId, Integer numberOfWeek) throws LibraryServiceException_Exception;
+	
+	/**
+	 * Method that gets, the waiting list of members for a book.  
+	 * 
+	 * @param book the book.
+	 * 
+	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 */
+	List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException_Exception, Exception_Exception;
+	
+	/**
+	 * Method that gets, all the bookings of a members.  
+	 * 
+	 * @param String user member id.
+	 * 
+	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 */
+	List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException_Exception, Exception_Exception;
 	
 	/**
 	 * Method that creates new booking for a book.  
@@ -48,5 +75,6 @@ public interface BorrowingDtoManager {
 	 * @param bookBookingDto the dto object of booking to end.
 	 */
 	void endBooking(int bookBookingId) throws LibraryServiceException_Exception;
+
 	
 }

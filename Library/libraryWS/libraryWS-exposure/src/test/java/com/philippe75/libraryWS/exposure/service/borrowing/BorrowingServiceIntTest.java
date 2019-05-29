@@ -44,6 +44,7 @@ public class BorrowingServiceIntTest {
 	private static int bookId, borrowingId, newBorrowingId;
 	private static SimpleDateFormat sdf;
 	private static Date supposedEndDate, secondSupposedEndDate;
+	private static BookDto bookDto;
 	 
 	
 	@BeforeClass
@@ -55,6 +56,9 @@ public class BorrowingServiceIntTest {
 		userMemberId = "JTille";
 		borrowingId = 1; 
 		newBorrowingId = 7;
+		bookDto = new BookDto();
+		bookDto.setName("Phèdre");
+		bookDto.setAuthor("Jean Racine");
 		
 	}
 	
@@ -154,10 +158,22 @@ public class BorrowingServiceIntTest {
 		assertNotNull("The end of the borrowing hasn't been taken to account" ,endedBorrowing.getEffectiveEndDate());
 	}
 	
+	//All the booking for a book are retrieved 
+	@Test
+	public void intTest08getAllBookingsForABook() throws LibraryServiceException, Exception {
+		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllBookingsForABook(bookDto).size() == 1);
+	}
+	
+	//All the booking for a member are retrieved 
+	@Test
+	public void intTest09getAllBookingsForAMember() throws Exception {
+		userMemberId = "UserTest";
+		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllBookingsForMember(userMemberId).size() == 1);
+	}
 	
 	//A booking is created 
 	@Test
-	public void intTest08createBooking() throws Exception {
+	public void intTest10createBooking() throws LibraryServiceException, Exception {
 		Book book = new Book();
 		book.setName("Phèdre");
 		book.setAuthor("Jean Racine");
@@ -171,22 +187,13 @@ public class BorrowingServiceIntTest {
 		bbd.setBookName(lbb.get(0).getBookName());
 		bbd.setUserAccount(lbb.get(0).getUserAccount());
 		bbd.setEnded(false);
-		
-		int result;
-		try {
-			result = managerHandler.getBookBookingManager().createBooking(bbd);
-			System.out.println(result);
-		} catch (LibraryServiceException e) {
-			System.out.println(e.getLocalizedMessage());
-		}
+		int newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
+		assertTrue("New booking id should be 2 ",newBookingId == 2);
 	}
 
 	
-	public void testDao() throws Exception {
-		
+
 	
-		
-	}
 	
 }
 

@@ -10,6 +10,7 @@ import javax.jws.soap.SOAPBinding.Style;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
@@ -99,4 +100,22 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	void endBooking(int bookBookingId) throws LibraryServiceException;
+	
+	/**
+	 * Method that gets, the waiting list of members for a book.  
+	 * 
+	 * @param book the book.
+	 * 
+	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 */
+	List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that gets, all the bookings of a members.  
+	 * 
+	 * @param String user member id.
+	 * 
+	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 */
+	List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException, Exception;
 }

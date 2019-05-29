@@ -179,6 +179,7 @@ public class UserAccount {
 		this.blockedAccount = blockedAccount;
 	}
 	@OneToMany(mappedBy="userAccount")
+	@Transient
 	public Collection<Borrowing> getListBorrowing() {
 		return listBorrowing;
 	}

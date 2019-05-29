@@ -11,6 +11,7 @@ import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 
@@ -137,6 +138,32 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 	public void endBooking(int bookBookingId) throws LibraryServiceException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		managerHandler.getBookBookingManager().endBooking(bookBookingId);
+	}
+
+	/**
+	 * Method that gets, the waiting list of members for a book.  
+	 * 
+	 * @param book the book.
+	 * 
+	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 */
+	@Override
+	public List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBookBookingManager().getAllBookingsForABook(bookDto);
+	}
+
+	/**
+	 * Method that gets, all the bookings of a members.  
+	 * 
+	 * @param String user member id.
+	 * 
+	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 */
+	@Override
+	public List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBookBookingManager().getAllBookingsForMember(userMemberId);
 	}
 
 

@@ -28,6 +28,7 @@ import com.philippe75.libraryWS.model.user.UserAccount;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -61,6 +62,7 @@ public class BookBookingManagerImplUnitTest {
 	private List<Book> lb;
 	private List<BookBooking> lbb;
 	private List<Borrowing> lbrw;
+	private String userMemberId;
 	
 	private static SimpleDateFormat sdf;
 	private static Date mailSentDate;
@@ -78,7 +80,10 @@ public class BookBookingManagerImplUnitTest {
     	//set the Mock in ManagerHandler class
     	ManagerHandlerImpl.configure(bookBookingManager);
     	
+    	
+    	
     	lbb = new ArrayList<>();
+    	userMemberId = "test02";
     	
     	//STUB BookBooking
     	//-- UserAccount
@@ -116,6 +121,28 @@ public class BookBookingManagerImplUnitTest {
     	borrowing.setBook(book);
     	lbrw.add(borrowing);
     	
+    }
+    
+    @Test
+    public void getAllBookingsForMemberUnitTest() throws Exception {
+    	
+    	//Mock setup
+    	List<BookBookingDto> lbbd;
+    	lbb.add(bookBooking);
+    	when(daoHandler.getBookBookingDao().getAllBookingsForMember(userMemberId)).thenReturn(lbb);
+    	
+    	lbbd = managerHandler.getBookBookingManager().getAllBookingsForMember(userMemberId);
+    	assertTrue("The size of the list should be 1", lbbd.size() == 1);
+    }
+    
+    @Test
+    public void getAllBookingsForMemberNoParamUnitTest() throws Exception {
+    	assertNull("The result should be null", managerHandler.getBookBookingManager().getAllBookingsForMember(null));
+    }
+    
+    @Test
+    public void getAllBookingsForBookNoParamUnitTest() throws Exception {
+    	assertNull("The result should be null", managerHandler.getBookBookingManager().getAllBookingsForABook(null));
     }
     
     // param is null

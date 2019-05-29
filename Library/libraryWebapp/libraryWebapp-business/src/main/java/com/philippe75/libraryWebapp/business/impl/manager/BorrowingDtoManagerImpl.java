@@ -13,6 +13,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.Exception_Exception;
 
@@ -34,6 +35,17 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	@Override
 	public List<BorrowingDto> getAllBorrowingForUser(String userMemberId) throws LibraryServiceException_Exception {
 		return getBorrowingService().getAllBorrowingForUser(userMemberId).getItem();
+	}
+	
+	/**
+	 * Get all the {@link BorrowingDto} of a user.
+	 * 
+	 * @param userMemberID the user member id of the user
+	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
+	 */
+	@Override
+	public List<BorrowingDto> getAllBorrowingForBook(BookDto BookDto) throws LibraryServiceException_Exception {
+		return getBorrowingService().getAllBorrowingForBook(BookDto).getItem();
 	}
 
 	/**
@@ -65,6 +77,30 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Method that gets, the waiting list of members for a book.  
+	 * 
+	 * @param book the book.
+	 * 
+	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 */
+	@Override
+	public List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException_Exception, Exception_Exception {
+		return getBorrowingService().getAllBookingsForABook(bookDto).getItem();
+	}
+
+	/**
+	 * Method that gets, all the bookings of a members.  
+	 * 
+	 * @param String user member id.
+	 * 
+	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 */
+	@Override
+	public List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException_Exception, Exception_Exception {
+		return getBorrowingService().getAllBookingsForMember(userMemberId).getItem();
 	}
 	
 	/**
@@ -100,6 +136,8 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		cal.add(field, amount);
 		return cal.getTime();
 	}
+
+
 
 
 

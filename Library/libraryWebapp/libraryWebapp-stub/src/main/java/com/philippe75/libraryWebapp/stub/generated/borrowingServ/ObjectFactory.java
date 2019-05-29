@@ -91,6 +91,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link BookDto }
+     * 
+     */
+    public BookDto createBookDto() {
+        return new BookDto();
+    }
+
+    /**
      * Create an instance of {@link UserAddress }
      * 
      */
@@ -144,6 +152,14 @@ public class ObjectFactory {
      */
     public Borrowing createBorrowing() {
         return new Borrowing();
+    }
+
+    /**
+     * Create an instance of {@link ListOfBookBookingDto }
+     * 
+     */
+    public ListOfBookBookingDto createListOfBookBookingDto() {
+        return new ListOfBookBookingDto();
     }
 
     /**
