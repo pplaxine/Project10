@@ -19,11 +19,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
+import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -64,16 +66,27 @@ public class BorrowingServiceIntTest {
 		assertTrue( "The list should contain 3 elements ",lb.size() == 3 );
 	}
 	
+	//All the borrowing for a book are retrieved
+	@Test
+	public void intTest02getAllBorrowingForBook() throws LibraryServiceException {
+		BookDto bookDto = new BookDto();
+		bookDto.setName("Roméo et Juliette");
+		bookDto.setAuthor("William Shakespeare");
+		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllBorrowingForBook(bookDto);
+		assertTrue( "The list should contain 5 elements ",lb.size() == 5 );
+	}
+	
+	
 	//All the late borrowings are retrieved 
 	@Test
-	public void intTest02getAllLateBorrowings() throws LibraryServiceException {
+	public void intTest03getAllLateBorrowings() throws LibraryServiceException {
 		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllLateBorrowings();
 		assertTrue("The list should contain 4 eements " ,lb.size() == 4 );
 	}
 	
 	//The correct borrowing is retrieved
 	@Test 
-	public void intTest03getBorrowingById() throws LibraryServiceException {
+	public void intTest04getBorrowingById() throws LibraryServiceException {
 		String bookName = "Roméo et Juliette";
 		BorrowingDto borrowing = managerHandler.getBorrowingManager().getBorrowingById(borrowingId);
 		assertEquals("Wrong borrowing retrieved " ,borrowing.getBook().getName(), bookName);
@@ -81,7 +94,7 @@ public class BorrowingServiceIntTest {
 	
 	//A borrowing is created 
 	@Test
-	public void  intTest04createBorrowing() throws Exception {
+	public void  intTest05createBorrowing() throws Exception {
 		int numberOfBooksBorrowedBefore, numberOfBooksBorrowedAfter ; 
 		
 		//new borrowing
@@ -113,7 +126,7 @@ public class BorrowingServiceIntTest {
 	
 	//A Borrowing end date is extended
 	@Test
-	public void intTest05extendBorrowing() throws LibraryServiceException {
+	public void intTest06extendBorrowing() throws LibraryServiceException {
 		
 		//retrieve the newly create borrowing 
 		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
@@ -129,7 +142,7 @@ public class BorrowingServiceIntTest {
 	
 	//A Borrowing is ended
 	@Test
-	public void intTest06endBorrowing() throws LibraryServiceException {
+	public void intTest07endBorrowing() throws LibraryServiceException {
 		
 		//retrieve the newly create borrowing 
 		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
@@ -144,7 +157,7 @@ public class BorrowingServiceIntTest {
 	
 	//A booking is created 
 	@Test
-	public void intTest07createBooking() throws Exception {
+	public void intTest08createBooking() throws Exception {
 		Book book = new Book();
 		book.setName("Phèdre");
 		book.setAuthor("Jean Racine");
@@ -166,8 +179,14 @@ public class BorrowingServiceIntTest {
 		} catch (LibraryServiceException e) {
 			System.out.println(e.getLocalizedMessage());
 		}
-		
-		
 	}
 
+	
+	public void testDao() throws Exception {
+		
+	
+		
+	}
+	
 }
+

@@ -64,7 +64,6 @@ public class UserAccountDto {
 	 * Account can be blocked if a borrowed book is not given back on time.
 	 */
 	private boolean blockedAccount;
-
 	
 
 	public String getUserMemberId() {
@@ -115,4 +114,6 @@ public class UserAccountDto {
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
 	}
+	
+	
 }

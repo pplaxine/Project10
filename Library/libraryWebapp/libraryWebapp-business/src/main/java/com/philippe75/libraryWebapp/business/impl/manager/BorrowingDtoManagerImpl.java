@@ -12,7 +12,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.Exception_Exception;
 
 /**
  * <b>Implements BorrowingManager Interface</b>
@@ -34,6 +36,13 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		return getBorrowingService().getAllBorrowingForUser(userMemberId).getItem();
 	}
 
+	/**
+	 * Method that extends a borrowing.  
+	 * 
+	 * @param borrowingId the id of the borrowing
+	 * @param numberOfWeek the number of week the borrowing needs to be extended. 
+	 * 
+	 */
 	@Override
 	public void extendBorrowing(Integer borrowingId, Integer numberOfWeek) throws LibraryServiceException_Exception {
 		
@@ -58,6 +67,31 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		}
 	}
 	
+	/**
+	 * Method that creates new booking for a book.  
+	 * 
+	 * @param bookBookingDto the dto object of a new booking.
+	 * 
+	 * @return int id of the newly created BookBooking.
+	 * @throws Exception_Exception 
+	 */
+	@Override
+	public int createBooking(BookBookingDto bookBookingDto) throws LibraryServiceException_Exception, Exception_Exception {
+		int result = getBorrowingService().createBooking(bookBookingDto);
+		return result;
+	}
+
+	/**
+	 * Method that ends booking for a book.  
+	 * 
+	 * @param bookBookingDto the dto object of booking to end.
+	 */
+	@Override
+	public void endBooking(int bookBookingId) throws LibraryServiceException_Exception {
+		getBorrowingService().endBooking(bookBookingId);
+	}
+	
+	
 	//------------------- UTILITY METHODE -----------------------------
 	
 	protected Date addSomeTimeToDate(Date initialDate, int field, int amount) {
@@ -66,5 +100,7 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		cal.add(field, amount);
 		return cal.getTime();
 	}
+
+
 
 }

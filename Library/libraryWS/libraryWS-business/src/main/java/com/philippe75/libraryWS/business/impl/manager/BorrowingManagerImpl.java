@@ -11,7 +11,9 @@ import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
@@ -54,6 +56,37 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 
 		return lbd;
 	}
+	
+	/**
+	 * Get all the {@link BorrowingDto} of a user.
+	 * 
+	 * @param userMemberID the user member id of the user
+	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
+	 */
+	@Override
+	public List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException {
+		List<BorrowingDto> lbd = new ArrayList<>();
+		
+		if(bookDto != null) {
+			Book book = bookDtoToModel(bookDto);
+			List<Borrowing> lb;
+			try {
+				lb = getDaoHandler().getBorrowingDao().getAllBorrowingForBook(book);
+				lb.forEach(e -> lbd.add(borrowingModelToDto(e)));
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			} 
+			
+		}
+			return lbd;
+	}
+	
+	
 	
 	/**
 	 * Method that extend borrowing supposed end date. Also check first if an extention has already been made.  

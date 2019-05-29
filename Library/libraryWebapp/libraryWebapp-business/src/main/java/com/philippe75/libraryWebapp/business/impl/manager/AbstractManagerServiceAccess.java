@@ -1,6 +1,5 @@
 package com.philippe75.libraryWebapp.business.impl.manager;
 
-
 import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationService;
 import com.philippe75.libraryWebapp.stub.generated.authServ.AuthentificationServiceImplService;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookSearchService;

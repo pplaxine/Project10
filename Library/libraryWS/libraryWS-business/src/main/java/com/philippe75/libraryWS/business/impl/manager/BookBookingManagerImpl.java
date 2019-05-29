@@ -99,6 +99,8 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		}
 	}
 	
+	
+	
 	//---- UTILITY METHODS ----------------------------------------------------------------
 	/**
 	 * Transform model objects fetched from database to data transfer object.   

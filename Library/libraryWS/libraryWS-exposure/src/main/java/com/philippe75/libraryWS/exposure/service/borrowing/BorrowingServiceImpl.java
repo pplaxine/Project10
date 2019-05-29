@@ -9,6 +9,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
@@ -46,6 +47,18 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		return (List<BorrowingDto>)managerHandler.getBorrowingManager().getAllBorrowingForUser(userMemberId);
 	}
 
+	/**
+	 * Method that gets, all the borrowings of a book.
+	 * 
+	 * @param userMemberID the user member id of the user
+	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
+	 */
+	@Override
+	public List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBorrowingManager().getAllBorrowingForBook(bookDto);
+	}
+	
 	/**
 	 * Method that extend borrowing supposed end date. Also check first if an extention has already benn made.  
 	 * 
@@ -125,6 +138,10 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		managerHandler.getBookBookingManager().endBooking(bookBookingId);
 	}
+
+
+
+
 	
 	
 }

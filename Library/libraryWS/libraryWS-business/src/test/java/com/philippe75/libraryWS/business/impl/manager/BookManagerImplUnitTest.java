@@ -35,6 +35,7 @@ public class BookManagerImplUnitTest {
 	private BookDaoImpl bookDao;
 	
     private Book book;
+    private BookDto bookDto;
     
     @Before
     public void executeBeforeEach() {
@@ -45,7 +46,7 @@ public class BookManagerImplUnitTest {
     	
     	
     	
-		//STUB 
+		//STUB book
 		book = new Book();
 		book.setId(1);
 		book.setAuthor("George Orwell");
@@ -62,6 +63,18 @@ public class BookManagerImplUnitTest {
 		
 		book.setLibrary(library);
 		book.setAvailable(true); 
+		
+		//STUB bookDto
+		bookDto = new BookDto();
+		bookDto.setId(1);
+		bookDto.setAuthor("George Orwell");
+		bookDto.setName("1984");
+		bookDto.setGenre(Genre.SCIENCE_FICTION);
+		bookDto.setSummary("Winston Smith is a low-ranking member of the ruling Party in London, "
+				+ "in the nation of Oceania. Everywhere Winston goes, even his own home, the "
+				+ "Party watches him through telescreens; everywhere he looks he sees the face "
+				+ "of the Party’s seemingly omniscient leader, a figure ...");
+		bookDto.setAvailable(true);
 
     }
 	
@@ -77,6 +90,22 @@ public class BookManagerImplUnitTest {
 		assertEquals("bookModelToDto : Summary ",bookDto.getSummary(), book.getSummary());
 		assertEquals("bookModelToDto : Genre ",bookDto.getGenre(), book.getGenre());
 		assertEquals("bookModelToDto : Library ",bookDto.getLibrary(), book.getLibrary().getName());
+		assertEquals("bookModelToDto : available ",bookDto.isAvailable(), book.isAvailable());
+	}
+	
+    //Book created from BookDto contains all the values 
+	@Test
+	public void bookDtoToModelTest() {
+		
+		Book book = bookManager.bookDtoToModel(bookDto);
+
+		assertEquals("bookDtoToModel : Id ",bookDto.getId(), book.getId());
+		assertEquals("bookDtoToModel : Author ",bookDto.getAuthor(), book.getAuthor());
+		assertEquals("bookDtoToModel : Name ",bookDto.getName(), book.getName());
+		assertEquals("bookDtoToModel : Summary ",bookDto.getSummary(), book.getSummary());
+		assertEquals("bookDtoToModel : Genre ",bookDto.getGenre(), book.getGenre());
+		assertEquals("bookDtoToModel : Genre ",bookDto.getGenre(), book.getGenre());
+		assertEquals("bookDtoToModel : available ",bookDto.isAvailable(), book.isAvailable());
 		
 	}
 	

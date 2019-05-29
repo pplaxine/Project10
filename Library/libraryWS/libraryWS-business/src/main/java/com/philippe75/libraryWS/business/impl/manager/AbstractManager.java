@@ -9,8 +9,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import com.philippe75.libraryWS.business.dto.BookDto;
+import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.soap.fault.LibraryServiceFault;
 
 /**
@@ -86,6 +89,28 @@ public abstract class AbstractManager {
 		
 		return lb;
 	}
+	
+	/**
+	 * Transform dto objects to model object.   
+	 * 
+	 * @param bookDto  {@link BookDto} . 
+	 * @return book {@link Book}.  
+	 */
+	protected Book bookDtoToModel(BookDto bookDto) {
+		
+		Book book = new Book();
+		
+			book.setId(bookDto.getId());
+			book.setName(bookDto.getName());
+			book.setAuthor(bookDto.getAuthor());
+			book.setSummary(bookDto.getSummary());
+			book.setAvailable(bookDto.isAvailable());
+			book.setGenre(bookDto.getGenre());
+			
+		
+		return book;
+	}
+
 
 
 }

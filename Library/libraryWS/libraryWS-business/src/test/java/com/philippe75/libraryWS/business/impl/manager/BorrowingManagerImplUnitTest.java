@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
 import com.philippe75.libraryWS.consumer.contract.dao.BookBookingDao;
@@ -56,6 +57,7 @@ public class BorrowingManagerImplUnitTest {
 	private BorrowingDto borrowingDto;
 	private UserAccount userAccount;
 	private Book book, bookForList;
+	private BookDto bookDto;
 	private BookBooking bookBooking;
 	private List<BookBooking> lbb;
 	private List<Book> lb;
@@ -88,8 +90,14 @@ public class BorrowingManagerImplUnitTest {
     	book = new Book();
     	book.setId(5);
     	book.setName("1984");
+    	book.setAuthor("George Orwell");
     	book.setLibrary(new Library());
     	book.setAvailable(false);
+    	
+    	//BookDto
+    	bookDto = new BookDto();
+    	bookDto.setName("1984");
+    	bookDto.setAuthor("George Orwell");
     	
     	borrowing = new Borrowing();
     	borrowing.setId(1);

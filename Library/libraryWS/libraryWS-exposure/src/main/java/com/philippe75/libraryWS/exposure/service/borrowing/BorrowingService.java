@@ -8,6 +8,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
@@ -30,6 +31,15 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	List<BorrowingDto> getAllBorrowingForUser(String userMemberId) throws LibraryServiceException; 
+	
+	/**
+	 * Method that gets, all the borrowings of a book.
+	 * 
+	 * @param userMemberID the user member id of the user
+	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
+	 */
+	@WebMethod
+	List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException;
 	
 	/**
 	 * Method that extend borrowing supposed end date. Also check first if an extention has already benn made.  
@@ -79,6 +89,7 @@ public interface BorrowingService {
 	 * 
 	 * @return int id of the newly created BookBooking.
 	 */
+	@WebMethod
 	int createBooking(BookBookingDto bookBookingDto) throws LibraryServiceException, Exception;
 	
 	/**
@@ -86,5 +97,6 @@ public interface BorrowingService {
 	 * 
 	 * @param bookBookingDto the dto object of booking to end.
 	 */
+	@WebMethod
 	void endBooking(int bookBookingId) throws LibraryServiceException;
 }

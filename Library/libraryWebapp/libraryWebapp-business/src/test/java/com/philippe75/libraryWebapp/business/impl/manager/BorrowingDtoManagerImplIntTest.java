@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
 
@@ -31,6 +32,7 @@ public class BorrowingDtoManagerImplIntTest {
 	private static String userMemberId;
 	private static int borrowingId, numberOfWeek;
 	private BorrowingDto extendedBorrowing;
+	private BookBookingDto bookBookingDto;
 	
 	 
 	
@@ -46,19 +48,37 @@ public class BorrowingDtoManagerImplIntTest {
 	public void intTest01getAllBorrowingForUser() throws LibraryServiceException_Exception{
 		
 		List<BorrowingDto> lb = borrowingDtoManager.getAllBorrowingForUser(userMemberId);
-		assertTrue( "The list should contain 1 elements ",lb.size() == 1 );
+		assertTrue( "The list should contain 1 elements ",lb.size() == 3 );
 	}
 	
 	//All the late borrowings are retrieved 
 	@Test
 	public void intTest02extendBorrowing() throws LibraryServiceException_Exception {
-	
+		
 		//extend the borrowing   
 		borrowingDtoManager.extendBorrowing(borrowingId, numberOfWeek);
 		//retrieve extended borrowing
-		extendedBorrowing = borrowingDtoManager.getAllBorrowingForUser(userMemberId).get(0);
+		List<BorrowingDto> lb = borrowingDtoManager.getAllBorrowingForUser(userMemberId);
+		for (BorrowingDto bd : lb) {
+			if(bd.getId() == borrowingId) {
+				assertNotNull("The extension hasn't been taken to account" , bd.getSecondSupposedEndDate());
+			}
+		}
 		
-		assertNotNull("The extension hasn't been taken to account" , extendedBorrowing.getSecondSupposedEndDate());
 	}
+	
+	//All a new booking is created 
+	@Test
+	public void intTest03createBooking() throws LibraryServiceException_Exception {
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
 
 }
