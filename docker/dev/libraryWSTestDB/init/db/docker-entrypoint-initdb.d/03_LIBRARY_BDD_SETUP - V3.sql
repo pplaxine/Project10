@@ -232,7 +232,7 @@ INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_i
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('UserTest','USER_99','User','Test',3,'user@test.fr',0033148474525,False);
 
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date,effective_end_date, extended,book_id, user_account_id) VALUES ('2018-02-17 09:00:00','2018-02-23 18:00:00','2018-02-27 18:00:00','2018-02-26 18:00:00',true,1,1);
-INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-01-15 09:00:00',false,4,2);
+INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-08-15 09:00:00',false,4,2);
 INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00',false,2,2);
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-01-15 09:00:00','2019-01-27 18:00:00',true,1,2);
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00',true,3,1);

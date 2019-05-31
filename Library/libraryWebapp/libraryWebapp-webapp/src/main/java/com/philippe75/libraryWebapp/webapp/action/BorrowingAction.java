@@ -1,9 +1,13 @@
 package com.philippe75.libraryWebapp.webapp.action;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
@@ -22,6 +26,7 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	ManagerHandler managerHandler;
 	
 	private Map<String, Object> session;
+	private Date now;
 	
 	//income 
 	private Integer bookId;
@@ -29,8 +34,11 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	//outcome
 	private List<BorrowingDto> listBorrowingForUser;
 	private String numberOfWeekExtend;
+	private GregorianCalendar calendar;
  
 	//G&S
+	
+	
 	public List<BorrowingDto> getListBorrowingForUser() {
 		return listBorrowingForUser;
 	}
@@ -62,6 +70,10 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 		try {
 			UserAccountDto uad = (UserAccountDto)this.session.get("user");
 			listBorrowingForUser = managerHandler.getBorrowingDtoManager().getAllBorrowingForUser(uad.getUserMemberId());
+			calendar = new GregorianCalendar();
+			now = new Date();
+			calendar.setTime(now);
+			
 		} catch (LibraryServiceException_Exception e) {
 			if((e.getMessage()).equals("NoResultException")) {
 				this.addActionError(getText("Aucune reservation existante."));
@@ -90,8 +102,12 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 				ex.getStackTrace();
 				if((ex.getMessage()).equals("NoResultException")) {
 					this.addActionError(getText("Aucune reservation existante."));
-				}else if((ex.getMessage()).equals("AlreadyExtendedException")){
+				}else if(ex.getFaultInfo().getFault().getFaultCode().equals("1303")){
 					this.addActionError(getText("Vous avez déjà effectué un renouvellement pour ce livre"));
+					System.out.println("Vous avez déjà effectué un renouvellement pour ce livre");
+				}else if(ex.getFaultInfo().getFault().getFaultCode().equals("1143")){
+					this.addActionError(getText("Vous ne pouvez prolonger une location si la date de celle-ci est dépassée"));
+					System.out.println("Vous ne pouvez prolonger une location si la date de celle-ci est dépassée");
 				}else {
 					this.addActionError(getText("Une erreur inatendue est survenue. Veuillez re-essayer plus tard."));
 				}
@@ -99,6 +115,4 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 		}
 		return result;
 	}
-
-
 }

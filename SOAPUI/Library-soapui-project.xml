@@ -1378,7 +1378,7 @@
             <!--Optional:-->\r
             <effectiveEndDate>?</effectiveEndDate>\r
             <extended>?</extended>\r
-            <id></id>\r
+            <id>${#TestCase#borrowingId}</id>\r
             <!--Optional:-->\r
             <secondSupposedEndDate>${#TestCase#extendedDate}</secondSupposedEndDate>\r
             <!--Optional:-->\r

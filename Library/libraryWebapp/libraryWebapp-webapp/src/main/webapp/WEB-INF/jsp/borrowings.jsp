@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -38,21 +39,32 @@
 								    	</s:elseif>
 								    </td>
 								    <td class="text-center">
+								    	
 								    	<s:if test="extended == false">
-								    		<s:url var="borrowing" action="borrowing" escapeAmp="false">
-								    			<s:param name="bookId" value="book.id"/>
-								    			<s:param name="borrowingId" value="id"/>
-								    		</s:url>
-								    		<a href="<s:property value="#borrowing"/>"   class="text-success"><s:text name="borrowings.extended.possible"/></a>
+								    		<!-- ============================================================ borrowing end date not exceeded -->	
+								    		<s:if test="%{@com.philippe75.libraryWebapp.webapp.helper.HelperClass@isDateBeforeNow(supposedEndDate) == true}">
+									    		<s:url var="borrowing" action="borrowing" escapeAmp="false">
+									    			<s:param name="bookId" value="book.id"/>
+									    			<s:param name="borrowingId" value="id"/>
+									    		</s:url>
+									    		<a href="<s:property value="#borrowing"/>"   class="text-success"><s:text name="borrowings.extended.possible"/></a>
+									    	</s:if>
+								    		<!-- ============================================================ borrowing end date exceeded -->
+									    	<s:elseif test="%{@com.philippe75.libraryWebapp.webapp.helper.HelperClass@isDateBeforeNow(supposedEndDate) == false}">
+									    		<span class="text-danger"><s:text name="borrowings.extended.tooLate"/></span>
+									    	</s:elseif>
 								    	</s:if>
 								    	<s:elseif test="extended == true">
 								    		<span class="text-warning"><s:text name="borrowings.extended.already"/></span>
 								    	</s:elseif>
+								    	
+								    	
 								    </td>
 								  </tr>
 								</tbody>
 								<br/>
 							</s:if>
+							
 						</s:iterator>
 					</table>
 					<s:actionerror/>
