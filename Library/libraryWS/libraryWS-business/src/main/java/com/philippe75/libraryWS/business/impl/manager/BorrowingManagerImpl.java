@@ -59,37 +59,41 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	 * @param Borrowing the borrowing to update.
 	 */
 	@Override
-	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception {
 		if(borrowingDto != null && borrowingDto.getId() != 0 && borrowingDto.getSecondSupposedEndDate() != null) {
+			
+			//---- 
 			Borrowing bor = borrowingDtoToModel(borrowingDto);
 			Boolean isExtended = false;
 			
 			try {
-				isExtended = getDaoHandler().getBorrowingDao().getBorrowingById(bor.getId()).isExtended();
-			} catch (Exception ex) {
-				System.out.println(ex.getMessage());
-				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", ex.getMessage()));
-			}
-			
-			if(bor.isExtended() == true || isExtended == true ) {
-				throw new LibraryServiceException("AlreadyExtendedException", libraryServiceFaultFactory("1303", "The borrowing has been already extended. Each borrowing can be extended only once."));
-			}else {
-				try {
-					getDaoHandler().getBorrowingDao().extendBorrowing(bor);
-				} catch (NoResultException e) {
-					System.out.println(e.getMessage());
-					throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
-					
-				} catch (Exception e) {
-					
-					//throw e; // (throw the  Exception e ) 
-					System.out.println(e.getMessage());
-					throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+				
+				Borrowing borrowing = getDaoHandler().getBorrowingDao().getBorrowingById(bor.getId());
+				
+				//Règle gestion : Borrowing can't be extended if supposed end date is exceeded
+				Date date = new Date();
+				Date supposedEndDate = borrowing.getSupposedEndDate();
+				if(date.after(supposedEndDate)) {
+					throw new LibraryServiceException("BorrowingEndDateExceededException", libraryServiceFaultFactory("1143", "The borrowing can't be extended as the end date is exceeded."));
 				}
+				
+				//Règle gestion : Borrowing can't be extended more than once 
+				isExtended = borrowing.isExtended();
+				if(isExtended == true ) {
+					throw new LibraryServiceException("AlreadyExtendedException", libraryServiceFaultFactory("1303", "The borrowing has been already extended. Each borrowing can be extended only once."));
+				}
+				
+				getDaoHandler().getBorrowingDao().extendBorrowing(bor);
+
+				
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
 			}
+			//----
+			
 		}else {
 			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","You must complete borrowingId and secondSupposedEndDate Values"));
-			
 		}
 		
 	}
@@ -155,7 +159,6 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				System.out.println(e.getMessage());
 				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 			}
-			
 			
 			
 			Set<ConstraintViolation<Borrowing>> violation = getConstraintValidator().validate(borrowing);

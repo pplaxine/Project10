@@ -49,13 +49,14 @@ public class BorrowingManagerImplUnitTest {
 	private Book book;
 	
 	private static SimpleDateFormat sdf;
-	private static Date startDate, supposedEndDate, secondSupposedEndDate, effectiveEndDate;
+	private static Date startDate, supposedEndDate, supposedEndDateExceeded, secondSupposedEndDate, effectiveEndDate;
 	
     @BeforeClass
     public static void executeBeforeAll() throws ParseException {
     	sdf = new SimpleDateFormat("dd/MM/yyyy");
     	startDate = sdf.parse("21/12/2018");
-    	supposedEndDate = sdf.parse("03/01/2019");
+    	supposedEndDate = sdf.parse("03/09/2019");
+    	supposedEndDateExceeded = sdf.parse("03/01/2019");
     	secondSupposedEndDate = sdf.parse("07/01/2019");
     	effectiveEndDate = sdf.parse("15/01/2019");
     }
@@ -177,6 +178,7 @@ public class BorrowingManagerImplUnitTest {
 		assertEquals("The list of BorrowingDto don't contains the expected BorrowingDto ", lbd.get(0).getBook().getName() , borrowing.getBook().getName());
     }
     
+    //The book is already borrowed
     @Test(expected = LibraryServiceException.class)
     public void createBorrowingBookAlreadyBorrowedExceptionTest() throws Exception {
     	
@@ -187,6 +189,7 @@ public class BorrowingManagerImplUnitTest {
     	borrowingManager.createBorrowing(borrowingDto);
     }
     
+    //The Borrowing doesn't comply with contraints
     @Test(expected = LibraryServiceException.class)
     public void createBorrowingBookContraintViolationExceptionTest() throws Exception {
     	String userMemberId = "3";
@@ -201,11 +204,26 @@ public class BorrowingManagerImplUnitTest {
     	borrowingManager.createBorrowing(borrowingDto);
     }
     
+    //Null values pass as param to extend borrowing 
     @Test(expected = LibraryServiceException.class)
-    public void extendBorrowingEmptyValueExceptionTest() throws LibraryServiceException {
+    public void extendBorrowingEmptyValueExceptionTest() throws Exception {
     	borrowingManager.extendBorrowing(null);
     }
     
+    //Borrowing is extended whilst borrowing end date exceeded
+    @Test(expected = LibraryServiceException.class)
+    public void extendBorrowingEndDateExceededExceptionTest() throws Exception {
+    	
+    	//---- mock setup
+    	borrowing.setSupposedEndDate(supposedEndDateExceeded);
+    	borrowing.setExtended(true);
+    	when(daoHandler.getBorrowingDao().getBorrowingById(borrowingDto.getId())).thenReturn(borrowing);
+    	//---------------
+    	
+    	borrowingManager.extendBorrowing(borrowingDto);
+    }
+    
+    //Borrowing is extended whilst borrowing already extended once 
     @Test(expected = LibraryServiceException.class)
     public void extendBorrowingAlreadyExtendedExceptionTest() throws Exception {
     	
@@ -217,12 +235,14 @@ public class BorrowingManagerImplUnitTest {
     	borrowingManager.extendBorrowing(borrowingDto);
     }
     
+    //Null param to end borrowing 
     @Test(expected = LibraryServiceException.class)
     public void endBorrowingAttributMissingAttributExceptionTest() throws Exception {
     	borrowingManager.endBorrowing(null);
     	
     }
     
+    //Borrowing is already ended 
     @Test(expected = LibraryServiceException.class)
     public void endBorrowingAttributAlreadyFieldExceptionTest() throws Exception {
     	

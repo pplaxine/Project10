@@ -51,7 +51,7 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 	 * @param Borrowing the borrowing to update.
 	 */
 	@Override
-	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+	public void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		managerHandler.getBorrowingManager().extendBorrowing(borrowingDto);
 	}

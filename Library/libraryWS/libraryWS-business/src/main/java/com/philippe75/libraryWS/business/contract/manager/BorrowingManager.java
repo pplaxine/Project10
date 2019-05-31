@@ -27,7 +27,7 @@ public interface BorrowingManager {
 	 * 
 	 * @param Borrowing the borrowing to update.
 	 */
-	void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception;
 	
 	/**
 	 * Method get the borrowing object.  

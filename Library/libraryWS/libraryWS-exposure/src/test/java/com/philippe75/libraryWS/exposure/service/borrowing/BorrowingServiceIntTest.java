@@ -107,7 +107,7 @@ public class BorrowingServiceIntTest {
 	
 	//A Borrowing end date is extended
 	@Test
-	public void intTest05extendBorrowing() throws LibraryServiceException {
+	public void intTest05extendBorrowing() throws LibraryServiceException, Exception {
 		
 		//retrieve the newly create borrowing 
 		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
@@ -120,6 +120,7 @@ public class BorrowingServiceIntTest {
 		
 		assertNotNull("The extension hasn't been taken to account" ,newBorrowingExtended.getSecondSupposedEndDate());
 	}
+	
 	
 	//A Borrowing is ended
 	@Test
@@ -136,5 +137,6 @@ public class BorrowingServiceIntTest {
 	}
 	
 	
+
 
 }

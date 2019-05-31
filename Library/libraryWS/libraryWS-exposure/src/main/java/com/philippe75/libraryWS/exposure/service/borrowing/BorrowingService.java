@@ -36,7 +36,7 @@ public interface BorrowingService {
 	 * @param Borrowing the borrowing to update.
 	 */
 	@WebMethod
-	void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	void extendBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception;
 	
 	/**
 	 * Method get the borrowing object.  
