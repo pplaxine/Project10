@@ -233,6 +233,8 @@ public class BookBookingManagerImplUnitTest {
     	assertEquals("bookBookingDto : UserAccount ",bookBooking.getUserAccount(), bookBookingDto.getUserAccount());
     	assertEquals("bookBookingDto : Ended ",bookBooking.isEnded(), bookBookingDto.getEnded());
     }
+    
+    //Is there available exemplar of a book in the list 
     @Test
     public void bookAvailabilityCheckerUnitTest() {
     	Book book;
@@ -252,6 +254,7 @@ public class BookBookingManagerImplUnitTest {
     	assertTrue(lba.size() == 2);
     }
     
+    //Is the book in the list of borrowings 
     @Test
     public void isThisBookInTheBorrowingsUnitTest() {
     	String bookName = "1984";
@@ -271,6 +274,15 @@ public class BookBookingManagerImplUnitTest {
     	assertTrue(bookBookingManager.isThisBookInTheBorrowings(lb, bookName));
     	lb.forEach(e -> e.setEffectiveEndDate(new Date()));
     	assertFalse(bookBookingManager.isThisBookInTheBorrowings(lb, bookName));
+    }
+    
+    //Remove all the ended bookings from the list
+    @Test
+    public void endedBookingRemoverUnitTest() {
+    	bookBooking.setEnded(true);
+    	lbb.add(bookBooking);
+    	
+    	assertTrue("The list should be empty.", bookBookingManager.endedBookingRemover(lbb).size() == 0);
     }
     
 

@@ -13,6 +13,7 @@ import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.soap.fault.LibraryServiceFault;
 
@@ -78,6 +79,7 @@ public abstract class AbstractManager {
 	 * Check from list of book if some are available to borrow.   
 	 * 
 	 * @param listBook a list of {@link Book} . 
+	 * @return List<Book> a list of copies of book available.
 	 */
 	public List<Book> bookAvailabilityChecker(List<Book> listBook) {
 		List<Book> lb = new ArrayList<>();
@@ -88,6 +90,22 @@ public abstract class AbstractManager {
 		});
 		
 		return lb;
+	}
+	
+	/**
+	 * Remove from a List<BookBooking> the booking already ended.   
+	 * 
+	 * @param listBookBooking a list of {@link BookBooking}. 
+	 * @return List<BookBooking> a list of booking that are not ended.
+	 */
+	public List<BookBooking> endedBookingRemover(List<BookBooking> listBookBooking){
+		List<BookBooking> lbb = new ArrayList<>();
+		listBookBooking.forEach((e)-> {
+			if(e.isEnded() == false) {
+				lbb.add(e);
+			}
+		});
+		return lbb;
 	}
 	
 	/**

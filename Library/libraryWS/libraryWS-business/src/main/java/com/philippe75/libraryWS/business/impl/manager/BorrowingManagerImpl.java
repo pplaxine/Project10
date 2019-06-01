@@ -179,7 +179,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 					throw new LibraryServiceException("BookAlreadyBorrowedException", libraryServiceFaultFactory("1436", "The book selected hasn't been returned yet.")); 
 				}
 				
-				//Règle de gestion : other members than the firsts in booking list try to borrow the book.  
+				//Règle de gestion : other members than the firsts in booking list try to borrow the book.  --------------------
 				try {
 					lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(borrowing.getBook());
 				} catch (NoResultException e) {
@@ -187,11 +187,12 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				} 
 				
 				//number of copies of the book available
-				lb = getDaoHandler().getBookDao().getListBookByName(borrowing.getBook().getName());			// <---------------
+				lb = getDaoHandler().getBookDao().getListBookByName(borrowing.getBook().getName());			
 				int lbAvailableSize = bookAvailabilityChecker(lb).size();
 				
-				//number of Member queuing for the book   
-				int bookingQueueSize = lbb.size();
+				//number of Member queuing for the book 
+				
+				int bookingQueueSize = endedBookingRemover(lbb).size();
 				//Check if x books are available, x people from queuing list can borrow it first.  
 				if(bookingQueueSize > 0 && lbAvailableSize > 0) {
 					Collections.sort(lbb);
@@ -205,6 +206,8 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 						throw new LibraryServiceException("BookHasBeenBookedException", libraryServiceFaultFactory("1465", "The book selected hasn been booked by an other Member and waiting to be collected."));
 					}
 				}
+				
+				//-------------------------------------------------------------------------------------------------------------
 				
 				UserAccount ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberIdForBorrowing);
 				book.setAvailable(false);
