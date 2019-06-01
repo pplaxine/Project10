@@ -31,7 +31,15 @@ public interface BorrowingDtoManager {
 	 * @param bookDto the book.
 	 * @return List<BorrowingDto> list of {@link Borrowing} of a user.
 	 */
-	List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException_Exception;
+	List<BorrowingDto> getAllBorrowingForBook(String bookFullName) throws LibraryServiceException_Exception;
+	
+	/**
+	 * Method that get the next borrowing to come to an end for a book.  
+	 * 
+	 * @param BookDto bookDto the {@link BookDto} to be checked.
+	 * @return BorrowingDto the next {@link BorrowingDto} to come to an end.
+	 */
+	BorrowingDto getNextBorrowingToComeToEnd(String bookDtoName) throws LibraryServiceException_Exception;
 	
 	/**
 	 * Method that extends a borrowing.  
@@ -49,7 +57,7 @@ public interface BorrowingDtoManager {
 	 * 
 	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
 	 */
-	List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException_Exception, Exception_Exception;
+	List<BookBookingDto> getAllNotEndedBookingsForABook(String bookFullName) throws LibraryServiceException_Exception, Exception_Exception;
 	
 	/**
 	 * Method that gets, all the bookings of a members.  
@@ -75,6 +83,8 @@ public interface BorrowingDtoManager {
 	 * @param bookBookingDto the dto object of booking to end.
 	 */
 	void endBooking(int bookBookingId) throws LibraryServiceException_Exception;
+	
+
 
 	
 }

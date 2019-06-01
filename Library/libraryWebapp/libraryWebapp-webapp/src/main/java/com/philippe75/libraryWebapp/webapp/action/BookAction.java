@@ -9,6 +9,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBooking;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 
 @Named("bookAction")
 public class BookAction extends ActionSupport {
@@ -21,10 +24,27 @@ public class BookAction extends ActionSupport {
 	
 	//outcome
 	private List<BookDto> listBookByName;
+	private List<BookDto> listBookAvailable;
+	private BorrowingDto borrowing;
+	private List<BookBookingDto> listBookBooking;
+	private int waitingListSize;
+	
 
 	//G&S
 	public List<BookDto> getListBookByName() {
 		return listBookByName;
+	}
+	public List<BookDto> getListBookAvailable() {
+		return listBookAvailable;
+	}
+	public List<BookBookingDto> getListBookBooking() {
+		return listBookBooking;
+	}
+	public BorrowingDto getBorrowing() {
+		return borrowing;
+	}
+	public int getWaitingListSize() {
+		return waitingListSize;
 	}
 	public String getBookDto() {
 		return bookDto;
@@ -32,6 +52,7 @@ public class BookAction extends ActionSupport {
 	public void setBookDto(String bookDto) {
 		this.bookDto = bookDto;
 	}
+	
 
 	
 	//METHODS
@@ -40,6 +61,10 @@ public class BookAction extends ActionSupport {
 		if(bookDto.trim().length() != 0) {
 			try {
 				listBookByName = managerHandler.getBookDtoManager().getListBookByName(bookDto);
+				listBookAvailable = managerHandler.getBookDtoManager().getListBookAvailableByName(bookDto);
+				borrowing = managerHandler.getBorrowingDtoManager().getNextBorrowingToComeToEnd(bookDto);
+				listBookBooking = managerHandler.getBorrowingDtoManager().getAllNotEndedBookingsForABook(bookDto);
+				waitingListSize = listBookBooking.size();
 				result = ActionSupport.SUCCESS;
 			} catch (LibraryServiceException_Exception e) {
 				if((e.getMessage()).equals("NoResultException")) {
@@ -47,6 +72,8 @@ public class BookAction extends ActionSupport {
 				}else {
 					this.addActionError(getText("general.failure"));
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return result; 

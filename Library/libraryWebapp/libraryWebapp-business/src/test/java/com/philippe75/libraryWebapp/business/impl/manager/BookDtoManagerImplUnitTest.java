@@ -16,9 +16,18 @@ public class BookDtoManagerImplUnitTest {
 	@Test
 	public void getBookNameOnlyUnitTest() {
 		String bookNameWithAuthor = "Roméo et Juliette - William Shakespeare";
-		String bookNameOnly = bookDtoManager.getBookNameOnly(bookNameWithAuthor);
+		String bookNameOnly = BookDtoManagerImpl.getBookNameOnly(bookNameWithAuthor);
 		
 		assertTrue(bookNameOnly.equals("Roméo et Juliette"));
+	}
+	
+	// Only the name of the book is kept 
+	@Test
+	public void getAuthorNameOnlyUnitTest() {
+		String bookNameWithAuthor = "Roméo et Juliette - William Shakespeare";
+		String bookNameOnly = BookDtoManagerImpl.getBookAuthorOnly(bookNameWithAuthor);
+		
+		assertTrue(bookNameOnly.equals("William Shakespeare"));
 	}
 
  

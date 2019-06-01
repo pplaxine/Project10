@@ -30,7 +30,7 @@ public class BorrowingDtoManagerImplIntTest {
 	@Inject
 	BorrowingDtoManager borrowingDtoManager;
 	
-	private static String userMemberId;
+	private static String userMemberId, bookFullName;
 	private static int borrowingId, numberOfWeek;
 	private static BookDto bookDto;
 	
@@ -42,7 +42,7 @@ public class BorrowingDtoManagerImplIntTest {
 		bookDto = new BookDto();
 		bookDto.setName("Roméo et Juliette");
 		bookDto.setAuthor("William Shakespeare");
-		
+		bookFullName = "Roméo et Juliette - William Shakespeare";
 	}
 
 	//All the borrowing for a user are retrieved
@@ -57,13 +57,23 @@ public class BorrowingDtoManagerImplIntTest {
 	@Test
 	public void intTest02getAllBorrowingForBook() throws LibraryServiceException_Exception{
 		
-		List<BorrowingDto> lb = borrowingDtoManager.getAllBorrowingForBook(bookDto);
+		List<BorrowingDto> lb = borrowingDtoManager.getAllBorrowingForBook(bookFullName);
 		assertTrue( "The list should contain 1 elements ",lb.size() == 5 );
+	}
+	
+	//Next borrowing for the book is retrieved
+	@Test 
+	public void intTest03getNextBorrowingToComeToEnd() throws LibraryServiceException_Exception {
+		
+		
+		BorrowingDto borrowingDto = borrowingDtoManager.getNextBorrowingToComeToEnd(bookFullName);
+		
+		assertTrue("The borrowing id should be 2", borrowingDto.getId() == 2 );
 	}
 	
 	//All the late borrowings are retrieved 
 	@Test
-	public void intTest03extendBorrowing() throws LibraryServiceException_Exception {
+	public void intTest04extendBorrowing() throws LibraryServiceException_Exception {
 		
 		//extend the borrowing   
 		borrowingDtoManager.extendBorrowing(borrowingId, numberOfWeek);
@@ -79,18 +89,19 @@ public class BorrowingDtoManagerImplIntTest {
 	
 	//All booking for a book are retrieved 
 	@Test 
-	public void intTest04getAllBookingsForMember() throws LibraryServiceException_Exception, Exception_Exception {
-		bookDto.setName("Phèdre");
-		bookDto.setAuthor("Jean Racine");
-		assertTrue("The result should be 1", borrowingDtoManager.getAllBookingsForABook(bookDto).size() == 1);
+	public void intTest05getAllBookingsForBook() throws LibraryServiceException_Exception, Exception_Exception {
+		bookFullName = "Phèdre - Jean Racine";
+		assertTrue("The result should be 1", borrowingDtoManager.getAllNotEndedBookingsForABook(bookFullName).size() == 1);
 	}
 	
 	//All booking for a member are retrieved 
 	@Test 
-	public void intTest05getAllBookingsForMember() throws LibraryServiceException_Exception, Exception_Exception {
+	public void intTest06getAllBookingsForMember() throws LibraryServiceException_Exception, Exception_Exception {
 		String userMemberId = "UserTest";
 		assertTrue("The result should be 1", borrowingDtoManager.getAllBookingsForMember(userMemberId).size() == 1);
 	}
+	
+
 	
 	//creatBooking to test 
 	

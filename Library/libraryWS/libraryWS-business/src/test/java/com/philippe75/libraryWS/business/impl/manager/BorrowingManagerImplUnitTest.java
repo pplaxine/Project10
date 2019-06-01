@@ -310,7 +310,6 @@ public class BorrowingManagerImplUnitTest {
     	//---------------
     	
     	managerHandler.getBorrowingManager().endBorrowing(borrowingDto);
-    	
     }
 
 }

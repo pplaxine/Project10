@@ -1,9 +1,13 @@
 package com.philippe75.libraryWebapp.business.impl.manager;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Named;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -25,6 +29,8 @@ import com.philippe75.libraryWebapp.stub.generated.borrowingServ.Exception_Excep
  */
 @Named("borrowingDtoManager")
 public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implements BorrowingDtoManager{
+	
+	BookDto bd;
 
 	/**
 	 * Get all the {@link BorrowingDto} of a user.
@@ -44,8 +50,56 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
 	 */
 	@Override
-	public List<BorrowingDto> getAllBorrowingForBook(BookDto BookDto) throws LibraryServiceException_Exception {
-		return getBorrowingService().getAllBorrowingForBook(BookDto).getItem();
+	public List<BorrowingDto> getAllBorrowingForBook(String bookFullName) throws LibraryServiceException_Exception {
+		bd = new BookDto();
+		bd.setName(BookDtoManagerImpl.getBookNameOnly(bookFullName));
+		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookFullName));
+		
+		return getBorrowingService().getAllBorrowingForBook(bd).getItem();
+	}
+	
+	// TODO : UnitTest
+	/**
+	 * Method that get the next borrowing to come to an end for a book.  
+	 * 
+	 * @param BookDto bookDto the {@link BookDto} to be checked.
+	 * @return BorrowingDto the next {@link BorrowingDto} to come to an end.
+	 */
+	@Override
+	public BorrowingDto getNextBorrowingToComeToEnd(String bookDto) throws LibraryServiceException_Exception {
+		//Dto Creation 
+		bd = new BookDto();
+		bd.setName(BookDtoManagerImpl.getBookNameOnly(bookDto));
+		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookDto));
+		
+		List<BorrowingDto> lbd = getBorrowingService().getAllBorrowingForBook(bd).getItem();
+		
+		//remove ended borrowings 
+		List<BorrowingDto> lbdNotEnded= lbd
+		.stream()
+		.filter(e -> e.getEffectiveEndDate() == null)
+		.collect(Collectors.toList());
+		
+		//sort borrowingsDto by ending date 
+		Collections.sort(lbdNotEnded, new Comparator<BorrowingDto>() {
+			@Override
+			public int compare(BorrowingDto b1, BorrowingDto b2) {
+				
+				if(b1.getSecondSupposedEndDate() != null && b2.getSecondSupposedEndDate() != null) {
+					return b1.getSecondSupposedEndDate().compare(b2.getSecondSupposedEndDate());
+				}else if(b1.getSecondSupposedEndDate() == null && b1.getSupposedEndDate() != null && b2.getSecondSupposedEndDate() != null ){
+					return b1.getSupposedEndDate().compare(b2.getSecondSupposedEndDate());
+				}else if(b1.getSecondSupposedEndDate() == null && b1.getSupposedEndDate() != null && b2.getSecondSupposedEndDate() == null && b2.getSupposedEndDate() != null) {
+					return b1.getSupposedEndDate().compare(b2.getSupposedEndDate());
+				}else if (b1.getSecondSupposedEndDate() != null && b2.getSecondSupposedEndDate() == null && b2.getSupposedEndDate() != null) {
+					return b1.getSecondSupposedEndDate().compare(b2.getSupposedEndDate());
+				}
+					
+				return 0;
+			}
+		});
+
+		return lbdNotEnded.get(0);
 	}
 
 	/**
@@ -87,8 +141,13 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
 	 */
 	@Override
-	public List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException_Exception, Exception_Exception {
-		return getBorrowingService().getAllBookingsForABook(bookDto).getItem();
+	public List<BookBookingDto> getAllNotEndedBookingsForABook(String bookFullName) throws LibraryServiceException_Exception, Exception_Exception {
+		bd = new BookDto();
+		bd.setName(BookDtoManagerImpl.getBookNameOnly(bookFullName));
+		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookFullName));
+		List<BookBookingDto> lbbd = getBorrowingService().getAllBookingsForABook(bd).getItem();
+		
+		return endedBookingRemover(lbbd); 
 	}
 
 	/**
@@ -136,6 +195,23 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		cal.add(field, amount);
 		return cal.getTime();
 	}
+	
+	/**
+	 * Remove from a List<BookBookingDto> the booking already ended.   
+	 * 
+	 * @param listBookBookingDto a list of {@link BookBookingDto}. 
+	 * @return List<BookBookingDto> a list of booking that are not ended.
+	 */
+	public List<BookBookingDto> endedBookingRemover(List<BookBookingDto> listBookBooking){
+		List<BookBookingDto> lbb = new ArrayList<>();
+		listBookBooking.forEach((e)-> {
+			if(e.isEnded() == false) {
+				lbb.add(e);
+			}
+		});
+		return lbb;
+	}
+
 
 
 

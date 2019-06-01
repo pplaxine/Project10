@@ -20,29 +20,47 @@
 						<s:text name="Type"/> : <s:property value="listBookByName[0].genre"/><br/>
 					</p>
 				</div>
-				<div class="row justify-content-md-center pt-5">
-					<div class="col-md-8">
-						<table class="table table-dark mt-3" style="opacity:0.8">
-							<thead>
-							  <tr>
-							    <th scope="col"></th>
-							    <th scope="col"><s:text name="Book Ref"/></th>
-							    <th scope="col"><s:text name="Library"/></th>
-							  </tr>
-							</thead>
-							<s:iterator value="listBookByName">
-								<s:if test="available == true">
-									<tbody>
-									  <tr>
-									    <th scope="row"></th>
-									    <td><s:property value="id"/></td>
-									    <td><s:property value="library"/></td>
-									</tbody>
-								</s:if>
-							</s:iterator>
-						</table>
+				<s:if test="listBookAvailable.size() != 0">
+					<div class="row justify-content-md-center pt-5">
+						<div class="col-md-8">
+							<table class="table table-dark mt-3" style="opacity:0.8">
+								<thead>
+								  <tr>
+								    <th scope="col"></th>
+								    <th scope="col"><s:text name="Book Ref"/></th>
+								    <th scope="col"><s:text name="Library"/></th>
+								  </tr>
+								</thead>
+								<s:iterator value="listBookByName">
+									<s:if test="available == true">
+										<tbody>
+										  <tr>
+										    <th scope="row"></th>
+										    <td><s:property value="id"/></td>
+										    <td><s:property value="library"/></td>
+										</tbody>
+									</s:if>
+								</s:iterator>
+							</table>
+						</div>
 					</div>
-				</div>
+				</s:if>
+				<s:else>
+					<div class="row justify-content-md-center pt-5">
+					
+						<div class="col-md-8 text-warning ">Le prochain retour pour ce livre est prévu :						<!-- faire internationnalisation -->
+						<s:if test="borrowing.secondSupposedEndDate != null">
+							<s:date name="borrowing.SecondSupposedEndDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy"/>
+						</s:if>
+						<s:else>
+							<s:date name="borrowing.SupposedEndDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy"/>
+						</s:else>
+						</div>
+						Il y a <s:property value="waitingListSize"/> personne dans la file d'attente.
+						
+					</div>
+				</s:else>
+				
 			</div>
 		</div>
 	
