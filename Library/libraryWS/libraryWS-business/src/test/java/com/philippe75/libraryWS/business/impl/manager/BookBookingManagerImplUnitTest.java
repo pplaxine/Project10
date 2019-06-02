@@ -12,6 +12,7 @@ import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
 import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
 import com.philippe75.libraryWS.consumer.impl.dao.BookBookingDaoImpl;

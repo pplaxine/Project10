@@ -104,6 +104,13 @@
 		    </interceptor-ref>
 		    <interceptor-ref name="defaultStack" />
      	</action>
+     	
+     	<action name="createBooking" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doCreateBooking">
+			<result name="success">WEB-INF/jsp/availableBook.jsp</result>
+			<result name="error">WEB-INF/jsp/availableBook.jsp</result>
+     	</action>
+     	
+     	
 
     </package>
     

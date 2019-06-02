@@ -73,33 +73,36 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookDto));
 		
 		List<BorrowingDto> lbd = getBorrowingService().getAllBorrowingForBook(bd).getItem();
-		
-		//remove ended borrowings 
-		List<BorrowingDto> lbdNotEnded= lbd
-		.stream()
-		.filter(e -> e.getEffectiveEndDate() == null)
-		.collect(Collectors.toList());
-		
-		//sort borrowingsDto by ending date 
-		Collections.sort(lbdNotEnded, new Comparator<BorrowingDto>() {
-			@Override
-			public int compare(BorrowingDto b1, BorrowingDto b2) {
-				
-				if(b1.getSecondSupposedEndDate() != null && b2.getSecondSupposedEndDate() != null) {
-					return b1.getSecondSupposedEndDate().compare(b2.getSecondSupposedEndDate());
-				}else if(b1.getSecondSupposedEndDate() == null && b1.getSupposedEndDate() != null && b2.getSecondSupposedEndDate() != null ){
-					return b1.getSupposedEndDate().compare(b2.getSecondSupposedEndDate());
-				}else if(b1.getSecondSupposedEndDate() == null && b1.getSupposedEndDate() != null && b2.getSecondSupposedEndDate() == null && b2.getSupposedEndDate() != null) {
-					return b1.getSupposedEndDate().compare(b2.getSupposedEndDate());
-				}else if (b1.getSecondSupposedEndDate() != null && b2.getSecondSupposedEndDate() == null && b2.getSupposedEndDate() != null) {
-					return b1.getSecondSupposedEndDate().compare(b2.getSupposedEndDate());
-				}
+		if(lbd.size() != 0) {
+			
+			//remove ended borrowings 
+			List<BorrowingDto> lbdNotEnded= lbd
+					.stream()
+					.filter(e -> e.getEffectiveEndDate() == null)
+					.collect(Collectors.toList());
+			
+			//sort borrowingsDto by ending date 
+			Collections.sort(lbdNotEnded, new Comparator<BorrowingDto>() {
+				@Override
+				public int compare(BorrowingDto b1, BorrowingDto b2) {
 					
-				return 0;
-			}
-		});
-
-		return lbdNotEnded.get(0);
+					if(b1.getSecondSupposedEndDate() != null && b2.getSecondSupposedEndDate() != null) {
+						return b1.getSecondSupposedEndDate().compare(b2.getSecondSupposedEndDate());
+					}else if(b1.getSecondSupposedEndDate() == null && b1.getSupposedEndDate() != null && b2.getSecondSupposedEndDate() != null ){
+						return b1.getSupposedEndDate().compare(b2.getSecondSupposedEndDate());
+					}else if(b1.getSecondSupposedEndDate() == null && b1.getSupposedEndDate() != null && b2.getSecondSupposedEndDate() == null && b2.getSupposedEndDate() != null) {
+						return b1.getSupposedEndDate().compare(b2.getSupposedEndDate());
+					}else if (b1.getSecondSupposedEndDate() != null && b2.getSecondSupposedEndDate() == null && b2.getSupposedEndDate() != null) {
+						return b1.getSecondSupposedEndDate().compare(b2.getSupposedEndDate());
+					}
+					
+					return 0;
+				}
+			});
+			
+			return lbdNotEnded.get(0);
+		}
+		return null;
 	}
 
 	/**

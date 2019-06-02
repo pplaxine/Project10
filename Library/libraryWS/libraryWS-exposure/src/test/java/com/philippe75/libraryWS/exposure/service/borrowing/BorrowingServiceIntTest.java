@@ -21,6 +21,8 @@ import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.business.dto.UserAccountDto;
+import com.philippe75.libraryWS.business.impl.manager.UserAccountManagerImpl;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
 import com.philippe75.libraryWS.model.book.Book;
@@ -174,26 +176,26 @@ public class BorrowingServiceIntTest {
 	//A booking is created 
 	@Test
 	public void intTest10createBooking() throws LibraryServiceException, Exception {
-		Book book = new Book();
-		book.setName("Phèdre");
-		book.setAuthor("Jean Racine");
-		List<BookBooking> lbb = daoHandler.getBookBookingDao().getAllBookingsForABook(book);
-		UserAccount ua = daoHandler.getBorrowingDao().getBorrowingById(7).getUserAccount();
+		//Book book = new Book();
+		//book.setName("Phèdre");
+		//book.setAuthor("Jean Racine");
 		
-		lbb.get(0).setUserAccount(ua);
+		//List<BookBooking> lbb = daoHandler.getBookBookingDao().getAllBookingsForABook(book);
+	//	UserAccount ua = daoHandler.getBorrowingDao().getBorrowingById(7).getUserAccount();
 		
+		//book
 		BookBookingDto bbd = new BookBookingDto();
-		bbd.setBookAuthor(lbb.get(0).getBookAuthor());
-		bbd.setBookName(lbb.get(0).getBookName());
-		bbd.setUserAccount(lbb.get(0).getUserAccount());
+		bbd.setBookAuthor("Jean Racine");
+		bbd.setBookName("Phèdre");
 		bbd.setEnded(false);
+		//user
+		UserAccount ua = new UserAccount();
+		ua.setUserMemberId("UserTest2");
+		bbd.setUserAccount(ua);
+		
 		int newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
 		assertTrue("New booking id should be 2 ",newBookingId == 2);
 	}
 
-	
-
-	
-	
 }
 

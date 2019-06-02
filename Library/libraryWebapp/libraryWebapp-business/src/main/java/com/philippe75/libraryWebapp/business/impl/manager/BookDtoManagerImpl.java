@@ -73,7 +73,7 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 * @param book full name.
 	 * @return String book name only.
 	 */
-	protected static String getBookNameOnly(String bookNameWithAuthor) {
+	public static String getBookNameOnly(String bookNameWithAuthor) {
 		String[] ls = bookNameWithAuthor.split("-");
 		String bookNameOnly = ls[0].trim();
 		return bookNameOnly;
@@ -85,7 +85,7 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 * @param book full name.
 	 * @return String Author name only.
 	 */
-	protected static String getBookAuthorOnly(String bookNameWithAuthor) {
+	public static String getBookAuthorOnly(String bookNameWithAuthor) {
 		String[] ls = bookNameWithAuthor.split("-");
 		String bookAuthorOnly = ls[1].trim();
 		return bookAuthorOnly;

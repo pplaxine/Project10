@@ -14,6 +14,7 @@ import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
+import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
  * <b>Implements BookBooking Interface</b>
@@ -40,10 +41,11 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 			List<Book> lb;
 			List<BookBooking> lbb, lbbMember;
 			List<Borrowing> lbrw;
-			BookBooking bookBooking = bookBookingDtoToModel(bookBookingDto);
+			BookBooking bookBooking = bookBookingDtoToModel(bookBookingDto);	
+		
 			String userMemberId = bookBooking.getUserAccount().getUserMemberId();
+			
 			try {
-				
 				//Règle gestion: check if all books are borrowed (booking only when all books are borrowed) ----
 				lb = getDaoHandler().getBookDao().getListBookByName(bookBooking.getBookName());
 				if((bookAvailabilityChecker(lb).size()) != 0 ){
@@ -72,9 +74,10 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 						throw new LibraryServiceException("BookingAlreadyMadeException", libraryServiceFaultFactory("4852", "The booking for the "+ bookBooking.getBookName() +" has already been made."));
 					}
 				}
-				
+				UserAccount ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
+				//----------------------------------->
+				bookBooking.setUserAccount(ua);
 				result = getDaoHandler().getBookBookingDao().createBookBooking(bookBooking);
-					
 				
 			} catch (NoResultException e) {
 				System.out.println(e.getMessage());
@@ -180,15 +183,27 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	 */
 	protected BookBooking bookBookingDtoToModel(BookBookingDto bookBookingDto) {
 		BookBooking bb = new BookBooking();
-		bb.setId(bookBookingDto.getId());
-		bb.setBookName(bookBookingDto.getBookName());
-		bb.setBookAuthor(bookBookingDto.getBookAuthor());
-		bb.setUserAccount(bookBookingDto.getUserAccount());
-		bb.setMailSentDate(bookBookingDto.getMailSentDate());
-		bb.setEnded(bookBookingDto.getEnded());
+//		if(bookBookingDto.getId()) {
+//			bb.setId(bookBookingDto.getId());
+//		}
+		if(bookBookingDto.getBookName() != null) {
+			bb.setBookName(bookBookingDto.getBookName());
+		}
+		if(bookBookingDto.getBookAuthor() != null) {
+			bb.setBookAuthor(bookBookingDto.getBookAuthor());
+		}
+		if(bookBookingDto.getUserAccount() != null) {
+			bb.setUserAccount(bookBookingDto.getUserAccount());
+		}
+//		if(bookBookingDto.getMailSentDate() != null) {
+//			bb.setMailSentDate(bookBookingDto.getMailSentDate());
+//		}
+//		if(bookBookingDto.getEnded()) {
+//			bb.setEnded(bookBookingDto.getEnded());
+//		}
 		return bb;
 	}
-	
+//	
 
 	
 	/**

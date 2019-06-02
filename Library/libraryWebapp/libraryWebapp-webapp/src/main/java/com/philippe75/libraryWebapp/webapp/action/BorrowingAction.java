@@ -100,5 +100,4 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 		return result;
 	}
 
-
 }

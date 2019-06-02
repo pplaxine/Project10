@@ -59,8 +59,21 @@
 						Il y a <s:property value="waitingListSize"/> personne dans la file d'attente.
 						
 					</div>
+					<s:if test="isMemberIdentified">
+						<s:if test="!isBookingFull"> 
+							<s:form action="createBooking">
+
+								<s:submit value="Entrer dans la file d'attente" class="btn btn-outline-light mt-3" />
+							</s:form>
+						</s:if>
+						<s:else>
+							La file d'attente est pleine pour le moment. Il n'est plus possible de faire de réservation.
+						</s:else>
+					</s:if>
+					
 				</s:else>
-				
+				<s:actionerror/>
+				<s:actionmessage/>
 			</div>
 		</div>
 	

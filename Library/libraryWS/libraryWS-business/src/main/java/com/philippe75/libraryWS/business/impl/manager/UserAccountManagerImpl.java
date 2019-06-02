@@ -7,7 +7,9 @@ import javax.persistence.NoResultException;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
+import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
+import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -103,7 +105,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	 * @param userAccount object fetched from the data layer. 
 	 * @return UserAccountDto Dto object of {@link UserAccount}.  
 	 */
-	protected UserAccountDto userAccountModelToDto(UserAccount userAccount) {
+	public static UserAccountDto userAccountModelToDto(UserAccount userAccount) {
 		
 		UserAccountDto uad = new UserAccountDto();
 		
@@ -117,6 +119,28 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 			uad.setBlockedAccount(userAccount.isBlockedAccount());
 		
 		return uad;
+	}
+	
+	/**
+	 * Transform dto objects to model object.   
+	 * 
+	 * @param userAccountDto  {@link UserAccountDto} . 
+	 * @return userAccount {@link UserAccount}.  
+	 */
+	public static UserAccount userAccountDtoToModel(UserAccountDto userAccountDto) {
+		
+		UserAccount ua = new UserAccount();
+		
+			ua.setUserMemberId(userAccountDto.getUserMemberId());
+			ua.setAccess(userAccountDto.getAccess());
+			ua.setFirstName(userAccountDto.getFirstName());
+			ua.setSureName(userAccountDto.getSureName());
+			ua.setAddress(userAccountDto.getAddress());
+			ua.setEmail(userAccountDto.getEmail());
+			ua.setPhoneNumber(userAccountDto.getPhoneNumber());
+			ua.setBlockedAccount(userAccountDto.isBlockedAccount());
+		
+		return ua;
 	}
 	
 
