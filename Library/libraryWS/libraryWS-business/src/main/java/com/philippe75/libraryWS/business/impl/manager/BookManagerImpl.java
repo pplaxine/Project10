@@ -91,15 +91,28 @@ public class BookManagerImpl extends AbstractManager implements BookManager{
 	protected BookDto bookModelToDto(Book book) {
 		
 		BookDto bd = new BookDto();
-		
-			bd.setId(book.getId());
-			bd.setName(book.getName());
-			bd.setAuthor(book.getAuthor());
-			bd.setSummary(book.getSummary());
+		if(book != null) {
+			if(book.getId() != null) {
+				bd.setId(book.getId());
+			}
+			if(book.getName() != null) {
+				bd.setName(book.getName());
+			}
+			if(book.getAuthor() != null) {
+				bd.setAuthor(book.getAuthor());
+			}
+			if(book.getSummary() != null) {
+				bd.setSummary(book.getSummary());
+			}
+			//can't be null
 			bd.setAvailable(book.isAvailable());
-			bd.setLibrary(book.getLibrary().getName());
-			bd.setGenre(book.getGenre());
-			
+			if(book.getLibrary().getName()!= null) {
+				bd.setLibrary(book.getLibrary().getName());
+			}
+			if(book.getGenre() != null) {
+				bd.setGenre(book.getGenre());
+			}
+		}
 		
 		return bd;
 	}

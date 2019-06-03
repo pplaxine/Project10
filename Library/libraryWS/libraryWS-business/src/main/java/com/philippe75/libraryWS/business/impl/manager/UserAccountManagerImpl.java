@@ -108,15 +108,32 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	public static UserAccountDto userAccountModelToDto(UserAccount userAccount) {
 		
 		UserAccountDto uad = new UserAccountDto();
-		
-			uad.setUserMemberId(userAccount.getUserMemberId());
-			uad.setAccess(userAccount.getAccess());
-			uad.setFirstName(userAccount.getFirstName());
-			uad.setSureName(userAccount.getSureName());
-			uad.setAddress(userAccount.getAddress());
-			uad.setEmail(userAccount.getEmail());
-			uad.setPhoneNumber(userAccount.getPhoneNumber());
+		if(userAccount != null) {
+			if(userAccount.getUserMemberId() != null) {
+				uad.setUserMemberId(userAccount.getUserMemberId());
+			}
+			if(userAccount.getAccess()!= null) {
+				uad.setAccess(userAccount.getAccess());
+			}
+			if(userAccount.getFirstName() != null) {
+				uad.setFirstName(userAccount.getFirstName());
+			}
+			if(userAccount.getSureName() != null) {
+				uad.setSureName(userAccount.getSureName());
+			}
+			if(userAccount.getAddress() != null) {
+				uad.setAddress(userAccount.getAddress());
+			}
+			if(userAccount.getEmail() != null) {
+				uad.setEmail(userAccount.getEmail());
+			}
+			if(userAccount.getPhoneNumber() != 0) {
+				uad.setPhoneNumber(userAccount.getPhoneNumber());
+			}
+			//can't be null
 			uad.setBlockedAccount(userAccount.isBlockedAccount());
+			
+		}
 		
 		return uad;
 	}
@@ -130,15 +147,33 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 	public static UserAccount userAccountDtoToModel(UserAccountDto userAccountDto) {
 		
 		UserAccount ua = new UserAccount();
-		
-			ua.setUserMemberId(userAccountDto.getUserMemberId());
-			ua.setAccess(userAccountDto.getAccess());
-			ua.setFirstName(userAccountDto.getFirstName());
-			ua.setSureName(userAccountDto.getSureName());
-			ua.setAddress(userAccountDto.getAddress());
-			ua.setEmail(userAccountDto.getEmail());
-			ua.setPhoneNumber(userAccountDto.getPhoneNumber());
+		if(userAccountDto != null) {
+			if(userAccountDto.getUserMemberId() != null) {
+				ua.setUserMemberId(userAccountDto.getUserMemberId());
+			}
+			if(userAccountDto.getAccess() != null) {
+				ua.setAccess(userAccountDto.getAccess());
+			}
+			if(userAccountDto.getFirstName() != null) {
+				ua.setFirstName(userAccountDto.getFirstName());
+			}
+			if(userAccountDto.getSureName() != null) {
+				ua.setSureName(userAccountDto.getSureName());
+			}
+			if(userAccountDto.getAddress() != null) {
+				ua.setAddress(userAccountDto.getAddress());
+			}
+			if(userAccountDto.getEmail() != null) {
+				ua.setEmail(userAccountDto.getEmail());
+			}
+			if(userAccountDto.getPhoneNumber() != 0) {
+				ua.setPhoneNumber(userAccountDto.getPhoneNumber());
+			}
+			//can't be null
 			ua.setBlockedAccount(userAccountDto.isBlockedAccount());
+			
+		}
+			
 		
 		return ua;
 	}

@@ -2,6 +2,7 @@ package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Named;
 import javax.persistence.NoResultException;
@@ -39,7 +40,7 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		if(bookBookingDto != null) {
 			int maxBookingForBook, bookingNumb;
 			List<Book> lb;
-			List<BookBooking> lbb, lbbMember;
+			List<BookBooking> lbb,lbbNotEnded, lbbMember;
 			List<Borrowing> lbrw;
 			BookBooking bookBooking = bookBookingDtoToModel(bookBookingDto);	
 		
@@ -54,8 +55,12 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 				
 				//Règle gestion : Check if max booking is reached (no more than the double of exemplar number) ----
 				lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(lb.get(0));
-				bookingNumb = lbb.size(); 
-				maxBookingForBook = lb.size() * 2;
+				lbbNotEnded = lbb
+						.stream()
+						.filter(e -> e.isEnded() == false)
+						.collect(Collectors.toList());
+				bookingNumb = lbbNotEnded.size(); 
+				maxBookingForBook = lb.size() * 2;		//TODO : make int final 
 				
 				if(maxBookingForBook <= bookingNumb) {
 					throw new LibraryServiceException("MaxBookingReachedException", libraryServiceFaultFactory("4635", "No more booking possible for this book. The "+maxBookingForBook +" bookings already in the queue."));
@@ -166,12 +171,28 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	protected BookBookingDto bookBookingModelToDto(BookBooking bookBooking) {
 		
 		BookBookingDto bbd = new BookBookingDto();
-		bbd.setId(bookBooking.getId());
-		bbd.setBookName(bookBooking.getBookName());
-		bbd.setBookAuthor(bookBooking.getBookAuthor());
-		bbd.setUserAccount(bookBooking.getUserAccount());
-		bbd.setMailSentDate(bookBooking.getMailSentDate());
-		bbd.setEnded(bookBooking.isEnded());
+		if(bookBooking.getId() != null) {
+
+			if(bookBooking.getId() != null) {
+				bbd.setId(bookBooking.getId());
+			}
+			
+			if(bookBooking.getBookName() != null) {
+				bbd.setBookName(bookBooking.getBookName());
+			}
+			if(bookBooking.getBookAuthor() != null) {
+				bbd.setBookAuthor(bookBooking.getBookAuthor());
+			}
+			if(bookBooking.getUserAccount() != null) {
+				bbd.setUserAccount(bookBooking.getUserAccount());
+			}
+			if(bookBooking.getMailSentDate() != null) {
+				bbd.setMailSentDate(bookBooking.getMailSentDate());
+			}
+			//Can't be null
+			bbd.setEnded(bookBooking.isEnded());
+		}
+		
 		return bbd;
 	}
 	
@@ -183,27 +204,30 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	 */
 	protected BookBooking bookBookingDtoToModel(BookBookingDto bookBookingDto) {
 		BookBooking bb = new BookBooking();
-//		if(bookBookingDto.getId()) {
-//			bb.setId(bookBookingDto.getId());
-//		}
-		if(bookBookingDto.getBookName() != null) {
-			bb.setBookName(bookBookingDto.getBookName());
+		if(bookBookingDto != null) {
+			if(bookBookingDto.getId() != null) {
+				bb.setId(bookBookingDto.getId());
+			}
+	
+			if(bookBookingDto.getBookName() != null) {
+				bb.setBookName(bookBookingDto.getBookName());
+			}
+			if(bookBookingDto.getBookAuthor() != null) {
+				bb.setBookAuthor(bookBookingDto.getBookAuthor());
+			}
+			if(bookBookingDto.getUserAccount() != null) {
+				bb.setUserAccount(bookBookingDto.getUserAccount());
+			}
+			if(bookBookingDto.getMailSentDate() != null) {
+				bb.setMailSentDate(bookBookingDto.getMailSentDate());
+			}
+			if(bookBookingDto.getEnded() != null) {
+				bb.setEnded(bookBookingDto.getEnded());
+			}
 		}
-		if(bookBookingDto.getBookAuthor() != null) {
-			bb.setBookAuthor(bookBookingDto.getBookAuthor());
-		}
-		if(bookBookingDto.getUserAccount() != null) {
-			bb.setUserAccount(bookBookingDto.getUserAccount());
-		}
-//		if(bookBookingDto.getMailSentDate() != null) {
-//			bb.setMailSentDate(bookBookingDto.getMailSentDate());
-//		}
-//		if(bookBookingDto.getEnded()) {
-//			bb.setEnded(bookBookingDto.getEnded());
-//		}
 		return bb;
 	}
-//	
+
 
 	
 	/**

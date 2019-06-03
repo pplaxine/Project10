@@ -181,13 +181,13 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				
 				//Règle de gestion : other members than the firsts in booking list try to borrow the book.  --------------------
 				try {
-					lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(borrowing.getBook());
+					lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(book);
 				} catch (NoResultException e) {
 					lbb = new ArrayList<>();
 				} 
 				
 				//number of copies of the book available
-				lb = getDaoHandler().getBookDao().getListBookByName(borrowing.getBook().getName());			
+				lb = getDaoHandler().getBookDao().getListBookByName(book.getName());			
 				int lbAvailableSize = bookAvailabilityChecker(lb).size();
 				
 				//number of Member queuing for the book 
@@ -229,7 +229,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				Integer bookBookingId = 0;
 				for (BookBooking bb : lbb) {
 					String userMemberId = bb.getUserAccount().getUserMemberId();
-					if(userMemberId == userMemberIdForBorrowing) {
+					if(userMemberId.equals(userMemberIdForBorrowing)) {
 						bookBookingId = bb.getId();
 					}
 				}

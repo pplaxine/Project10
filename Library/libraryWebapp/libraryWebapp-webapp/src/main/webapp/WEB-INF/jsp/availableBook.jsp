@@ -62,18 +62,21 @@
 					<s:if test="isMemberIdentified">
 						<s:if test="!isBookingFull"> 
 							<s:form action="createBooking">
-
+								<s:hidden name="bookName" value="%{borrowing.book.name}" />
+								<s:hidden name="bookAuthor" value="%{borrowing.book.author}"/>
+								<s:hidden name="bookDto" value="%{bookDto}"/>
 								<s:submit value="Entrer dans la file d'attente" class="btn btn-outline-light mt-3" />
 							</s:form>
 						</s:if>
-						<s:else>
+						<s:elseif test="isBookingFull && isRedirection == 1">
 							La file d'attente est pleine pour le moment. Il n'est plus possible de faire de réservation.
-						</s:else>
+						</s:elseif>
 					</s:if>
 					
 				</s:else>
-				<s:actionerror/>
-				<s:actionmessage/>
+				<div class="text-warning">
+					<s:actionmessage/>
+				</div>
 			</div>
 		</div>
 	

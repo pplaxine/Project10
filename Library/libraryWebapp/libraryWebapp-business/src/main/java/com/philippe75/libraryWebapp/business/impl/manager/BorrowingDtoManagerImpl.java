@@ -67,19 +67,22 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	 */
 	@Override
 	public BorrowingDto getNextBorrowingToComeToEnd(String bookDto) throws LibraryServiceException_Exception {
+		
 		//Dto Creation 
 		bd = new BookDto();
 		bd.setName(BookDtoManagerImpl.getBookNameOnly(bookDto));
 		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookDto));
 		
 		List<BorrowingDto> lbd = getBorrowingService().getAllBorrowingForBook(bd).getItem();
-		if(lbd.size() != 0) {
+		
+		//remove ended borrowings 
+		List<BorrowingDto> lbdNotEnded= lbd
+				.stream()
+				.filter(e -> e.getEffectiveEndDate() == null)
+				.collect(Collectors.toList());
+		
+		if(lbdNotEnded.size() != 0) {
 			
-			//remove ended borrowings 
-			List<BorrowingDto> lbdNotEnded= lbd
-					.stream()
-					.filter(e -> e.getEffectiveEndDate() == null)
-					.collect(Collectors.toList());
 			
 			//sort borrowingsDto by ending date 
 			Collections.sort(lbdNotEnded, new Comparator<BorrowingDto>() {
