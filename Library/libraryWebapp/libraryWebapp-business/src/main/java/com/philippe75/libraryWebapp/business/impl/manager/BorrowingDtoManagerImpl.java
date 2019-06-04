@@ -6,13 +6,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Named;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.catalina.util.DOMWriter;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
@@ -44,9 +48,9 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	}
 	
 	/**
-	 * Get all the {@link BorrowingDto} of a user.
+	 * Get all the {@link BorrowingDto} for a book.
 	 * 
-	 * @param userMemberID the user member id of the user
+	 * @param String bookFullName the full name (name + author). 
 	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
 	 */
 	@Override
@@ -58,7 +62,7 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		return getBorrowingService().getAllBorrowingForBook(bd).getItem();
 	}
 	
-	// TODO : UnitTest
+	
 	/**
 	 * Method that get the next borrowing to come to an end for a book.  
 	 * 
@@ -66,12 +70,12 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	 * @return BorrowingDto the next {@link BorrowingDto} to come to an end.
 	 */
 	@Override
-	public BorrowingDto getNextBorrowingToComeToEnd(String bookDto) throws LibraryServiceException_Exception {
+	public BorrowingDto getNextBorrowingToComeToEnd(String bookName, String bookAuthor) throws LibraryServiceException_Exception {
 		
 		//Dto Creation 
 		bd = new BookDto();
-		bd.setName(BookDtoManagerImpl.getBookNameOnly(bookDto));
-		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookDto));
+		bd.setName(bookName);
+		bd.setAuthor(bookAuthor);
 		
 		List<BorrowingDto> lbd = getBorrowingService().getAllBorrowingForBook(bd).getItem();
 		
@@ -104,6 +108,71 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 			});
 			
 			return lbdNotEnded.get(0);
+		}
+		return null;
+	}
+	
+	/**
+	 * Method that get the next borrowing to come to an end for each booking of a booking list.  
+	 * 
+	 * @param List<BookBookingDto> listBookBookingDto the list of {@link BookBookingDto} to be checked.
+	 * @return Map<BookBookingDto,BorrowingDto> the map with the Key {@link BookBookingDto} and the Value the next {@link BorrowingDto} to come to an end for this key.
+	 * @throws LibraryServiceException_Exception 
+	 */
+	@Override
+	public Map<BookBookingDto, BorrowingDto> getNexBorrowingToComeToEndForEachBookBooking(List<BookBookingDto> listBookBooking) throws LibraryServiceException_Exception {
+		if(listBookBooking != null) {
+			
+			Map<BookBookingDto, BorrowingDto> nextEndedBorrowingForBookingMap = new HashMap<>();
+			
+			//get nextBorrowing to come to an end for each booking
+			for (BookBookingDto bbd : listBookBooking) {
+				BorrowingDto nextBorrowing = getNextBorrowingToComeToEnd(bbd.getBookName(), bbd.getBookAuthor());
+				nextEndedBorrowingForBookingMap.put(bbd, nextBorrowing);
+			}
+			return nextEndedBorrowingForBookingMap;
+			
+		}
+		return null;
+	}
+	
+	/**
+	 * Method that gives the number of people in front of member in the waiting list for each booking of a booking list.  
+	 * 
+	 * @param List<BookBookingDto> listBookBookingDto the list of {@link BookBookingDto} to be checked.
+	 * @return Map<BookBookingDto,Integer> the map with the Key {@link BookBookingDto} and the Value the position in the waiting list for this key.
+	 * @throws LibraryServiceException_Exception 
+	 * @throws Exception_Exception 
+	 */
+	@Override	//TODO : integrationtest
+	public Map<BookBookingDto, Integer> getPositionInWaintingListForEachBookBooking(List<BookBookingDto> listBookBooking) throws LibraryServiceException_Exception, Exception_Exception {
+		if(listBookBooking != null) {
+			Map<BookBookingDto, Integer> PositionInWaitingListForBookingMap = new HashMap<>();
+			
+			for (BookBookingDto bbd : listBookBooking) {
+				String bookName = bbd.getBookName();
+				String bookAuthor = bbd.getBookAuthor();
+				//all booking for the book
+				List<BookBookingDto> lbbd = getAllNotEndedBookingsForABook(bookName, bookAuthor);
+				
+				//sorts booking by id 
+				Collections.sort(lbbd, new Comparator<BookBookingDto>() {
+					@Override
+					public int compare(BookBookingDto ob, BookBookingDto ob2) {
+						return ob.getId().compareTo(ob2.getId());
+					}
+				});
+				//get le position in the list 
+				int peopleInFrontInThelist = 0;
+				for (int i = 0; i < lbbd.size(); i++) {
+					if(lbbd.get(i).getUserAccount().getUserMemberId().equals(bbd.getUserAccount().getUserMemberId())) {
+						break;
+					}
+					peopleInFrontInThelist++;
+				}
+				PositionInWaitingListForBookingMap.put(bbd, peopleInFrontInThelist);
+			}
+			return PositionInWaitingListForBookingMap;
 		}
 		return null;
 	}
@@ -142,30 +211,36 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 	/**
 	 * Method that gets, the waiting list of members for a book.  
 	 * 
-	 * @param book the book.
+	 * @param bookName the name of the book.
+	 * @param bookAuthor the author of the book.
 	 * 
 	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
 	 */
 	@Override
-	public List<BookBookingDto> getAllNotEndedBookingsForABook(String bookFullName) throws LibraryServiceException_Exception, Exception_Exception {
+	public List<BookBookingDto> getAllNotEndedBookingsForABook(String bookName, String bookAuthor) throws LibraryServiceException_Exception, Exception_Exception {
 		bd = new BookDto();
-		bd.setName(BookDtoManagerImpl.getBookNameOnly(bookFullName));
-		bd.setAuthor(BookDtoManagerImpl.getBookAuthorOnly(bookFullName));
+		
+		bd.setName(bookName);
+		bd.setAuthor(bookAuthor);
 		List<BookBookingDto> lbbd = getBorrowingService().getAllBookingsForABook(bd).getItem();
 		
+		//Removes the ended bookings
 		return endedBookingRemover(lbbd); 
 	}
 
 	/**
-	 * Method that gets, all the bookings of a members.  
+	 * Method that gets, all the active bookings of a members.  
 	 * 
 	 * @param String user member id.
 	 * 
 	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
 	 */
 	@Override
-	public List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException_Exception, Exception_Exception {
-		return getBorrowingService().getAllBookingsForMember(userMemberId).getItem();
+	public List<BookBookingDto> getAllNotEndedBookingsForMember(String userMemberId) throws LibraryServiceException_Exception, Exception_Exception {
+		List<BookBookingDto> lbbd = getBorrowingService().getAllBookingsForMember(userMemberId).getItem();
+		
+		return endedBookingRemover(lbbd);
+		
 	}
 	
 	/**
@@ -217,6 +292,12 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		});
 		return lbb;
 	}
+
+
+	
+	
+
+
 
 
 

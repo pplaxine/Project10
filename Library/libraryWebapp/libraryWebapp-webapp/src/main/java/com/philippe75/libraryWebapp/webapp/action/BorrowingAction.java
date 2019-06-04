@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.philippe75.libraryWebapp.business.contract.handler.ManagerHandler;
 
 import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
 
@@ -29,10 +30,22 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	//outcome
 	private List<BorrowingDto> listBorrowingForUser;
 	private String numberOfWeekExtend;
- 
+	private List<BookBookingDto> listBookBookingForUser;
+	private Map<BookBookingDto, BorrowingDto> listNextEndingBorrowingForBookbooking;
+	private Map<BookBookingDto, Integer> listPositionOfMemberInReservationListForBookbooking;
+	
 	//G&S
 	public List<BorrowingDto> getListBorrowingForUser() {
 		return listBorrowingForUser;
+	}
+	public List<BookBookingDto> getListBookBookingForUser() {
+		return listBookBookingForUser;
+	}
+	public Map<BookBookingDto, BorrowingDto> getListNextEndingBorrowingForBookbooking() {
+		return listNextEndingBorrowingForBookbooking;
+	}
+	public Map<BookBookingDto, Integer> getListPositionOfMemberInReservationListForBookbooking() {
+		return listPositionOfMemberInReservationListForBookbooking;
 	}
 	public Integer getBookId() {
 		return bookId;
@@ -60,8 +73,21 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	//METHODS
 	public String doListBorrowingForUser() {
 		try {
+			//get user member id
 			UserAccountDto uad = (UserAccountDto)this.session.get("user");
+			
+			//get all borrowings for user
 			listBorrowingForUser = managerHandler.getBorrowingDtoManager().getAllBorrowingForUser(uad.getUserMemberId());
+			
+			//get all active bookings for user 
+			listBookBookingForUser = managerHandler.getBorrowingDtoManager().getAllNotEndedBookingsForMember(uad.getUserMemberId());
+			
+			//get map of bookings and nextEndingBorrowing
+			listNextEndingBorrowingForBookbooking = managerHandler.getBorrowingDtoManager().getNexBorrowingToComeToEndForEachBookBooking(listBookBookingForUser);
+			
+			//get map bookings and number of people in front of member in the waiting list 
+			listPositionOfMemberInReservationListForBookbooking = managerHandler.getBorrowingDtoManager().getPositionInWaintingListForEachBookBooking(listBookBookingForUser);
+			
 		} catch (LibraryServiceException_Exception e) {
 			if((e.getMessage()).equals("NoResultException")) {
 				this.addActionError(getText("Aucune reservation existante."));

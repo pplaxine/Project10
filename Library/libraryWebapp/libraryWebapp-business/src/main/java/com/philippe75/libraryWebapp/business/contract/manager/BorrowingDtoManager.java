@@ -1,6 +1,7 @@
 package com.philippe75.libraryWebapp.business.contract.manager;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Named;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
@@ -28,18 +29,38 @@ public interface BorrowingDtoManager {
 	/**
 	 * Method that gets, all the borrowings of a Book.  
 	 * 
-	 * @param bookDto the book.
+	 * @param String bookFullName full name of the book (name + author).
 	 * @return List<BorrowingDto> list of {@link Borrowing} of a user.
 	 */
 	List<BorrowingDto> getAllBorrowingForBook(String bookFullName) throws LibraryServiceException_Exception;
 	
 	/**
-	 * Method that get the next borrowing to come to an end for a book.  
+	 * Method that gets the next borrowing to come to an end for a book.  
 	 * 
-	 * @param BookDto bookDto the {@link BookDto} to be checked.
+	 * @param String bookName the name of the book.
+	 * @Param String bookAuthor the author of the book.
 	 * @return BorrowingDto the next {@link BorrowingDto} to come to an end.
 	 */
-	BorrowingDto getNextBorrowingToComeToEnd(String bookDtoName) throws LibraryServiceException_Exception;
+	BorrowingDto getNextBorrowingToComeToEnd(String bookName, String bookAuthor) throws LibraryServiceException_Exception;
+	
+	/**
+	 * Method that gets the next borrowing to come to an end for each booking of a booking list.  
+	 * 
+	 * @param List<BookBookingDto> listBookBookingDto the list of {@link BookBookingDto} to be checked.
+	 * @return Map<BookBookingDto,BorrowingDto> the map with the Key {@link BookBookingDto} and the Value the next {@link BorrowingDto} to come to an end for this key.
+	 * @throws LibraryServiceException_Exception 
+	 */
+	Map<BookBookingDto,BorrowingDto> getNexBorrowingToComeToEndForEachBookBooking(List<BookBookingDto> listBookBooking) throws LibraryServiceException_Exception;
+	
+	/**
+	 * Method that the number of people in front of member in the waiting list for each booking of a booking list.  
+	 * 
+	 * @param List<BookBookingDto> listBookBookingDto the list of {@link BookBookingDto} to be checked.
+	 * @return Map<BookBookingDto,Integer> the map with the Key {@link BookBookingDto} and the Value the position.
+	 * @throws LibraryServiceException_Exception 
+	 * @throws Exception_Exception 
+	 */
+	Map<BookBookingDto,Integer> getPositionInWaintingListForEachBookBooking(List<BookBookingDto> listBookBooking) throws LibraryServiceException_Exception, Exception_Exception;
 	
 	/**
 	 * Method that extends a borrowing.  
@@ -53,20 +74,21 @@ public interface BorrowingDtoManager {
 	/**
 	 * Method that gets, the waiting list of members for a book.  
 	 * 
-	 * @param book the book.
+	 * @param bookName the name of the book.
+	 * @param bookAuthor the author of the book.
 	 * 
 	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
 	 */
-	List<BookBookingDto> getAllNotEndedBookingsForABook(String bookFullName) throws LibraryServiceException_Exception, Exception_Exception;
+	List<BookBookingDto> getAllNotEndedBookingsForABook(String bookName, String bookAuthor) throws LibraryServiceException_Exception, Exception_Exception;
 	
 	/**
-	 * Method that gets, all the bookings of a members.  
+	 * Method that gets, all the active bookings of a members.  
 	 * 
 	 * @param String user member id.
 	 * 
 	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
 	 */
-	List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException_Exception, Exception_Exception;
+	List<BookBookingDto> getAllNotEndedBookingsForMember(String userMemberId) throws LibraryServiceException_Exception, Exception_Exception;
 	
 	/**
 	 * Method that creates new booking for a book.  

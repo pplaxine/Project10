@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="author" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="genre" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}genre" minOccurs="0"/>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="library" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}library" minOccurs="0"/>
  *         &lt;element name="listBorrowing" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}borrowing" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -53,7 +53,7 @@ public class Book {
     protected boolean available;
     @XmlSchemaType(name = "string")
     protected Genre genre;
-    protected int id;
+    protected Integer id;
     protected Library library;
     @XmlElement(nillable = true)
     protected List<Borrowing> listBorrowing;
@@ -127,16 +127,24 @@ public class Book {
     /**
      * Obtient la valeur de la propriété id.
      * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Définit la valeur de la propriété id.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
      */
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

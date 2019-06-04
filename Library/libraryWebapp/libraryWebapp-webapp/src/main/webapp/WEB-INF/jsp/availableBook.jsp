@@ -11,7 +11,7 @@
 		<div class="bg_availableBook text-light">
 			<div class="container">
 				<div class="row pt-5">
-					<h2>Disponibilités</h2><br/>
+					<h2><s:text name="borrowings.title"/></h2><br/>
 				</div>
 				<div class="row pt-4 pl-5 ml-3">
 					<p>
@@ -46,9 +46,14 @@
 					</div>
 				</s:if>
 				<s:else>
+					<div class="row mt-4 ml-5">
+					All the copies of the book are borrowed at the moment.
+					</div>
 					<div class="row justify-content-md-center pt-5">
+						  
 					
-						<div class="col-md-8 text-warning ">Le prochain retour pour ce livre est prévu :						<!-- faire internationnalisation -->
+						<div class="col-md-8 text-warning ">
+						<s:text name="borrowings.next.available.book"/>					
 						<s:if test="borrowing.secondSupposedEndDate != null">
 							<s:date name="borrowing.SecondSupposedEndDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy"/>
 						</s:if>
@@ -56,7 +61,7 @@
 							<s:date name="borrowing.SupposedEndDate.toGregorianCalendar()" format=" EEEE dd MMMM yyyy"/>
 						</s:else>
 						</div>
-						Il y a <s:property value="waitingListSize"/> personne dans la file d'attente.
+						<s:text name="borrowings.waiting.list"/> <s:property value="waitingListSize"/>
 						
 					</div>
 					<s:if test="isMemberIdentified">
@@ -65,11 +70,13 @@
 								<s:hidden name="bookName" value="%{borrowing.book.name}" />
 								<s:hidden name="bookAuthor" value="%{borrowing.book.author}"/>
 								<s:hidden name="bookDto" value="%{bookDto}"/>
-								<s:submit value="Entrer dans la file d'attente" class="btn btn-outline-light mt-3" />
+								<s:submit value="Get into the queue" class="btn btn-outline-light mt-3" />
 							</s:form>
 						</s:if>
-						<s:elseif test="isBookingFull && isRedirection == 1">
-							La file d'attente est pleine pour le moment. Il n'est plus possible de faire de réservation.
+						<s:elseif test="isBookingFull && isRedirection != 1">
+						<div class="row mt-2 ml-5 pl-5">
+							The reservation list is full at the moment. 
+						</div>
 						</s:elseif>
 					</s:if>
 					

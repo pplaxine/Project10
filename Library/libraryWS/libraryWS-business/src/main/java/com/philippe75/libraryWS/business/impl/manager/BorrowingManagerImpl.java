@@ -192,7 +192,8 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				
 				//number of Member queuing for the book 
 				
-				int bookingQueueSize = endedBookingRemover(lbb).size();
+				lbb = endedBookingRemover(lbb);
+				int bookingQueueSize = lbb.size();
 				//Check if x books are available, x people from queuing list can borrow it first.  
 				if(bookingQueueSize > 0 && lbAvailableSize > 0) {
 					Collections.sort(lbb);

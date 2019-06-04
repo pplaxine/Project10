@@ -26,6 +26,7 @@ public class BookAction extends ActionSupport implements SessionAware{
 	ManagerHandler managerHandler;
 	
 	private static final int BOOKING_QUEUE_MULTIPLICATOR = 2; 
+	private UserAccountDto uad;
 	
 	//income 
 	private String bookDto;
@@ -43,7 +44,6 @@ public class BookAction extends ActionSupport implements SessionAware{
 	private boolean isBookingFull, isMemberIdentified;
 	private Map<String, Object> session;
 	private BookBookingDto bookBooking;
-	private UserAccountDto uad;
 	
 
 	//G&S
@@ -105,6 +105,9 @@ public class BookAction extends ActionSupport implements SessionAware{
 		if(this.bookDto.trim().length() != 0) {
 			try {
 				
+				String bookName = BookDtoManagerImpl.getBookNameOnly(bookDto);
+				String bookAuthor = BookDtoManagerImpl.getBookAuthorOnly(bookDto);
+				
 				//Check if Member is identified via session 
 				if(session != null && session.size() != 0) {
 					uad = (UserAccountDto)this.session.get("user");
@@ -113,12 +116,15 @@ public class BookAction extends ActionSupport implements SessionAware{
 				//get all copies of a book
 				listBookByName = managerHandler.getBookDtoManager().getListBookByName(bookDto);
 				numberOfCopiesOfBook = listBookByName.size();
+				
 				//get all the available copies of a book 
 				listBookAvailable = managerHandler.getBookDtoManager().getListBookAvailableByName(bookDto);
+				
 				//get next borrowing to come to an end 
-				borrowing = managerHandler.getBorrowingDtoManager().getNextBorrowingToComeToEnd(bookDto);
+				borrowing = managerHandler.getBorrowingDtoManager().getNextBorrowingToComeToEnd(bookName, bookAuthor);
+				
 				//get all bookings for a book 
-				listBookBooking = managerHandler.getBorrowingDtoManager().getAllNotEndedBookingsForABook(bookDto);
+				listBookBooking = managerHandler.getBorrowingDtoManager().getAllNotEndedBookingsForABook(bookName, bookAuthor);
 				waitingListSize = listBookBooking.size();
 				if( waitingListSize >= (numberOfCopiesOfBook*BOOKING_QUEUE_MULTIPLICATOR) ) {
 					isBookingFull = true;

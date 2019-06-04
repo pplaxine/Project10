@@ -4,10 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.validation.constraints.AssertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -26,7 +29,6 @@ import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.Exception_Exception;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccount;
-
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -80,8 +82,10 @@ public class BorrowingDtoManagerImplIntTest {
 	@Test 
 	public void intTest03getNextBorrowingToComeToEnd() throws LibraryServiceException_Exception {
 		
+		String bookName = "Roméo et Juliette";
+		String bookAuthor = "William Shakespeare";
 		
-		BorrowingDto borrowingDto = borrowingDtoManager.getNextBorrowingToComeToEnd(bookFullName);
+		BorrowingDto borrowingDto = borrowingDtoManager.getNextBorrowingToComeToEnd(bookName, bookAuthor);
 		
 		assertTrue("The borrowing id should be 2", borrowingDto.getId() == 2 );
 	}
@@ -106,14 +110,16 @@ public class BorrowingDtoManagerImplIntTest {
 	@Test 
 	public void intTest05getAllBookingsForBook() throws LibraryServiceException_Exception, Exception_Exception {
 		bookFullName = "Phèdre - Jean Racine";
-		assertTrue("The result should be 1", borrowingDtoManager.getAllNotEndedBookingsForABook(bookFullName).size() == 1);
+		String bookName = "Phèdre";
+		String bookAuthor = "Jean Racine";
+		assertTrue("The result should be 1", borrowingDtoManager.getAllNotEndedBookingsForABook(bookName, bookAuthor).size() == 1);
 	}
 	
 	//All booking for a member are retrieved 
 	@Test 
 	public void intTest06getAllBookingsForMember() throws LibraryServiceException_Exception, Exception_Exception {
 		String userMemberId = "UserTest";
-		assertTrue("The result should be 1", borrowingDtoManager.getAllBookingsForMember(userMemberId).size() == 1);
+		assertTrue("The result should be 1", borrowingDtoManager.getAllNotEndedBookingsForMember(userMemberId).size() == 1);
 	}
 	
 	//create Booking 
@@ -130,7 +136,7 @@ public class BorrowingDtoManagerImplIntTest {
 		
 		//size of all bookings before creation 
 		borrowingDtoManager.createBooking(bookBooking);
-		bookBookingsOfUserAfterCreation = borrowingDtoManager.getAllBookingsForMember(userMemberId).size();
+		bookBookingsOfUserAfterCreation = borrowingDtoManager.getAllNotEndedBookingsForMember(userMemberId).size();
 		assertTrue("The size should be 1", bookBookingsOfUserAfterCreation == 1);
 	}
 	
@@ -139,13 +145,30 @@ public class BorrowingDtoManagerImplIntTest {
 	public void intTest08endBooking() throws LibraryServiceException_Exception, Exception_Exception {
 		List<BookBookingDto> lbbd, lbbdfiltered;
 		borrowingDtoManager.endBooking(2);
-		lbbd = borrowingDtoManager.getAllBookingsForMember(userMemberId);
+		lbbd = borrowingDtoManager.getAllNotEndedBookingsForMember(userMemberId);
 		lbbdfiltered = lbbd 
 		.stream()
 		.filter(e-> e.isEnded() == true)
 		.collect(Collectors.toList());
 		
 		assertNotNull("Number of ended booking for user should be 1", lbbdfiltered.size() == 1);
+	}
+	
+	public void intTest09getNexBorrowingToComeToEndForEachBookBooking() throws LibraryServiceException_Exception {
+		
+		
+		
+		//creation of List<BookBookingDto>
+		bookBooking.setBookName("Phèdre");
+		bookBooking.setBookAuthor("Jean Racine");
+		List<BookBookingDto> listBookBooking = new ArrayList<>();
+		listBookBooking.add(bookBooking);
+		listBookBooking.add(bookBooking);
+		
+		Map<BookBookingDto, BorrowingDto> nextBorrowingForBooking = borrowingDtoManager.getNexBorrowingToComeToEndForEachBookBooking(listBookBooking);
+		BorrowingDto nextBorrowingforFirstOfTheList = nextBorrowingForBooking.get(listBookBooking.get(0));
+		
+		assertTrue("The next borrowing id for this bookbooking should be 5", nextBorrowingforFirstOfTheList.getId() == 5);
 	}
 	
 
