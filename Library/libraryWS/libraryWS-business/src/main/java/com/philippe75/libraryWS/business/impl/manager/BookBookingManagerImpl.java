@@ -40,7 +40,7 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		if(bookBookingDto != null) {
 			int maxBookingForBook, bookingNumb;
 			List<Book> lb;
-			List<BookBooking> lbb,lbbNotEnded, lbbMember;
+			List<BookBooking> lbb,lbbNotEndedForBook, lbbMember;
 			List<Borrowing> lbrw;
 			BookBooking bookBooking = bookBookingDtoToModel(bookBookingDto);	
 		
@@ -55,11 +55,11 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 				
 				//Règle gestion : Check if max booking is reached (no more than the double of exemplar number) ----
 				lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(lb.get(0));
-				lbbNotEnded = lbb
+				lbbNotEndedForBook = lbb
 						.stream()
 						.filter(e -> e.isEnded() == false)
 						.collect(Collectors.toList());
-				bookingNumb = lbbNotEnded.size(); 
+				bookingNumb = lbbNotEndedForBook.size(); 
 				maxBookingForBook = lb.size() * 2;		//TODO : make int final 
 				
 				if(maxBookingForBook <= bookingNumb) {
@@ -74,6 +74,13 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 				
 				//Règle gestion : Check if member as already made a booking for this book 
 				lbbMember = getDaoHandler().getBookBookingDao().getAllBookingsForMember(userMemberId);
+				
+				//filter only active bookings
+				lbbMember = lbbMember
+						.stream()
+						.filter(e -> e.isEnded() == false)
+						.collect(Collectors.toList());
+				
 				for (BookBooking bbMember : lbbMember) {
 					if(bbMember.getBookName().equals(bookBooking.getBookName())) {
 						throw new LibraryServiceException("BookingAlreadyMadeException", libraryServiceFaultFactory("4852", "The booking for the "+ bookBooking.getBookName() +" has already been made."));

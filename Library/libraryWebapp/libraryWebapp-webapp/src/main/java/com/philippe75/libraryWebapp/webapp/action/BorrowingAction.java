@@ -27,6 +27,7 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	//income 
 	private Integer bookId;
 	private String borrowingId;
+	private Integer bookingId;
 	//outcome
 	private List<BorrowingDto> listBorrowingForUser;
 	private String numberOfWeekExtend;
@@ -65,6 +66,12 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	public void setBorrowingId(String borrowingId) {
 		this.borrowingId = borrowingId;
 	}
+	public Integer getBookingId() {
+		return bookingId;
+	}
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
+	}
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -73,6 +80,12 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	//METHODS
 	public String doListBorrowingForUser() {
 		try {
+			//cancel booking 
+			if(bookingId != null) {
+				managerHandler.getBorrowingDtoManager().endBooking(bookingId);
+				bookingId = null;
+			}
+
 			//get user member id
 			UserAccountDto uad = (UserAccountDto)this.session.get("user");
 			
@@ -87,6 +100,7 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 			
 			//get map bookings and number of people in front of member in the waiting list 
 			listPositionOfMemberInReservationListForBookbooking = managerHandler.getBorrowingDtoManager().getPositionInWaintingListForEachBookBooking(listBookBookingForUser);
+			
 			
 		} catch (LibraryServiceException_Exception e) {
 			if((e.getMessage()).equals("NoResultException")) {

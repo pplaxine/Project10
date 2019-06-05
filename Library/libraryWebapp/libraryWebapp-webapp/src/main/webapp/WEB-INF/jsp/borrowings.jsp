@@ -92,8 +92,8 @@
 						    <th scope="col"></th>
 						    <th scope="col"><s:text name="borrowings.col.book"/></th>
 						    <th scope="col">Next return on </th>
-						    <th scope="col">People in front of you in the reservation list</th>
-						    <th scope="col" class="text-center">Cancel</th>
+						    <th scope="col" class="text-center">People in front of you in the reservation list</th>
+						    <th scope="col" class="text-center">Cancellation of booking</th>
 						  </tr>
 						</thead>
 						<s:iterator value="listBookBookingForUser" var="bookBookingForUser">
@@ -111,10 +111,15 @@
 								    		<s:date name="#nextBorrowingToComeToEnd.secondSupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy"/>
 								    	</s:elseif>
 								    </td>
-								    <td>
+								    <td class="text-center">
 								    	<s:property value="listPositionOfMemberInReservationListForBookbooking[#bookBookingForUser]"/>
 								    </td>
-								    <td class="text-center"></td>
+								    <td class="text-center">
+								    	<s:url var="booking" action="borrowings" escapeAmp="false">
+								    			<s:param name="bookingId" value="id"/>
+								    	</s:url>
+								    	<a href="<s:property value="#booking"/>"   class="text-warning"><s:text name="cancel"/></a>
+								    </td>
 								  </tr>
 								</tbody>
 								<br/>
