@@ -1,5 +1,5 @@
 
-package com.philippe75.libraryWebapp.stub.generated.bookServ;
+package com.philippe75.libraryBatch.stub.generated.bookService;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -29,7 +29,7 @@ public interface BookSearchService {
      * 
      * @param arg0
      * @return
-     *     returns com.philippe75.libraryWebapp.stub.generated.bookServ.ListOfBookDto
+     *     returns com.philippe75.libraryBatch.stub.generated.bookService.ListOfBookDto
      * @throws LibraryServiceException_Exception
      */
     @WebMethod
@@ -47,7 +47,7 @@ public interface BookSearchService {
      * 
      * @param arg0
      * @return
-     *     returns com.philippe75.libraryWebapp.stub.generated.bookServ.ListOfBookDto
+     *     returns com.philippe75.libraryBatch.stub.generated.bookService.ListOfBookDto
      * @throws LibraryServiceException_Exception
      */
     @WebMethod

@@ -10,8 +10,8 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "LibraryServiceException", targetNamespace = "http://borrowing.service.exposure.libraryWS.philippe75.com/")
-public class LibraryServiceException_Exception
+@WebFault(name = "Exception", targetNamespace = "http://borrowing.service.exposure.libraryWS.philippe75.com/")
+public class Exception_Exception
     extends java.lang.Exception
 {
 
@@ -19,14 +19,14 @@ public class LibraryServiceException_Exception
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private LibraryServiceException faultInfo;
+    private com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public LibraryServiceException_Exception(String message, LibraryServiceException faultInfo) {
+    public Exception_Exception(String message, com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class LibraryServiceException_Exception
      * @param cause
      * @param message
      */
-    public LibraryServiceException_Exception(String message, LibraryServiceException faultInfo, Throwable cause) {
+    public Exception_Exception(String message, com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class LibraryServiceException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException
+     *     returns fault bean: com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception
      */
-    public LibraryServiceException getFaultInfo() {
+    public com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception getFaultInfo() {
         return faultInfo;
     }
 

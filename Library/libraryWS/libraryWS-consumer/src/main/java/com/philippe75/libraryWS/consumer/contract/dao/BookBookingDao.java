@@ -32,6 +32,13 @@ public interface BookBookingDao {
 	List<BookBooking> getAllBookingsForMember(String userMemberId) throws Exception;
 	
 	/**
+	 * Method that gets, all active bookings.  
+	 * 
+	 * @return List<BookBooking> list of all active {@link BookBooking}.
+	 */
+	List<BookBooking> getAllNotEndedBookings() throws Exception;
+	
+	/**
 	 * Method that add a booking to the booking queue of a book.  
 	 * 
 	 * @param bookBooking the Booking to be added in queue.

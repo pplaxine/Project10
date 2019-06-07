@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-workspace name="Projects" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:project name="Library">C:/Users/Windows/Desktop/Project7/sauvLog/SOAPUI/Library-soapui-project.xml</con:project>
-  <con:project status="CLOSED" name="default-soapui-workspace.xml">C:/Users/Windows/Desktop/Project7/sauvLog/default-soapui-workspace.xml</con:project>
+  <con:project type="REMOTE" status="CLOSED" name="Library">C:/Users/Windows/Desktop/Project7/sauvLog/SOAPUI/Library-soapui-project.xml</con:project>
+  <con:project type="REMOTE" status="CLOSED" name="default-soapui-workspace.xml">C:/Users/Windows/Desktop/Project7/sauvLog/default-soapui-workspace.xml</con:project>
+  <con:project name="Library">C:/Users/Windows/Desktop/Project10/SOAPUI/Library-soapui-project.xml</con:project>
   <con:collectInfoForSupport>false</con:collectInfoForSupport>
 </con:soapui-workspace>

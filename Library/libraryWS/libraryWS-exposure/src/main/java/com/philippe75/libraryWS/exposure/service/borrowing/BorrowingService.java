@@ -106,7 +106,7 @@ public interface BorrowingService {
 	 * 
 	 * @param book the book.
 	 * 
-	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 * @return List<BookBookingDto> list of {@link BookBookingDto} for all copies of this book.
 	 */
 	@WebMethod
 	List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException, Exception;
@@ -116,8 +116,16 @@ public interface BorrowingService {
 	 * 
 	 * @param String user member id.
 	 * 
-	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 * @return List<BookBookingDto> list of all {@link BookBookingDto} for a user.
 	 */
 	@WebMethod
 	List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that gets, all active bookings.  
+	 * 
+	 * @return List<BookBookingDto> list of all active {@link BookBookingDto}.
+	 */
+	@WebMethod
+	List<BookBookingDto> getAllNotEndedBookings() throws LibraryServiceException, Exception;
 }

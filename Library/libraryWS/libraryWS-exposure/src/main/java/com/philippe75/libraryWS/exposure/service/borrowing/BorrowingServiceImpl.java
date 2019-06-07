@@ -145,7 +145,7 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 	 * 
 	 * @param book the book.
 	 * 
-	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 * @return List<BookBookingDto> list of {@link BookBookingDto} for all copies of this book.
 	 */
 	@Override
 	public List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException, Exception {
@@ -158,12 +158,23 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 	 * 
 	 * @param String user member id.
 	 * 
-	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 * @return List<BookBookingDto> list of all {@link BookBookingDto} for a user.
 	 */
 	@Override
 	public List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException, Exception {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		return managerHandler.getBookBookingManager().getAllBookingsForMember(userMemberId);
+	}
+	
+	/**
+	 * Method that gets, all active bookings.  
+	 * 
+	 * @return List<BookBookingDto> list of all active {@link BookBookingDto}.
+	 */
+	@Override
+	public List<BookBookingDto> getAllNotEndedBookings() throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBookBookingManager().getAllNotEndedBookings();
 	}
 
 

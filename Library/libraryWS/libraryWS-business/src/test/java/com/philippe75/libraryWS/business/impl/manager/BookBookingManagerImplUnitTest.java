@@ -137,6 +137,22 @@ public class BookBookingManagerImplUnitTest {
     }
     
     @Test
+    public void getAllNotEndedBookingsUnitTest() throws Exception {
+    	
+    	//Mock setup
+    	List<BookBookingDto> lbbd;
+    	lbb.add(bookBooking);
+    	bookBooking = new BookBooking();
+    	lbb.add(bookBooking);
+    	
+    	when(daoHandler.getBookBookingDao().getAllNotEndedBookings()).thenReturn(lbb);
+    	
+    	lbbd = managerHandler.getBookBookingManager().getAllNotEndedBookings();
+    	assertTrue("The size of the list should be 2", lbbd.size() == 2);
+    }
+    
+    
+    @Test
     public void getAllBookingsForMemberNoParamUnitTest() throws Exception {
     	assertNull("The result should be null", managerHandler.getBookBookingManager().getAllBookingsForMember(null));
     }

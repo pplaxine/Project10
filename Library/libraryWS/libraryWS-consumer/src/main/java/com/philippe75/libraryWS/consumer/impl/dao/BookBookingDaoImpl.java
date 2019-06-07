@@ -44,6 +44,32 @@ public class BookBookingDaoImpl extends AbstractDao implements BookBookingDao {
 	}
 	
 	/**
+	 * Method that gets, all active bookings.  
+	 * 
+	 * @return List<BookBooking> list of all active {@link BookBooking}.
+	 */
+	@Override
+	public List<BookBooking> getAllNotEndedBookings() throws Exception {
+		String hql = "FROM BookBooking WHERE ended =:ended" ;
+		List<BookBooking> listBookBooking;
+		
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			listBookBooking = (List<BookBooking>)session.createQuery(hql)
+													.setParameter("ended", false)
+													.list(); 
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return listBookBooking;
+	}
+	
+	/**
 	 * Method that gets, all the bookings of a members.  
 	 * 
 	 * @param String user member id.
@@ -120,6 +146,8 @@ public class BookBookingDaoImpl extends AbstractDao implements BookBookingDao {
 			}
 		}
 	}
+
+
 
 
 	

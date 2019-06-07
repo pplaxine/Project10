@@ -82,7 +82,6 @@ public class BorrowingServiceIntTest {
 		assertTrue( "The list should contain 5 elements ",lb.size() == 5 );
 	}
 	
-	
 	//All the late borrowings are retrieved 
 	@Test
 	public void intTest03getAllLateBorrowings() throws LibraryServiceException {
@@ -176,25 +175,31 @@ public class BorrowingServiceIntTest {
 	//A booking is created 
 	@Test
 	public void intTest10createBooking() throws LibraryServiceException, Exception {
-		//Book book = new Book();
-		//book.setName("Phèdre");
-		//book.setAuthor("Jean Racine");
 		
-		//List<BookBooking> lbb = daoHandler.getBookBookingDao().getAllBookingsForABook(book);
-	//	UserAccount ua = daoHandler.getBorrowingDao().getBorrowingById(7).getUserAccount();
+		int newBookingId;
 		
 		//book
 		BookBookingDto bbd = new BookBookingDto();
 		bbd.setBookAuthor("Jean Racine");
 		bbd.setBookName("Phèdre");
-		bbd.setEnded(false);
+		bbd.setEnded(true);
 		//user
 		UserAccount ua = new UserAccount();
 		ua.setUserMemberId("UserTest2");
 		bbd.setUserAccount(ua);
 		
-		int newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
+		newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
 		assertTrue("New booking id should be 2 ",newBookingId == 2);
+		
+		bbd.setEnded(false);
+		newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
+		assertTrue("New booking id should be 3 ", newBookingId == 3);
+	}
+	
+	//All the active booking retrieved
+	@Test
+	public void intTest11getAllNotEndedBookings() throws Exception {
+		assertTrue("The result should be 2", managerHandler.getBookBookingManager().getAllNotEndedBookings().size() == 2);
 	}
 
 }

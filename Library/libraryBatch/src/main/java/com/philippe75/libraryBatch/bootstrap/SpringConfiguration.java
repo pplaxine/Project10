@@ -23,6 +23,8 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.philippe75.libraryBatch.stub.generated.bookService.BookSearchService;
+import com.philippe75.libraryBatch.stub.generated.bookService.BookSearchServiceImplService;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingServiceImplService;
 import com.philippe75.libraryBatch.stub.generated.mailServ.EmailService;
@@ -46,12 +48,15 @@ public class SpringConfiguration {
 	@Autowired
 	Environment env;
 	
+	//schema to drop tables
     @Value("org/springframework/batch/core/schema-drop-postgresql.sql")
     private Resource dropReopsitoryTables;
  
+    //schema to create tables
     @Value("org/springframework/batch/core/schema-postgresql.sql")
     private Resource dataReopsitorySchema;
     
+    //DataSource
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -63,6 +68,7 @@ public class SpringConfiguration {
         return dataSource;
     }
 
+    //creates database tables 
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) throws MalformedURLException {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
@@ -81,7 +87,7 @@ public class SpringConfiguration {
         return initializer;
     }
     
-    
+    //creates jobRepo 
     private JobRepository getJobRepository() throws Exception {
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
         factory.setDataSource(dataSource());
@@ -96,6 +102,7 @@ public class SpringConfiguration {
         return new ResourcelessTransactionManager();
     }
     
+    
     @Bean(name="jobLauncher")
     public JobLauncher getJobLauncher() throws Exception {
         SimpleJobLauncher jobLauncher = new SimpleJobLauncher();
@@ -104,13 +111,21 @@ public class SpringConfiguration {
         
         return jobLauncher;
     }
-    @Bean(name="borowingService")
+    
+    //For autowiring ----------
+    @Bean(name="borrowingService")
     public BorrowingService getBorrowingService() {
     	return new BorrowingServiceImplService().getBorrowingServiceImplPort();
+    }
+    
+    @Bean(name="bookSearchService")
+    public BookSearchService getBookSearchService() {
+    	return new BookSearchServiceImplService().getBookSearchServiceImplPort();
     }
 
     @Bean(name="emailService")
     public EmailService getEmailService() {
     	return new EmailServiceImplService().getEmailServiceImplPort();
     }
+    //-------------------------
 }

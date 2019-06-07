@@ -34,12 +34,15 @@ public class JobRunner {
 	private JobLauncher jobLauncher;
 	
 	@Autowired
-	private Job batchJob1;
+	private Job sendMailToLateBorrowingsJob;
+	
+	@Autowired
+	private Job sendEmailToBookingListJob;
 	
 	/**
 	 * Methode that run the batch on a scheduled delay.
 	 */
-	// FIEXED DELAY FOR TESTING
+	// FIXED DELAY FOR TESTING
 	@Scheduled(fixedDelay=30000)
 	//@Scheduled(cron ="0 1 * * *")
 	public void runJobLauncher() {
@@ -48,7 +51,8 @@ public class JobRunner {
 		
 		JobExecution je;
 		try {
-			je = jobLauncher.run(batchJob1, new JobParameters());
+			je = jobLauncher.run(sendEmailToBookingListJob, new JobParameters());
+			
 			System.out.println("Job status " + je.getStatus());
 			System.out.println("Job complete");
 			

@@ -1,5 +1,5 @@
 
-package com.philippe75.libraryBatch.stub.generated.borrowingServ;
+package com.philippe75.libraryBatch.stub.generated.bookService;
 
 import javax.xml.ws.WebFault;
 
@@ -10,9 +10,9 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "LibraryServiceException", targetNamespace = "http://borrowing.service.exposure.libraryWS.philippe75.com/")
+@WebFault(name = "LibraryServiceException", targetNamespace = "http://booksearch.service.exposure.libraryWS.philippe75.com/")
 public class LibraryServiceException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**
@@ -45,7 +45,7 @@ public class LibraryServiceException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException
+     *     returns fault bean: com.philippe75.libraryBatch.stub.generated.bookService.LibraryServiceException
      */
     public LibraryServiceException getFaultInfo() {
         return faultInfo;

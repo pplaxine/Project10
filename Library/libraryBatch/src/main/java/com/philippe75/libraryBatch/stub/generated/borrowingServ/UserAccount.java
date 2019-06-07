@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="listBookBooking" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}bookBooking" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="listBorrowing" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}borrowing" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="phoneNumber" type="{http://www.w3.org/2001/XMLSchema}double"/>
@@ -46,6 +47,7 @@ import javax.xml.bind.annotation.XmlType;
     "email",
     "firstName",
     "id",
+    "listBookBooking",
     "listBorrowing",
     "password",
     "phoneNumber",
@@ -60,6 +62,8 @@ public class UserAccount {
     protected String email;
     protected String firstName;
     protected int id;
+    @XmlElement(nillable = true)
+    protected List<BookBooking> listBookBooking;
     @XmlElement(nillable = true)
     protected List<Borrowing> listBorrowing;
     protected String password;
@@ -193,6 +197,35 @@ public class UserAccount {
      */
     public void setId(int value) {
         this.id = value;
+    }
+
+    /**
+     * Gets the value of the listBookBooking property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the listBookBooking property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getListBookBooking().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link BookBooking }
+     * 
+     * 
+     */
+    public List<BookBooking> getListBookBooking() {
+        if (listBookBooking == null) {
+            listBookBooking = new ArrayList<BookBooking>();
+        }
+        return this.listBookBooking;
     }
 
     /**

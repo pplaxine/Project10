@@ -159,7 +159,20 @@
 							<wsdlUrl>${wsdl.url.library.email.service}</wsdlUrl>
 						</wsdlUrls>
 					</configuration>
-				</execution>    
+				</execution>
+				<execution>
+					<id>wsdl3</id> 
+					<goals> 
+						<goal>wsimport</goal> 
+					</goals> 
+					<configuration> 
+						<packageName>com.philippe75.libraryBatch.stub.generated.bookService</packageName>
+						<sourceDestDir>/${project.basedir}/src/main/java</sourceDestDir>
+						<wsdlUrls>
+							<wsdlUrl>${wsdl.url.library.book.service}</wsdlUrl>
+						</wsdlUrls>
+					</configuration>
+				</execution>        
 			</executions>		
 		</plugin>
 		

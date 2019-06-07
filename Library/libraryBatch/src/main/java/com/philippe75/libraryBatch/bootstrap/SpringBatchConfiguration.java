@@ -29,9 +29,10 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryBatch.tools.headerWriter.CustomHeaderWriter;
 import com.philippe75.libraryBatch.tools.processor.BorrowingDtoProcessor;
-import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingEmailSender;
-import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingProcessor;
-import com.philippe75.libraryBatch.tools.tasklet.LateBorrowingReader;
+import com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListReader;
+import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingEmailSender;
+import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingProcessor;
+import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingReader;
 
 /**
  * <b>Spring Batch configuration Class</b>
@@ -60,6 +61,9 @@ public class SpringBatchConfiguration {
 	
 	@Autowired
 	public LateBorrowingEmailSender lateBorrowingEmailSender;
+	
+	@Autowired
+	public BookingListReader bookingListReader;  
 	
 	
 	// ------- Sending emails to late borrowing via tasklet way (+ code externalized in class ) ---------------
@@ -159,6 +163,15 @@ public class SpringBatchConfiguration {
     			.build();
     }
     
+    // ------------------------------- Steps Task way ----------------------------------------
+    @Bean
+	public Step readListBooking() {
+		return stepBuilderFactory.get("stepReadListBooking")
+				.tasklet(bookingListReader)
+				.allowStartIfComplete(true)
+				.build();
+	}
+    
     // ------------------------------- Step chunk way ----------------------------------------
     
    @Bean
@@ -168,7 +181,7 @@ public class SpringBatchConfiguration {
     
     //========== JOB ==========
     
-    @Bean(name="batchJob1")
+    @Bean(name="sendMailToLateBorrowingsJob")
     public Job job(@Qualifier("StoreLateBorrowingsToCSV") Step step1, @Qualifier("readLateBorrowing") Step step2, @Qualifier("processLateBorrowing") Step step3, @Qualifier("SendEmailToUser") Step step4) {		// @Qualifier inject Step
     	return jobBuilderFactory.get("LateBorrowingsJob")
     			.incrementer(new RunIdIncrementer())
@@ -176,6 +189,15 @@ public class SpringBatchConfiguration {
     			.next(step2)
     			.next(step3)
     			.next(step4)
+    			.build();
+    }
+    
+    @Bean(name="sendEmailToBookingListJob")
+    public Job job2(@Qualifier("readListBooking") Step step1) {
+    	
+    	return jobBuilderFactory.get("sendEmailToBookingListJob")
+    			.incrementer(new RunIdIncrementer())
+    			.start(step1)
     			.build();
     }
 	

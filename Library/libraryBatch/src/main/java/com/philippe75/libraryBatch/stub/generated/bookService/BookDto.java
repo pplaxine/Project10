@@ -1,31 +1,27 @@
 
-package com.philippe75.libraryBatch.stub.generated.borrowingServ;
+package com.philippe75.libraryBatch.stub.generated.bookService;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour book complex type.
+ * <p>Classe Java pour bookDto complex type.
  * 
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="book">
+ * &lt;complexType name="bookDto">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="author" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="available" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="genre" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}genre" minOccurs="0"/>
+ *         &lt;element name="genre" type="{http://booksearch.service.exposure.libraryWS.philippe75.com/}genre" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         &lt;element name="library" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}library" minOccurs="0"/>
- *         &lt;element name="listBorrowing" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}borrowing" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="library" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="summary" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
@@ -37,26 +33,23 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "book", propOrder = {
+@XmlType(name = "bookDto", propOrder = {
     "author",
     "available",
     "genre",
     "id",
     "library",
-    "listBorrowing",
     "name",
     "summary"
 })
-public class Book {
+public class BookDto {
 
     protected String author;
     protected boolean available;
     @XmlSchemaType(name = "string")
     protected Genre genre;
     protected Integer id;
-    protected Library library;
-    @XmlElement(nillable = true)
-    protected List<Borrowing> listBorrowing;
+    protected String library;
     protected String name;
     protected String summary;
 
@@ -153,10 +146,10 @@ public class Book {
      * 
      * @return
      *     possible object is
-     *     {@link Library }
+     *     {@link String }
      *     
      */
-    public Library getLibrary() {
+    public String getLibrary() {
         return library;
     }
 
@@ -165,40 +158,11 @@ public class Book {
      * 
      * @param value
      *     allowed object is
-     *     {@link Library }
+     *     {@link String }
      *     
      */
-    public void setLibrary(Library value) {
+    public void setLibrary(String value) {
         this.library = value;
-    }
-
-    /**
-     * Gets the value of the listBorrowing property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the listBorrowing property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getListBorrowing().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Borrowing }
-     * 
-     * 
-     */
-    public List<Borrowing> getListBorrowing() {
-        if (listBorrowing == null) {
-            listBorrowing = new ArrayList<Borrowing>();
-        }
-        return this.listBorrowing;
     }
 
     /**

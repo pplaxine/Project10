@@ -37,7 +37,7 @@ public interface BookBookingManager {
 	 * 
 	 * @param book the book.
 	 * 
-	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 * @return List<BookBookingDto> list of {@link BookBookingDto} for all copies of this book.
 	 */
 	List<BookBookingDto> getAllBookingsForABook(BookDto bookDto) throws LibraryServiceException, Exception;
 	
@@ -46,7 +46,15 @@ public interface BookBookingManager {
 	 * 
 	 * @param String user member id.
 	 * 
-	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 * @return List<BookBookingDto> list of all {@link BookBookingDto} for a user.
 	 */
 	List<BookBookingDto> getAllBookingsForMember(String userMemberId) throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that gets, all the active bookings.  
+	 * 
+	 * @return List<BookBookingDto> list of all active {@link BookBookingDto}.
+	 * @throws LibraryServiceException, Exception 
+	 */
+	List<BookBookingDto> getAllNotEndedBookings() throws LibraryServiceException, Exception;
 }

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.handler.DaoHandler"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.manager.AbstractManager"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.impl.dao.BookBookingDaoImpl"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.contract.manager.BookBookingManager"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl"/>
-<fullyQualifiedTypeName name="org.springframework.validation.annotation.Validated"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BookBookingDto"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
@@ -28,12 +22,10 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BookDto"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.exception.saop.LibraryServiceException"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.BookBooking"/>
 <fullyQualifiedTypeName name="java.lang.Comparable"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBooking"/>
 <fullyQualifiedTypeName name="org.junit.Before"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.apache.struts2.interceptor.SessionAware"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.bookServ.BookDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.impl.manager.BorrowingDtoManagerImpl"/>
@@ -59,5 +51,13 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
 <fullyQualifiedTypeName name="org.apache.catalina.util.DOMWriter"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.BookBooking"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BookBookingDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListReader"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookSearchService"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookSearchServiceImplService"/>
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 </qualifiedTypeNameHistroy>

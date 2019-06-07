@@ -120,7 +120,7 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	 * 
 	 * @param book the book.
 	 * 
-	 * @return List<BookBooking> list of {@link BookBooking} for all copies of this book.
+	 * @return List<BookBookingDto> list of {@link BookBookingDto} for all copies of this book.
 	 * @throws LibraryServiceException 
 	 */
 	@Override
@@ -146,7 +146,7 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	 * 
 	 * @param String user member id.
 	 * 
-	 * @return List<BookBooking> list of all {@link BookBooking} for a user.
+	 * @return List<BookBookingDto> list of all {@link BookBookingDto} for a user.
 	 * @throws Exception 
 	 */
 	@Override
@@ -166,6 +166,26 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		return null;
 	}
 	
+	/**
+	 * Method that gets, all the active bookings.  
+	 * 
+	 * @return List<BookBookingDto> list of all active {@link BookBookingDto}.
+	 * @throws Exception 
+	 */
+	@Override
+	public List<BookBookingDto> getAllNotEndedBookings() throws LibraryServiceException, Exception {
+		
+		List<BookBooking> lbb;
+		List<BookBookingDto> lbbd = new ArrayList<>();
+		try {
+			lbb = getDaoHandler().getBookBookingDao().getAllNotEndedBookings();
+			lbb.forEach(e -> lbbd.add(bookBookingModelToDto(e)));
+		} catch (NoResultException e) {
+			System.out.println(e.getMessage());
+			throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+		} 
+		return lbbd;
+	}
 	
 	
 	//---- UTILITY METHODS ----------------------------------------------------------------
@@ -173,7 +193,7 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	 * Transform model objects fetched from database to data transfer object.   
 	 * 
 	 * @param bookBooking object fetched from the data layer. 
-	 * @return bbd Dto object of {@link BookBooking}.  
+	 * @return BookBookingDto Dto object of {@link BookBooking}.  
 	 */
 	protected BookBookingDto bookBookingModelToDto(BookBooking bookBooking) {
 		
@@ -254,6 +274,8 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		}
 		return result;
 	}
+
+
 
 
 
