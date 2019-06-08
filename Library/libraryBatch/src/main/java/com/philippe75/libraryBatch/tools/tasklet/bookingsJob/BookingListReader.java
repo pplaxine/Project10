@@ -3,9 +3,7 @@ package com.philippe75.libraryBatch.tools.tasklet.bookingsJob;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.batch.core.ExitStatus;
@@ -25,6 +23,7 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception_Exception;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.UserAccount;
+import com.philippe75.libraryBatch.tools.model.BookAvailableEmail;
 
 @Component
 public class BookingListReader implements Tasklet, StepExecutionListener{
@@ -40,14 +39,15 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 	
 	
 	private List<BookBookingDto> allActiveBookings;
-	private List<BookDto> lbd;
 	private List<String> listNameOfBookWithBooking;
-	private Map<UserAccount, BookDto> mapMailToSend; 
+	private BookAvailableEmail bookAvailableEmail;
+	private List<BookAvailableEmail> listBookAvailableEmail;
 	
 	
 	@Override
 	public void beforeStep(StepExecution se) {
 			listNameOfBookWithBooking = new ArrayList<>();
+			listBookAvailableEmail = new ArrayList<>();
 			try {
 				//get list of all active bookings 
 				allActiveBookings = (List<BookBookingDto>)borrowingService.getAllNotEndedBookings().getItem();
@@ -63,14 +63,11 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 			} catch (LibraryServiceException_Exception e) {
 				e.printStackTrace();
 			}
-			
-			//get list of book having bookings
-			
 	}
 
 	@Override
 	public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
-		mapMailToSend = new HashMap<>();
+		
 		//For each book with bookings  
 		listNameOfBookWithBooking.forEach((e) ->{
 			try {
@@ -110,13 +107,15 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 					while (i < availableCopieNumber && i < memberInTheQueueNumber ) {
 						//only if a mail hasn't been sent yet 
 						if(bookingsForAbook.get(i).getMailSentDate() == null) {
-							mapMailToSend.put(bookingsForAbook.get(i).getUserAccount(),lbd.get(0));
+							UserAccount ua = bookingsForAbook.get(i).getUserAccount();
+							BookDto bd = lbd.get(0);
+							
+							bookAvailableEmail = new BookAvailableEmail(ua, bd);
+							listBookAvailableEmail.add(bookAvailableEmail);
 						}
 						i++;
 					}
 				}
-				
-				
 				
 			} catch (com.philippe75.libraryBatch.stub.generated.bookService.LibraryServiceException_Exception e1) {
 				e1.printStackTrace();
@@ -127,14 +126,15 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 			}
 		});
 		
-		
-		return null;
+		return RepeatStatus.FINISHED;
 	}
 	
 	@Override
 	public ExitStatus afterStep(StepExecution se) {
-		// TODO Auto-generated method stub
-		return null;
+		se.getJobExecution()
+			.getExecutionContext()
+			.put("listBookAvailableEmail", listBookAvailableEmail);
+		return ExitStatus.COMPLETED;
 	}
 
 

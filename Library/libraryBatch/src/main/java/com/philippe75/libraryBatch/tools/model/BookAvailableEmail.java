@@ -1,62 +1,65 @@
 package com.philippe75.libraryBatch.tools.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.philippe75.libraryBatch.stub.generated.bookService.BookDto;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.UserAccount;
 
 /**
- * <b>LateBorrowingEmail model object</b>
+ * <b>BookAvailableEmail model object</b>
  * 	  
  * <p>
  * Characterized by : 
  * <p>
  * <ul>
  * <li>a userAccount</li>
- * <li>a list of borrowings</li>
- * <li>a email</li>
+ * <li>a bookDto</li>
+ * <li>a email content</li>
  * </ul>
  * 
  * @author Philippe plaxine
  * @version 1.0
  */
-public class LateBorrowingEmail implements Serializable{
+public class BookAvailableEmail implements Serializable {
+	
 	/**
-	 * Member that made the borrowing
+	 * Member receiver of the email 
 	 */
 	private UserAccount userAccount;
 	/**
-	 * A list of the late borrowings
+	 * The book mentionned in the email
 	 */
-	private List<Borrowing> listBorrowing = new ArrayList<>();
+	private BookDto bookDto;
 	/**
-	 * The content of the email
+	 * The content of the email 
 	 */
 	private String emailContent;
 	
-	//G&S
+	public BookAvailableEmail() {};
+	
+	public BookAvailableEmail(UserAccount userAccount, BookDto bookDto) {
+		this.userAccount = userAccount;
+		this.bookDto = bookDto;
+	};
+	
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
-	public List<Borrowing> getListBorrowing() {
-		return listBorrowing;
+	public BookDto getBookDto() {
+		return bookDto;
 	}
-	public void setListBorrowing(List<Borrowing> listBorrowing) {
-		this.listBorrowing = listBorrowing;
+	public void setBookDto(BookDto bookDto) {
+		this.bookDto = bookDto;
 	}
 	public String getEmailContent() {
 		return emailContent;
 	}
 	public void setEmailContent(String emailContent) {
 		this.emailContent = emailContent;
-	}
-	
-	
-	
+	} 
 	
 	
 }
