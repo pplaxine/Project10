@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.persistence.Transient"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Borrowing"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.manager.BookBookingManagerImpl"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.contract.handler.ManagerHandler"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Book"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.BookDto"/>
@@ -23,7 +20,6 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.business.impl.manager.UserAccountDtoManagerImpl"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.user.UserAccount"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto"/>
-<fullyQualifiedTypeName name="java.util.stream.Collector"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccount"/>
 <fullyQualifiedTypeName name="com.opensymphony.xwork2.ActionSupport"/>
@@ -32,19 +28,15 @@
 <fullyQualifiedTypeName name="javax.validation.constraints.AssertTrue"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto"/>
 <fullyQualifiedTypeName name="org.apache.catalina.util.DOMWriter"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.BookBooking"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BookBookingDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookSearchService"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookSearchServiceImplService"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListReader"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BookDto"/>
-<fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="org.springframework.batch.core.ExitStatus"/>
 <fullyQualifiedTypeName name="org.springframework.batch.item.ExecutionContext"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookDto"/>
@@ -53,11 +45,19 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListProcessor"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.EmailHelper"/>
-<fullyQualifiedTypeName name="org.springframework.batch.repeat.RepeatStatus"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListEmailSender"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
 <fullyQualifiedTypeName name="org.springframework.batch.core.repository.dao.Jackson2ExecutionContextStringSerializer"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.model.BookAvailableEmail"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.BookBooking"/>
+<fullyQualifiedTypeName name="java.util.stream.Collector"/>
+<fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="org.springframework.batch.repeat.RepeatStatus"/>
+<fullyQualifiedTypeName name="org.springframework.batch.core.ExitStatus"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListExceedDelayRemover"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
 </qualifiedTypeNameHistroy>
