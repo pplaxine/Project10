@@ -1,5 +1,7 @@
 package com.philippe75.libraryWS.business.contract.manager;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
@@ -57,4 +59,22 @@ public interface BookBookingManager {
 	 * @throws LibraryServiceException, Exception 
 	 */
 	List<BookBookingDto> getAllNotEndedBookings() throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that adds a mail sending date to a booking.  
+	 * 
+	 * @param bookBookingId id of the Booking where date must be added .
+	 * 
+	 * @return Integer Id of {@link BookBooking} updated.
+	 */
+	void updateMailDateBooking(int bookBookingId) throws LibraryServiceException;
+	
+	/**
+	 * Method that ends, all active {@link BookBooking} that have a date that is exceed, by the amount of time passed in parameter, the date of now.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	void endAllActiveBookingsExceededOf(Integer typeField, Integer quantity) throws LibraryServiceException;
+
 }

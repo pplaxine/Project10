@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.consumer.contract.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.philippe75.libraryWS.model.book.Book;
@@ -39,6 +40,14 @@ public interface BookBookingDao {
 	List<BookBooking> getAllNotEndedBookings() throws Exception;
 	
 	/**
+	 * Method that gets, all active {@link BookBooking} before the date passed in parameter.  
+	 *
+	 * @param date the limit date. 
+	 * @return List<BookBooking> list of all active {@link BookBooking} before the date.
+	 */
+	List<BookBooking> getAllActiveBookingsBeforeThisDate(Date date) throws Exception;
+	
+	/**
 	 * Method that add a booking to the booking queue of a book.  
 	 * 
 	 * @param bookBooking the Booking to be added in queue.
@@ -47,6 +56,20 @@ public interface BookBookingDao {
 	 */
 	int createBookBooking(BookBooking bookBooking)throws Exception;
 	
+	/**
+	 * Method that adds a mail sending date to a booking.  
+	 * 
+	 * @param bookBookingId id of the Booking where date must be added .
+	 * 
+	 * @return Integer Id of {@link BookBooking} updated.
+	 */
+	void updateMailDateBooking(int bookBookingId)throws Exception;
+	
+	/**
+	 * Method that ends a booking.  
+	 * 
+	 * @param bookBookingId the id of the Booking to be deleted.
+	 */
 	void endBookBooking(int bookBookingId) throws Exception;
 	
 }

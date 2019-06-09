@@ -128,4 +128,23 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	List<BookBookingDto> getAllNotEndedBookings() throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that adds a mail sending date to a booking.  
+	 * 
+	 * @param bookBookingId id of the Booking where date must be added .
+	 * 
+	 * @return Integer Id of {@link BookBooking} updated.
+	 */
+	@WebMethod
+	void updateMailDateBooking(int bookBookingId) throws LibraryServiceException;
+	
+	/**
+	 * Method that ends, all active {@link BookBooking} that have a date that is exceed, by the amount of time passed in parameter, the date of now.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	@WebMethod
+	void endAllActiveBookingsExceededOf(Integer typeField, Integer quantity) throws LibraryServiceException;
 }

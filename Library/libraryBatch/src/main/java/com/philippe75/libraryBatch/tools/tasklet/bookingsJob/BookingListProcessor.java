@@ -17,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
 import com.philippe75.libraryBatch.tools.model.BookAvailableEmail;
 import com.philippe75.libraryBatch.tools.tasklet.EmailHelper;
+
 
 @Component
 public class BookingListProcessor extends EmailHelper implements Tasklet, StepExecutionListener{
@@ -48,7 +50,7 @@ public class BookingListProcessor extends EmailHelper implements Tasklet, StepEx
 			String emailContent = composeEmail(e);
 			e.setEmailContent(emailContent);
 
-			//put date on booking list
+			
 			
 	});
 		

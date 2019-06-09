@@ -34,6 +34,9 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 	@Autowired
 	private BorrowingService borrowingService;
 	
+	/**
+	 * The book Search web service.
+	 */
 	@Autowired
 	private BookSearchService bookSearchService;
 	
@@ -102,7 +105,7 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 						}
 					});
 					int memberInTheQueueNumber = bookingsForAbook.size();
-					//create map with user to who a mail needs to be sent
+					//create list of object BookAvailablemail that needs to be sent
 					int i = 0;
 					while (i < availableCopieNumber && i < memberInTheQueueNumber ) {
 						//only if a mail hasn't been sent yet 
@@ -112,6 +115,9 @@ public class BookingListReader implements Tasklet, StepExecutionListener{
 							
 							bookAvailableEmail = new BookAvailableEmail(ua, bd);
 							listBookAvailableEmail.add(bookAvailableEmail);
+							
+							//add mail sending date to the booking 
+							borrowingService.updateMailDateBooking(bookingsForAbook.get(i).getId());
 						}
 						i++;
 					}

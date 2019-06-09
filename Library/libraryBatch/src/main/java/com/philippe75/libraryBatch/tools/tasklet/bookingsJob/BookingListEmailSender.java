@@ -54,6 +54,7 @@ public class BookingListEmailSender implements Tasklet, StepExecutionListener {
 
 	@Override
 	public ExitStatus afterStep(StepExecution arg0) {
+		
 		return ExitStatus.COMPLETED;
 	}
 

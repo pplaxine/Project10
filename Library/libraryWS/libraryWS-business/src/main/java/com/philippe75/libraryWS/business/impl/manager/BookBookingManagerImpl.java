@@ -1,6 +1,8 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,6 +102,24 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 	}
 	
 	/**
+	 * Method that adds a mail sending date to a booking.  
+	 * 
+	 * @param bookBookingId id of the Booking where date must be added .
+	 * 
+	 * @return Integer Id of {@link BookBooking} updated.
+	 */
+	@Override
+	public void updateMailDateBooking(int bookBookingId) throws LibraryServiceException {
+		
+		try {
+			getDaoHandler().getBookBookingDao().updateMailDateBooking(bookBookingId);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+		}
+	}
+	
+	/**
 	 * Method that ends booking for a book.  
 	 * 
 	 * @param bookBookingDto the dto object of booking to end.
@@ -114,6 +134,43 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 			throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
 		}
 	}
+	
+	/**
+	 * Method that ends, all active {@link BookBooking} that have a date that is exceed, by the amount of time passed in parameter, the date of now.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	@Override
+	public void endAllActiveBookingsExceededOf(Integer typeField, Integer quantity) throws LibraryServiceException {
+		
+		if(typeField != null && quantity != null) {
+			List<BookBooking> lbb;
+			
+			//Date of now removed of qty passed in param  
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.add(typeField, -quantity);
+			Date date = cal.getTime();
+			
+			try {
+				//get all bookings before that date
+				lbb = getDaoHandler().getBookBookingDao().getAllActiveBookingsBeforeThisDate(date);
+				for (BookBooking bb : lbb) {
+					//end all bookings 
+					getDaoHandler().getBookBookingDao().endBookBooking(bb.getId());
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			}
+		}else {
+			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","You must complete typeField and quantity Values"));
+		}
+		
+	}
+	
 	
 	/**
 	 * Method that gets, the waiting list of members for a book.  
@@ -274,6 +331,8 @@ public class BookBookingManagerImpl extends AbstractManager implements BookBooki
 		}
 		return result;
 	}
+
+
 
 
 

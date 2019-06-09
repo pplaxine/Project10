@@ -1234,7 +1234,7 @@
                <available>?</available>\r
                <!--Optional:-->\r
                <genre>?</genre>\r
-               <id></id>\r
+               <id>?</id>\r
                <!--Optional:-->\r
                <library>\r
                   <id>?</id>\r
@@ -1307,7 +1307,7 @@
             <!--Optional:-->\r
             <effectiveEndDate></effectiveEndDate>\r
             <extended>?</extended>\r
-            <id>3</id>\r
+            <id>5</id>\r
             <!--Optional:-->\r
             <secondSupposedEndDate></secondSupposedEndDate>\r
             <!--Optional:-->\r

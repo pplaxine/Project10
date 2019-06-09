@@ -30,6 +30,7 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceEx
 import com.philippe75.libraryBatch.tools.headerWriter.CustomHeaderWriter;
 import com.philippe75.libraryBatch.tools.processor.BorrowingDtoProcessor;
 import com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListEmailSender;
+import com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListExceedDelayRemover;
 import com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListProcessor;
 import com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListReader;
 import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingEmailSender;
@@ -72,6 +73,9 @@ public class SpringBatchConfiguration {
 	
 	@Autowired
 	public BookingListEmailSender bookingListEmailSender;
+	
+	@Autowired
+	public BookingListExceedDelayRemover bookingListExceededDelayRemover;
 	
 	// ------- Sending emails to late borrowing via tasklet way (+ code externalized in class ) ---------------
 
@@ -195,6 +199,14 @@ public class SpringBatchConfiguration {
    				.build();
    	}
     
+    @Bean
+    public Step removeExceededBookings() {
+    	return stepBuilderFactory.get("stepRemoveExceededBookings")
+    			.tasklet(bookingListExceededDelayRemover)
+    			.allowStartIfComplete(true)
+    			.build();
+    }
+    
     
     // ------------------------------- Step chunk way ----------------------------------------
     
@@ -217,13 +229,14 @@ public class SpringBatchConfiguration {
 //    }
 //    
     @Bean(name="sendEmailToBookingListJob")
-    public Job job2(@Qualifier("readListBooking") Step step1, @Qualifier("processListBooking")Step step2, @Qualifier("sendEmailListBooking")Step step3) {
+    public Job job2(@Qualifier("removeExceededBookings") Step step1, @Qualifier("readListBooking") Step step2, @Qualifier("processListBooking")Step step3, @Qualifier("sendEmailListBooking")Step step4) {
     	
     	return jobBuilderFactory.get("sendEmailToBookingListJob")
     			.incrementer(new RunIdIncrementer())
     			.start(step1)
     			.next(step2)
     			.next(step3)
+    			.next(step4)
     			.build();
     }
 	

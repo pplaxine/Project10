@@ -6,8 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import org.junit.BeforeClass;
@@ -47,6 +49,7 @@ public class BorrowingServiceIntTest {
 	private static SimpleDateFormat sdf;
 	private static Date supposedEndDate, secondSupposedEndDate;
 	private static BookDto bookDto;
+	private static BookBookingDto bookingDto; 
 	 
 	
 	@BeforeClass
@@ -61,6 +64,11 @@ public class BorrowingServiceIntTest {
 		bookDto = new BookDto();
 		bookDto.setName("Phèdre");
 		bookDto.setAuthor("Jean Racine");
+		//book
+		bookingDto = new BookBookingDto();
+		bookingDto.setBookAuthor("Jean Racine");
+		bookingDto.setBookName("Phèdre");
+		bookingDto.setEnded(true);
 		
 	}
 	
@@ -178,21 +186,17 @@ public class BorrowingServiceIntTest {
 		
 		int newBookingId;
 		
-		//book
-		BookBookingDto bbd = new BookBookingDto();
-		bbd.setBookAuthor("Jean Racine");
-		bbd.setBookName("Phèdre");
-		bbd.setEnded(true);
+		
 		//user
 		UserAccount ua = new UserAccount();
 		ua.setUserMemberId("UserTest2");
-		bbd.setUserAccount(ua);
+		bookingDto.setUserAccount(ua);
 		
-		newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
+		newBookingId = managerHandler.getBookBookingManager().createBooking(bookingDto);
 		assertTrue("New booking id should be 2 ",newBookingId == 2);
 		
-		bbd.setEnded(false);
-		newBookingId = managerHandler.getBookBookingManager().createBooking(bbd);
+		bookingDto.setEnded(false);
+		newBookingId = managerHandler.getBookBookingManager().createBooking(bookingDto);
 		assertTrue("New booking id should be 3 ", newBookingId == 3);
 	}
 	
@@ -201,6 +205,28 @@ public class BorrowingServiceIntTest {
 	public void intTest11getAllNotEndedBookings() throws Exception {
 		assertTrue("The result should be 2", managerHandler.getBookBookingManager().getAllNotEndedBookings().size() == 2);
 	}
-
+	
+	//the booking is updated with sending mail date. 
+	@Test
+	public void intTest12updateMailDateBooking() throws Exception {
+		managerHandler.getBookBookingManager().updateMailDateBooking(3);
+		List<BookBooking> listBookBooking = daoHandler.getBookBookingDao().getAllBookingsForMember("UserTest2");
+		listBookBooking = listBookBooking
+									.stream()
+									.filter(e -> e.getMailSentDate() != null)
+									.collect(Collectors.toList());
+		assertTrue("The list size should be 1", listBookBooking.size() == 1);
+	}
+	
+	//All outdated bookings are ended 
+	@Test
+	public void intTest13endAllActiveBookingsExceededOf() throws Exception {
+		//make sure next executes at least 1 sec later 
+		Thread.sleep(3000);
+		managerHandler.getBookBookingManager().endAllActiveBookingsExceededOf(Calendar.SECOND, 1);
+		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllNotEndedBookings().size() == 1 );
+	}
+	
+	
 }
 

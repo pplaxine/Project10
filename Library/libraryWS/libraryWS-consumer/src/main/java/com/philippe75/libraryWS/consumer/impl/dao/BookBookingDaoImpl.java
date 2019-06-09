@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.consumer.impl.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -99,6 +100,34 @@ public class BookBookingDaoImpl extends AbstractDao implements BookBookingDao {
 	}
 
 	/**
+	 * Method that gets, all active {@link BookBooking} before the date passed in parameter.  
+	 *
+	 * @param date the limit date. 
+	 * @return List<BookBooking> list of all active {@link BookBooking} before the date.
+	 */
+	@Override
+	public List<BookBooking> getAllActiveBookingsBeforeThisDate(Date date) throws Exception {
+		String hql = "FROM BookBooking WHERE mailSentDate <:date";
+		List<BookBooking> listBookBooking;
+		
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			listBookBooking = (List<BookBooking>)session.createQuery(hql)
+													.setParameter("date", date)
+													.list(); 
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return listBookBooking;
+	}
+	
+	
+	/**
 	 * Method that add a booking to the booking queue of a book.  
 	 * 
 	 * @param bookBooking the Booking to be added in queue.
@@ -126,7 +155,41 @@ public class BookBookingDaoImpl extends AbstractDao implements BookBookingDao {
 		}
 		return id;
 	}
+	
+	/**
+	 * Method that adds a mail sending date to a booking.  
+	 * 
+	 * @param bookBookingId id of the Booking where date must be added .
+	 * 
+	 * @return Integer Id of {@link BookBooking} updated.
+	 */
+	@Override
+	public void updateMailDateBooking(int bookBookingId) throws Exception {
+		String hql = "UPDATE BookBooking b set b.mailSentDate =:mailSentDate WHERE b.id =:bookBookingId";
+		
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			session.createQuery(hql)
+						
+						.setParameter("bookBookingId", bookBookingId)
+						.setParameter("mailSentDate", new Date())
+						.executeUpdate();
+			session.getTransaction().commit();
+			session.close();
+			
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+	}
 
+	/**
+	 * Method that ends a booking.  
+	 * 
+	 * @param bookBookingId the id of the Booking to be deleted.
+	 */
 	@Override
 	public void endBookBooking(int bookBookingId) throws Exception {
 		String hql = "UPDATE BookBooking b set b.ended =:ended WHERE b.id =:bookBookingId";
@@ -146,6 +209,9 @@ public class BookBookingDaoImpl extends AbstractDao implements BookBookingDao {
 			}
 		}
 	}
+
+	
+
 
 
 

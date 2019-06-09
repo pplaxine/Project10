@@ -177,6 +177,30 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		return managerHandler.getBookBookingManager().getAllNotEndedBookings();
 	}
 
+	/**
+	 * Method that adds a mail sending date to a booking.  
+	 * 
+	 * @param bookBookingId id of the Booking where date must be added .
+	 * 
+	 * @return Integer Id of {@link BookBooking} updated.
+	 */
+	@Override
+	public void updateMailDateBooking(int bookBookingId) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getBookBookingManager().updateMailDateBooking(bookBookingId);
+	}
+	/**
+	 * Method that ends, all active {@link BookBooking} that have a date that is exceed, by the amount of time passed in parameter, the date of now.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	@Override
+	public void endAllActiveBookingsExceededOf(Integer typeField, Integer quantity) throws LibraryServiceException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getBookBookingManager().endAllActiveBookingsExceededOf(typeField, quantity);
+	}
+
 
 
 

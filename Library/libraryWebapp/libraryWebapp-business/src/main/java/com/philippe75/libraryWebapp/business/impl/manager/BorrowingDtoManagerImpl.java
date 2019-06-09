@@ -16,8 +16,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.catalina.util.DOMWriter;
-
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
