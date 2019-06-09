@@ -1,6 +1,7 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -11,8 +12,10 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
@@ -52,6 +55,37 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 
 		return lbd;
 	}
+	
+	/**
+	 * Get all the {@link BorrowingDto} of a user.
+	 * 
+	 * @param userMemberID the user member id of the user
+	 * @return List<BorrowingDto> list of Dto object of {@link Borrowing} of a user.
+	 */
+	@Override
+	public List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException {
+		List<BorrowingDto> lbd = new ArrayList<>();
+		
+		if(bookDto != null) {
+			Book book = bookDtoToModel(bookDto);
+			List<Borrowing> lb;
+			try {
+				lb = getDaoHandler().getBorrowingDao().getAllBorrowingForBook(book);
+				lb.forEach(e -> lbd.add(borrowingModelToDto(e)));
+			} catch (NoResultException e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
+			} 
+			
+		}
+			return lbd;
+	}
+	
+	
 	
 	/**
 	 * Method that extend borrowing supposed end date. Also check first if an extention has already been made.  
@@ -126,53 +160,89 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 	
 	
 	/**
-	 * Method get that creates new borrowing.  
+	 * Method that creates new borrowing.  
 	 * 
 	 * @param borrowingDto the dto object of a new borrowing.
 	 */
 	@Override
-	public void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException {
+	public void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception {
 		if(borrowingDto != null) {
 			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
 			
+			String userMemberIdForBorrowing = borrowing.getUserAccount().getUserMemberId();
+			List<BookBooking> lbb;
+			List<Book> lb;
+			List<String> memberIdList = new ArrayList<>();
 			try {
+
 				Book book = getDaoHandler().getBookDao().getBookById(borrowing.getBook().getId());
+				
+				//Règle gestion : exemplar of book already borrowed;  
 				if(book.isAvailable() != true) {
 					throw new LibraryServiceException("BookAlreadyBorrowedException", libraryServiceFaultFactory("1436", "The book selected hasn't been returned yet.")); 
-				}else {
-					
-					UserAccount ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(borrowing.getUserAccount().getUserMemberId());
-					
-					book.setAvailable(false);
-					borrowing.setBook(book);
-					borrowing.setUserAccount(ua);
-					borrowing.setExtended(false);
-					borrowing.setStartDate(new Date());
 				}
+				
+				//Règle de gestion : other members than the firsts in booking list try to borrow the book.  --------------------
+				try {
+					lbb = getDaoHandler().getBookBookingDao().getAllBookingsForABook(book);
+				} catch (NoResultException e) {
+					lbb = new ArrayList<>();
+				} 
+				
+				//number of copies of the book available
+				lb = getDaoHandler().getBookDao().getListBookByName(book.getName());			
+				int lbAvailableSize = bookAvailabilityChecker(lb).size();
+				
+				//number of Member queuing for the book 
+				
+				lbb = endedBookingRemover(lbb);
+				int bookingQueueSize = lbb.size();
+				//Check if x books are available, x people from queuing list can borrow it first.  
+				if(bookingQueueSize > 0 && lbAvailableSize > 0) {
+					Collections.sort(lbb);
+					int i = 0;
+					while (i < lbAvailableSize && i < bookingQueueSize ) {
+						memberIdList.add(lbb.get(i).getUserAccount().getUserMemberId());
+						i++;
+					}
+					
+					if(!memberIdList.contains(userMemberIdForBorrowing)) {
+						throw new LibraryServiceException("BookHasBeenBookedException", libraryServiceFaultFactory("1465", "The book selected hasn been booked by an other Member and waiting to be collected."));
+					}
+				}
+				
+				//-------------------------------------------------------------------------------------------------------------
+				
+				UserAccount ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberIdForBorrowing);
+				book.setAvailable(false);
+				borrowing.setBook(book);
+				borrowing.setUserAccount(ua);
+				borrowing.setExtended(false);
+				borrowing.setStartDate(new Date());
 
+				Set<ConstraintViolation<Borrowing>> violation = getConstraintValidator().validate(borrowing);
+				
+				//Règle gestion : contraints are not respected
+				if(!violation.isEmpty()) {
+					throw new LibraryServiceException("ConstraintException",  new ConstraintViolationException(violation), libraryServiceFaultFactory("1587", "One of the constraint is not fulfilled"));
+				}	
+
+				getDaoHandler().getBorrowingDao().createBorrowing(borrowing);
+				
+				//Règle gestion : Member removed from booking list when borrowing is made
+				Integer bookBookingId = 0;
+				for (BookBooking bb : lbb) {
+					String userMemberId = bb.getUserAccount().getUserMemberId();
+					if(userMemberId.equals(userMemberIdForBorrowing)) {
+						bookBookingId = bb.getId();
+					}
+				}
+				getDaoHandler().getBookBookingDao().endBookBooking(bookBookingId);
 				
 			} catch (NoResultException e) {
 				System.out.println(e.getMessage());
 				throw new LibraryServiceException("NoResultException", libraryServiceFaultFactory("1234", "No entity found for query."));	
-				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
-			}
-			
-			
-			Set<ConstraintViolation<Borrowing>> violation = getConstraintValidator().validate(borrowing);
-			if(!violation.isEmpty()) {
-				throw new LibraryServiceException("ConstraintException",  new ConstraintViolationException(violation), libraryServiceFaultFactory("1587", "One of the constraint is not fulfilled"));
-			}
-			try {
-				getDaoHandler().getBorrowingDao().createBorrowing(borrowing);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				throw new LibraryServiceException("Exception", libraryServiceFaultFactory("1299", e.getMessage()));
-			}
-			
-			
+			} 
 		}
 	}
 	
@@ -254,6 +324,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		return lbd;
 	}
 
+	//---- UTILITY METHODS ----------------------------------------------------------------
 	
 	/**
 	 * Transform model objects fetched from database to data transfer object. Also remove the user password att.   

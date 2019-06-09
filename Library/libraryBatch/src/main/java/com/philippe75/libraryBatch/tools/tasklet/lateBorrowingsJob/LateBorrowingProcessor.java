@@ -1,4 +1,4 @@
-package com.philippe75.libraryBatch.tools.tasklet;
+package com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryBatch.tools.model.Borrowing;
 import com.philippe75.libraryBatch.tools.model.LateBorrowingEmail;
+import com.philippe75.libraryBatch.tools.tasklet.EmailHelper;
 
 /**
  * <b>Tasklet Processor {@link Tasklet}</b>
@@ -34,7 +35,7 @@ import com.philippe75.libraryBatch.tools.model.LateBorrowingEmail;
  */
 @Component
 @PropertySource("classpath:/Config.properties")
-public class LateBorrowingProcessor implements Tasklet, StepExecutionListener{
+public class LateBorrowingProcessor extends EmailHelper implements Tasklet, StepExecutionListener{
 	
 	/**
 	 * Allow access to DataBaseConf.properties
@@ -83,7 +84,7 @@ public class LateBorrowingProcessor implements Tasklet, StepExecutionListener{
 		
 		StringBuilder sb = new StringBuilder();
 		
-		try(BufferedReader br = Files.newBufferedReader(Paths.get(env.getProperty("mail.template.path")))){
+		try(BufferedReader br = Files.newBufferedReader(Paths.get(env.getProperty("mail.template.late.borrowings.path")))){
 			br.lines().forEach(e-> sb.append(e));
 			replaceAll(sb, "$$userName", name);
 			replaceAll(sb, "$$att", listBorrowing.size()>1?"les":"l'");
@@ -118,39 +119,7 @@ public class LateBorrowingProcessor implements Tasklet, StepExecutionListener{
 		return sb.toString();
 	}
 	
-	/**
-	 * 
-	 * Format GregorianCalendar to String with the desired format.   
-	 * 
-	 * @param calendar {@link GregorianCalendar} the date to extract
-	 * @param format the format desired
-	 * @return String the time in a String with in the desired format
-	 */
-	public String formatGC(Date date, String format){
-	    SimpleDateFormat fmt = new SimpleDateFormat(format);
-	    fmt.set2DigitYearStart(date);
-	    String dateFormatted = fmt.format(date.getTime());
-	    return dateFormatted;
-	}
-	
-	
-	/**
-	 * Replace all the occurrences of a String by another String.
-	 * 
-	 * @param builder {@link StringBuilder}
-	 * @param from the String to replace 
-	 * @param to the String to replace with 
-	 */
-	private void replaceAll(StringBuilder builder, String from, String to)
-	{
-	    int index = builder.indexOf(from);
-	    while (index != -1)
-	    {
-	        builder.replace(index, index + from.length(), to);
-	        index += to.length(); // Move to the end of the replacement
-	        index = builder.indexOf(from, index);
-	    }
-	}
+
 
 
 }

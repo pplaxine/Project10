@@ -9,10 +9,27 @@ DROP TABLE IF EXISTS library_address CASCADE;
 DROP TABLE IF EXISTS staff_account CASCADE;
 DROP TABLE IF EXISTS user_account CASCADE;
 DROP TABLE IF EXISTS user_address CASCADE;
+DROP TABLE IF EXISTS book_booking CASCADE;
 DROP TYPE IF EXISTS GENRE;
 
 
-/*INSER ALL TABLES*/
+/*INSERT ALL TABLES*/
+
+CREATE SEQUENCE public.book_booking_id_seq;
+
+CREATE TABLE public.book_booking (
+                id INTEGER NOT NULL DEFAULT nextval('public.book_booking_id_seq'),
+                book_name VARCHAR(300) NOT NULL,
+                book_author VARCHAR(200) NOT NULL,
+                user_account_id INTEGER NOT NULL,
+                mail_sent_date TIMESTAMP,
+                ended BOOLEAN NOT NULL,
+                CONSTRAINT book_booking_pk PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.book_booking_id_seq OWNED BY public.book_booking.id;
+
 CREATE SEQUENCE public.user_address_id_seq;
 
 CREATE TABLE public.user_address (
@@ -136,6 +153,13 @@ CREATE TABLE public.borrowing (
 
 ALTER SEQUENCE public.borrowing_id_seq OWNED BY public.borrowing.id;
 
+ALTER TABLE public.book_booking ADD CONSTRAINT user_account_book_booking_fk
+FOREIGN KEY (user_account_id)
+REFERENCES public.user_account (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 ALTER TABLE public.user_account ADD CONSTRAINT user_address_user_account_fk
 FOREIGN KEY (user_address_id)
 REFERENCES public.user_address (id)
@@ -201,7 +225,7 @@ INSERT INTO staff_account (login_name,password,access,firstname,surename,account
 
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',false,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Roméo et Juliette','William Shakespeare','résumé du livre...','TRAGEDY',true,1);
@@ -218,7 +242,7 @@ INSERT INTO book (name, author, summary, book_genre, available, library_id) VALU
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Legend','David Gemmell','résumé du livre...','FANTASY',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('1984','George Orwell','résumé du livre...','DYSTOPIA',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('V pour vendetta','Ygrec','résumé du livre...','DYSTOPIA',true,1);
-INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Phèdre','Jean Racine','résumé du livre...','TRAGEDY',true,1);
+INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Phèdre','Jean Racine','résumé du livre...','TRAGEDY',false,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Horace','Pierre Corneille','résumé du livre...','TRAGEDY',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Antigone','Jean anouilh','résumé du livre...','TRAGEDY',true,1);
 INSERT INTO book (name, author, summary, book_genre, available, library_id) VALUES ('Poétique','Aristote','résumé du livre...','TRAGEDY',true,1);
@@ -230,14 +254,17 @@ INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('14'
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('JTille','USER_99','Jean','Tille',1,'jeantille@orange.fr',0033145484575,False);
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('MSegaux','USER_99','Madelaine','Segaux',2,'mady@orange.fr',003314541436,False);
 INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('UserTest','USER_99','User','Test',3,'user@test.fr',0033148474525,False);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('UserTest2','USER_99','User2','Test',3,'user2@test.fr',0033148474525,False);
 
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date,effective_end_date, extended,book_id, user_account_id) VALUES ('2018-02-17 09:00:00','2018-02-23 18:00:00','2018-02-27 18:00:00','2018-02-26 18:00:00',true,1,1);
 INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-08-15 09:00:00',false,4,2);
 INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00',false,2,2);
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-01-15 09:00:00','2019-01-27 18:00:00',true,1,2);
-INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00',true,3,1);
-INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, effective_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00','2018-01-28 18:00:00',true,18,1);
-INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-05-14 09:00:00','2019-07-15 09:00:00',false,17,3);
+INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00',true,18,1);
+INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date, effective_end_date, extended,book_id, user_account_id) VALUES ('2019-01-15 09:00:00','2019-01-23 18:00:00','2019-01-27 18:00:00','2018-01-28 18:00:00',true,3,1);
+
+
+INSERT INTO book_booking (book_name,book_author,user_account_id,ended) VALUES ('Phèdre','Jean Racine',3,false);
 
 /*TRANSACTION END*/
 COMMIT;

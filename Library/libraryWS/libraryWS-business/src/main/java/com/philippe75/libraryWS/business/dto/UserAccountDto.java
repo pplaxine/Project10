@@ -1,5 +1,9 @@
 package com.philippe75.libraryWS.business.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.user.UserAddress;
 
 /**
@@ -61,6 +65,7 @@ public class UserAccountDto {
 	 */
 	private boolean blockedAccount;
 	
+
 	public String getUserMemberId() {
 		return userMemberId;
 	}
@@ -109,5 +114,6 @@ public class UserAccountDto {
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
 	}
+	
 	
 }

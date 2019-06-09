@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
- * <b>Dto object of Borrowing.</b>
+ * <b>Model object of a borrowing.</b>
  * 
  * <p>
  * Characterized by : 
@@ -39,7 +39,7 @@ public class Borrowing {
 	/**
 	 * Unique id of the borrowing.
 	 */
-	private int id;
+	private Integer id;
 	/**
 	 * When book get borrowed.
 	 */
@@ -71,10 +71,10 @@ public class Borrowing {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	@Column(name="start_date")

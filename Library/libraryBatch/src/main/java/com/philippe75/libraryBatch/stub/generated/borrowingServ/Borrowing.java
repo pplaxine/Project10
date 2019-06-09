@@ -21,7 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="book" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}book" minOccurs="0"/>
  *         &lt;element name="effectiveEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="extended" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="secondSupposedEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="startDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="supposedEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
@@ -51,7 +51,7 @@ public class Borrowing {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar effectiveEndDate;
     protected boolean extended;
-    protected int id;
+    protected Integer id;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar secondSupposedEndDate;
     @XmlSchemaType(name = "dateTime")
@@ -127,16 +127,24 @@ public class Borrowing {
     /**
      * Obtient la valeur de la propriété id.
      * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Définit la valeur de la propriété id.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
      */
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

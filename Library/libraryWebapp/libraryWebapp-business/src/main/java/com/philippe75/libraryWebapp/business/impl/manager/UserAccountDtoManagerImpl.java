@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccount;
 import com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceException_Exception;
 
 /**
@@ -37,5 +38,5 @@ public class UserAccountDtoManagerImpl extends AbstractManagerServiceAccess impl
 	public UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException_Exception {
 		return getAuthService().saveUserAccountPw(userMemberId, password);
 	}
-
+	
 }

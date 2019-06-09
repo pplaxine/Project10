@@ -95,6 +95,52 @@
 						</s:iterator>
 					</table>
 				</div>
+				
+				<div class="row pt-5">
+				<h4>Vos résérvations</h4><br/>
+					<table class="table table-dark mt-3" style="opacity:0.8">
+						<thead>
+						  <tr>
+						    <th scope="col"></th>
+						    <th scope="col"><s:text name="borrowings.col.book"/></th>
+						    <th scope="col">Next return on </th>
+						    <th scope="col" class="text-center">People in front of you in the reservation list</th>
+						    <th scope="col" class="text-center">Cancellation of booking</th>
+						  </tr>
+						</thead>
+						<s:iterator value="listBookBookingForUser" var="bookBookingForUser">
+							<s:if test="ended != true">
+								<tbody>
+								  <tr>
+								    <th scope="row"></th>
+								    <td><s:property value="bookName"/> - <s:property value="bookAuthor"/></td>
+								    <td>
+								    	<s:set var="nextBorrowingToComeToEnd" value="listNextEndingBorrowingForBookbooking[#bookBookingForUser]"/>
+								    	<s:if test="#nextBorrowingToComeToEnd.secondSupposedEndDate == null">
+									    	<s:date name="#nextBorrowingToComeToEnd.supposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy"/>
+								    	</s:if>
+								    	<s:elseif test="#nextBorrowingToComeToEnd.secondSupposedEndDate != null">
+								    		<s:date name="#nextBorrowingToComeToEnd.secondSupposedEndDate.toGregorianCalendar()" format="EEEE dd MMMM yyyy"/>
+								    	</s:elseif>
+								    </td>
+								    <td class="text-center">
+								    	<s:property value="listPositionOfMemberInReservationListForBookbooking[#bookBookingForUser]"/>
+								    </td>
+								    <td class="text-center">
+								    	<s:url var="booking" action="borrowings" escapeAmp="false">
+								    			<s:param name="bookingId" value="id"/>
+								    	</s:url>
+								    	<a href="<s:property value="#booking"/>"   class="text-warning"><s:text name="cancel"/></a>
+								    </td>
+								  </tr>
+								</tbody>
+								<br/>
+							</s:if>
+						</s:iterator>
+					</table>
+
+				</div>
+				
 			</div>
 		</div>
 	

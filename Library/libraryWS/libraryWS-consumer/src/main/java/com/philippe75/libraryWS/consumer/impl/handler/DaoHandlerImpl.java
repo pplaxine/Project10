@@ -3,6 +3,7 @@ package com.philippe75.libraryWS.consumer.impl.handler;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.philippe75.libraryWS.consumer.contract.dao.BookBookingDao;
 import com.philippe75.libraryWS.consumer.contract.dao.BookDao;
 import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
 import com.philippe75.libraryWS.consumer.contract.dao.UserAccountDao;
@@ -36,6 +37,12 @@ public class DaoHandlerImpl extends AbstractDao implements DaoHandler{
 	@Inject
 	private BorrowingDao borrowingDao;
 
+	/**
+	 * injection of {@link BookBookingDao}
+	 */
+	@Inject
+	private BookBookingDao bookBookingDao;
+	
 	public UserAccountDao getUserAccountDao() {
 		return userAccountDao;
 	}
@@ -47,7 +54,9 @@ public class DaoHandlerImpl extends AbstractDao implements DaoHandler{
 	public BorrowingDao getBorrowingDao() {
 		return borrowingDao;
 	}
-	
-	
+
+	public BookBookingDao getBookBookingDao() {
+		return bookBookingDao;
+	}
 	
 }

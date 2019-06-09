@@ -1,5 +1,6 @@
 package com.philippe75.libraryWebapp.business.impl.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
@@ -29,6 +30,29 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 		
 		return getBookSearchService().getListBookByName(bookNameOnly).getItem();
 	}
+	
+	//TODO : Unit test
+	/**
+	 * Method that gets, all the available copies of the book. 
+	 * 
+	 * @param name the name of the book. 
+	 * @return List<BookDto> listBookDto of {@link BookDto} all the available copies.
+	 */
+	@Override
+	public List<BookDto> getListBookAvailableByName(String bookName) throws LibraryServiceException_Exception {
+		List<BookDto> listAvailableBooks = new ArrayList<>();
+		String bookNameOnly = getBookNameOnly(bookName);
+		
+		List<BookDto> lbd = getBookSearchService().getListBookByName(bookNameOnly).getItem();
+		lbd.forEach((e) -> {
+			if(e.isAvailable()) {
+				listAvailableBooks.add(e);
+			}
+		});
+		
+		return listAvailableBooks;
+	}
+
 
 	/**
 	 * If entry contained in the name of books. Get the 10 first book matching with.  
@@ -49,11 +73,24 @@ public class BookDtoManagerImpl extends AbstractManagerServiceAccess implements 
 	 * @param book full name.
 	 * @return String book name only.
 	 */
-	protected String getBookNameOnly(String bookNameWithAuthor) {
+	public static String getBookNameOnly(String bookNameWithAuthor) {
 		String[] ls = bookNameWithAuthor.split("-");
 		String bookNameOnly = ls[0].trim();
 		return bookNameOnly;
 	}
+	
+	/**
+	 * Return the author of the book without the name.  
+	 * 
+	 * @param book full name.
+	 * @return String Author name only.
+	 */
+	public static String getBookAuthorOnly(String bookNameWithAuthor) {
+		String[] ls = bookNameWithAuthor.split("-");
+		String bookAuthorOnly = ls[1].trim();
+		return bookAuthorOnly;
+	}
+
 
  
 }

@@ -2,6 +2,7 @@ package com.philippe75.libraryWS.business.contract.manager;
 
 import java.util.List;
 
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
@@ -23,6 +24,14 @@ public interface BorrowingManager {
 	List<BorrowingDto> getAllBorrowingForUser(String userMemberId) throws LibraryServiceException; 
 
 	/**
+	 * Method that gets, all the borrowings of a book.  
+	 * 
+	 * @param bookDto the book.
+	 * @return List<BorrowingDto> list of {@link Borrowing} of a user.
+	 */
+	List<BorrowingDto> getAllBorrowingForBook(BookDto bookDto) throws LibraryServiceException; 
+	
+	/**
 	 * Method that extend borrowing supposed end date. Also check first if an extention has already benn made.  
 	 * 
 	 * @param Borrowing the borrowing to update.
@@ -42,7 +51,7 @@ public interface BorrowingManager {
 	 * 
 	 * @param borrowingDto the dto object of a new borrowing.
 	 */
-	void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException;
+	void createBorrowing(BorrowingDto borrowingDto) throws LibraryServiceException, Exception;
 	
 	/**
 	 * Method that ends a borrowing when user returns a book.   

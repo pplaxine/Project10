@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.authServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:bootstrapContext.xml"})
@@ -45,6 +46,8 @@ public class UserAccountDtoManagerImplIntTest {
 		UserAccountDto userAccount = userAccountDtoManager.getUserAccount(userMemberId, password);
 		assertEquals(userAccount.getUserMemberId(), userMemberId);
 	}
+	
+
 	
 	
 }

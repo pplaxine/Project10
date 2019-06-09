@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "LibraryServiceException", targetNamespace = "http://borrowing.service.exposure.libraryWS.philippe75.com/")
 public class LibraryServiceException_Exception
-    extends Exception
+    extends java.lang.Exception
 {
 
     /**

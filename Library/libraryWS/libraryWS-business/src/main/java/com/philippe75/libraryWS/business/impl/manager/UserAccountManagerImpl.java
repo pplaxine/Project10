@@ -7,7 +7,9 @@ import javax.persistence.NoResultException;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
+import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
+import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -95,27 +97,85 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		
 	}
 
-	//UTILITY METHODS 
+	//---- UTILITY METHODS ----------------------------------------------------------------
+	
 	/**
 	 * Transform model objects fetched from database to data transfer object.   
 	 * 
 	 * @param userAccount object fetched from the data layer. 
 	 * @return UserAccountDto Dto object of {@link UserAccount}.  
 	 */
-	protected UserAccountDto userAccountModelToDto(UserAccount userAccount) {
+	public static UserAccountDto userAccountModelToDto(UserAccount userAccount) {
 		
 		UserAccountDto uad = new UserAccountDto();
-		
-			uad.setUserMemberId(userAccount.getUserMemberId());
-			uad.setAccess(userAccount.getAccess());
-			uad.setFirstName(userAccount.getFirstName());
-			uad.setSureName(userAccount.getSureName());
-			uad.setAddress(userAccount.getAddress());
-			uad.setEmail(userAccount.getEmail());
-			uad.setPhoneNumber(userAccount.getPhoneNumber());
+		if(userAccount != null) {
+			if(userAccount.getUserMemberId() != null) {
+				uad.setUserMemberId(userAccount.getUserMemberId());
+			}
+			if(userAccount.getAccess()!= null) {
+				uad.setAccess(userAccount.getAccess());
+			}
+			if(userAccount.getFirstName() != null) {
+				uad.setFirstName(userAccount.getFirstName());
+			}
+			if(userAccount.getSureName() != null) {
+				uad.setSureName(userAccount.getSureName());
+			}
+			if(userAccount.getAddress() != null) {
+				uad.setAddress(userAccount.getAddress());
+			}
+			if(userAccount.getEmail() != null) {
+				uad.setEmail(userAccount.getEmail());
+			}
+			if(userAccount.getPhoneNumber() != 0) {
+				uad.setPhoneNumber(userAccount.getPhoneNumber());
+			}
+			//can't be null
 			uad.setBlockedAccount(userAccount.isBlockedAccount());
+			
+		}
 		
 		return uad;
+	}
+	
+	/**
+	 * Transform dto objects to model object.   
+	 * 
+	 * @param userAccountDto  {@link UserAccountDto} . 
+	 * @return userAccount {@link UserAccount}.  
+	 */
+	public static UserAccount userAccountDtoToModel(UserAccountDto userAccountDto) {
+		
+		UserAccount ua = new UserAccount();
+		if(userAccountDto != null) {
+			if(userAccountDto.getUserMemberId() != null) {
+				ua.setUserMemberId(userAccountDto.getUserMemberId());
+			}
+			if(userAccountDto.getAccess() != null) {
+				ua.setAccess(userAccountDto.getAccess());
+			}
+			if(userAccountDto.getFirstName() != null) {
+				ua.setFirstName(userAccountDto.getFirstName());
+			}
+			if(userAccountDto.getSureName() != null) {
+				ua.setSureName(userAccountDto.getSureName());
+			}
+			if(userAccountDto.getAddress() != null) {
+				ua.setAddress(userAccountDto.getAddress());
+			}
+			if(userAccountDto.getEmail() != null) {
+				ua.setEmail(userAccountDto.getEmail());
+			}
+			if(userAccountDto.getPhoneNumber() != 0) {
+				ua.setPhoneNumber(userAccountDto.getPhoneNumber());
+			}
+			//can't be null
+			ua.setBlockedAccount(userAccountDto.isBlockedAccount());
+			
+		}
+			
+		
+		return ua;
 	}
 	
 

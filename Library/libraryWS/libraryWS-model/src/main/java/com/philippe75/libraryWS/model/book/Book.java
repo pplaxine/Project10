@@ -45,7 +45,7 @@ public class Book {
 	/**
 	 * Unique id of the book.
 	 */
-	private int id;
+	private Integer id;
 	/**
 	 * Name of the book.
 	 */
@@ -77,10 +77,10 @@ public class Book {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	@NotNull

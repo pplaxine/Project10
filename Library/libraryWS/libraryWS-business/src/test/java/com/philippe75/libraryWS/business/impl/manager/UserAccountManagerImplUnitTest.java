@@ -12,7 +12,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
+import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.UserAccountDaoImpl;
 import com.philippe75.libraryWS.consumer.impl.handler.DaoHandlerImpl;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
@@ -22,6 +24,8 @@ import com.philippe75.libraryWS.model.user.UserAddress;
 @RunWith(MockitoJUnitRunner.class)
 public class UserAccountManagerImplUnitTest {
 	
+	@InjectMocks
+	private ManagerHandlerImpl managerHandler;
 	@InjectMocks
 	private UserAccountManagerImpl userAccountManager;
 	@InjectMocks
@@ -39,6 +43,8 @@ public class UserAccountManagerImplUnitTest {
     public void executeBeforeEach() {
     	//set the mock in abstract class
     	AbstractManager.configure(daoHandler);
+    	//set the Mock in ManagerHandler class
+    	ManagerHandlerImpl.configure(userAccountManager);
     	
     	//STUB UserAccount
     	userAccount = new UserAccount();
@@ -75,7 +81,7 @@ public class UserAccountManagerImplUnitTest {
     	when(bcPasswordEncodeur.matches(password, userAccount.getPassword())).thenReturn(true);
     	//---------------
     	
-    	UserAccountDto userAccountDto = userAccountManager.getUserAccountByMemberId(userAccount.getUserMemberId(), password);
+    	UserAccountDto userAccountDto = managerHandler.getUserAccountManager().getUserAccountByMemberId(userAccount.getUserMemberId(), password);
     	assertEquals("UserAccountDto not create as expected", userAccountDto.getFirstName() , userAccount.getFirstName());
     }
     
@@ -89,7 +95,7 @@ public class UserAccountManagerImplUnitTest {
     	when(bcPasswordEncodeur.matches(password, userAccount.getPassword())).thenReturn(false);
     	//---------------
     	
-    	UserAccountDto userAccountDto = userAccountManager.getUserAccountByMemberId(userAccount.getUserMemberId(), password);
+    	UserAccountDto userAccountDto = managerHandler.getUserAccountManager().getUserAccountByMemberId(userAccount.getUserMemberId(), password);
     	assertEquals("UserAccountDto not create as expected", userAccountDto.getFirstName() , userAccount.getFirstName());
     }
     
@@ -102,7 +108,7 @@ public class UserAccountManagerImplUnitTest {
     	when(bcPasswordEncodeur.encode(password)).thenReturn(password);
     	when(daoHandler.getUserAccountDao().saveUserAccountPw(userAccount.getUserMemberId(), password)).thenReturn(userAccount);
     	//---------------
-    	userAccountManager.saveUserAccountPw(userAccount.getUserMemberId(), password);
+    	managerHandler.getUserAccountManager().saveUserAccountPw(userAccount.getUserMemberId(), password);
     }
     
     @Test(expected=LibraryServiceException.class)
@@ -111,7 +117,7 @@ public class UserAccountManagerImplUnitTest {
     	//---- mock setup
     	userAccount.setPassword(password);
     	//---------------
-    	userAccountManager.saveUserAccountPw(userAccount.getUserMemberId(), password);
+    	managerHandler.getUserAccountManager().saveUserAccountPw(userAccount.getUserMemberId(), password);
     }
     
     @Test(expected=LibraryServiceException.class)
@@ -121,7 +127,7 @@ public class UserAccountManagerImplUnitTest {
     	userAccount.setPassword(password);
     	when(daoHandler.getUserAccountDao().getUserAccountByMemberId(userAccount.getUserMemberId())).thenReturn(userAccount);
     	//---------------
-    	userAccountManager.saveUserAccountPw(userAccount.getUserMemberId(), password);
+    	managerHandler.getUserAccountManager().saveUserAccountPw(userAccount.getUserMemberId(), password);
     }
 	
 }

@@ -29,7 +29,7 @@ public class BookDto {
 	/**
 	 * Unique id of the book.
 	 */
-	private int id;
+	private Integer id;
 	/**
 	 * Name of the book.
 	 */
@@ -55,10 +55,10 @@ public class BookDto {
 	 */
 	private Genre genre;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {

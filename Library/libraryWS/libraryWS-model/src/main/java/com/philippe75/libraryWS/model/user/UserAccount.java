@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,9 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 
 /**
@@ -89,6 +90,11 @@ public class UserAccount {
 	 * Historic of all the borrowings of the user.
 	 */
 	private Collection<Borrowing> listBorrowing = new ArrayList<>();
+	/**
+	 * Historic of all the bookings of the user.
+	 */
+	private Collection<BookBooking> listBookBooking = new ArrayList<>();
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -173,14 +179,21 @@ public class UserAccount {
 		this.blockedAccount = blockedAccount;
 	}
 	@OneToMany(mappedBy="userAccount")
+	@Transient
 	public Collection<Borrowing> getListBorrowing() {
 		return listBorrowing;
 	}
 	public void setListBorrowing(Collection<Borrowing> listBorrowing) {
 		this.listBorrowing = listBorrowing;
 	}
-
-	
+	@OneToMany(mappedBy="userAccount")
+	@Transient
+	public Collection<BookBooking> getListBookBooking() {
+		return listBookBooking;
+	}
+	public void setListBookBooking(Collection<BookBooking> listBookBooking) {
+		this.listBookBooking = listBookBooking;
+	}
 	
 	
 	

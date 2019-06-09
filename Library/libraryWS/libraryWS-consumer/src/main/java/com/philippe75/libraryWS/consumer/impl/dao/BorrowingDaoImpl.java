@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import org.hibernate.Session;
 import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
+import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.Borrowing;
 
 /**
@@ -37,6 +38,37 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 			
 			listborrowing = (List<Borrowing>)session.createQuery(hql)
 													.setParameter("userMemberId", userMemberId)
+													.list(); 
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return listborrowing;
+	}
+	
+	/**
+	 * Method that gets, all the borrowings of a book.  
+	 * 
+	 * @param book the book.
+	 * @return List<Borrowing> list of {@link Borrowing} of a book.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Borrowing> getAllBorrowingForBook(Book book) throws Exception {
+		
+		String hql = "SELECT b FROM Borrowing b JOIN b.book as book WHERE book.name = :bookName AND book.author = :bookAuthor";
+		List<Borrowing> listborrowing;
+		
+		Session session = getSession();
+		session.beginTransaction();
+		try {
+			
+			listborrowing = (List<Borrowing>)session.createQuery(hql)
+													.setParameter("bookName", book.getName())
+													.setParameter("bookAuthor", book.getAuthor())
 													.list(); 
 			session.getTransaction().commit();
 			session.close();

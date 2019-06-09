@@ -31,7 +31,7 @@ public class LateBorrowingEmail implements Serializable{
 	 */
 	private List<Borrowing> listBorrowing = new ArrayList<>();
 	/**
-	 * The email of the Member
+	 * The content of the email
 	 */
 	private String emailContent;
 	

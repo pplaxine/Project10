@@ -17,4 +17,7 @@
 <item elementID="=libraryWS-exposure/src\/test\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1557248792514_2" label="Window Working Set" name="Aggregate for window 1557248792514"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1560106880649_3" label="Window Working Set" name="Aggregate for window 1560106880649"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1560109374734_4" label="Window Working Set" name="Aggregate for window 1560109374734"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1560109914854_5" label="Window Working Set" name="Aggregate for window 1560109914854"/>
 </workingSetManager>

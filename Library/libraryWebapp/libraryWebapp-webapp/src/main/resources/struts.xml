@@ -71,6 +71,10 @@
      	<action name="getBookAvailability" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doListBookByName">
 			<result name="success">WEB-INF/jsp/availableBook.jsp</result>
 			<result name="input" type="redirectAction">main</result>
+			<interceptor-ref name="store">
+		        <param name="operationMode">RETRIEVE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
      	</action> 
 		
 		
@@ -104,7 +108,19 @@
 		    </interceptor-ref>
 		    <interceptor-ref name="defaultStack" />
      	</action>
-
+     	
+     	<action name="createBooking" class="com.philippe75.libraryWebapp.webapp.action.BookAction" method="doCreateBooking">
+			<result name="input" type="redirectAction">
+				<param name="actionName">getBookAvailability</param>
+				<param name="bookDto">${bookDto}</param>
+				<param name="isRedirection">${isRedirection}</param>
+			</result>
+			
+			<interceptor-ref name="store">
+	        	<param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="defaultStack" />
+     	</action>
     </package>
     
     

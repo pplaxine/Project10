@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.business.contract.handler;
 
+import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.contract.manager.BookManager;
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
@@ -35,4 +36,11 @@ public interface ManagerHandler {
 	 * @return BorrowingManager
 	 */
 	BorrowingManager getBorrowingManager();
+	
+	/**
+	 * Get access to {@link BookBookingManager}.
+	 * 
+	 * @return BookBookingManager
+	 */
+	BookBookingManager getBookBookingManager();
 }

@@ -6,8 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import org.junit.BeforeClass;
@@ -18,9 +20,13 @@ import org.junit.runners.MethodSorters;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
+import com.philippe75.libraryWS.business.dto.BookBookingDto;
+import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -32,10 +38,15 @@ public class BorrowingServiceIntTest {
 	@Inject
 	private ManagerHandler managerHandler;
 	
+	@Inject
+	private DaoHandler daoHandler;
+	
 	private static String userMemberId;
 	private static int bookId, borrowingId, newBorrowingId;
 	private static SimpleDateFormat sdf;
 	private static Date supposedEndDate, secondSupposedEndDate;
+	private static BookDto bookDto;
+	private static BookBookingDto bookingDto; 
 	 
 	
 	@BeforeClass
@@ -46,7 +57,15 @@ public class BorrowingServiceIntTest {
     	secondSupposedEndDate = sdf.parse("06/08/2019");
 		userMemberId = "JTille";
 		borrowingId = 1; 
-		newBorrowingId = 8;
+		newBorrowingId = 7;
+		bookDto = new BookDto();
+		bookDto.setName("Phèdre");
+		bookDto.setAuthor("Jean Racine");
+		//book
+		bookingDto = new BookBookingDto();
+		bookingDto.setBookAuthor("Jean Racine");
+		bookingDto.setBookName("Phèdre");
+		bookingDto.setEnded(true);
 		
 	}
 	
@@ -58,16 +77,26 @@ public class BorrowingServiceIntTest {
 		assertTrue( "The list should contain 3 elements ",lb.size() == 3 );
 	}
 	
+	//All the borrowing for a book are retrieved
+	@Test
+	public void intTest02getAllBorrowingForBook() throws LibraryServiceException {
+		BookDto bookDto = new BookDto();
+		bookDto.setName("Roméo et Juliette");
+		bookDto.setAuthor("William Shakespeare");
+		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllBorrowingForBook(bookDto);
+		assertTrue( "The list should contain 5 elements ",lb.size() == 5 );
+	}
+	
 	//All the late borrowings are retrieved 
 	@Test
-	public void intTest02getAllLateBorrowings() throws LibraryServiceException {
+	public void intTest03getAllLateBorrowings() throws LibraryServiceException {
 		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllLateBorrowings();
-		assertTrue("The list should contain 4 eements " ,lb.size() == 4 );
+		assertTrue("The list should contain 3 elements " ,lb.size() == 3 );
 	}
 	
 	//The correct borrowing is retrieved
 	@Test 
-	public void intTest03getBorrowingById() throws LibraryServiceException {
+	public void intTest04getBorrowingById() throws LibraryServiceException {
 		String bookName = "Roméo et Juliette";
 		BorrowingDto borrowing = managerHandler.getBorrowingManager().getBorrowingById(borrowingId);
 		assertEquals("Wrong borrowing retrieved " ,borrowing.getBook().getName(), bookName);
@@ -75,14 +104,14 @@ public class BorrowingServiceIntTest {
 	
 	//A borrowing is created 
 	@Test
-	public void  intTest04createBorrowing() throws LibraryServiceException {
+	public void  intTest05createBorrowing() throws Exception {
 		int numberOfBooksBorrowedBefore, numberOfBooksBorrowedAfter ; 
 		
 		//new borrowing
 		BorrowingDto newBorrowing = new BorrowingDto(); 
 		
-		Book book = new Book();
-		book.setId(bookId);
+		Book book = daoHandler.getBookDao().getBookById(bookId);
+		
 		
 		
 		UserAccount userAccount = new UserAccount();
@@ -107,7 +136,8 @@ public class BorrowingServiceIntTest {
 	
 	//A Borrowing end date is extended
 	@Test
-	public void intTest05extendBorrowing() throws LibraryServiceException, Exception {
+	public void intTest06extendBorrowing() throws LibraryServiceException, Exception {
+
 		
 		//retrieve the newly create borrowing 
 		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
@@ -124,7 +154,7 @@ public class BorrowingServiceIntTest {
 	
 	//A Borrowing is ended
 	@Test
-	public void intTest06endBorrowing() throws LibraryServiceException {
+	public void intTest07endBorrowing() throws LibraryServiceException {
 		
 		//retrieve the newly create borrowing 
 		BorrowingDto newBorrowing = managerHandler.getBorrowingManager().getBorrowingById(newBorrowingId);
@@ -136,7 +166,64 @@ public class BorrowingServiceIntTest {
 		assertNotNull("The end of the borrowing hasn't been taken to account" ,endedBorrowing.getEffectiveEndDate());
 	}
 	
+	//All the booking for a book are retrieved 
+	@Test
+	public void intTest08getAllBookingsForABook() throws LibraryServiceException, Exception {
+		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllBookingsForABook(bookDto).size() == 1);
+	}
 	
-
-
+	//All the booking for a member are retrieved 
+	@Test
+	public void intTest09getAllBookingsForAMember() throws Exception {
+		userMemberId = "UserTest";
+		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllBookingsForMember(userMemberId).size() == 1);
+	}
+	
+	//A booking is created 
+	@Test
+	public void intTest10createBooking() throws LibraryServiceException, Exception {
+		
+		int newBookingId;
+		
+		
+		//user
+		UserAccount ua = new UserAccount();
+		ua.setUserMemberId("UserTest2");
+		bookingDto.setUserAccount(ua);
+		
+		newBookingId = managerHandler.getBookBookingManager().createBooking(bookingDto);
+		assertTrue("New booking id should be 2 ",newBookingId == 2);
+		
+		bookingDto.setEnded(false);
+		newBookingId = managerHandler.getBookBookingManager().createBooking(bookingDto);
+		assertTrue("New booking id should be 3 ", newBookingId == 3);
+	}
+	
+	//All the active booking retrieved
+	@Test
+	public void intTest11getAllNotEndedBookings() throws Exception {
+		assertTrue("The result should be 2", managerHandler.getBookBookingManager().getAllNotEndedBookings().size() == 2);
+	}
+	
+	//the booking is updated with sending mail date. 
+	@Test
+	public void intTest12updateMailDateBooking() throws Exception {
+		managerHandler.getBookBookingManager().updateMailDateBooking(3);
+		List<BookBooking> listBookBooking = daoHandler.getBookBookingDao().getAllBookingsForMember("UserTest2");
+		listBookBooking = listBookBooking
+									.stream()
+									.filter(e -> e.getMailSentDate() != null)
+									.collect(Collectors.toList());
+		assertTrue("The list size should be 1", listBookBooking.size() == 1);
+	}
+	
+	//All outdated bookings are ended 
+	@Test
+	public void intTest13endAllActiveBookingsExceededOf() throws Exception {
+		//make sure next executes at least 1 sec later 
+		Thread.sleep(3000);
+		managerHandler.getBookBookingManager().endAllActiveBookingsExceededOf(Calendar.SECOND, 1);
+		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllNotEndedBookings().size() == 1 );
+	}
 }
+
