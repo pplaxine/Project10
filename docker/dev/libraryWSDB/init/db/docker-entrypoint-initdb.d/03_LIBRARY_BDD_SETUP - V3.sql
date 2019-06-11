@@ -57,6 +57,7 @@ CREATE TABLE public.user_account (
                 email VARCHAR(100) NOT NULL,
                 phone_number NUMERIC(15),
                 blocked_account BOOLEAN NOT NULL,
+                mail_reminder BOOLEAN NOT NULL,
                 CONSTRAINT user_account_pk PRIMARY KEY (id)
 );
 
@@ -251,10 +252,10 @@ INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('3bi
 INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('18','Avenue Montaigne','Paris',75008);
 INSERT INTO user_address (street_number,street_name,city,post_code) VALUES ('14',E'Rue d\'Antin','Paris',75002);
 
-INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('JTille','USER_99','Jean','Tille',1,'jeantille@orange.fr',0033145484575,False);
-INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('MSegaux','USER_99','Madelaine','Segaux',2,'mady@orange.fr',003314541436,False);
-INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('UserTest','USER_99','User','Test',3,'user@test.fr',0033148474525,False);
-INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account) VALUES ('UserTest2','USER_99','User2','Test',3,'user2@test.fr',0033148474525,False);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account,mail_reminder) VALUES ('JTille','USER_99','Jean','Tille',1,'jeantille@orange.fr',0033145484575,False,True);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account,mail_reminder) VALUES ('MSegaux','USER_99','Madelaine','Segaux',2,'mady@orange.fr',003314541436,False,True);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account,mail_reminder) VALUES ('UserTest','USER_99','User','Test',3,'user@test.fr',0033148474525,False,True);
+INSERT INTO user_account(user_member_id,access,firstname,surename,user_address_id,email,phone_number,blocked_account,mail_reminder) VALUES ('UserTest2','USER_99','User2','Test',3,'user2@test.fr',0033148474525,False,True);
 
 INSERT INTO borrowing (start_date,supposed_end_date,second_supposed_end_date,effective_end_date, extended,book_id, user_account_id) VALUES ('2018-02-17 09:00:00','2018-02-23 18:00:00','2018-02-27 18:00:00','2018-02-26 18:00:00',true,1,1);
 INSERT INTO borrowing (start_date,supposed_end_date, extended,book_id, user_account_id) VALUES ('2019-01-14 09:00:00','2019-08-15 09:00:00',false,4,2);

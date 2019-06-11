@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="listBookBooking" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}bookBooking" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="listBorrowing" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}borrowing" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="mailReminder" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="phoneNumber" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="sureName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -49,6 +50,7 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "listBookBooking",
     "listBorrowing",
+    "mailReminder",
     "password",
     "phoneNumber",
     "sureName",
@@ -66,6 +68,7 @@ public class UserAccount {
     protected List<BookBooking> listBookBooking;
     @XmlElement(nillable = true)
     protected List<Borrowing> listBorrowing;
+    protected boolean mailReminder;
     protected String password;
     protected double phoneNumber;
     protected String sureName;
@@ -255,6 +258,22 @@ public class UserAccount {
             listBorrowing = new ArrayList<Borrowing>();
         }
         return this.listBorrowing;
+    }
+
+    /**
+     * Obtient la valeur de la propriété mailReminder.
+     * 
+     */
+    public boolean isMailReminder() {
+        return mailReminder;
+    }
+
+    /**
+     * Définit la valeur de la propriété mailReminder.
+     * 
+     */
+    public void setMailReminder(boolean value) {
+        this.mailReminder = value;
     }
 
     /**

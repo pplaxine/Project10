@@ -1,14 +1,11 @@
 package com.philippe75.libraryWebapp.webapp.action;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -33,6 +30,7 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	private Integer bookId;
 	private String borrowingId;
 	private Integer bookingId;
+	private Integer mailReminder;
 	//outcome
 	private List<BorrowingDto> listBorrowingForUser;
 	private String numberOfWeekExtend;
@@ -79,6 +77,12 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	public void setBookingId(Integer bookingId) {
 		this.bookingId = bookingId;
 	}
+	public Integer getMailReminder() {
+		return mailReminder;
+	}
+	public void setMailReminder(Integer mailReminder) {
+		this.mailReminder = mailReminder;
+	}
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -86,32 +90,60 @@ public class BorrowingAction extends ActionSupport implements SessionAware{
 	
 	//METHODS
 	public String doListBorrowingForUser() {
+			
 		try {
+			
+			String userMemberId; 
 			
 			calendar = new GregorianCalendar();
 			now = new Date();
 			calendar.setTime(now);
+			
+			
+			System.out.println(mailReminder);
 			
 			//cancel booking 
 			if(bookingId != null) {
 				managerHandler.getBorrowingDtoManager().endBooking(bookingId);
 				bookingId = null;
 			}
+			
+		
 
 			//get user member id
 			UserAccountDto uad = (UserAccountDto)this.session.get("user");
+			userMemberId = uad.getUserMemberId();
+			
+			//update mail reminder status of user 
+			if(mailReminder != null && (mailReminder == 1 || mailReminder == 0)) {
+				Boolean newMailReminder = true;
+				if(mailReminder == 0) {
+					newMailReminder = false;
+				}
+				managerHandler.getBorrowingDtoManager().updateMailReminder(userMemberId, newMailReminder);
+			}
 			
 			//get all borrowings for user
-			listBorrowingForUser = managerHandler.getBorrowingDtoManager().getAllBorrowingForUser(uad.getUserMemberId());
+			listBorrowingForUser = managerHandler.getBorrowingDtoManager().getAllBorrowingForUser(userMemberId);
 			
 			//get all active bookings for user 
-			listBookBookingForUser = managerHandler.getBorrowingDtoManager().getAllNotEndedBookingsForMember(uad.getUserMemberId());
+			listBookBookingForUser = managerHandler.getBorrowingDtoManager().getAllNotEndedBookingsForMember(userMemberId);
 			
 			//get map of bookings and nextEndingBorrowing
 			listNextEndingBorrowingForBookbooking = managerHandler.getBorrowingDtoManager().getNexBorrowingToComeToEndForEachBookBooking(listBookBookingForUser);
 			
 			//get map bookings and number of people in front of member in the waiting list 
 			listPositionOfMemberInReservationListForBookbooking = managerHandler.getBorrowingDtoManager().getPositionInWaintingListForEachBookBooking(listBookBookingForUser);
+			
+
+			
+			//get user mail reminder status 
+			Boolean userMailReminderStatus = managerHandler.getBorrowingDtoManager().getUserMailReminderStatus(userMemberId);
+			if(userMailReminderStatus == true) {
+				mailReminder = 1;
+			}else {
+				mailReminder = 0;
+			}
 			
 		} catch (LibraryServiceException_Exception e) {
 			if((e.getMessage()).equals("NoResultException")) {

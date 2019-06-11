@@ -18,6 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccountDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
@@ -239,7 +240,6 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		List<BookBookingDto> lbbd = getBorrowingService().getAllBookingsForMember(userMemberId).getItem();
 		
 		return endedBookingRemover(lbbd);
-		
 	}
 	
 	/**
@@ -266,6 +266,33 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		getBorrowingService().endBooking(bookBookingId);
 	}
 	
+	/**
+	 * @param userMemeberId the member id of the user.
+	 * @return Boolean true if user mail reminder is activated, false otherwise.  
+	 */
+	@Override
+	public Boolean getUserMailReminderStatus(String userMemberId) throws LibraryServiceException_Exception, Exception {
+		UserAccountDto uad =  getBorrowingService().getUserMailReminderStatus(userMemberId);
+		Boolean userMailReminderStatus = uad.isMailReminder();
+		
+		return userMailReminderStatus;
+	}
+	
+	/**
+	 * Update users mail reminder status.  
+	 * 
+	 * @param userMemberId the member id of the user.
+	 * @param the new status of the mail reminder.
+	 */
+	@Override
+	public void updateMailReminder(String userMemberId, boolean mailReminderStatus) throws LibraryServiceException_Exception, Exception {
+		if(userMemberId != null) {
+			UserAccountDto uad = new UserAccountDto();
+			uad.setUserMemberId(userMemberId);
+			uad.setMailReminder(mailReminderStatus);
+			getBorrowingService().updateMailReminder(uad);
+		}
+	}
 	
 	//------------------- UTILITY METHODE -----------------------------
 	
@@ -291,6 +318,11 @@ public class BorrowingDtoManagerImpl extends AbstractManagerServiceAccess implem
 		});
 		return lbb;
 	}
+
+
+	
+
+
 
 
 	

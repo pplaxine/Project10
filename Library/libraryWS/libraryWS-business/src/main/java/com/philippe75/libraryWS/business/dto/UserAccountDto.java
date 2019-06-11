@@ -1,9 +1,5 @@
 package com.philippe75.libraryWS.business.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.user.UserAddress;
 
 /**
@@ -24,7 +20,7 @@ import com.philippe75.libraryWS.model.user.UserAddress;
  * <li>an email</li>
  * <li>a phone number</li>
  * <li>the account state</li>
- * <li> a list of borrowing</li>
+ * <li>the mail reminder status</li>
  * </ul>
  * 
  * @author Philippe plaxine
@@ -64,6 +60,10 @@ public class UserAccountDto {
 	 * Account can be blocked if a borrowed book is not given back on time.
 	 */
 	private boolean blockedAccount;
+	/**
+	 * Is true if user wants to receive a reminder mail about its about to end borrowings.
+	 */
+	private boolean mailReminder; 
 	
 
 	public String getUserMemberId() {
@@ -113,6 +113,12 @@ public class UserAccountDto {
 	}
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
+	}
+	public boolean isMailReminder() {
+		return mailReminder;
+	}
+	public void setMailReminder(boolean mailReminder) {
+		this.mailReminder = mailReminder;
 	}
 	
 	

@@ -20,6 +20,12 @@ public interface UserAccountManager  {
 	UserAccountDto getUserAccountByMemberId(String userMemberId, String password) throws LibraryServiceException;
 	
 	/**
+	 * @param userMemeberId the member id of the user.
+	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
+	 */
+	UserAccountDto getUserMailReminderStatus(String userMemberId) throws LibraryServiceException, Exception;
+	
+	/**
 	 * Method that saves user password if first login.
 	 * 
 	 * @param userMemberId the user Member id
@@ -27,4 +33,11 @@ public interface UserAccountManager  {
 	 * @return UserAccountDto 
 	 */
 	UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException;
+	
+	/**
+	 * Update users mail reminder status.  
+	 * 
+	 * @param userAccountDto the {@link UserAccountDto} object containing the userMemberId and mailReminder status.
+	 */
+	void updateMailReminder(UserAccountDto userAccountDto) throws LibraryServiceException, Exception; 
 }

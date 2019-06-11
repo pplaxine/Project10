@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.user.UserAccount"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.consumer.contract.handler.DaoHandler"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.model.exception.saop.LibraryServiceException"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.UserAccountDto"/>
+<fullyQualifiedTypeName name="javax.jws.WebMethod"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccountDto"/>
+</qualifiedTypeNameHistroy>

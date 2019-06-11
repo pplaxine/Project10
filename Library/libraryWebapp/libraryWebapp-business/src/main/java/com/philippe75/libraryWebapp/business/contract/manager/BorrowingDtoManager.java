@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
+
+
+
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.LibraryServiceException_Exception;
+import com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccountDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
-import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.Exception_Exception;
 /**
@@ -106,7 +109,17 @@ public interface BorrowingDtoManager {
 	 */
 	void endBooking(int bookBookingId) throws LibraryServiceException_Exception;
 	
-
-
+	/**
+	 * Update users mail reminder status.  
+	 * 
+	 * @param userAccountDto the {@link UserAccountDto} object containing the userMemberId and mailReminder status.
+	 */
+	void updateMailReminder(String userMemberId, boolean mailReminderStatus) throws LibraryServiceException_Exception, Exception;
+	
+	/**
+	 * @param userMemeberId the member id of the user.
+	 * @return Boolean true if user mail reminder is activated, false otherwise.  
+	 */
+	Boolean getUserMailReminderStatus(String userMemberId) throws LibraryServiceException_Exception, Exception;
 	
 }

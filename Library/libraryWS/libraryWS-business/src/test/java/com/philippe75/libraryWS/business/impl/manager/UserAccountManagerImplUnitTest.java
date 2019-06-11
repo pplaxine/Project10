@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.business.impl.handler.ManagerHandlerImpl;
 import com.philippe75.libraryWS.consumer.impl.dao.UserAccountDaoImpl;
@@ -56,6 +55,7 @@ public class UserAccountManagerImplUnitTest {
     	userAccount.setEmail("orange@orange.fr");
     	userAccount.setPhoneNumber(0606060606);
     	userAccount.setBlockedAccount(false);
+    	userAccount.setMailReminder(true);
     }
 	
     //UserAccountDto created from UserAccount contains all the values
@@ -68,6 +68,7 @@ public class UserAccountManagerImplUnitTest {
     	assertEquals("UserAccountDto : Adresse ",userAccountDto.getAddress(), userAccount.getAddress());
     	assertEquals("UserAccountDto : Email ",userAccountDto.getEmail(), userAccount.getEmail());
     	assertEquals("UserAccountDto : BlockedAccount ",userAccountDto.isBlockedAccount(), userAccount.isBlockedAccount());
+    	assertEquals("UserAccountDto : MailReminder ",userAccountDto.isMailReminder(), userAccount.isMailReminder());
     	
     }
     

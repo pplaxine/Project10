@@ -12,7 +12,6 @@ import javax.persistence.NoResultException;
 import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
-import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;

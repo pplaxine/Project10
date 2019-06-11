@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
 import com.philippe75.libraryBatch.tools.model.BookAvailableEmail;
 import com.philippe75.libraryBatch.tools.tasklet.EmailHelper;
 

@@ -7,9 +7,7 @@ import javax.persistence.NoResultException;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
-import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.business.dto.UserAccountDto;
-import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -54,6 +52,23 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		
 	}
 	
+	/**
+	 * @param userMemeberId the member id of the user.
+	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
+	 * @throws Exception 
+	 */
+	@Override
+	public UserAccountDto getUserMailReminderStatus(String userMemberId) throws LibraryServiceException, Exception {
+		if(userMemberId != null) {
+			UserAccount ua = getDaoHandler().getUserAccountDao().getUserAccountByMemberId(userMemberId);
+			UserAccountDto uad = new UserAccountDto();
+			uad.setMailReminder(ua.isMailReminder());
+			return uad;
+		}else {
+			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","Invalide UserAccount object, the object must contain userMemberId and mailreminder Values"));
+		}
+		
+	}
 
 
 	/**
@@ -96,6 +111,28 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 		}
 		
 	}
+	
+	/**
+	 * Update users mail reminder status.  
+	 * 
+	 * @param userAccountDto the {@link UserAccountDto} object containing the userMemberId and mailReminder status.
+	 */
+	@Override
+	public void updateMailReminder(UserAccountDto userAccountDto) throws LibraryServiceException, Exception {
+		if(userAccountDto != null && userAccountDto.getUserMemberId() != null) {
+			
+			UserAccount ua = userAccountDtoToModel(userAccountDto);
+			String userMemberId = ua.getUserMemberId();
+			boolean mailReminder = ua.isMailReminder();
+			
+			getDaoHandler().getUserAccountDao().updateMailReminder(userMemberId, mailReminder);
+			
+		}else {
+			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","Invalide UserAccount object, the object must contain userMemberId and mailreminder Values"));
+		}
+		
+	}
+	
 
 	//---- UTILITY METHODS ----------------------------------------------------------------
 	
@@ -132,7 +169,7 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 			}
 			//can't be null
 			uad.setBlockedAccount(userAccount.isBlockedAccount());
-			
+			uad.setMailReminder(userAccount.isMailReminder());
 		}
 		
 		return uad;
@@ -171,13 +208,18 @@ public class UserAccountManagerImpl extends AbstractManager implements UserAccou
 			}
 			//can't be null
 			ua.setBlockedAccount(userAccountDto.isBlockedAccount());
-			
+			ua.setMailReminder(userAccountDto.isMailReminder());
 		}
-			
 		
 		return ua;
 	}
-	
+
+
+
+
+
+
+
 
 
 }

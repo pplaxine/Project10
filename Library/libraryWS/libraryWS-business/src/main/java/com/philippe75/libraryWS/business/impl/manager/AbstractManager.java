@@ -10,11 +10,9 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import com.philippe75.libraryWS.business.dto.BookDto;
-import com.philippe75.libraryWS.business.dto.BorrowingDto;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
-import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.soap.fault.LibraryServiceFault;
 
 /**

@@ -91,6 +91,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UserAccountDto }
+     * 
+     */
+    public UserAccountDto createUserAccountDto() {
+        return new UserAccountDto();
+    }
+
+    /**
      * Create an instance of {@link BookDto }
      * 
      */

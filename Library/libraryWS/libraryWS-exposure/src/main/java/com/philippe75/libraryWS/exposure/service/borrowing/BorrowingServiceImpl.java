@@ -11,9 +11,11 @@ import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
+import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
  * <b>Borrowing service end point Class.</b>
@@ -189,6 +191,7 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		managerHandler.getBookBookingManager().updateMailDateBooking(bookBookingId);
 	}
+	
 	/**
 	 * Method that ends, all active {@link BookBooking} that have a date that is exceed, by the amount of time passed in parameter, the date of now.  
 	 *
@@ -199,6 +202,27 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 	public void endAllActiveBookingsExceededOf(Integer typeField, Integer quantity) throws LibraryServiceException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		managerHandler.getBookBookingManager().endAllActiveBookingsExceededOf(typeField, quantity);
+	}
+	
+	/**
+	 * Update users mail reminder status.  
+	 * 
+	 * @param userAccountDto the {@link UserAccountDto} object containing the userMemberId and mailReminder status.
+	 */
+	@Override
+	public void updateMailReminder(UserAccountDto userAccountDto) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getUserAccountManager().updateMailReminder(userAccountDto);
+	}
+
+	/**
+	 * @param userMemeberId the member id of the user.
+	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
+	 */
+	@Override
+	public UserAccountDto getUserMailReminderStatus(String userMemberId) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getUserAccountManager().getUserMailReminderStatus(userMemberId);
 	}
 
 

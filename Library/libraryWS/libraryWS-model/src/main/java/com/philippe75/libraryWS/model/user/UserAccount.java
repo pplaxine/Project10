@@ -36,7 +36,9 @@ import com.philippe75.libraryWS.model.book.Borrowing;
  * <li>an email</li>
  * <li>a phone number</li>
  * <li>the account state</li>
+ * <li>the mail reminder status</li>
  * <li> a list of borrowing</li>
+ * <li> a list of booking</li>
  * </ul>
  * 
  * @author Philippe plaxine
@@ -86,6 +88,10 @@ public class UserAccount {
 	 * Account can be blocked if a borrowed book is not given back on time.
 	 */
 	private boolean blockedAccount;
+	/**
+	 * Is true if user wants to receive a reminder mail about its about to end borrowings.
+	 */
+	private boolean mailReminder;
 	/**
 	 * Historic of all the borrowings of the user.
 	 */
@@ -177,6 +183,14 @@ public class UserAccount {
 	}
 	public void setBlockedAccount(boolean blockedAccount) {
 		this.blockedAccount = blockedAccount;
+	}
+	@Column(name="mail_reminder")
+	@NotNull
+	public boolean isMailReminder() {
+		return mailReminder;
+	}
+	public void setMailReminder(boolean mailReminder) {
+		this.mailReminder = mailReminder;
 	}
 	@OneToMany(mappedBy="userAccount")
 	@Transient

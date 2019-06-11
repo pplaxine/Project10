@@ -10,9 +10,11 @@ import javax.jws.soap.SOAPBinding.Style;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.business.dto.UserAccountDto;
 import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
+import com.philippe75.libraryWS.model.user.UserAccount;
 
 /**
  * <b>Borrowing service end point Interface.</b>
@@ -147,4 +149,20 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	void endAllActiveBookingsExceededOf(Integer typeField, Integer quantity) throws LibraryServiceException;
+	
+	/**
+	 * Method that update users mail reminder status.  
+	 * 
+	 * @param userAccountDto the {@link UserAccountDto} object containing the userMemberId and mailReminder status.
+	 * 
+	 */
+	@WebMethod
+	void updateMailReminder(UserAccountDto userAccountDto) throws LibraryServiceException, Exception;
+	
+	/**
+	 * @param userMemeberId the member id of the user.
+	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
+	 */
+	@WebMethod
+	UserAccountDto getUserMailReminderStatus(String userMemberId) throws LibraryServiceException, Exception;
 }

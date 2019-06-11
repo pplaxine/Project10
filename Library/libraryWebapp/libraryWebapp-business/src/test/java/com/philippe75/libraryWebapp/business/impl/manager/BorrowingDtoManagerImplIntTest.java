@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-import javax.validation.constraints.AssertTrue;
-
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -22,7 +20,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.philippe75.libraryWebapp.business.contract.manager.BorrowingDtoManager;
 import com.philippe75.libraryWebapp.business.contract.manager.UserAccountDtoManager;
-import com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookBookingDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookDto;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BorrowingDto;
@@ -154,9 +151,9 @@ public class BorrowingDtoManagerImplIntTest {
 		assertNotNull("Number of ended booking for user should be 1", lbbdfiltered.size() == 1);
 	}
 	
+	//get next borrowing to come to an end 
+	@Test
 	public void intTest09getNexBorrowingToComeToEndForEachBookBooking() throws LibraryServiceException_Exception {
-		
-		
 		
 		//creation of List<BookBookingDto>
 		bookBooking.setBookName("Phèdre");
@@ -171,5 +168,8 @@ public class BorrowingDtoManagerImplIntTest {
 		assertTrue("The next borrowing id for this bookbooking should be 5", nextBorrowingforFirstOfTheList.getId() == 5);
 	}
 	
+	
+	//TODO: getUserMailReminderStatus test
+	//TODO: UpdateUserMailReminderStatus test
 
 }

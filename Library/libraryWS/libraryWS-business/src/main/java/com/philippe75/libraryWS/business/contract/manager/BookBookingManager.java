@@ -1,12 +1,9 @@
 package com.philippe75.libraryWS.business.contract.manager;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
-import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 

@@ -18,10 +18,11 @@ import com.philippe75.libraryWS.model.user.UserAccount;
 public class UserAccountDaoImpl extends AbstractDao implements UserAccountDao {
 	
 	/**
-	 * Get the {@link UserAccount} with name required.
+	 * Retrieve the User with its User member id. 
 	 * 
-	 * @param userAccountId the id of the user
-	 * @return UserAccount the {@link UserAccount} with id required.
+	 * @param userMemberId the member id of the user.
+	 * 
+	 * @return UserAccount the {@link UserAccount} with the member id required.  
 	 */
 	@Override
 	public UserAccount getUserAccountByMemberId(String userMemberId) throws Exception  {
@@ -48,10 +49,12 @@ public class UserAccountDaoImpl extends AbstractDao implements UserAccountDao {
 	}
 
 	/**
-	 * @param userAccountId the id of the user.
+	 * Create a password for users First connection. 
+	 * 
+	 * @param userMemberId the member id of the user.
 	 * @param password user password to save
 	 * 
-	 * @return UserAccount the {@link UserAccount} if password saved successfully.  
+	 * @return UserAccount the {@link UserAccount} if password saved successfully.    
 	 */
 	@Override
 	public UserAccount saveUserAccountPw(String userMemberId, String password) throws Exception {
@@ -89,6 +92,38 @@ public class UserAccountDaoImpl extends AbstractDao implements UserAccountDao {
 		}
 		return userAccount;
 	}
+
+	/**
+	 * Update users mail reminder status.  
+	 * 
+	 * @param userMemberId the member id of the user.
+	 * @param mailReminder the new state of mail reminder : true mail sent / false stop sending mail. 
+	 * 
+	 */
+	@Override
+	public void updateMailReminder(String userMemberId, boolean mailReminder) throws Exception {
+		String hql = "UPDATE UserAccount u set u.mailReminder =:mailReminder WHERE u.userMemberId =:userMemberId";
+		
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			session.createQuery(hql)
+						
+						.setParameter("userMemberId", userMemberId)
+						.setParameter("mailReminder", mailReminder)
+						.executeUpdate();
+			session.getTransaction().commit();
+			session.close();
+			
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		
+	}
+	
+	
 	
 	
 	

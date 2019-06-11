@@ -1,5 +1,5 @@
 
-package com.philippe75.libraryWebapp.stub.generated.authServ;
+package com.philippe75.libraryWebapp.stub.generated.borrowingServ;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="access" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="address" type="{http://authentification.service.exposure.libraryWS.philippe75.com/}userAddress" minOccurs="0"/>
+ *         &lt;element name="address" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}userAddress" minOccurs="0"/>
  *         &lt;element name="blockedAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>

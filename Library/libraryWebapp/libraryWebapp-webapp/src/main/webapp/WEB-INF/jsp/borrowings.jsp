@@ -11,8 +11,36 @@
 		<%@ include file="_include/header.jsp" %>
 		<div class="bg_borrowings text-light">
 			<div class="container">
+				
 				<div class="row pt-5">
-				<h2>Vos emprunts actuels</h2><br/>
+					<div class="col-6">
+						<h2>Vos emprunts actuels</h2><br/>
+					</div>
+					<div class="col-6 pt-3 text-right ">
+						
+						<s:if test="mailReminder == 1">		<!--  to modify  -->
+							<s:url var="borrowings" action="borrowings" escapeAmp="false">
+								<s:param name="mailReminder" value="0"/>
+							</s:url>
+							<a href="<s:property value="#borrowings"/>">
+								<input type="checkbox" checked="checked"  class="form-check-input" id="exampleCheck1">
+							</a>
+							
+						</s:if>
+						<s:else>
+							<s:url var="borrowings" action="borrowings" escapeAmp="false">
+								<s:param name="mailReminder" value="1"/>
+							</s:url>
+	    					<a href="<s:property value="#borrowings"/>">
+								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+							</a>
+						</s:else>
+						
+    					<label class="form-check-label" for="exampleCheck1">Receive reminder email 5 days before due date</label>
+					</div>
+				</div>
+				
+				<div class="row">
 					<table class="table table-dark mt-3" style="opacity:0.8">
 						<thead>
 						  <tr>

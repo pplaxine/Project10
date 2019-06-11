@@ -28,4 +28,5 @@ public interface UserAccountDtoManager {
 	 * @return UserAccountDto the Dto object of a {@link UserAccount} with the id required.  
 	 */
 	UserAccountDto saveUserAccountPw(String userMemberId, String password) throws LibraryServiceException_Exception;
+
 }

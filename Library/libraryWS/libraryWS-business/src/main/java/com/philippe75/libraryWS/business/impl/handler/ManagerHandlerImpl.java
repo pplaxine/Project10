@@ -8,7 +8,6 @@ import com.philippe75.libraryWS.business.contract.manager.BookBookingManager;
 import com.philippe75.libraryWS.business.contract.manager.BookManager;
 import com.philippe75.libraryWS.business.contract.manager.BorrowingManager;
 import com.philippe75.libraryWS.business.contract.manager.UserAccountManager;
-import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 
 /**
  * <b>Implementation of ManagerHandler interface</b>

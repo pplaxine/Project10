@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.philippe75.libraryWebapp.stub.generated.bookServ.LibraryServiceException_Exception;
 import com.philippe75.libraryWebapp.stub.generated.borrowingServ.BookDto;
 
 @RunWith(MockitoJUnitRunner.class)

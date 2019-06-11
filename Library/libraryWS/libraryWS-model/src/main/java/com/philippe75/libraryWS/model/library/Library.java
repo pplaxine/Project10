@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.staff.StaffAccount;
 
 /**
