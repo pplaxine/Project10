@@ -1,6 +1,7 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -218,6 +219,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 				borrowing.setBook(book);
 				borrowing.setUserAccount(ua);
 				borrowing.setExtended(false);
+				borrowing.setReminderMailSent(false);
 				borrowing.setStartDate(new Date());
 
 				Set<ConstraintViolation<Borrowing>> violation = getConstraintValidator().validate(borrowing);
@@ -323,6 +325,37 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 
 		return lbd;
 	}
+	
+	/**
+	 * Method that gets, all Borrowings {@link BorrowingDto} that have a mail reminder activated and within the time passed in parameter.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	@Override
+	public List<BorrowingDto> getAllBorrowingsToBeRemindedWithin(Integer typeField, Integer quantity) throws LibraryServiceException, Exception{
+		if(typeField != null && quantity != null) {
+			List<BorrowingDto> lbd = new ArrayList<>();
+			List<Borrowing> lb;
+			
+			//Date of now added of qty passed in param  
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.add(typeField, quantity);
+			Date date = cal.getTime();
+			//------------------------
+			
+			lb = getDaoHandler().getBorrowingDao().getAllBorrowingsToRemindBeforeThisDate(date);		//(between now and date, as before now an other type of mail is sent)  
+			lb.forEach( e -> {
+				lbd.add(borrowingModelToDto(e));
+			});
+			
+			return lbd;
+		}else {
+			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","You must complete typeField and quantity Values"));
+		}
+		
+	}
 
 	//---- UTILITY METHODS ----------------------------------------------------------------
 	
@@ -342,6 +375,7 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			bd.setSecondSupposedEndDate(borrowing.getSecondSupposedEndDate());
 			bd.setEffectiveEndDate(borrowing.getEffectiveEndDate());
 			bd.setExtended(borrowing.isExtended());
+			bd.setReminderMailSent(borrowing.isReminderMailSent());
 			borrowing.getBook().getLibrary().setListStaffAccount(null);
 			borrowing.getBook().setListBorrowing(null);
 			bd.setBook(borrowing.getBook());
@@ -369,12 +403,14 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 			borrowing.setSecondSupposedEndDate(bd.getSecondSupposedEndDate());
 			borrowing.setEffectiveEndDate(bd.getEffectiveEndDate());
 			borrowing.setExtended(bd.isExtended());
+			borrowing.setReminderMailSent(bd.isReminderMailSent());
 			borrowing.setBook(bd.getBook());
 			borrowing.setUserAccount(bd.getUserAccount());
-			
 		
 		return borrowing;
 	}
+
+
 
 
 

@@ -19,7 +19,7 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
 import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryBatch.tools.model.Borrowing;
-import com.philippe75.libraryBatch.tools.model.LateBorrowingEmail;
+import com.philippe75.libraryBatch.tools.model.BorrowingEmail;
 
 /**
  * <b>Tasklet Reader {@link Tasklet}</b>
@@ -46,7 +46,7 @@ public class LateBorrowingReader implements Tasklet, StepExecutionListener{
 	/**
 	 * list of Emails containing the late {@link Borrowing} to be sent. 
 	 */
-	private Map<String, LateBorrowingEmail> lateBorrowingEmailMap;
+	private Map<String, BorrowingEmail> lateBorrowingEmailMap;
 	
 	@Override
 	public void beforeStep(StepExecution se) {
@@ -65,14 +65,14 @@ public class LateBorrowingReader implements Tasklet, StepExecutionListener{
 	public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
 		
 		listBorrowing.forEach((e)->{
-			LateBorrowingEmail lbe;
+			BorrowingEmail lbe;
 			//if a user already in the map we just add the additional late book
 			if(lateBorrowingEmailMap.containsKey(e.getUserAccount().getUserMemberId())) {
 				lbe = lateBorrowingEmailMap.get(e.getUserAccount().getUserMemberId());
 				lbe.getListBorrowing().add(e);	
 				lateBorrowingEmailMap.replace(e.getUserAccount().getUserMemberId(), lbe);
 			}else {
-				lbe = new LateBorrowingEmail();
+				lbe = new BorrowingEmail();
 				lbe.setUserAccount(e.getUserAccount());
 				lbe.getListBorrowing().add(e);			
 				lateBorrowingEmailMap.put(e.getUserAccount().getUserMemberId(), lbe);

@@ -23,17 +23,19 @@ import com.philippe75.libraryWS.business.contract.handler.ManagerHandler;
 import com.philippe75.libraryWS.business.dto.BookBookingDto;
 import com.philippe75.libraryWS.business.dto.BookDto;
 import com.philippe75.libraryWS.business.dto.BorrowingDto;
+import com.philippe75.libraryWS.business.impl.manager.AbstractManager;
 import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
+import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SpringConfiguration.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class BorrowingServiceIntTest {
+public class BorrowingServiceIntTest extends AbstractManager {
 	
 	@Inject
 	private ManagerHandler managerHandler;
@@ -224,6 +226,55 @@ public class BorrowingServiceIntTest {
 		Thread.sleep(3000);
 		managerHandler.getBookBookingManager().endAllActiveBookingsExceededOf(Calendar.SECOND, 1);
 		assertTrue("The result should be 1", managerHandler.getBookBookingManager().getAllNotEndedBookings().size() == 1 );
+	}
+	
+	@Test
+	public void intTest14getAllBorrowingsToBeRemindedWithin() throws Exception {
+		BorrowingDto newBorrowing;
+		UserAccount userAccount;
+		
+		//creates new borrowings ----------------
+		bookId = 14;
+		userMemberId = "UserTest";
+		
+		Date date = new Date();
+		
+		Date supposedEndDate[] = {	sdf.parse("17/01/2019"),							// date before now	(should not appear in result) 
+									addSomeTimeToDate(date, Calendar.DAY_OF_YEAR, 1),	// date now + 1 day
+									addSomeTimeToDate(date, Calendar.DAY_OF_YEAR, 6),	// date now + 6 day (should not appear in result)	
+									
+									addSomeTimeToDate(date, Calendar.DAY_OF_YEAR, 1),	// date now + 2 day
+									addSomeTimeToDate(date, Calendar.DAY_OF_YEAR, 2),	// date now + 2 day (extended borrwoing) 
+								};	
+		
+		for (int i = 0; i < supposedEndDate.length; i++) {
+				newBorrowing = new BorrowingDto(); 
+				
+				//creates book 
+				Book book = daoHandler.getBookDao().getBookById(bookId++);
+				//creates userAccount  
+				userAccount = new UserAccount();
+				userAccount.setUserMemberId(userMemberId);
+				//create borrowing
+				newBorrowing.setBook(book); 
+				newBorrowing.setUserAccount(userAccount);
+				
+				if(i<supposedEndDate.length - 1) {
+					newBorrowing.setSupposedEndDate(supposedEndDate[i]);
+					managerHandler.getBorrowingManager().createBorrowing(newBorrowing);
+				}else {
+					//the last is extended
+					BorrowingDto bd = new BorrowingDto();
+					bd.setId(11);
+					bd.setSecondSupposedEndDate(supposedEndDate[i]);
+					managerHandler.getBorrowingManager().extendBorrowing(bd);
+				}
+		}
+		//---------------------------------------
+
+		List<BorrowingDto> lb = managerHandler.getBorrowingManager().getAllBorrowingsToBeRemindedWithin(Calendar.DAY_OF_YEAR, 5);
+		
+		assertTrue("The number of reminder email to be sent should be 2",lb.size() == 2);
 	}
 }
 

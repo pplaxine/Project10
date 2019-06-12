@@ -8,6 +8,7 @@ import javax.inject.Named;
 import org.hibernate.Session;
 import com.philippe75.libraryWS.consumer.contract.dao.BorrowingDao;
 import com.philippe75.libraryWS.model.book.Book;
+import com.philippe75.libraryWS.model.book.BookBooking;
 import com.philippe75.libraryWS.model.book.Borrowing;
 
 /**
@@ -214,6 +215,41 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 			}
 		}
 		return listborrowing;
+	}
+
+	/**
+	 * Method that gets, all Borrowings {@link Borrowing} that have a mail reminder activated and are between the date passed in parameter and now.  
+	 *
+	 * @param date the limit date. 
+	 * @return List<BookBooking> list of all borrowings {@link Borrowing} before the date.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Borrowing> getAllBorrowingsToRemindBeforeThisDate(Date date) throws Exception {
+		String sql = "SELECT * FROM borrowing "
+					+ "JOIN user_account ON borrowing.user_account_id = user_account.id "
+					+ "WHERE effective_end_date is null "
+						+ "AND (CASE WHEN extended=false THEN supposed_end_date <:date WHEN extended=true THEN second_supposed_end_date <:date END)"
+						+ "AND (CASE WHEN extended=false THEN supposed_end_date > NOW() WHEN extended=true THEN second_supposed_end_date > NOW() END)"
+						+ "AND user_account.mail_reminder =:mailReminder";
+		List<Borrowing> listBorrowing;
+		
+		Session session = getSession();
+		try {
+			session.beginTransaction();
+			listBorrowing = (List<Borrowing>)session.createSQLQuery(sql)
+					.setParameter("date", date)
+					.setParameter("mailReminder", true)
+					.addEntity(Borrowing.class)
+					.list(); 
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return listBorrowing;
 	}
 	
 }

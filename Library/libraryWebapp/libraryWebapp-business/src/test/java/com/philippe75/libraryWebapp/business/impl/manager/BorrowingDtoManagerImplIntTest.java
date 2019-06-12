@@ -168,8 +168,29 @@ public class BorrowingDtoManagerImplIntTest {
 		assertTrue("The next borrowing id for this bookbooking should be 5", nextBorrowingforFirstOfTheList.getId() == 5);
 	}
 	
+	//get users mail reminder status 
+	@Test
+	public void intTest10getUserMailReminderStatus() throws LibraryServiceException_Exception, Exception {
+		
+		Boolean userMailReminderStatus = borrowingDtoManager.getUserMailReminderStatus(userMemberId);
+		assertTrue("The Reminder should be active / true", userMailReminderStatus == true);
+	}
 	
-	//TODO: getUserMailReminderStatus test
-	//TODO: UpdateUserMailReminderStatus test
+	//update users mail reminder status
+	@Test
+	public void intTest11updateMailReminder() throws LibraryServiceException_Exception, Exception {
+		
+		Boolean userMailReminderStatus; 
+		
+		userMailReminderStatus = false;
+		borrowingDtoManager.updateMailReminder(userMemberId, userMailReminderStatus);
+		Boolean newUserMailReminderStatus = borrowingDtoManager.getUserMailReminderStatus(userMemberId);
+		assertTrue("The Reminder should be active / true", newUserMailReminderStatus == false);
+		
+		userMailReminderStatus = true;
+		borrowingDtoManager.updateMailReminder(userMemberId, userMailReminderStatus);
+		newUserMailReminderStatus = borrowingDtoManager.getUserMailReminderStatus(userMemberId);
+		assertTrue("The Reminder should be active / true", newUserMailReminderStatus == true);
+	}
 
 }

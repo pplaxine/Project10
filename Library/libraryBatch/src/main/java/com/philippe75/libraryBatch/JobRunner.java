@@ -39,6 +39,9 @@ public class JobRunner {
 	@Autowired
 	private Job sendEmailToBookingListJob;
 	
+	@Autowired
+	private Job sendEmailReminder; 
+	
 	/**
 	 * Methode that run the batch on a scheduled delay.
 	 */
@@ -51,7 +54,9 @@ public class JobRunner {
 		
 		JobExecution je;
 		try {
-			je = jobLauncher.run(sendEmailToBookingListJob, new JobParameters());
+			je = jobLauncher.run(sendEmailReminder, new JobParameters());
+			jobLauncher.run(sendEmailToBookingListJob, new JobParameters());
+			jobLauncher.run(sendMailToLateBorrowingsJob, new JobParameters());
 			
 			System.out.println("Job status " + je.getStatus());
 			System.out.println("Job complete");

@@ -107,6 +107,7 @@ public class BorrowingManagerImplUnitTest {
     	borrowing.setStartDate(startDate);
     	borrowing.setSupposedEndDate(supposedEndDate);
     	borrowing.setExtended(true);
+    	borrowing.setReminderMailSent(false);
     	borrowing.setSecondSupposedEndDate(secondSupposedEndDate);
     	borrowing.setEffectiveEndDate(effectiveEndDate);
     	
@@ -118,6 +119,7 @@ public class BorrowingManagerImplUnitTest {
     	borrowingDto.setStartDate(startDate);
     	borrowingDto.setSupposedEndDate(supposedEndDate);
     	borrowingDto.setExtended(true);
+    	borrowingDto.setReminderMailSent(false);
     	borrowingDto.setSecondSupposedEndDate(secondSupposedEndDate);
     	borrowingDto.setEffectiveEndDate(effectiveEndDate);
     	
@@ -153,6 +155,7 @@ public class BorrowingManagerImplUnitTest {
     	assertEquals("borrowingDto : StartDate ",borrowingDto.getStartDate(), borrowing.getStartDate());
     	assertEquals("borrowingDto : SupposedEndDate ",borrowingDto.getSupposedEndDate(), borrowing.getSupposedEndDate());
     	assertEquals("borrowingDto : Extended ",borrowingDto.isExtended(), borrowing.isExtended());
+    	assertEquals("borrowingDto : ReminderMailSent ",borrowingDto.isReminderMailSent(), borrowing.isReminderMailSent());
     	assertEquals("borrowingDto : SecondSupposedEndDate ",borrowingDto.getSecondSupposedEndDate(), borrowing.getSecondSupposedEndDate());
     	assertEquals("borrowingDto : EffectiveEndDate ",borrowingDto.getEffectiveEndDate(), borrowing.getEffectiveEndDate());
     	
@@ -168,6 +171,7 @@ public class BorrowingManagerImplUnitTest {
     	assertEquals("borrowing : StartDate ",borrowingDto.getStartDate(), borrowing.getStartDate());
     	assertEquals("borrowing : SupposedEndDate ",borrowingDto.getSupposedEndDate(), borrowing.getSupposedEndDate());
     	assertEquals("borrowing : Extended ",borrowingDto.isExtended(), borrowing.isExtended());
+    	assertEquals("borrowing : ReminderMailSent ",borrowingDto.isReminderMailSent(), borrowing.isReminderMailSent());
     	assertEquals("borrowing : SecondSupposedEndDate ",borrowingDto.getSecondSupposedEndDate(), borrowing.getSecondSupposedEndDate());
     	assertEquals("borrowing : EffectiveEndDate ",borrowingDto.getEffectiveEndDate(), borrowing.getEffectiveEndDate());
     	

@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.business.contract.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import com.philippe75.libraryWS.business.dto.BookDto;
@@ -66,4 +67,12 @@ public interface BorrowingManager {
 	 * @return List<BorrowingDto> list of {@link BorrowingDto}.
 	 */
 	List<BorrowingDto> getAllLateBorrowings() throws LibraryServiceException;
+	
+	/**
+	 * Method that gets, all Borrowings {@link BorrowingDto} that have a mail reminder activated and within the time passed in parameter.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	List<BorrowingDto> getAllBorrowingsToBeRemindedWithin(Integer typeField, Integer quantity) throws LibraryServiceException, Exception;
 }

@@ -61,6 +61,10 @@ public class Borrowing {
 	 */
 	private boolean extended;
 	/**
+	 * True if a reminder mail for the borrowing comming to an end has been sent.
+	 */
+	private boolean reminderMailSent;
+	/**
 	 * Book borrowed.
 	 */
 	private Book book;
@@ -114,6 +118,14 @@ public class Borrowing {
 	public void setExtended(boolean extended) {
 		this.extended = extended;
 	}
+	@Column(name="reminder_mail_sent")
+	@NotNull
+	public boolean isReminderMailSent() {
+		return reminderMailSent;
+	}
+	public void setReminderMailSent(boolean reminderMailSent) {
+		this.reminderMailSent = reminderMailSent;
+	}
 	@ManyToOne
 	@JoinColumn(name="book_id")
 	@NotNull
@@ -132,6 +144,8 @@ public class Borrowing {
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
+	
+	
 	
 	
 }

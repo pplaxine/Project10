@@ -165,4 +165,14 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	UserAccountDto getUserMailReminderStatus(String userMemberId) throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that gets, all Borrowings {@link BorrowingDto} that have a mail reminder activated and within the time passed in parameter.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	@WebMethod
+	List<BorrowingDto> getAllBorrowingsToBeRemindedWithin(Integer typeField, Integer quantity) throws LibraryServiceException, Exception;
 }
+

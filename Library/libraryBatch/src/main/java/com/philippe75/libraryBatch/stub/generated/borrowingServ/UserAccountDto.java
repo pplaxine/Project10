@@ -1,21 +1,18 @@
 
 package com.philippe75.libraryBatch.stub.generated.borrowingServ;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour userAccount complex type.
+ * <p>Classe Java pour userAccountDto complex type.
  * 
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="userAccount">
+ * &lt;complexType name="userAccountDto">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -24,11 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="blockedAccount" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="listBookBooking" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}bookBooking" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="listBorrowing" type="{http://borrowing.service.exposure.libraryWS.philippe75.com/}borrowing" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="mailReminder" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="phoneNumber" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="sureName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="userMemberId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -41,35 +34,25 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "userAccount", propOrder = {
+@XmlType(name = "userAccountDto", propOrder = {
     "access",
     "address",
     "blockedAccount",
     "email",
     "firstName",
-    "id",
-    "listBookBooking",
-    "listBorrowing",
     "mailReminder",
-    "password",
     "phoneNumber",
     "sureName",
     "userMemberId"
 })
-public class UserAccount {
+public class UserAccountDto {
 
     protected String access;
     protected UserAddress address;
     protected boolean blockedAccount;
     protected String email;
     protected String firstName;
-    protected int id;
-    @XmlElement(nillable = true)
-    protected List<BookBooking> listBookBooking;
-    @XmlElement(nillable = true)
-    protected List<Borrowing> listBorrowing;
     protected boolean mailReminder;
-    protected String password;
     protected double phoneNumber;
     protected String sureName;
     protected String userMemberId;
@@ -187,80 +170,6 @@ public class UserAccount {
     }
 
     /**
-     * Obtient la valeur de la propriété id.
-     * 
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Définit la valeur de la propriété id.
-     * 
-     */
-    public void setId(int value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the listBookBooking property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the listBookBooking property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getListBookBooking().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link BookBooking }
-     * 
-     * 
-     */
-    public List<BookBooking> getListBookBooking() {
-        if (listBookBooking == null) {
-            listBookBooking = new ArrayList<BookBooking>();
-        }
-        return this.listBookBooking;
-    }
-
-    /**
-     * Gets the value of the listBorrowing property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the listBorrowing property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getListBorrowing().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Borrowing }
-     * 
-     * 
-     */
-    public List<Borrowing> getListBorrowing() {
-        if (listBorrowing == null) {
-            listBorrowing = new ArrayList<Borrowing>();
-        }
-        return this.listBorrowing;
-    }
-
-    /**
      * Obtient la valeur de la propriété mailReminder.
      * 
      */
@@ -274,30 +183,6 @@ public class UserAccount {
      */
     public void setMailReminder(boolean value) {
         this.mailReminder = value;
-    }
-
-    /**
-     * Obtient la valeur de la propriété password.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Définit la valeur de la propriété password.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPassword(String value) {
-        this.password = value;
     }
 
     /**

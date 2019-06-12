@@ -22,6 +22,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="effectiveEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="extended" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="reminderMailSent" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="secondSupposedEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="startDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="supposedEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
@@ -40,6 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "effectiveEndDate",
     "extended",
     "id",
+    "reminderMailSent",
     "secondSupposedEndDate",
     "startDate",
     "supposedEndDate",
@@ -52,6 +54,7 @@ public class BorrowingDto {
     protected XMLGregorianCalendar effectiveEndDate;
     protected boolean extended;
     protected Integer id;
+    protected boolean reminderMailSent;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar secondSupposedEndDate;
     @XmlSchemaType(name = "dateTime")
@@ -146,6 +149,22 @@ public class BorrowingDto {
      */
     public void setId(Integer value) {
         this.id = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété reminderMailSent.
+     * 
+     */
+    public boolean isReminderMailSent() {
+        return reminderMailSent;
+    }
+
+    /**
+     * Définit la valeur de la propriété reminderMailSent.
+     * 
+     */
+    public void setReminderMailSent(boolean value) {
+        this.reminderMailSent = value;
     }
 
     /**

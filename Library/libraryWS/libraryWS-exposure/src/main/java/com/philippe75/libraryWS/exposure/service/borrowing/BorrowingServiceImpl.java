@@ -225,6 +225,19 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		return managerHandler.getUserAccountManager().getUserMailReminderStatus(userMemberId);
 	}
 
+	/**
+	 * Method that gets, all Borrowings {@link BorrowingDto} that have a mail reminder activated and within the time passed in parameter.  
+	 *
+	 * @param typeFiel Calendar.type example Calendar.WEEK_OF_YEAR 
+	 * @param quantity quantity of that type example 2 (Weeks) 
+	 */
+	@Override
+	public List<BorrowingDto> getAllBorrowingsToBeRemindedWithin(Integer typeField, Integer quantity) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		return managerHandler.getBorrowingManager().getAllBorrowingsToBeRemindedWithin(typeField, quantity);
+	}
+
+	
 
 
 

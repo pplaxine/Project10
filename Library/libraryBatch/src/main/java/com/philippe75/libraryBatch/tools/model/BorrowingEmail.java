@@ -21,7 +21,7 @@ import com.philippe75.libraryBatch.stub.generated.borrowingServ.UserAccount;
  * @author Philippe plaxine
  * @version 1.0
  */
-public class LateBorrowingEmail implements Serializable{
+public class BorrowingEmail implements Serializable{
 	/**
 	 * Member that made the borrowing
 	 */

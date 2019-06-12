@@ -1,6 +1,8 @@
 package com.philippe75.libraryWS.business.impl.manager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -125,6 +127,22 @@ public abstract class AbstractManager {
 			
 		
 		return book;
+	}
+	
+	/**
+	 * Add some time to a date.   
+	 * 
+	 * @param initialDate the date to add time to.
+	 * @param field Calendar time.
+	 * @param quantity of this Calendar type.
+	 *  
+	 * @return Date {@link Date} with time added.  
+	 */
+	protected Date addSomeTimeToDate(Date initialDate, int field, int amount) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(initialDate);
+		cal.add(field, amount);
+		return cal.getTime();
 	}
 
 

@@ -1,11 +1,10 @@
-package com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob;
+package com.philippe75.libraryBatch.tools.tasklet.reminderBorrowingsJob;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.StepExecution;
@@ -32,8 +31,8 @@ import com.philippe75.libraryBatch.tools.tasklet.EmailHelper;
  */
 @Component
 @PropertySource("classpath:/Config.properties")
-public class LateBorrowingProcessor extends EmailHelper implements Tasklet, StepExecutionListener{
-	
+public class ReminderBorrowingProcessor extends EmailHelper implements Tasklet, StepExecutionListener{
+
 	/**
 	 * Allow access to DataBaseConf.properties
 	 *
@@ -42,23 +41,24 @@ public class LateBorrowingProcessor extends EmailHelper implements Tasklet, Step
 	@Autowired
 	Environment env;
 	
-	private Map<String, BorrowingEmail> lateBorrowingEmailMap;
-	
+	/**
+	 * All the Email to be sent.
+	 */
+	private List<BorrowingEmail> reminderBorrowingEmailList;
 	
 	@Override
 	public void beforeStep(StepExecution se) {
 		ExecutionContext ec = se.getJobExecution()
-								.getExecutionContext();
-		lateBorrowingEmailMap = (Map<String, BorrowingEmail>)ec.get("lateBorrowingEmailMap");
+				.getExecutionContext();
+		reminderBorrowingEmailList = (List<BorrowingEmail>) ec.get("reminderBorrowingEmailList");
+		
 	}
 
 	@Override
 	public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
-		
-		lateBorrowingEmailMap.values().forEach(e ->{
+		reminderBorrowingEmailList.forEach( e-> {
 			String emailContent = composeEmail(e.getUserAccount().getFirstName(), e.getListBorrowing());
 			e.setEmailContent(emailContent);
-			
 		});
 		return RepeatStatus.FINISHED;
 	}
@@ -67,7 +67,7 @@ public class LateBorrowingProcessor extends EmailHelper implements Tasklet, Step
 	public ExitStatus afterStep(StepExecution se) {
 		return ExitStatus.COMPLETED;
 	}
-	
+
 	
 	//UTILITY METHODS 
 	/**
@@ -81,42 +81,60 @@ public class LateBorrowingProcessor extends EmailHelper implements Tasklet, Step
 		
 		StringBuilder sb = new StringBuilder();
 		
-		try(BufferedReader br = Files.newBufferedReader(Paths.get(env.getProperty("mail.template.late.borrowings.path")))){
+		try(BufferedReader br = Files.newBufferedReader(Paths.get(env.getProperty("mail.template.borrowing.reminder.path")))){
 			br.lines().forEach(e-> sb.append(e));
 			replaceAll(sb, "$$userName", name);
-			replaceAll(sb, "$$att", listBorrowing.size()>1?"les":"l'");
-			replaceAll(sb, "$$pluriel", listBorrowing.size()>1?"s":"");
-			replaceAll(sb, "$$listBook", generateHTMLBookList(listBorrowing));
+			replaceAll(sb, "$$pluriel", listBorrowing.size()>2?"s":"");
+			replaceAll(sb, "$$mainBorrowingReminder", generateHTMLMainBorrowing(listBorrowing.get(0)));
+			if(listBorrowing.size() > 1) {
+				replaceAll(sb, "$$otherBorrowingReminder", generateHTMLOtherBorrowingList(listBorrowing));
+			}else {
+				replaceAll(sb, "$$otherBorrowingReminder", "");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return sb.toString();
 	}
 	
+	private String generateHTMLMainBorrowing(Borrowing borrowing) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(borrowing.getBook().getName()
+				+ " emprunté le "
+				+ formatGC(borrowing.getStartDate() , "dd MMMM yyyy") 
+				+ " arrive bientôt à échéance, avec un retour prévu le "
+				+ formatGC((borrowing.getSecondSupposedEndDate() != null?borrowing.getSecondSupposedEndDate():borrowing.getSupposedEndDate()), "dd MMMM yyyy")
+				+".");
+		return sb.toString();
+	}
+	
 	/**
 	 * Creates from a list of {@link BorrowingDto} a list in HTML.
 	 * 
-	 * @param listBorrowingDto the list of late borrowings for a user 
+	 * @param listBorrowingDto the list of other borrowings for a user to be reminded. 
 	 * @return HTML list in String format
 	 */
-	private String generateHTMLBookList(List<Borrowing> listBorrowing) {
+	private String generateHTMLOtherBorrowingList(List<Borrowing> listBorrowing) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<ol>");
-		listBorrowing.forEach(e->{
+		
+		//all but not the first (main borrowing for email) 
+		for (int i = 1; i < listBorrowing.size(); i++) {
+			Borrowing bd = listBorrowing.get(i);
 			
-			sb.append("<li>"+ e.getBook().getName()
-							+ " emprunté le "
-							+ formatGC(e.getStartDate() , "dd MMMM yyyy") 
-							+ " avec un retour prévu le "
-							+ formatGC((e.getSecondSupposedEndDate() != null?e.getSecondSupposedEndDate():e.getSupposedEndDate()), "dd MMMM yyyy")
-							+"</li>");
-		});
+			sb.append("Voici également vos locations avec une échéance de moins de 5 jours :"
+					+ "<div>"
+					+ "<li>"+ bd.getBook().getName()
+					+ " emprunté le "
+					+ formatGC(bd.getStartDate() , "dd MMMM yyyy") 
+					+ " avec un retour prévu le "
+					+ formatGC((bd.getSecondSupposedEndDate() != null?bd.getSecondSupposedEndDate():bd.getSupposedEndDate()), "dd MMMM yyyy")
+					+"</li>"
+					+ "</div>");
+		}
 		sb.append("</ol>");
 		
 		return sb.toString();
 	}
-	
-
-
 
 }

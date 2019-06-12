@@ -33,6 +33,9 @@ import com.philippe75.libraryBatch.tools.tasklet.bookingsJob.BookingListReader;
 import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingEmailSender;
 import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingProcessor;
 import com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob.LateBorrowingReader;
+import com.philippe75.libraryBatch.tools.tasklet.reminderBorrowingsJob.ReminderBorrowingEmailSender;
+import com.philippe75.libraryBatch.tools.tasklet.reminderBorrowingsJob.ReminderBorrowingProcessor;
+import com.philippe75.libraryBatch.tools.tasklet.reminderBorrowingsJob.ReminderBorrowingReader;
 
 /**
  * <b>Spring Batch configuration Class</b>
@@ -73,6 +76,15 @@ public class SpringBatchConfiguration {
 	
 	@Autowired
 	public BookingListExceedDelayRemover bookingListExceededDelayRemover;
+	
+	@Autowired
+	public ReminderBorrowingReader reminderBorrowingReader;
+	
+	@Autowired
+	public ReminderBorrowingProcessor reminderBorrowingProcessor; 
+	
+	@Autowired
+	public ReminderBorrowingEmailSender reminderEmailSender;
 	
 	// ------- Sending emails to late borrowing via tasklet way (+ code externalized in class ) ---------------
 
@@ -204,6 +216,31 @@ public class SpringBatchConfiguration {
     			.build();
     }
     
+    @Bean
+    public Step readListBorrowingToRemind() {
+    	return stepBuilderFactory.get("stepReadListBorrowingToRemind")
+    			.tasklet(reminderBorrowingReader)
+    			.allowStartIfComplete(true)
+    			.build();
+    }
+    
+    @Bean
+    public Step processListBorrowingToRemind() {
+    	return stepBuilderFactory.get("stepProcessListBorrowingToRemind")
+    			.tasklet(reminderBorrowingProcessor)
+    			.allowStartIfComplete(true)
+    			.build();
+    }
+    
+    @Bean
+    public Step sendEmailBorrowingToRemind() {
+    	return stepBuilderFactory.get("stepSendEmailBorrowingToRemind")
+    			.tasklet(reminderEmailSender)
+    			.allowStartIfComplete(true)
+    			.build();
+    }
+    
+    
     
     // ------------------------------- Step chunk way ----------------------------------------
     
@@ -214,17 +251,17 @@ public class SpringBatchConfiguration {
     
     //========== JOB ==========
     
-//    @Bean(name="sendMailToLateBorrowingsJob")
-//    public Job job(@Qualifier("StoreLateBorrowingsToCSV") Step step1, @Qualifier("readLateBorrowing") Step step2, @Qualifier("processLateBorrowing") Step step3, @Qualifier("SendEmailToUser") Step step4) {		// @Qualifier inject Step
-//    	return jobBuilderFactory.get("LateBorrowingsJob")
-//    			.incrementer(new RunIdIncrementer())
-//    			.start(step1)
-//    			.next(step2)
-//    			.next(step3)
-//    			.next(step4)
-//    			.build();
-//    }
-//    
+    @Bean(name="sendMailToLateBorrowingsJob")
+    public Job job(@Qualifier("StoreLateBorrowingsToCSV") Step step1, @Qualifier("readLateBorrowing") Step step2, @Qualifier("processLateBorrowing") Step step3, @Qualifier("SendEmailToUser") Step step4) {		// @Qualifier inject Step
+    	return jobBuilderFactory.get("LateBorrowingsJob")
+    			.incrementer(new RunIdIncrementer())
+    			.start(step1)
+    			.next(step2)
+    			.next(step3)
+    			.next(step4)
+    			.build();
+    }
+    
     @Bean(name="sendEmailToBookingListJob")
     public Job job2(@Qualifier("removeExceededBookings") Step step1, @Qualifier("readListBooking") Step step2, @Qualifier("processListBooking")Step step3, @Qualifier("sendEmailListBooking")Step step4) {
     	
@@ -237,6 +274,17 @@ public class SpringBatchConfiguration {
     			.build();
     }
 	
+    @Bean(name="sendEmailReminder")
+    public Job job3(@Qualifier("readListBorrowingToRemind") Step step1, @Qualifier("processListBorrowingToRemind") Step step2, @Qualifier("sendEmailBorrowingToRemind") Step step3) {
+    	
+    	return jobBuilderFactory.get("sendEmailReminder")
+    			.incrementer(new RunIdIncrementer())
+    			.start(step1)
+    			.next(step2)
+    			.next(step3)
+    			.build();
+    }
+   
 }
 
 

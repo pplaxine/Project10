@@ -1,5 +1,6 @@
-package com.philippe75.libraryBatch.tools.tasklet.lateBorrowingsJob;
+package com.philippe75.libraryBatch.tools.tasklet.reminderBorrowingsJob;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.batch.core.ExitStatus;
@@ -24,7 +25,7 @@ import com.philippe75.libraryBatch.tools.model.BorrowingEmail;
  * @version 1.0
  */
 @Component
-public class LateBorrowingEmailSender implements Tasklet, StepExecutionListener {
+public class ReminderBorrowingEmailSender implements Tasklet, StepExecutionListener {
 	
 	/**
 	 * The email sender web service.
@@ -35,24 +36,24 @@ public class LateBorrowingEmailSender implements Tasklet, StepExecutionListener 
 	/**
 	 * All the Email to be sent.
 	 */
-	private Map<String, BorrowingEmail> lateBorrowingEmailMap;
+	private List<BorrowingEmail> reminderBorrowingEmailList;
 	
 	@Override
 	public void beforeStep(StepExecution se) {
 		
 		ExecutionContext ec = se.getJobExecution()
 				.getExecutionContext();
-		lateBorrowingEmailMap = (Map<String, BorrowingEmail>)ec.get("lateBorrowingEmailMap");
+		reminderBorrowingEmailList = (List<BorrowingEmail>) ec.get("reminderBorrowingEmailList");
 		
 	}
 	
 	@Override
 	public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
 		
-		lateBorrowingEmailMap.values().forEach(e-> {
+		reminderBorrowingEmailList.forEach(e-> {
 			//SET ON MY EMAIL ADRESS FOR TESTING 
 			//emailService.sendSimpleMessage(e.getUserAccount().getEmail(), e.getUserAccount().getFirstName() + " Vous etes en retard ...", e.getEmailContent());
-			emailService.sendSimpleMessage("p.plaxine@orange.fr", e.getUserAccount().getFirstName() + " Vous etes en retard ...", e.getEmailContent());
+			emailService.sendSimpleMessage("p.plaxine@orange.fr", e.getUserAccount().getFirstName() + " Votre location arrive à échéance ...", e.getEmailContent());
 		});
 		
 		return RepeatStatus.FINISHED;

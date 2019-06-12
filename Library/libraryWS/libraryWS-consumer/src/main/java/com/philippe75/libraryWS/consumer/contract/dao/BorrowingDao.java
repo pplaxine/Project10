@@ -1,5 +1,6 @@
 package com.philippe75.libraryWS.consumer.contract.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.philippe75.libraryWS.model.book.Book;
@@ -64,5 +65,12 @@ public interface BorrowingDao {
 	 * @return List<Borrowing> list of {@link Borrowing}.
 	 */
 	List<Borrowing> getAllLateBorrowings() throws Exception;
-	
+
+	/**
+	 * Method that gets, all Borrowings {@link Borrowing} that have a mail reminder activated before the date passed as parameter.  
+	 *
+	 * @param date the limit date. 
+	 * @return List<BookBooking> list of all borrowings {@link Borrowing} before the date.
+	 */
+	List<Borrowing> getAllBorrowingsToRemindBeforeThisDate(Date date) throws Exception;
 }

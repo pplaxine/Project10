@@ -51,6 +51,12 @@ public class BorrowingDto {
 	 * True if member decided to extend the borrowing (available only once).
 	 */
 	private boolean extended;
+	
+	/**
+	 * True if a reminder mail for the borrowing comming to an end has been sent.
+	 */
+	private boolean reminderMailSent;
+	
 	/**
 	 * Book borrowed.
 	 */
@@ -95,6 +101,12 @@ public class BorrowingDto {
 	}
 	public void setExtended(boolean extended) {
 		this.extended = extended;
+	}
+	public boolean isReminderMailSent() {
+		return reminderMailSent;
+	}
+	public void setReminderMailSent(boolean reminderMailSent) {
+		this.reminderMailSent = reminderMailSent;
 	}
 	public Book getBook() {
 		return book;
