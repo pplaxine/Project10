@@ -236,6 +236,18 @@ public class BorrowingServiceImpl extends SpringBeanAutowiringSupport implements
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		return managerHandler.getBorrowingManager().getAllBorrowingsToBeRemindedWithin(typeField, quantity);
 	}
+	
+	/**
+	 * Method that adds status of reminder mail being sent or not for a borrowing.  
+	 * 
+	 * @param borrowingIdId id of the Borrowing where status must be changed.
+	 * @param status the new status to be persist.
+	 */
+	@Override
+	public void updateBorrowingReminderMailStatus(BorrowingDto borrowingDto) throws LibraryServiceException, Exception {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+		managerHandler.getBorrowingManager().updateBorrowingReminderMailStatus(borrowingDto);
+	}
 
 	
 

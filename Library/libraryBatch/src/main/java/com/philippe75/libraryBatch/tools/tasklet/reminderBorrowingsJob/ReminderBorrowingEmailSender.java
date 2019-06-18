@@ -14,6 +14,10 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto;
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService;
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.Exception_Exception;
+import com.philippe75.libraryBatch.stub.generated.borrowingServ.LibraryServiceException_Exception;
 import com.philippe75.libraryBatch.stub.generated.mailServ.EmailService;
 import com.philippe75.libraryBatch.tools.model.BorrowingEmail;
 
@@ -34,9 +38,16 @@ public class ReminderBorrowingEmailSender implements Tasklet, StepExecutionListe
 	private EmailService emailService;
 	
 	/**
+	 * The borrowing web service.
+	 */
+	@Autowired
+	private BorrowingService borrowingService; 
+	
+	/**
 	 * All the Email to be sent.
 	 */
 	private List<BorrowingEmail> reminderBorrowingEmailList;
+	private BorrowingDto borrowing;
 	
 	@Override
 	public void beforeStep(StepExecution se) {
@@ -51,11 +62,22 @@ public class ReminderBorrowingEmailSender implements Tasklet, StepExecutionListe
 	public RepeatStatus execute(StepContribution sc, ChunkContext cc) throws Exception {
 		
 		reminderBorrowingEmailList.forEach(e-> {
+			
+			borrowing = new BorrowingDto();
+			borrowing.setId(e.getListBorrowing().get(0).getId());
+			borrowing.setReminderMailSent(true);
+			try {
+				borrowingService.updateBorrowingReminderMailStatus(borrowing);
+			} catch (Exception_Exception e1) {
+				e1.printStackTrace();
+			} catch (LibraryServiceException_Exception e1) {
+				e1.printStackTrace();
+			}
+			
 			//SET ON MY EMAIL ADRESS FOR TESTING 
 			//emailService.sendSimpleMessage(e.getUserAccount().getEmail(), e.getUserAccount().getFirstName() + " Vous etes en retard ...", e.getEmailContent());
 			emailService.sendSimpleMessage("p.plaxine@orange.fr", e.getUserAccount().getFirstName() + " Votre location arrive à échéance ...", e.getEmailContent());
 		});
-		
 		return RepeatStatus.FINISHED;
 	}
 

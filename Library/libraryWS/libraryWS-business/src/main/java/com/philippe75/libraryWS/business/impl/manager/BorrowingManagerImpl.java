@@ -354,8 +354,29 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		}else {
 			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","You must complete typeField and quantity Values"));
 		}
-		
 	}
+	
+	/**
+	 * Method that adds status of reminder mail being sent or not for a borrowing.  
+	 * 
+	 * @param borrowingIdId id of the Borrowing where status must be changed.
+	 * @param status the new status to be persist.
+	 */
+	@Override
+	public void updateBorrowingReminderMailStatus(BorrowingDto borrowingDto) throws LibraryServiceException, Exception {
+		if(borrowingDto != null && borrowingDto.getId() != null) {
+			//Dto to model 
+			Borrowing borrowing = borrowingDtoToModel(borrowingDto);
+			//get values 
+			Integer borrowingId = borrowing.getId();
+			Boolean status = borrowing.isReminderMailSent(); 
+			
+			getDaoHandler().getBorrowingDao().updateBorrowingReminderMailStatus(borrowingId, status);
+		}else {
+			throw new LibraryServiceException("EmptyValueException", libraryServiceFaultFactory("1422","You must complete borrowingId and status Values"));
+		}
+	}
+	
 
 	//---- UTILITY METHODS ----------------------------------------------------------------
 	
@@ -409,6 +430,10 @@ public class BorrowingManagerImpl extends AbstractManager implements BorrowingMa
 		
 		return borrowing;
 	}
+
+
+
+
 
 
 

@@ -28,7 +28,6 @@ import com.philippe75.libraryWS.consumer.contract.handler.DaoHandler;
 import com.philippe75.libraryWS.exposure.bootstrap.SpringConfiguration;
 import com.philippe75.libraryWS.model.book.Book;
 import com.philippe75.libraryWS.model.book.BookBooking;
-import com.philippe75.libraryWS.model.book.Borrowing;
 import com.philippe75.libraryWS.model.exception.saop.LibraryServiceException;
 import com.philippe75.libraryWS.model.user.UserAccount;
 
@@ -276,5 +275,21 @@ public class BorrowingServiceIntTest extends AbstractManager {
 		
 		assertTrue("The number of reminder email to be sent should be 2",lb.size() == 2);
 	}
+	
+	//update status if a reminder mail is sent
+	@Test
+	public void intTest15updateMailReminder() throws Exception {
+		
+		Boolean mailReminderStatus;
+		
+		daoHandler.getBorrowingDao().updateBorrowingReminderMailStatus(1, true);
+		mailReminderStatus = daoHandler.getBorrowingDao().getBorrowingById(1).isReminderMailSent();
+		assertTrue("The mail reminder status should be false", mailReminderStatus == true);
+		
+		daoHandler.getBorrowingDao().updateBorrowingReminderMailStatus(1, false);
+		mailReminderStatus = daoHandler.getBorrowingDao().getBorrowingById(1).isReminderMailSent();
+		assertTrue("The mail reminder status should be true", mailReminderStatus == false);
+	}
+	
 }
 

@@ -73,4 +73,12 @@ public interface BorrowingDao {
 	 * @return List<BookBooking> list of all borrowings {@link Borrowing} before the date.
 	 */
 	List<Borrowing> getAllBorrowingsToRemindBeforeThisDate(Date date) throws Exception;
+	
+	/**
+	 * Method that adds status of reminder mail being sent or not for a borrowing.  
+	 * 
+	 * @param borrowingIdId id of the Borrowing where status must be changed.
+	 * @param status the new status to be persist.
+	 */
+	void updateBorrowingReminderMailStatus(Integer borrowingId,Boolean status) throws Exception;
 }

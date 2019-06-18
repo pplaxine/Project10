@@ -229,9 +229,10 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 		String sql = "SELECT * FROM borrowing "
 					+ "JOIN user_account ON borrowing.user_account_id = user_account.id "
 					+ "WHERE effective_end_date is null "
-						+ "AND (CASE WHEN extended=false THEN supposed_end_date <:date WHEN extended=true THEN second_supposed_end_date <:date END)"
-						+ "AND (CASE WHEN extended=false THEN supposed_end_date > NOW() WHEN extended=true THEN second_supposed_end_date > NOW() END)"
-						+ "AND user_account.mail_reminder =:mailReminder";
+						+ "AND (CASE WHEN extended=false THEN supposed_end_date <:date WHEN extended=true THEN second_supposed_end_date <:date END) "
+						+ "AND (CASE WHEN extended=false THEN supposed_end_date > NOW() WHEN extended=true THEN second_supposed_end_date > NOW() END) "
+						+ "AND reminder_mail_sent=:status "
+						+ "AND user_account.mail_reminder =:mailReminder ";
 		List<Borrowing> listBorrowing;
 		
 		Session session = getSession();
@@ -240,6 +241,7 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 			listBorrowing = (List<Borrowing>)session.createSQLQuery(sql)
 					.setParameter("date", date)
 					.setParameter("mailReminder", true)
+					.setParameter("status", false)
 					.addEntity(Borrowing.class)
 					.list(); 
 			session.getTransaction().commit();
@@ -251,7 +253,33 @@ public class BorrowingDaoImpl extends AbstractDao implements BorrowingDao {
 		}
 		return listBorrowing;
 	}
-	
+
+	/**
+	 * Method that adds status of reminder mail being sent or not for a borrowing.  
+	 * 
+	 * @param borrowingIdId id of the Borrowing where status must be changed.
+	 * @param status the new status to be persist.
+	 */
+	@Override
+	public void updateBorrowingReminderMailStatus(Integer borrowingId,Boolean status) throws Exception {
+String hql = "UPDATE Borrowing b set b.reminderMailSent=:status WHERE b.id= :borrowingId";
+		
+		Session session = getSession();
+		session.beginTransaction();
+		try {
+			session.createQuery(hql)
+						.setParameter("status", status)
+						.setParameter("borrowingId", borrowingId)
+						.executeUpdate();
+			
+			session.getTransaction().commit();
+			session.close();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+	}
 }
 	
 

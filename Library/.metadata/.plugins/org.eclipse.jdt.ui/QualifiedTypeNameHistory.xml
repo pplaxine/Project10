@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.authServ.UserAccountDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.exception.saop.LibraryServiceException"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.dto.UserAccountDto"/>
-<fullyQualifiedTypeName name="javax.jws.WebMethod"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWebapp.stub.generated.borrowingServ.UserAccountDto"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.model.book.Borrowing"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryWS.business.impl.manager.AbstractManager"/>
@@ -19,7 +18,6 @@
 <fullyQualifiedTypeName name="org.springframework.test.context.ContextConfiguration"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.UserAccount"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.Book"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingServiceImplService"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookSearchService"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.bookService.BookSearchServiceImplService"/>
@@ -30,7 +28,6 @@
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.model.Borrowing"/>
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.model.BorrowingEmail"/>
@@ -41,4 +38,7 @@
 <fullyQualifiedTypeName name="com.philippe75.libraryBatch.tools.tasklet.reminderBorrowingsJob.ReminderBorrowingEmailSender"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
+<fullyQualifiedTypeName name="javax.jws.WebMethod"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingService"/>
+<fullyQualifiedTypeName name="com.philippe75.libraryBatch.stub.generated.borrowingServ.BorrowingDto"/>
 </qualifiedTypeNameHistroy>

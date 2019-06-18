@@ -120,7 +120,6 @@ public class UserAccountDaoImpl extends AbstractDao implements UserAccountDao {
 				session.close();
 			}
 		}
-		
 	}
 	
 	

@@ -6,7 +6,7 @@ This is a SAOP architecture made in order to provide an information system to a 
 ## Getting Started
 
   #### DataBase
-    *WARNING* Before starting, you have to modify with your docker setup, the docker-compose.yml in the following directories : 
+    *WARNING* Before starting, you have to modify the docker-compose.yml in the following directories : 
 
         . directoryOfYourProject/Project10/dockerdev/libraryWappTestDB/ - Change ports :  - "192.168.99.102:9032:5432" to - "127.0.0.1:9032:5432" or "yourDockerMachineIp:9032:5432".
 
@@ -52,7 +52,7 @@ This is a SAOP architecture made in order to provide an information system to a 
 
     (ex : http://localhost:8081/libraryWebapp-webapp/)
 
-  #### libraryBatch *to review --> to be inserted in libraryWS docker-compose.yml *
+  #### libraryBatch 
     1. To run the batch, open a command prompt.
     2. Go to your ".jar" file directory.
     3. Type the following command : java -jar libraryBatch.jar .
@@ -63,17 +63,15 @@ This is a SAOP architecture made in order to provide an information system to a 
 
 ## Prerequisites
 
-*To complete*
+Install Java JRE version 8 or higher. (https://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
-Install Java JRE version 8 or higher.
+Install the latest version of Maven (for more information : https://maven.apache.org/).
 
-Install PGAdmin4 and create, for the webapp, a corresponding database (for more information : https://www.pgadmin.org/). 
+Install Docker (https://www.docker.com/). 
 
-Install the latest version of Tomcat and set configuration to unlock access to the Manager app(for more information : https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html). 
+## Built With 
 
-## Built With
-
-* [Eclipse](https://www.eclipse.org/documentation/)
+* [Eclipse](https://www.eclipse.org/documentation/).
 
 ## Authors
 

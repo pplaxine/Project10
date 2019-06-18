@@ -174,5 +174,14 @@ public interface BorrowingService {
 	 */
 	@WebMethod
 	List<BorrowingDto> getAllBorrowingsToBeRemindedWithin(Integer typeField, Integer quantity) throws LibraryServiceException, Exception;
+	
+	/**
+	 * Method that adds status of reminder mail being sent or not for a borrowing.  
+	 * 
+	 * @param borrowingIdId id of the Borrowing where status must be changed.
+	 * @param status the new status to be persist.
+	 */
+	@WebMethod
+	void updateBorrowingReminderMailStatus(BorrowingDto borrowingDto) throws LibraryServiceException, Exception;
 }
 
