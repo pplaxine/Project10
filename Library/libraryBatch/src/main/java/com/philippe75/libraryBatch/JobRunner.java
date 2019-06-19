@@ -56,7 +56,7 @@ public class JobRunner {
 		try {
 			je = 
 			jobLauncher.run(sendEmailReminder, new JobParameters());							//email 5 days reminder job  
-			jobLauncher.run(sendEmailToBookingListJob, new JobParameters());					//email booking job 
+			//jobLauncher.run(sendEmailToBookingListJob, new JobParameters());					//email booking job 
 			//jobLauncher.run(sendMailToLateBorrowingsJob, new JobParameters());				//email late borrowings job 
 			
 			System.out.println("Job status " + je.getStatus());

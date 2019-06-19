@@ -876,7 +876,7 @@
                <available>?</available>\r
                <!--Optional:-->\r
                <genre>?</genre>\r
-               <id>20</id>\r
+               <id>${#TestCase#bookId}</id>\r
                <!--Optional:-->\r
                <library>\r
                   <id>?</id>\r
@@ -1031,12 +1031,356 @@
                <!--Optional:-->\r
                <sureName>?</sureName>\r
                <!--Optional:-->\r
-               <userMemberId>UserTest</userMemberId>\r
+               <userMemberId>${#TestCase#userMemberId}</userMemberId>\r
             </userAccount>\r
          </arg0>\r
       </bor:createBorrowing>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a55f5976-8d48-4d9d-9160-5231c27e677c" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/createBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>supposedEndDate</con:name><con:value>2019-07-25T21:32:52</con:value></con:property><con:property><con:name>bookId</con:name><con:value>18</con:value></con:property><con:property><con:name>userMemberId</con:name><con:value>UserTest</con:value></con:property></con:properties></con:testCase><con:testCase id="b3630ce6-7c50-4aca-a642-d46fda8942fb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase getBorrowingById" searchProperties="true"><con:settings/><con:testStep type="request" id="3ef6b023-c6cf-4ce8-9b41-37f9d432a892" name="getBorrowingById - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BorrowingServiceImplPortBinding</con:interface><con:operation>getBorrowingById</con:operation><con:request name="getBorrowingById - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="47bdf066-340c-4d2f-b6ab-12a07819e6ba"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/libraryBorrowingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bor="http://borrowing.service.exposure.libraryWS.philippe75.com/">\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a55f5976-8d48-4d9d-9160-5231c27e677c" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/createBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="9e1a5aa3-dc8e-4179-9419-8e8402d12636" name="createBorrowing - Request 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BorrowingServiceImplPortBinding</con:interface><con:operation>createBorrowing</con:operation><con:request name="createBorrowing - Request 2" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="164dfd00-40f9-4443-b115-f36a68d06e71"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/libraryBorrowingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bor="http://borrowing.service.exposure.libraryWS.philippe75.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bor:createBorrowing>\r
+         <arg0>\r
+            <!--Optional:-->\r
+            <book>\r
+               <!--Optional:-->\r
+               <author>?</author>\r
+               <available>?</available>\r
+               <!--Optional:-->\r
+               <genre>?</genre>\r
+               <id>${#TestCase#bookId2}</id>\r
+               <!--Optional:-->\r
+               <library>\r
+                  <id>?</id>\r
+                  <!--Optional:-->\r
+                  <name>?</name>\r
+                  <phoneNumber>?</phoneNumber>\r
+                  <!--Optional:-->\r
+                  <address>\r
+                     <!--Optional:-->\r
+                     <city>?</city>\r
+                     <id>?</id>\r
+                     <postCode>?</postCode>\r
+                     <!--Optional:-->\r
+                     <streetName>?</streetName>\r
+                     <!--Optional:-->\r
+                     <streetNumber>?</streetNumber>\r
+                  </address>\r
+               </library>\r
+               <!--Zero or more repetitions:-->\r
+               <listBorrowing>\r
+                  <!--Optional:-->\r
+                  <book/>\r
+                  <!--Optional:-->\r
+                  <effectiveEndDate>?</effectiveEndDate>\r
+                  <extended>?</extended>\r
+                  <id>?</id>\r
+                  <!--Optional:-->\r
+                  <secondSupposedEndDate>?</secondSupposedEndDate>\r
+                  <!--Optional:-->\r
+                  <startDate>?</startDate>\r
+                  <!--Optional:-->\r
+                  <supposedEndDate>?</supposedEndDate>\r
+                  <!--Optional:-->\r
+                  <userAccount>\r
+                     <!--Optional:-->\r
+                     <access>?</access>\r
+                     <!--Optional:-->\r
+                     <address>\r
+                        <!--Optional:-->\r
+                        <city>?</city>\r
+                        <id>?</id>\r
+                        <postCode>?</postCode>\r
+                        <!--Optional:-->\r
+                        <streetName>?</streetName>\r
+                        <!--Optional:-->\r
+                        <streetNumber>?</streetNumber>\r
+                     </address>\r
+                     <blockedAccount>?</blockedAccount>\r
+                     <!--Optional:-->\r
+                     <email>?</email>\r
+                     <!--Optional:-->\r
+                     <firstName>?</firstName>\r
+                     <id>?</id>\r
+                     <!--Zero or more repetitions:-->\r
+                     <listBorrowing/>\r
+                     <!--Optional:-->\r
+                     <password>?</password>\r
+                     <phoneNumber>?</phoneNumber>\r
+                     <!--Optional:-->\r
+                     <sureName>?</sureName>\r
+                     <!--Optional:-->\r
+                     <userMemberId>?</userMemberId>\r
+                  </userAccount>\r
+               </listBorrowing>\r
+               <!--Optional:-->\r
+               <name>?</name>\r
+               <!--Optional:-->\r
+               <summary>?</summary>\r
+            </book>\r
+            <!--Optional:-->\r
+            <effectiveEndDate>?</effectiveEndDate>\r
+            <extended>?</extended>\r
+            <id>?</id>\r
+            <!--Optional:-->\r
+            <secondSupposedEndDate>?</secondSupposedEndDate>\r
+            <!--Optional:-->\r
+            <startDate>?</startDate>\r
+            <!--Optional:-->\r
+            <supposedEndDate>${#TestCase#supposedEndDate}</supposedEndDate>\r
+            <!--Optional:-->\r
+            <userAccount>\r
+               <!--Optional:-->\r
+               <access>?</access>\r
+               <!--Optional:-->\r
+               <address>\r
+                  <!--Optional:-->\r
+                  <city>?</city>\r
+                  <id>?</id>\r
+                  <postCode>?</postCode>\r
+                  <!--Optional:-->\r
+                  <streetName>?</streetName>\r
+                  <!--Optional:-->\r
+                  <streetNumber>?</streetNumber>\r
+               </address>\r
+               <blockedAccount>?</blockedAccount>\r
+               <!--Optional:-->\r
+               <email>?</email>\r
+               <!--Optional:-->\r
+               <firstName>?</firstName>\r
+               <id>?</id>\r
+               <!--Zero or more repetitions:-->\r
+               <listBorrowing>\r
+                  <!--Optional:-->\r
+                  <book>\r
+                     <!--Optional:-->\r
+                     <author>?</author>\r
+                     <available>?</available>\r
+                     <!--Optional:-->\r
+                     <genre>?</genre>\r
+                     <id>?</id>\r
+                     <!--Optional:-->\r
+                     <library>\r
+                        <id>?</id>\r
+                        <!--Optional:-->\r
+                        <name>?</name>\r
+                        <phoneNumber>?</phoneNumber>\r
+                        <!--Optional:-->\r
+                        <address>\r
+                           <!--Optional:-->\r
+                           <city>?</city>\r
+                           <id>?</id>\r
+                           <postCode>?</postCode>\r
+                           <!--Optional:-->\r
+                           <streetName>?</streetName>\r
+                           <!--Optional:-->\r
+                           <streetNumber>?</streetNumber>\r
+                        </address>\r
+                     </library>\r
+                     <!--Zero or more repetitions:-->\r
+                     <listBorrowing/>\r
+                     <!--Optional:-->\r
+                     <name>?</name>\r
+                     <!--Optional:-->\r
+                     <summary>?</summary>\r
+                  </book>\r
+                  <!--Optional:-->\r
+                  <effectiveEndDate>?</effectiveEndDate>\r
+                  <extended>?</extended>\r
+                  <id>?</id>\r
+                  <!--Optional:-->\r
+                  <secondSupposedEndDate>?</secondSupposedEndDate>\r
+                  <!--Optional:-->\r
+                  <startDate>?</startDate>\r
+                  <!--Optional:-->\r
+                  <supposedEndDate>?</supposedEndDate>\r
+                  <!--Optional:-->\r
+                  <userAccount/>\r
+               </listBorrowing>\r
+               <!--Optional:-->\r
+               <password>?</password>\r
+               <phoneNumber>?</phoneNumber>\r
+               <!--Optional:-->\r
+               <sureName>?</sureName>\r
+               <!--Optional:-->\r
+               <userMemberId>${#TestCase#userMemberId}</userMemberId>\r
+            </userAccount>\r
+         </arg0>\r
+      </bor:createBorrowing>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a55f5976-8d48-4d9d-9160-5231c27e677c" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/createBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="8c2402ea-62dd-4aeb-9f89-4629322c7d8b" name="createBorrowing - Request 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BorrowingServiceImplPortBinding</con:interface><con:operation>createBorrowing</con:operation><con:request name="createBorrowing - Request 3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="164dfd00-40f9-4443-b115-f36a68d06e71"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/libraryBorrowingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bor="http://borrowing.service.exposure.libraryWS.philippe75.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bor:createBorrowing>\r
+         <arg0>\r
+            <!--Optional:-->\r
+            <book>\r
+               <!--Optional:-->\r
+               <author>?</author>\r
+               <available>?</available>\r
+               <!--Optional:-->\r
+               <genre>?</genre>\r
+               <id>${#TestCase#bookId2}</id>\r
+               <!--Optional:-->\r
+               <library>\r
+                  <id>?</id>\r
+                  <!--Optional:-->\r
+                  <name>?</name>\r
+                  <phoneNumber>?</phoneNumber>\r
+                  <!--Optional:-->\r
+                  <address>\r
+                     <!--Optional:-->\r
+                     <city>?</city>\r
+                     <id>?</id>\r
+                     <postCode>?</postCode>\r
+                     <!--Optional:-->\r
+                     <streetName>?</streetName>\r
+                     <!--Optional:-->\r
+                     <streetNumber>?</streetNumber>\r
+                  </address>\r
+               </library>\r
+               <!--Zero or more repetitions:-->\r
+               <listBorrowing>\r
+                  <!--Optional:-->\r
+                  <book/>\r
+                  <!--Optional:-->\r
+                  <effectiveEndDate>?</effectiveEndDate>\r
+                  <extended>?</extended>\r
+                  <id>?</id>\r
+                  <!--Optional:-->\r
+                  <secondSupposedEndDate>?</secondSupposedEndDate>\r
+                  <!--Optional:-->\r
+                  <startDate>?</startDate>\r
+                  <!--Optional:-->\r
+                  <supposedEndDate>?</supposedEndDate>\r
+                  <!--Optional:-->\r
+                  <userAccount>\r
+                     <!--Optional:-->\r
+                     <access>?</access>\r
+                     <!--Optional:-->\r
+                     <address>\r
+                        <!--Optional:-->\r
+                        <city>?</city>\r
+                        <id>?</id>\r
+                        <postCode>?</postCode>\r
+                        <!--Optional:-->\r
+                        <streetName>?</streetName>\r
+                        <!--Optional:-->\r
+                        <streetNumber>?</streetNumber>\r
+                     </address>\r
+                     <blockedAccount>?</blockedAccount>\r
+                     <!--Optional:-->\r
+                     <email>?</email>\r
+                     <!--Optional:-->\r
+                     <firstName>?</firstName>\r
+                     <id>?</id>\r
+                     <!--Zero or more repetitions:-->\r
+                     <listBorrowing/>\r
+                     <!--Optional:-->\r
+                     <password>?</password>\r
+                     <phoneNumber>?</phoneNumber>\r
+                     <!--Optional:-->\r
+                     <sureName>?</sureName>\r
+                     <!--Optional:-->\r
+                     <userMemberId>?</userMemberId>\r
+                  </userAccount>\r
+               </listBorrowing>\r
+               <!--Optional:-->\r
+               <name>?</name>\r
+               <!--Optional:-->\r
+               <summary>?</summary>\r
+            </book>\r
+            <!--Optional:-->\r
+            <effectiveEndDate>?</effectiveEndDate>\r
+            <extended>?</extended>\r
+            <id>?</id>\r
+            <!--Optional:-->\r
+            <secondSupposedEndDate>?</secondSupposedEndDate>\r
+            <!--Optional:-->\r
+            <startDate>?</startDate>\r
+            <!--Optional:-->\r
+            <supposedEndDate>${#TestCase#supposedEndDate}</supposedEndDate>\r
+            <!--Optional:-->\r
+            <userAccount>\r
+               <!--Optional:-->\r
+               <access>?</access>\r
+               <!--Optional:-->\r
+               <address>\r
+                  <!--Optional:-->\r
+                  <city>?</city>\r
+                  <id>?</id>\r
+                  <postCode>?</postCode>\r
+                  <!--Optional:-->\r
+                  <streetName>?</streetName>\r
+                  <!--Optional:-->\r
+                  <streetNumber>?</streetNumber>\r
+               </address>\r
+               <blockedAccount>?</blockedAccount>\r
+               <!--Optional:-->\r
+               <email>?</email>\r
+               <!--Optional:-->\r
+               <firstName>?</firstName>\r
+               <id>?</id>\r
+               <!--Zero or more repetitions:-->\r
+               <listBorrowing>\r
+                  <!--Optional:-->\r
+                  <book>\r
+                     <!--Optional:-->\r
+                     <author>?</author>\r
+                     <available>?</available>\r
+                     <!--Optional:-->\r
+                     <genre>?</genre>\r
+                     <id>?</id>\r
+                     <!--Optional:-->\r
+                     <library>\r
+                        <id>?</id>\r
+                        <!--Optional:-->\r
+                        <name>?</name>\r
+                        <phoneNumber>?</phoneNumber>\r
+                        <!--Optional:-->\r
+                        <address>\r
+                           <!--Optional:-->\r
+                           <city>?</city>\r
+                           <id>?</id>\r
+                           <postCode>?</postCode>\r
+                           <!--Optional:-->\r
+                           <streetName>?</streetName>\r
+                           <!--Optional:-->\r
+                           <streetNumber>?</streetNumber>\r
+                        </address>\r
+                     </library>\r
+                     <!--Zero or more repetitions:-->\r
+                     <listBorrowing/>\r
+                     <!--Optional:-->\r
+                     <name>?</name>\r
+                     <!--Optional:-->\r
+                     <summary>?</summary>\r
+                  </book>\r
+                  <!--Optional:-->\r
+                  <effectiveEndDate>?</effectiveEndDate>\r
+                  <extended>?</extended>\r
+                  <id>?</id>\r
+                  <!--Optional:-->\r
+                  <secondSupposedEndDate>?</secondSupposedEndDate>\r
+                  <!--Optional:-->\r
+                  <startDate>?</startDate>\r
+                  <!--Optional:-->\r
+                  <supposedEndDate>?</supposedEndDate>\r
+                  <!--Optional:-->\r
+                  <userAccount/>\r
+               </listBorrowing>\r
+               <!--Optional:-->\r
+               <password>?</password>\r
+               <phoneNumber>?</phoneNumber>\r
+               <!--Optional:-->\r
+               <sureName>?</sureName>\r
+               <!--Optional:-->\r
+               <userMemberId>${#TestCase#userMemberId2}</userMemberId>\r
+            </userAccount>\r
+         </arg0>\r
+      </bor:createBorrowing>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a55f5976-8d48-4d9d-9160-5231c27e677c" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/createBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>supposedEndDate</con:name><con:value>2019-07-25T21:32:52</con:value></con:property><con:property><con:name>bookId</con:name><con:value>21</con:value></con:property><con:property><con:name>userMemberId</con:name><con:value>UserTest</con:value></con:property><con:property><con:name>userMemberId2</con:name><con:value>MSegaux</con:value></con:property><con:property><con:name>bookId2</con:name><con:value>18</con:value></con:property></con:properties></con:testCase><con:testCase id="b3630ce6-7c50-4aca-a642-d46fda8942fb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase getBorrowingById" searchProperties="true"><con:settings/><con:testStep type="request" id="3ef6b023-c6cf-4ce8-9b41-37f9d432a892" name="getBorrowingById - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BorrowingServiceImplPortBinding</con:interface><con:operation>getBorrowingById</con:operation><con:request name="getBorrowingById - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="47bdf066-340c-4d2f-b6ab-12a07819e6ba"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/libraryBorrowingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bor="http://borrowing.service.exposure.libraryWS.philippe75.com/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <bor:getBorrowingById>\r
@@ -1222,7 +1566,7 @@
          </arg0>\r
       </bor:extendBorrowing>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="8a0631cc-f778-46d6-97b5-5945ae2d6dc5" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>borrowingId</con:name><con:value>7</con:value></con:property><con:property><con:name>extendedDate</con:name><con:value>2019-07-25T21:32:52</con:value></con:property></con:properties></con:testCase><con:testCase id="07e9a3e6-354b-47e8-93c7-fddedd242d20" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase endBorrowing" searchProperties="true"><con:settings/><con:testStep type="request" id="fb1de0bd-08dd-40eb-b3df-3332acc53163" name="endBorrowing - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BorrowingServiceImplPortBinding</con:interface><con:operation>endBorrowing</con:operation><con:request name="endBorrowing - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="094d549d-0987-4e75-b591-9d5fd719d124"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/libraryBorrowingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bor="http://borrowing.service.exposure.libraryWS.philippe75.com/">\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="8a0631cc-f778-46d6-97b5-5945ae2d6dc5" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/extendBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>borrowingId</con:name><con:value>5</con:value></con:property><con:property><con:name>extendedDate</con:name><con:value>2019-07-25T21:32:52</con:value></con:property></con:properties></con:testCase><con:testCase id="07e9a3e6-354b-47e8-93c7-fddedd242d20" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase endBorrowing" searchProperties="true"><con:settings/><con:testStep type="request" id="fb1de0bd-08dd-40eb-b3df-3332acc53163" name="endBorrowing - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BorrowingServiceImplPortBinding</con:interface><con:operation>endBorrowing</con:operation><con:request name="endBorrowing - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="094d549d-0987-4e75-b591-9d5fd719d124"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/libraryBorrowingService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bor="http://borrowing.service.exposure.libraryWS.philippe75.com/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <bor:endBorrowing>\r
@@ -1307,7 +1651,7 @@
             <!--Optional:-->\r
             <effectiveEndDate></effectiveEndDate>\r
             <extended>?</extended>\r
-            <id>5</id>\r
+            <id>${#TestCase#borrowingId}</id>\r
             <!--Optional:-->\r
             <secondSupposedEndDate></secondSupposedEndDate>\r
             <!--Optional:-->\r
@@ -1394,7 +1738,7 @@
          </arg0>\r
       </bor:endBorrowing>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a72bffbb-66be-433f-b685-1821e8f4bed8" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/endBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>borrowingId</con:name><con:value>5</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="e7e59db1-d9ca-43f3-9858-13473c1a9ef0" name="TestSuite Email"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="b8172013-2437-4191-b943-4abd330edfc1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase SendEmail" searchProperties="true"><con:settings/><con:testStep type="request" id="862dbb7a-b7c7-49aa-b705-1cab41e0592b" name="sendSimpleMessage - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EmailServiceImplPortBinding</con:interface><con:operation>sendSimpleMessage</con:operation><con:request name="sendSimpleMessage - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="6adbe2b6-d29c-48a9-a6b2-e9661081e855"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/emailService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ema="http://emailService.service.exposure.libraryWS.philippe75.com/">\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a72bffbb-66be-433f-b685-1821e8f4bed8" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://borrowing.service.exposure.libraryWS.philippe75.com/BorrowingService/endBorrowingRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>borrowingId</con:name><con:value>5</con:value></con:property><con:property><con:name>borrowingId2</con:name><con:value>21</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:testSuite id="e7e59db1-d9ca-43f3-9858-13473c1a9ef0" name="TestSuite Email"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="b8172013-2437-4191-b943-4abd330edfc1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase SendEmail" searchProperties="true"><con:settings/><con:testStep type="request" id="862dbb7a-b7c7-49aa-b705-1cab41e0592b" name="sendSimpleMessage - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EmailServiceImplPortBinding</con:interface><con:operation>sendSimpleMessage</con:operation><con:request name="sendSimpleMessage - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="6adbe2b6-d29c-48a9-a6b2-e9661081e855"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/libraryWS-webservice/emailService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ema="http://emailService.service.exposure.libraryWS.philippe75.com/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <ema:sendSimpleMessage>\r
