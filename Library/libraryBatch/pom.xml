@@ -14,7 +14,7 @@
 	  <maven.compiler.target>1.8</maven.compiler.target>
 	  <spring.version>5.1.1.RELEASE</spring.version>
 	  <spring.batch.version>4.1.1.RELEASE</spring.batch.version>
-	  <postgresql.version>9.4.1212</postgresql.version>
+	  <postgresql.version>42.2.25</postgresql.version>
   </properties>
 
   <dependencies>
